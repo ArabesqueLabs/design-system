@@ -1,0 +1,6 @@
+# Ignore dependencies and tool caches from Cloudflare static asset uploads
+node_modules/
+.git/
+.jj/
+.wrangler/
+scripts/

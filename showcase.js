@@ -37,7 +37,7 @@ const icon = (name, cls = "") => {
 // ---- Arabic ------------------------------------------------------------------------------
 
 const AR = {
-  "Arabesque Labs design system": "نظام تصميم Arabesque Labs",
+  "Arabesque Labs design system": "نظام تصميم معامل آرابيسك",
   "Skip to content": "انتقل إلى المحتوى",
   "Design system": "نظام التصميم",
   "Sections": "الأقسام",
@@ -48,7 +48,7 @@ const AR = {
   "Switch to dark theme": "التبديل إلى المظهر الداكن",
   "Switch to light theme": "التبديل إلى المظهر الفاتح",
   "One tile, a whole system.": "بلاطة واحدة، ونظام كامل.",
-  "The tokens, foundations and components that Arabesque Labs builds with: accessible to WCAG 2.2 AA, and written for left-to-right and right-to-left alike. Every value here comes from the tokens; change one, and everything that uses it follows.": "الرموز والأسس والمكوّنات التي تبني بها Arabesque Labs: متاحة وفق WCAG 2.2 AA، ومكتوبة للكتابة من اليسار إلى اليمين ومن اليمين إلى اليسار على السواء. كل قيمة هنا مصدرها الرموز؛ غيّر واحدًا، فيتبعه كل ما يستخدمه.",
+  "The tokens, foundations and components that Arabesque Labs builds with: accessible to WCAG 2.2 AA, and written for left-to-right and right-to-left alike. Every value here comes from the tokens; change one, and everything that uses it follows.": "الرموز والأسس والمكوّنات التي تبني بها معامل آرابيسك: متاحة وفق WCAG 2.2 AA، ومكتوبة للكتابة من اليسار إلى اليمين ومن اليمين إلى اليسار على السواء. كل قيمة هنا مصدرها الرموز؛ غيّر واحدًا، فيتبعه كل ما يستخدمه.",
   "See the components": "اطّلع على المكوّنات",
   "Start with the foundations": "ابدأ بالأسس",
   "Colour, type, space, shape, motion and icons: the decisions everything else is made of.": "اللون والخط والمسافات والشكل والحركة والأيقونات: القرارات التي يُبنى منها كل ما عداها.",
@@ -104,7 +104,7 @@ const AR = {
   "Student loans": "قروض الطلاب",
   "Plan 2": "الخطة 2",
   "Postgraduate loan": "قرض الدراسات العليا",
-  "6% of income over £21,000": "6% من الدخل فوق \u2066£21,000\u2069",
+  "6% of income over £21,000": "6% من الدخل فوق ⁦£21,000⁩",
   "Employment type": "نوع التوظيف",
   "Employee (PAYE)": "موظف (PAYE)",
   "Contractor inside IR35": "متعاقد داخل IR35",
@@ -122,7 +122,7 @@ const AR = {
   "Repaid at 9% of income over the plan's threshold.": "يُسدَّد بنسبة 9% من الدخل فوق حدّ الخطة.",
   "Cards, panels and figures": "البطاقات والألواح والأرقام",
   "Meta · saved today": "Meta · حُفظ اليوم",
-  "£108,000 salary, a 15% bonus, and RSUs vesting quarterly over 4 years.": "راتب \u2066£108,000\u2069، ومكافأة 15%، ووحدات أسهم تستحق كل ثلاثة أشهر على مدى 4 سنوات.",
+  "£108,000 salary, a 15% bonus, and RSUs vesting quarterly over 4 years.": "راتب ⁦£108,000⁩، ومكافأة 15%، ووحدات أسهم تستحق كل ثلاثة أشهر على مدى 4 سنوات.",
   "Open": "افتح",
   "Edit": "عدّل",
   "Take-home, a month": "صافي الأجر، شهريًا",
@@ -229,31 +229,63 @@ const AR = {
   "Interaction": "التفاعل",
   "Accessibility": "إتاحة الوصول",
   "Right to left": "من اليمين إلى اليسار",
-  "© 2026 Arabesque Labs Ltd. Structure. Clarity. Craftsmanship.": "© 2026 Arabesque Labs Ltd. بنية. وضوح. إتقان.",
-  // Made by this script.
-  "Light": "فاتح", "Dark": "داكن",
-  "The page": "الصفحة", "Cards, panels, inputs": "البطاقات والألواح والحقول", "Wells, hover, info": "الآبار والتمرير والمعلومات",
-  "Body text": "نص المتن", "Secondary text": "النص الثانوي", "Hairlines": "الخطوط الرفيعة", "Control borders": "حدود عناصر التحكم",
-  "Actions, focus, success": "الإجراءات والتركيز والنجاح", "Text on accent": "النص على لون التمييز", "Errors, destroying": "الأخطاء والحذف",
-  "Needs attention": "يحتاج انتباهًا", "Information": "معلومات", "Toasts, tooltips": "الإشعارات العابرة والتلميحات",
-  "Chart, first series": "الرسم، السلسلة الأولى", "Chart, second series": "الرسم، السلسلة الثانية", "Chart, third series": "الرسم، السلسلة الثالثة", "Chart, fourth series": "الرسم، السلسلة الرابعة",
-  "The quick offer": "العرض السريع", "Process archived": "أُرشفت العملية", "Undo": "تراجع", "Process restored": "استُعيدت العملية",
-  "Unsaved changes": "تغييرات غير محفوظة", "Saving…": "جارٍ الحفظ…", "Couldn't save": "تعذّر الحفظ", "Retry": "أعد المحاولة",
+  "© 2026 Arabesque Labs Ltd. Structure. Clarity. Craftsmanship.": "© 2026 معامل آرابيسك المحدودة. بنية. وضوح. إتقان.",
+  "Light": "فاتح",
+  "Dark": "داكن",
+  "The page": "الصفحة",
+  "Cards, panels, inputs": "البطاقات والألواح والحقول",
+  "Wells, hover, info": "الآبار والتمرير والمعلومات",
+  "Body text": "نص المتن",
+  "Secondary text": "النص الثانوي",
+  "Hairlines": "الخطوط الرفيعة",
+  "Control borders": "حدود عناصر التحكم",
+  "Actions, focus, success": "الإجراءات والتركيز والنجاح",
+  "Text on accent": "النص على لون التمييز",
+  "Errors, destroying": "الأخطاء والحذف",
+  "Needs attention": "يحتاج انتباهًا",
+  "Information": "معلومات",
+  "Toasts, tooltips": "الإشعارات العابرة والتلميحات",
+  "Chart, first series": "الرسم، السلسلة الأولى",
+  "Chart, second series": "الرسم، السلسلة الثانية",
+  "Chart, third series": "الرسم، السلسلة الثالثة",
+  "Chart, fourth series": "الرسم، السلسلة الرابعة",
+  "The quick offer": "العرض السريع",
+  "Process archived": "أُرشفت العملية",
+  "Undo": "تراجع",
+  "Process restored": "استُعيدت العملية",
+  "Unsaved changes": "تغييرات غير محفوظة",
+  "Saving…": "جارٍ الحفظ…",
+  "Couldn't save": "تعذّر الحفظ",
+  "Retry": "أعد المحاولة",
   "Changes discarded": "تُجوهلت التغييرات",
   "An optimistic change, rolled back": "تحديث استباقي، أُعيد كما كان",
   "Archive, and fail": "أرشف، وأخفق",
   "Archived {name}": "أُرشف {name}",
   "Couldn't archive {name}: the server didn't answer. It's back where it was.": "تعذّرت أرشفة {name}: لم يُجب الخادم. وقد عاد إلى مكانه.",
   "Numerals": "الأرقام",
-  "Arabic-Indic numerals": "الأرقام الهندية", "Account deleted (not really: this is an example)": "حُذف الحساب (ليس فعلًا: هذا مثال)",
-  "Take-home pay": "صافي الأجر", "Cash pay": "الأجر النقدي", "Shares vesting": "الأسهم المستحقة", "What you want": "ما تريده",
-  "Tax, NI and loans": "الضرائب والتأمين والقروض", "Your pension": "معاشك", "Other": "أخرى", "more": "زيادة", "short": "نقصًا",
-  "Year 1": "السنة 1", "Year 2": "السنة 2", "Year 3": "السنة 3", "Year 4": "السنة 4",
-  "Offer A": "العرض أ", "Offer B": "العرض ب", "Offer C": "العرض ج",
-  // Showcase sections and components
+  "Arabic-Indic numerals": "الأرقام الهندية",
+  "Account deleted (not really: this is an example)": "حُذف الحساب (ليس فعلًا: هذا مثال)",
+  "Cash pay": "الأجر النقدي",
+  "Shares vesting": "الأسهم المستحقة",
+  "What you want": "ما تريده",
+  "Tax, NI and loans": "الضرائب والتأمين والقروض",
+  "Your pension": "معاشك",
+  "Other": "أخرى",
+  "more": "زيادة",
+  "short": "نقصًا",
+  "Year 1": "السنة 1",
+  "Year 2": "السنة 2",
+  "Year 3": "السنة 3",
+  "Year 4": "السنة 4",
+  "Offer A": "العرض أ",
+  "Offer B": "العرض ب",
+  "Offer C": "العرض ج",
+  "Arabesque Labs": "معامل آرابيسك",
+  "The tokens, components and patterns every Arabesque Labs product is built from:": "الرموز والمكونات والأنماط التي يُبنى منها كل منتج في معامل آرابيسك:",
   "Brand": "الهوية والعلامة التجارية",
   "Mark and lockup": "العلامة والتركيبة",
   "Pattern": "النمط الزخرفي",
+  "Product name": "اسم المنتج",
   "Roles, not hues: each name says what the colour is for. Every pair the system relies on is measured at build time.": "أدوار لا درجات: كل اسم يقول ما وُجد اللون من أجله. وكل زوج من الألوان يعتمد عليه النظام يُقاس عند البناء.",
   "A rule above a group: most groupings need no box.": "خط فاصل فوق مجموعة: فمعظم المجموعات لا تحتاج إلى صندوق.",
   "Design": "تصميم",
@@ -261,7 +293,6 @@ const AR = {
   "Research": "بحث",
   "This design system is new, and is actively being evolved.": "هذا نظام تصميم جديد، وهو قيد التطوير المستمر.",
   "Check the changelog": "راجع سجل التغييرات",
-  "The tokens, components and patterns every Arabesque Labs product is built from:": "الرموز والمكونات والأنماط التي يُبنى منها كل منتج في Arabesque Labs:",
   "accessible": "متاح",
   "to WCAG 2.2 AA, written for": "وفق معايير WCAG 2.2 AA، ومصمم لـ",
   "left-to-right and right-to-left": "من اليسار إلى اليمين ومن اليمين إلى اليسار",
@@ -275,7 +306,6 @@ const AR = {
   "It costs": "التكلفة",
   "a month for each person, or": "شهريًا لكل شخص، أو",
   "a year for 10 people.": "سنويًا لعشرة أشخاص.",
-  "Actions": "الإجراءات",
   "Button": "الزر",
   "Does something. One primary per view; the label names the action and its object.": "ينفّذ إجراءً ما. زر رئيسي واحد في كل عرض؛ والتسمية تحدد الإجراء وموضوعه.",
   "Save changes": "حفظ التغييرات",
@@ -290,7 +320,6 @@ const AR = {
   "Back": "رجوع",
   "Home": "الرئيسية",
   "Section": "القسم",
-  "Page title": "عنوان الصفحة",
   "Forms": "النماذج",
   "Text input": "حقل إدخال النص",
   "A visible label, an optional hint, the field; optional fields say so.": "تسمية واضحة، وتلميح اختياري، والحقل؛ والحقول الاختيارية توضح ذلك.",
@@ -316,6 +345,9 @@ const AR = {
   "Name, A to Z": "الاسم، أ إلى ي",
   "Group": "المجموعة",
   "A new group is created when you save.": "سيتم إنشاء مجموعة جديدة عند الحفظ.",
+  "Group one": "المجموعة الأولى",
+  "Group two": "المجموعة الثانية",
+  "Group three": "المجموعة الثالثة",
   "Textarea and character count": "مساحة النص وعداد الحروف",
   "For longer answers. With a limit, it says what's left in words, and lets people type past it.": "للإجابات الأطول. ومع تحديد الحد، يوضح المتبقي كتابةً، ويتيح مواصلة الكتابة متجاوزًا الحد.",
   "Description": "الوصف",
@@ -328,6 +360,7 @@ const AR = {
   "Day": "اليوم",
   "Due date": "تاريخ الاستحقاق",
   "A field with its icon, and Clear once there's text. Escape clears it too.": "حقل مع أيقونته، وزر مسح عند وجود نص. ومفتاح Escape يمسحه أيضًا.",
+  "report": "تقرير",
   "Checkboxes": "مربعات الاختيار",
   "Independent options, in a fieldset with a legend; the whole row is the target.": "خيارات مستقلة في مجموعة حقول مع تسمية توضيحية؛ الصف بالكامل قابل للنقر.",
   "How should we contact you?": "كيف تفضل التواصل معك؟",
@@ -403,6 +436,10 @@ const AR = {
   "ideas": "الأفكار",
   ", in": "، في",
   "any of eight tints": "أي من الدرجات الثماني",
+  "LH": "ل.هـ",
+  "SO": "س.ع",
+  "YA": "ي.أ",
+  "ST": "س.ت",
   "Task list": "قائمة المهام",
   "The parts of a longer job, each with its status in words; done in any order.": "أجزاء مهمة أطول، مع حالة كل جزء كتابةً؛ وتُنجز بأي ترتيب.",
   "Add your details": "إضافة بياناتك",
@@ -415,7 +452,6 @@ const AR = {
   "Can't start yet": "لا يمكن البدء بعد",
   "Navigation": "التنقل",
   "The page's title, what applies to the whole page, then its views.": "عنوان الصفحة، وما ينطبق على الصفحة كاملة، ثم عروضها المختلفة.",
-  "Period": "الفترة",
   "Last 30 days": "آخر 30 يومًا",
   "Last 7 days": "آخر 7 أيام",
   "Overview": "نظرة عامة",
@@ -467,7 +503,6 @@ const AR = {
   "Add one to get started. You can import several at once, too.": "أضف عنصرًا للبدء. يمكنك استيراد عدة عناصر في وقت واحد أيضًا.",
   "Loading and progress": "التحميل والتقدم",
   "Progress where the work happens: a skeleton, a spinner, or a bar when it can be measured.": "إظهار التقدم حيث يتم العمل: هيكل فارغ، أو مؤشر دوار، أو شريط قياس متى أمكن حسابه.",
-  "Loading items": "جارٍ تحميل العناصر",
   "Uploading, 60%": "جارٍ الرفع، 60%",
   "Confirmation": "التأكيد",
   "The end of a flow that sends something: it's done, the reference, then what happens next.": "نهاية مسار إرسال إجراء ما: تم الإنجاز، مع الرقم المرجعي، ثم الخطوات التالية.",
@@ -498,7 +533,6 @@ const AR = {
   "Against the target": "مقارنة بالمستهدف",
   "Two of three are above target; Series C is £833 short.": "قيمتان من ثلاث أعلى من المستهدف؛ والسلسلة ج ينقصها 833 جنيهًا إسترلينيًا.",
   "The mark beside the wordmark, built from the logo pack. One colour; never redrawn.": "العلامة بجانب الشعار النصي، مبنية من حزمة الشعار. بلون واحد؛ ولا يُعاد رسمها أبدًا.",
-  "Product name": "اسم المنتج",
   "The 4.8.8 tessellation of the mark's tile, contact angle 67.5°, drawn by rule as background texture.": "تبليط 4.8.8 لبلاطة العلامة، بزاوية تلامس 67.5°، مرسومة بالقواعد كخلفية زخرفية.",
   "Ask, check, confirm": "اسأل، راجع، أكد",
   "For anything sent, or hard to take back: ask; check errors on submit, with an error summary; let people check their answers; then confirm, with what happens next. Try submitting it empty.": "لكل ما يُرسل أو يصعب التراجع عنه: اسأل؛ وافحص الأخطاء عند الإرسال مع ملخص الأخطاء؛ ومكّن الأشخاص من مراجعة إجاباتهم؛ ثم أكّد مع توضيح الخطوة التالية. جرّب إرساله فارغًا.",
@@ -523,6 +557,13 @@ const AR = {
   "Remove tag Research": "إزالة وسم البحث",
   "Actions": "الإجراءات",
   "Copy link|to this page": "نسخ الرابط|إلى هذه الصفحة",
+  "Loading items": "جارٍ تحميل العناصر",
+  "Period": "الفترة",
+  "Page title": "عنوان الصفحة",
+  "Close": "إغلاق",
+  "Raw": "المستند الأصلي",
+  "Loading spec…": "جارٍ تحميل المواصفات…",
+  "Couldn't load spec": "تعذّر تحميل المواصفات",
 };
 const original = new WeakMap();
 const ATTRS = ["aria-label", "placeholder", "title", "data-al-tip"];
@@ -531,13 +572,48 @@ let lang = html.lang === "ar" ? "ar" : "en";
 let numerals = "latn";
 try { numerals = localStorage.getItem("al-showcase-numerals") === "arab" ? "arab" : "latn"; } catch {}
 const INDIC = "٠١٢٣٤٥٦٧٨٩";
-const digits = (s) => (lang === "ar" && numerals === "arab" ? s.replace(/\d/g, (d) => INDIC[d]).replace(/(\d|[٠-٩]),(?=[\d٠-٩])/g, "$1٬").replace(/([٠-٩])\.(?=[٠-٩])/g, "$1٫") : s);
+// Arabic-Indic digits don't carry "£" with them as Western digits do, so each amount is isolated.
+const digits = (s) => (lang === "ar" && numerals === "arab" ? s.replace(/\d/g, (d) => INDIC[d]).replace(/(\d|[٠-٩]),(?=[\d٠-٩])/g, "$1٬").replace(/([٠-٩])\.(?=[٠-٩])/g, "$1٫").replace(/−?\p{Sc}[٠-٩٬٫]+/gu, "⁦$&⁩") : s);
 const T = (s) => (lang === "ar" ? AR[s] ?? s : s);
 
 /** Put the page in a language: text, attributes, lang and dir. */
 function translate(root = document.body) {
+  // Update company wordmark across the entire page
+  for (const wm of root.querySelectorAll(".al-wordmark")) {
+    if (lang === "ar") {
+      wm.lang = "ar";
+      wm.textContent = "معامل آرابيسك";
+    } else {
+      wm.lang = "en";
+      wm.textContent = "Arabesque Labs";
+    }
+  }
+
+  // Translate datalist options (like Group one, Group two, Group three)
+  for (const opt of root.querySelectorAll("datalist option")) {
+    if (!opt.dataset.alEnVal) opt.dataset.alEnVal = opt.value;
+    const en = opt.dataset.alEnVal;
+    opt.value = lang === "ar" ? AR[en] ?? en : en;
+  }
+
+  // Translate specific sample input values
+  for (const inp of root.querySelectorAll('input[type="search"]')) {
+    if (!inp.dataset.alEnVal) inp.dataset.alEnVal = inp.value;
+    const en = inp.dataset.alEnVal;
+    if (inp.value === (lang === "ar" ? en : (AR[en] ?? en))) {
+      inp.value = lang === "ar" ? AR[en] ?? en : en;
+    }
+  }
+  for (const inp of root.querySelectorAll('#rename-name')) {
+    if (!inp.dataset.alEnVal) inp.dataset.alEnVal = inp.value;
+    const en = inp.dataset.alEnVal;
+    if (inp.value === (lang === "ar" ? en : (AR[en] ?? en))) {
+      inp.value = lang === "ar" ? AR[en] ?? en : en;
+    }
+  }
+
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-    acceptNode: (n) => (n.parentElement?.closest('[lang="en"], [lang="ar"]:not(html), script, style, kbd, code') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
+    acceptNode: (n) => (n.parentElement?.closest('.al-wordmark, [lang]:not(html), script, style, kbd, code') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
   });
   for (let n = walker.nextNode(); n; n = walker.nextNode()) {
     if (!original.has(n)) original.set(n, n.textContent);
@@ -550,7 +626,7 @@ function translate(root = document.body) {
     n.textContent = figure ? digits(text) : text;
   }
   for (const e of root.querySelectorAll(ATTRS.map((a) => `[${a}]`).join(","))) {
-    if (e.closest('[lang="en"]')) continue;
+    if (e.closest('[lang="en"]:not(html)')) continue;
     for (const a of ATTRS) {
       if (!e.hasAttribute(a)) continue;
       // data-al-en-aria-label and so on: the English, kept to switch back.
@@ -593,18 +669,18 @@ const ROLES = [
 ];
 $("[data-swatches]").append(...ROLES.map(([name, role]) => el("div", { class: "sc-swatch" },
   el("span", { class: "sc-swatch__chip", style: `background: var(--al-color-${name})` }),
-  el("code", { class: "sc-swatch__name", lang: "en" }, `--al-color-${name}`),
+  el("code", { class: "sc-swatch__name", lang: "en", dir: "ltr" }, `--al-color-${name}`),
   el("span", { class: "sc-swatch__role" }, role))));
 
 const SAMPLE = { en: "Know where every application stands", ar: "اعرف أين يقف كل طلب" };
 const typeRows = () => ["display", "3xl", "2xl", "xl", "lg", "md", "base", "sm", "xs"].map((step) => el("div", { class: "sc-type__row" },
-  el("code", { lang: "en" }, step),
+  el("code", { lang: "en", dir: "ltr" }, step),
   el("span", { style: `font-size: var(--al-text-${step}); font-family: var(--al-font-${["display", "3xl", "2xl", "xl"].includes(step) ? "display" : step === "md" ? "serif" : "sans"})` },
     el("span", { lang: "en" }, SAMPLE.en), " · ", el("span", { lang: "ar", dir: "rtl" }, SAMPLE.ar))));
 $("[data-type-scale]").append(...typeRows());
 
 $("[data-space-scale]").append(...["1", "2", "3", "4", "5", "6", "8", "12", "16"].map((n) => el("div", { class: "sc-space__row" },
-  el("code", { lang: "en" }, `--al-space-${n}`),
+  el("code", { lang: "en", dir: "ltr" }, `--al-space-${n}`),
   el("span", { class: "sc-space__bar", style: `inline-size: var(--al-space-${n})` }))));
 
 const ICONS = ["check", "close", "chevron", "arrow", "plus", "minus", "info", "success", "warning", "danger", "undo", "retry", "more", "search", "external", "edit", "trash", "menu", "sidebar", "theme", "calendar", "settings", "file", "board"];
@@ -751,6 +827,143 @@ function drawCharts() {
     el("div", { class: "al-key" }, el("span", { class: "al-key__item" }, el("span", { class: "al-swatch al-swatch--target" }), `${T("What you want")}: ${money(target)}`))));
 }
 
+// ---- spec reader modal ---------------------------------------------------------------------
+
+let markedParser = null;
+async function loadMarked() {
+  if (markedParser) return markedParser;
+  try {
+    const mod = await import("https://cdn.jsdelivr.net/npm/marked@15/lib/marked.esm.js");
+    markedParser = mod.marked;
+    return markedParser;
+  } catch {
+    return null;
+  }
+}
+
+function parseMarkdownFallback(md) {
+  return md
+    .replace(/```([a-z0-9_-]*)\n([\s\S]*?)```/g, (_, l, code) => {
+      const esc = code.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      return `<pre><code>${esc}</code></pre>`;
+    })
+    .replace(/(?:^|\n)\|(.+)\|\n\|[-:| ]+\|\n((?:\|.+\|\n?)+)/g, (_, header, body) => {
+      const ths = header.split("|").filter(h => h.trim()).map(h => `<th>${h.trim()}</th>`).join("");
+      const trs = body.trim().split("\n").map(row => {
+        const tds = row.replace(/^\||\|$/g, "").split("|").filter(d => d !== undefined).map(d => `<td>${d.trim()}</td>`).join("");
+        return `<tr>${tds}</tr>`;
+      }).join("");
+      return `<table><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody></table>`;
+    })
+    .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+    .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+    .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+    .replace(/^\> (.*$)/gim, '<blockquote><p>$1</p></blockquote>')
+    .replace(/^\- (.*$)/gim, '<li>$1</li>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+    .replace(/((?:<li>.*<\/li>\s*)+)/g, '<ul>$1</ul>')
+    .split(/\n\s*\n/)
+    .map(p => {
+      p = p.trim();
+      if (!p) return "";
+      if (/^<(h[1-6]|ul|ol|table|div|pre|blockquote)/.test(p)) return p;
+      return `<p>${p.replace(/\n/g, "<br>")}</p>`;
+    })
+    .join("\n");
+}
+
+function initSpecReader() {
+  const dialog = document.createElement("dialog");
+  dialog.className = "al-dialog sc-spec-modal";
+  dialog.id = "sc-spec-modal";
+  dialog.innerHTML = `
+    <div class="sc-spec-modal__head">
+      <div class="sc-spec-modal__title-wrap">
+        <h2 class="sc-spec-modal__title" data-spec-title>Spec</h2>
+        <span class="sc-spec-modal__path" data-spec-path></span>
+      </div>
+      <div class="al-cluster">
+        <a href="#" target="_blank" class="al-button al-button--sm al-button--quiet" data-spec-raw>Raw</a>
+        <button type="button" class="al-button al-button--sm" data-spec-close aria-label="Close">
+          <svg class="al-icon al-icon--sm" aria-hidden="true"><use href="dist/icons.svg#al-icon-close"></use></svg>
+          <span data-spec-close-text>Close</span>
+        </button>
+      </div>
+    </div>
+    <div class="sc-spec-modal__body" data-spec-body></div>
+  `;
+  document.body.appendChild(dialog);
+
+  const titleEl = dialog.querySelector("[data-spec-title]");
+  const pathEl = dialog.querySelector("[data-spec-path]");
+  const rawBtn = dialog.querySelector("[data-spec-raw]");
+  const closeBtn = dialog.querySelector("[data-spec-close]");
+  const closeText = dialog.querySelector("[data-spec-close-text]");
+  const bodyEl = dialog.querySelector("[data-spec-body]");
+
+  closeBtn.addEventListener("click", () => dialog.close());
+
+  async function openSpec(url) {
+    rawBtn.href = url;
+    pathEl.textContent = url.replace(/^[./]+/, "");
+    
+    const fileBase = url.split("/").pop().replace(/\.md$/, "");
+    const title = fileBase.charAt(0).toUpperCase() + fileBase.slice(1).replace(/-/g, " ");
+    titleEl.textContent = T(title);
+    
+    rawBtn.textContent = T("Raw");
+    closeText.textContent = T("Close");
+    closeBtn.setAttribute("aria-label", T("Close"));
+
+    bodyEl.innerHTML = `<p class="al-hint">${T("Loading spec…")}</p>`;
+    dialog.showModal();
+
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const md = await res.text();
+      
+      const parser = await loadMarked();
+      const html = parser ? parser.parse(md) : parseMarkdownFallback(md);
+      bodyEl.innerHTML = html;
+
+      const h1 = bodyEl.querySelector("h1");
+      if (h1 && h1.textContent.trim()) {
+        titleEl.textContent = T(h1.textContent.trim());
+      }
+
+      for (const a of bodyEl.querySelectorAll("a")) {
+        const href = a.getAttribute("href");
+        if (!href) continue;
+        if (href.endsWith(".md")) {
+          a.addEventListener("click", (e) => {
+            e.preventDefault();
+            const baseUrl = url.substring(0, url.lastIndexOf("/") + 1);
+            const resolved = new URL(href, window.location.origin + "/" + baseUrl).pathname.replace(/^\//, "");
+            openSpec(resolved);
+          });
+        } else if (!href.startsWith("#") && !href.startsWith("http")) {
+          a.setAttribute("target", "_blank");
+        }
+      }
+    } catch {
+      bodyEl.innerHTML = `<p class="al-badge al-badge--danger">${T("Couldn't load spec")}</p>`;
+    }
+  }
+
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest('a[href$=".md"]');
+    if (!a) return;
+    const href = a.getAttribute("href");
+    if (!href) return;
+    e.preventDefault();
+    openSpec(href);
+  });
+}
+
 // ---- start ---------------------------------------------------------------------------------
 
 for (const b of $$("[data-lang]")) b.addEventListener("click", () => setLanguage(b.dataset.lang));
@@ -768,4 +981,6 @@ drawThemeButton();
 initMenus();
 initTabs();
 initTooltips();
+initSpecReader();
 setLanguage(lang);
+

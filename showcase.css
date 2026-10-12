@@ -62,6 +62,8 @@ main:focus { outline: none; }
 .sc-motion { display: inline-block; inline-size: 1.5rem; block-size: 1.5rem; border-radius: var(--al-radius-sm); background: var(--al-color-accent); transition: transform var(--al-duration-base) var(--al-ease-standard); }
 .sc-motion.is-moved { transform: translateX(4rem); }
 [dir="rtl"] .sc-motion.is-moved { transform: translateX(-4rem); }
+/* Token names read left to right, but sit on the page's side. */
+[dir="rtl"] code[dir="ltr"] { text-align: right; }
 
 .sc-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr)); gap: var(--al-space-2); list-style: none; margin: 0; padding: 0; }
 .sc-icons li { display: flex; align-items: center; gap: var(--al-space-2); padding: var(--al-space-2); border: var(--al-border-hairline) solid var(--al-color-line); border-radius: var(--al-radius-sm); font-family: var(--al-font-mono); font-size: var(--al-text-xs); background: var(--al-color-surface); }
@@ -80,3 +82,129 @@ main:focus { outline: none; }
 .sc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--al-space-2); }
 .sc-list > li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--al-space-2) var(--al-space-4); padding-block: var(--al-space-1); }
 .sc-list > li > .al-rollback-note { flex-basis: 100%; }
+
+/* Spec reader dialog */
+.sc-spec-modal {
+  inline-size: min(54rem, calc(100vw - 2rem));
+  max-inline-size: 54rem;
+  max-block-size: min(90dvh, 52rem);
+  padding: 0;
+  flex-direction: column;
+  overflow: hidden;
+}
+/* Only when open: display on a closed dialog would show it in the page. */
+.sc-spec-modal[open] { display: flex; }
+.sc-spec-modal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--al-space-3);
+  padding: var(--al-space-3) var(--al-space-5);
+  border-block-end: var(--al-border-hairline) solid var(--al-color-line);
+  background: var(--al-color-bg);
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 2;
+}
+.sc-spec-modal__title-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: var(--al-space-3);
+  min-inline-size: 0;
+}
+.sc-spec-modal__title {
+  font-size: var(--al-text-lg);
+  font-family: var(--al-font-display);
+  font-weight: var(--al-weight-medium);
+  margin: 0;
+  white-space: nowrap;
+}
+.sc-spec-modal__path {
+  font-size: var(--al-text-xs);
+  font-family: var(--al-font-mono);
+  color: var(--al-color-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sc-spec-modal__body {
+  padding: var(--al-space-6);
+  overflow-y: auto;
+  flex: 1 1 auto;
+  line-height: 1.7;
+  display: flex;
+  flex-direction: column;
+  gap: var(--al-space-4);
+}
+.sc-spec-modal__body h1 { display: none; }
+.sc-spec-modal__body h2 {
+  font-size: var(--al-text-lg);
+  font-weight: var(--al-weight-medium);
+  margin-block-start: var(--al-space-4);
+  border-block-end: var(--al-border-hairline) solid var(--al-color-line);
+  padding-block-end: var(--al-space-1);
+}
+.sc-spec-modal__body h3 {
+  font-size: var(--al-text-base);
+  font-weight: var(--al-weight-semibold);
+  margin-block-start: var(--al-space-2);
+}
+.sc-spec-modal__body p,
+.sc-spec-modal__body ul,
+.sc-spec-modal__body ol {
+  font-size: var(--al-text-sm);
+}
+.sc-spec-modal__body ul,
+.sc-spec-modal__body ol {
+  padding-inline-start: var(--al-space-5);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--al-space-1);
+}
+.sc-spec-modal__body table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  font-size: var(--al-text-sm);
+  margin-block: var(--al-space-3);
+}
+.sc-spec-modal__body th,
+.sc-spec-modal__body td {
+  padding: var(--al-space-2) var(--al-space-3);
+  text-align: start;
+  border-block-end: var(--al-border-hairline) solid var(--al-color-line);
+}
+.sc-spec-modal__body th {
+  font-weight: var(--al-weight-semibold);
+  background: var(--al-color-surface-sunk);
+}
+.sc-spec-modal__body pre {
+  background: var(--al-color-surface-sunk);
+  border: var(--al-border-hairline) solid var(--al-color-line);
+  border-radius: var(--al-radius-sm);
+  padding: var(--al-space-4);
+  font-family: var(--al-font-mono);
+  font-size: var(--al-text-xs);
+  line-height: 1.6;
+  overflow-x: auto;
+  direction: ltr;
+  text-align: left;
+}
+.sc-spec-modal__body code {
+  font-family: var(--al-font-mono);
+  font-size: 0.9em;
+  padding: 0.1em 0.35em;
+  background: var(--al-color-surface-sunk);
+  border-radius: 2px;
+}
+.sc-spec-modal__body pre code {
+  padding: 0;
+  background: transparent;
+}
+.sc-spec-modal__body blockquote {
+  border-inline-start: 3px solid var(--al-color-accent);
+  padding-inline-start: var(--al-space-4);
+  margin: var(--al-space-2) 0;
+  color: var(--al-color-text-muted);
+}
+

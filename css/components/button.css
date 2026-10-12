@@ -1,0 +1,120 @@
+/* Button: five kinds. One primary per view or dialog; the label names the
+   action and its object ("Save offer", "Archive 3 processes"), never "OK".
+   Busy (aria-busy) and unavailable (aria-disabled / disabled) look
+   different, so "working on it" isn't mistaken for "not allowed". */
+.al-button {
+  --_bg: transparent;
+  --_fg: var(--al-color-text);
+  --_border: var(--al-color-control);
+  --_hover-bg: var(--al-color-surface-sunk);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--al-space-2);
+  min-block-size: var(--al-button-height);
+  min-inline-size: var(--al-size-target-min);
+  padding-block: 0;
+  padding-inline: var(--al-button-padding-inline);
+  border: var(--al-border-hairline) solid var(--_border);
+  border-radius: var(--al-button-radius);
+  background: var(--_bg);
+  color: var(--_fg);
+  font-family: var(--al-font-sans);
+  font-size: var(--al-text-base);
+  font-weight: var(--al-weight-medium);
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--al-duration-fast) var(--al-ease-standard),
+    border-color var(--al-duration-fast) var(--al-ease-standard),
+    color var(--al-duration-fast) var(--al-ease-standard);
+}
+.al-button:hover { background: var(--_hover-bg); border-color: var(--al-color-text); color: var(--_fg); }
+.al-button:active { transform: translateY(1px); }
+
+/* Primary: the one action the view is for. */
+.al-button--primary {
+  --_bg: var(--al-color-accent);
+  --_fg: var(--al-color-on-accent);
+  --_border: var(--al-color-accent);
+  --_hover-bg: color-mix(in oklch, var(--al-color-accent) 86%, var(--al-color-text));
+}
+.al-button--primary:hover { border-color: var(--_hover-bg); }
+
+/* Quiet: a text action, for secondary and repeated actions (Edit, Add a
+   step, Clear). Still a button, and still a 24px target at least. */
+.al-button--quiet {
+  --_border: transparent;
+  --_fg: var(--al-color-accent);
+  --_hover-bg: transparent;
+  min-block-size: var(--al-size-target-min);
+  padding-inline: var(--al-space-1);
+  font-weight: var(--al-weight-medium);
+}
+.al-button--quiet:hover { border-color: transparent; text-decoration: underline; text-underline-offset: 0.2em; }
+
+/* Danger: destroys something; the label says what. As a secondary button, a
+   quiet one, or (the last step of a confirmation) a filled one. */
+.al-button--danger { --_fg: var(--al-color-danger); --_border: color-mix(in oklch, var(--al-color-danger) 60%, transparent); }
+.al-button--danger:hover { border-color: var(--al-color-danger); }
+.al-button--danger.al-button--quiet { --_border: transparent; }
+.al-button--danger.al-button--primary {
+  --_bg: var(--al-color-danger);
+  --_fg: var(--al-color-on-accent);
+  --_border: var(--al-color-danger);
+  --_hover-bg: color-mix(in oklch, var(--al-color-danger) 86%, var(--al-color-text));
+}
+
+/* Icon: square, borderless until hovered; always with an aria-label. */
+.al-button--icon {
+  --_border: transparent;
+  inline-size: var(--al-button-height);
+  padding-inline: 0;
+}
+
+.al-button--sm {
+  min-block-size: var(--al-button-height-sm);
+  padding-inline: var(--al-space-3);
+  font-size: var(--al-text-sm);
+}
+.al-button--sm.al-button--icon { inline-size: var(--al-button-height-sm); }
+.al-button--sm.al-button--quiet { min-block-size: var(--al-size-target-min); padding-inline: var(--al-space-1); }
+
+/* Unavailable: dimmed, explained nearby (or in aria-describedby). Prefer
+   aria-disabled to disabled, so it stays focusable and its reason is read. */
+.al-button:disabled,
+.al-button[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+.al-button:disabled:hover,
+.al-button[aria-disabled="true"]:hover { background: var(--_bg); border-color: var(--_border); text-decoration: none; }
+
+/* Busy: the label stays; a spinner follows it; it can't be pressed twice. */
+.al-button[aria-busy="true"] { cursor: progress; pointer-events: none; }
+.al-button[aria-busy="true"]::after {
+  content: "";
+  inline-size: 0.9em;
+  block-size: 0.9em;
+  border: 2px solid currentColor;
+  border-inline-end-color: transparent;
+  border-radius: 50%;
+  animation: al-spin 0.8s linear infinite;
+}
+
+/* Bigger targets for fingers. */
+@media (pointer: coarse) {
+  .al-button { min-block-size: var(--al-size-target-touch); }
+  .al-button--icon { inline-size: var(--al-size-target-touch); }
+}
+
+@media (forced-colors: active) {
+  .al-button { border-color: ButtonText; }
+  .al-button--quiet, .al-button--icon { border-color: transparent; text-decoration: underline; }
+  .al-button--primary { border-width: 2px; }
+}
+
+@keyframes al-spin { to { transform: rotate(360deg); } }

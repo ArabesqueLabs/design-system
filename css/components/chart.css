@@ -1,0 +1,65 @@
+/* Charts, in plain HTML: thin marks in the chart colours (a fixed order,
+   checked for colour blindness), a 2px gap between marks, one value axis,
+   a key, a tooltip on every mark (focusable), and the numbers also in a
+   table. Columns (grouped or stacked, with a marker and a target line),
+   a split bar (parts of a whole) and a bullet chart (each against a
+   target). In right-to-left, categories and time run with the reading
+   direction and bars grow from the start side; numbers stay as written. */
+.al-c0 { background: var(--al-color-chart-0); }
+.al-c1 { background: var(--al-color-chart-1); }
+.al-c2 { background: var(--al-color-chart-2); }
+.al-c3 { background: var(--al-color-chart-3); }
+.al-c4 { background: var(--al-color-chart-4); }
+[class*="al-c"]:is(.al-chart__bar, .al-chart__seg, .al-split-bar__part, .al-bullet__bar, .al-swatch) { forced-color-adjust: none; }
+
+.al-chart { display: flex; flex-direction: column; gap: var(--al-space-2); padding-inline-start: 3rem; }
+.al-chart__plot { position: relative; block-size: 12rem; }
+.al-chart__grid { position: absolute; inset-inline: 0; border-block-start: var(--al-border-hairline) solid var(--al-color-line); }
+.al-chart__grid > span { position: absolute; inset-inline-start: -3rem; inset-block-start: -0.6em; inline-size: 2.6rem; text-align: end; font-size: var(--al-text-xs); color: var(--al-color-text-muted); font-variant-numeric: tabular-nums; }
+.al-chart__slots { position: absolute; inset: 0; display: flex; gap: var(--al-space-4); }
+.al-chart__slot { position: relative; flex: 1; display: flex; align-items: flex-end; justify-content: center; gap: 2px; }
+.al-chart__bar { inline-size: min(28px, 100%); min-inline-size: 6px; border-start-start-radius: var(--al-radius-md); border-start-end-radius: var(--al-radius-md); }
+.al-chart__stack { display: flex; flex-direction: column-reverse; inline-size: min(44px, 70%); block-size: 100%; }
+.al-chart__seg { display: block; border-block-start: 2px solid var(--al-color-surface); }
+.al-chart__seg:last-child { border-start-start-radius: var(--al-radius-md); border-start-end-radius: var(--al-radius-md); }
+.al-chart__marker { position: absolute; inline-size: min(60px, 90%); border-block-start: 3px solid var(--al-color-chart-1); transform: translateY(50%); }
+.al-chart__target { position: absolute; inset-inline: 0; border-block-start: 2px dashed var(--al-color-text); opacity: 0.75; }
+.al-chart__axis { display: flex; gap: var(--al-space-4); }
+.al-chart__axis > span { flex: 1; text-align: center; font-size: var(--al-text-xs); color: var(--al-color-text-muted); }
+.al-chart [tabindex]:hover, .al-chart [tabindex]:focus-visible,
+.al-split-bar [tabindex]:hover, .al-split-bar [tabindex]:focus-visible,
+.al-bullet [tabindex]:hover, .al-bullet [tabindex]:focus-visible { filter: brightness(1.1); }
+
+.al-key { display: flex; flex-wrap: wrap; gap: var(--al-space-1) var(--al-space-4); font-size: var(--al-text-sm); }
+.al-key__item { display: inline-flex; align-items: center; gap: var(--al-space-1-5); }
+.al-swatch { inline-size: 0.625rem; block-size: 0.625rem; border-radius: 2px; flex: none; }
+.al-swatch--line { block-size: 0; inline-size: 0.875rem; border-block-start: 3px solid var(--al-color-chart-1); background: none; border-radius: 0; }
+.al-swatch--target { block-size: 0; inline-size: 0.875rem; border-block-start: 2px dashed var(--al-color-text); background: none; border-radius: 0; }
+
+.al-split-bar { display: flex; flex-direction: column; gap: var(--al-space-2); }
+.al-split-bar__track { display: flex; gap: 2px; block-size: 1rem; }
+.al-split-bar__part { display: block; min-inline-size: 2px; }
+.al-split-bar__part:first-child { border-start-start-radius: var(--al-radius-md); border-end-start-radius: var(--al-radius-md); }
+.al-split-bar__part:last-child { border-start-end-radius: var(--al-radius-md); border-end-end-radius: var(--al-radius-md); }
+
+.al-bullet { display: grid; grid-template-columns: minmax(6rem, 10rem) minmax(0, 1fr) auto; gap: var(--al-space-2) var(--al-space-3); align-items: center; font-size: var(--al-text-sm); }
+.al-bullet__row { display: contents; }
+.al-bullet__label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.al-bullet__track { position: relative; block-size: 1.125rem; border-radius: var(--al-radius-md); background: color-mix(in oklch, var(--al-color-chart-0) 45%, transparent); }
+.al-bullet__bar { position: absolute; inset-block: 3px; inset-inline-start: 0; border-start-end-radius: var(--al-radius-md); border-end-end-radius: var(--al-radius-md); }
+.al-bullet__target { position: absolute; inset-block: -4px; border-inline-start: 2px dashed var(--al-color-text); }
+.al-bullet__value { text-align: end; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.al-bullet > .al-key { grid-column: 1 / -1; }
+.al-more { color: var(--al-color-success); }
+.al-less { color: var(--al-color-danger); }
+@media (max-width: 40rem) {
+  .al-bullet { grid-template-columns: minmax(0, 1fr) auto; }
+  .al-bullet__label { grid-column: 1 / -1; }
+}
+
+/* Every chart has a title and a one-sentence summary of what it shows
+   (from Apple's HIG): the takeaway first, in words, so the chart is
+   understood without seeing it. Axis and grid labels are aria-hidden;
+   marks carry their values with context ("£12,480 in March, Direct"). */
+.al-chart__title { font-size: var(--al-text-sm); font-weight: var(--al-weight-medium); }
+.al-chart__summary { font-size: var(--al-text-sm); color: var(--al-color-text-muted); max-inline-size: var(--al-size-measure); }

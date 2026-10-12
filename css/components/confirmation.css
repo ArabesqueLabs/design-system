@@ -1,0 +1,18 @@
+/* Confirmation (from GOV.UK): the end of a flow that sends or creates
+   something: a clear title saying it's done, the reference people may
+   need, then what happens next (in the page, under it). The one large,
+   coloured block in the system; one per page. */
+.al-confirmation {
+  display: flex;
+  flex-direction: column;
+  gap: var(--al-space-2);
+  padding: var(--al-space-8) var(--al-space-6);
+  border-radius: var(--al-radius-sm);
+  background: var(--al-color-accent);
+  color: var(--al-color-on-accent);
+  text-align: center;
+}
+.al-confirmation__title { font-size: var(--al-text-2xl); line-height: var(--al-leading-heading); color: inherit; }
+.al-confirmation__body { font-size: var(--al-text-lg); }
+.al-confirmation__body strong { display: block; font-weight: var(--al-weight-semibold); font-variant-numeric: tabular-nums; letter-spacing: 0.04em; }
+@media (forced-colors: active) { .al-confirmation { border: 2px solid CanvasText; } }

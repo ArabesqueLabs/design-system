@@ -1,0 +1,85 @@
+/* Field: a label, the control, a hint, and an error, in that order. The
+   label is always visible (a placeholder is an example, never the label);
+   optional fields say so, rather than marking required ones (GOV.UK). The
+   error says what's wrong and how to fix it, and is tied to the control
+   with aria-describedby; the control gets aria-invalid. */
+.al-field { display: flex; flex-direction: column; gap: var(--al-space-1-5); min-inline-size: 0; }
+
+.al-label { font-size: var(--al-text-sm); font-weight: var(--al-weight-medium); color: var(--al-color-text); }
+.al-label__optional { font-weight: var(--al-weight-regular); color: var(--al-color-text-muted); }
+.al-hint { font-size: var(--al-text-sm); color: var(--al-color-text-muted); line-height: var(--al-leading-ui); }
+.al-error {
+  display: flex; gap: var(--al-space-1-5); align-items: flex-start;
+  font-size: var(--al-text-sm); font-weight: var(--al-weight-medium); color: var(--al-color-danger);
+}
+
+.al-input, .al-select, .al-textarea {
+  inline-size: 100%;
+  min-inline-size: 0;
+  min-block-size: var(--al-field-height);
+  padding-block: var(--al-space-2);
+  padding-inline: var(--al-field-padding-inline);
+  border: var(--al-border-hairline) solid var(--al-color-control);
+  border-radius: var(--al-field-radius);
+  background: var(--al-color-surface);
+  color: var(--al-color-text);
+  font-size: var(--al-text-base);
+  line-height: var(--al-leading-ui);
+  transition: border-color var(--al-duration-fast) var(--al-ease-standard);
+}
+.al-textarea { resize: vertical; min-block-size: 6rem; }
+.al-input::placeholder, .al-textarea::placeholder { color: var(--al-color-text-muted); opacity: 1; }
+.al-input:hover, .al-select:hover, .al-textarea:hover { border-color: var(--al-color-text); }
+/* Focus: an outline and the border in the accent, however the field was
+   reached (a field being typed into always shows it; date inputs focus
+   their parts, which :focus-visible misses). */
+.al-input:focus, .al-input:focus-within, .al-select:focus, .al-textarea:focus {
+  border-color: var(--al-color-focus);
+  outline: var(--al-border-focus) solid var(--al-color-focus);
+  outline-offset: 0;
+}
+.al-input[aria-invalid="true"], .al-select[aria-invalid="true"], .al-textarea[aria-invalid="true"] {
+  border-color: var(--al-color-danger);
+  border-inline-start-width: 3px;
+}
+.al-input:disabled, .al-select:disabled, .al-textarea:disabled { opacity: 0.5; cursor: not-allowed; }
+.al-input[readonly] { background: var(--al-color-surface-sunk); }
+
+/* Numbers and money: right-aligned in their own direction, tabular. */
+.al-input--number { font-variant-numeric: tabular-nums; }
+.al-input[type="date"], .al-input--number { direction: ltr; text-align: start; }
+:lang(ar) .al-input--number, :lang(ar) .al-input[type="date"] { text-align: end; }
+
+/* Affix: a currency, unit or period beside the value ("£", "a year"). */
+.al-affix { display: flex; align-items: stretch; min-inline-size: 0; }
+.al-affix > .al-input { border-radius: 0; flex: 1; }
+.al-affix > :first-child { border-start-start-radius: var(--al-field-radius); border-end-start-radius: var(--al-field-radius); }
+.al-affix > :last-child { border-start-end-radius: var(--al-field-radius); border-end-end-radius: var(--al-field-radius); }
+.al-affix__text {
+  display: inline-flex; align-items: center;
+  padding-inline: var(--al-space-3);
+  border: var(--al-border-hairline) solid var(--al-color-control);
+  background: var(--al-color-surface-sunk);
+  color: var(--al-color-text-muted);
+  font-size: var(--al-text-sm);
+  white-space: nowrap;
+}
+.al-affix > .al-affix__text:first-child { border-inline-end: 0; }
+.al-affix > .al-affix__text:last-child { border-inline-start: 0; }
+.al-affix > .al-select { inline-size: auto; flex: none; border-radius: 0; }
+
+/* A group of fields under one question. */
+.al-fieldset { border: 0; margin: 0; padding: 0; min-inline-size: 0; display: flex; flex-direction: column; gap: var(--al-space-3); }
+.al-fieldset > legend { padding: 0; margin-block-end: var(--al-space-1); font-size: var(--al-text-sm); font-weight: var(--al-weight-medium); }
+
+/* Changed but not saved: a mark on the field, in words as well as colour. */
+.al-field[data-changed] .al-input, .al-field[data-changed] .al-select, .al-field[data-changed] .al-textarea {
+  border-inline-start: 3px solid var(--al-color-warning);
+}
+.al-field__changed { font-size: var(--al-text-xs); color: var(--al-color-warning); font-weight: var(--al-weight-medium); }
+
+@media (pointer: coarse) { .al-input, .al-select { min-block-size: var(--al-size-target-touch); } }
+@media (forced-colors: active) {
+  .al-input, .al-select, .al-textarea, .al-affix__text { border-color: FieldText; }
+  .al-input[aria-invalid="true"], .al-select[aria-invalid="true"], .al-textarea[aria-invalid="true"] { border-color: Mark; }
+}

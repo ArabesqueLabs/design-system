@@ -1,0 +1,44 @@
+/* Segmented control: one of two to five short options, all visible. Made of
+   radios (a choice that's part of a form) or buttons with aria-pressed (a
+   view switch); either way, one is always on. */
+.al-segmented {
+  display: inline-flex;
+  border: var(--al-border-hairline) solid var(--al-color-control);
+  border-radius: var(--al-radius-sm);
+  background: var(--al-color-surface);
+  padding: 0;
+  margin: 0;
+  min-inline-size: 0;
+  align-self: flex-start;
+  max-inline-size: 100%;
+}
+.al-segmented--fill { display: flex; align-self: stretch; }
+.al-segmented--fill > * { flex: 1; }
+.al-segmented > label, .al-segmented > button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: var(--al-size-control-sm);
+  padding-inline: var(--al-space-3);
+  border: 0;
+  background: transparent;
+  color: var(--al-color-text-muted);
+  font-size: var(--al-text-sm);
+  font-weight: var(--al-weight-medium);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.al-segmented > * + * { border-inline-start: var(--al-border-hairline) solid var(--al-color-control); }
+.al-segmented > label > input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.al-segmented > label:hover, .al-segmented > button:hover { color: var(--al-color-text); background: var(--al-color-surface-sunk); }
+.al-segmented > label:has(input:checked), .al-segmented > button[aria-pressed="true"] {
+  background: var(--al-color-text);
+  color: var(--al-color-bg);
+}
+.al-segmented > label:has(input:focus-visible) { outline: var(--al-border-focus) solid var(--al-color-focus); outline-offset: 2px; z-index: 1; }
+
+@media (forced-colors: active) {
+  .al-segmented { border-color: ButtonText; }
+  .al-segmented > label:has(input:checked), .al-segmented > button[aria-pressed="true"] { background: Highlight; color: HighlightText; forced-color-adjust: none; }
+}

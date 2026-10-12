@@ -1,0 +1,13 @@
+/* Empty state: why there's nothing here, and the next action to take. Never
+   a dead end. */
+.al-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--al-space-3);
+  padding: var(--al-space-8) var(--al-space-5);
+  border: var(--al-border-hairline) dashed var(--al-color-line-strong);
+  border-radius: var(--al-radius-sm);
+}
+.al-empty__title { font-size: var(--al-text-lg); font-weight: var(--al-weight-medium); letter-spacing: var(--al-tracking-none); }
+.al-empty__text { color: var(--al-color-text-muted); max-inline-size: var(--al-size-measure); }

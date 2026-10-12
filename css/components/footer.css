@@ -1,0 +1,17 @@
+/* Footer: who made it, where to go next, the legal line. Quiet, and the same
+   on every page. */
+.al-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--al-space-4) var(--al-space-8);
+  padding-block: var(--al-space-8);
+  border-block-start: var(--al-border-hairline) solid var(--al-color-line);
+  color: var(--al-color-text-muted);
+  font-size: var(--al-text-sm);
+}
+.al-footer__links { display: flex; flex-wrap: wrap; gap: var(--al-space-2) var(--al-space-5); list-style: none; margin: 0; padding: 0; }
+.al-footer__links a { color: inherit; text-decoration: none; }
+.al-footer__links a:hover { color: var(--al-color-accent); text-decoration: underline; }
+.al-footer__legal { flex-basis: 100%; font-size: var(--al-text-xs); }

@@ -1,0 +1,38 @@
+/* Notice: a message in the page. Four kinds, each with an icon and a title
+   word, so the kind isn't told by colour alone: info (neutral), success
+   (done), warning (needs attention), danger (an error; only for errors).
+   role="status" for news, role="alert" only for errors that block.
+   Side-effect note: what else an action will change, said before it's
+   taken ("This also removes it from 2 offers"). */
+.al-notice {
+  --_status: var(--al-color-info);
+  --_wash: var(--al-color-info-wash);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--al-space-1) var(--al-space-3);
+  align-items: start;
+  padding: var(--al-space-3) var(--al-space-4);
+  border-inline-start: 3px solid var(--_status);
+  border-radius: var(--al-radius-sm);
+  background: var(--_wash);
+}
+.al-notice > .al-icon { color: var(--_status); margin-block-start: 0.15em; }
+.al-notice__body { display: flex; flex-direction: column; gap: var(--al-space-1); min-inline-size: 0; }
+.al-notice__title { font-weight: var(--al-weight-semibold); }
+.al-notice__actions { display: flex; flex-wrap: wrap; gap: var(--al-space-2) var(--al-space-4); margin-block-start: var(--al-space-1); }
+.al-notice--success { --_status: var(--al-color-success); --_wash: var(--al-color-success-wash); }
+.al-notice--warning { --_status: var(--al-color-warning); --_wash: var(--al-color-warning-wash); }
+.al-notice--danger { --_status: var(--al-color-danger); --_wash: var(--al-color-danger-wash); }
+
+.al-side-effect {
+  display: flex;
+  gap: var(--al-space-2);
+  align-items: flex-start;
+  padding-inline-start: var(--al-space-3);
+  border-inline-start: 2px solid var(--al-color-line-strong);
+  color: var(--al-color-text-muted);
+  font-size: var(--al-text-sm);
+}
+.al-side-effect strong { color: var(--al-color-text); font-weight: var(--al-weight-medium); }
+
+@media (forced-colors: active) { .al-notice { border: 1px solid CanvasText; border-inline-start-width: 3px; } }

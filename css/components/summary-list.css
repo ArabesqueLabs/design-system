@@ -1,0 +1,22 @@
+/* Summary list (from GOV.UK): facts as key–value rows, each with its own
+   action ("Change"), for checking answers before submitting and for any
+   read view of a record. The action's hidden text names what it changes
+   ("Change<span class=al-visually-hidden> name</span>"). A <dl>. */
+.al-summary-list { margin: 0; display: flex; flex-direction: column; }
+.al-summary-list__row {
+  display: grid;
+  grid-template-columns: minmax(8rem, 30%) minmax(0, 1fr) auto;
+  gap: var(--al-space-1) var(--al-space-5);
+  align-items: baseline;
+  padding-block: var(--al-space-3);
+  border-block-end: var(--al-border-hairline) solid var(--al-color-line);
+}
+.al-summary-list__key { margin: 0; font-weight: var(--al-weight-medium); }
+.al-summary-list__value { margin: 0; min-inline-size: 0; overflow-wrap: anywhere; }
+.al-summary-list__value > * + * { margin-block-start: var(--al-space-1); }
+.al-summary-list__actions { margin: 0; display: flex; gap: var(--al-space-3); justify-content: flex-end; }
+.al-summary-list__row--no-actions { grid-template-columns: minmax(8rem, 30%) minmax(0, 1fr); }
+@media (max-width: 40rem) {
+  .al-summary-list__row, .al-summary-list__row--no-actions { grid-template-columns: minmax(0, 1fr) auto; }
+  .al-summary-list__key { grid-column: 1 / -1; }
+}

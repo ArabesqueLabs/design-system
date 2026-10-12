@@ -1,0 +1,36 @@
+/* Tabs and section navigation. As links between pages, mark the current one
+   with aria-current="page"; as in-page tabs, role="tablist" with
+   aria-selected and arrow-key movement (js/tabs.js, the ARIA APG pattern).
+   They look the same: the chosen one is underlined in the accent. */
+.al-tabs { display: flex; gap: var(--al-space-1); border-block-end: var(--al-border-hairline) solid var(--al-color-line); overflow-x: auto; scrollbar-width: thin; }
+.al-tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--al-space-1-5);
+  min-block-size: var(--al-size-control-md);
+  padding-inline: var(--al-space-3);
+  border: 0;
+  background: none;
+  color: var(--al-color-text-muted);
+  font-weight: var(--al-weight-medium);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.al-tab:hover { color: var(--al-color-text); }
+.al-tab[aria-current="page"], .al-tab[aria-selected="true"] { color: var(--al-color-text); }
+.al-tab[aria-current="page"]::after, .al-tab[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  inset-inline: var(--al-space-2);
+  inset-block-end: -1px;
+  block-size: 2px;
+  background: var(--al-color-accent);
+}
+.al-tab__count { font-size: var(--al-text-xs); color: var(--al-color-text-muted); font-variant-numeric: tabular-nums; }
+.al-tabpanel { padding-block-start: var(--al-space-5); }
+
+@media (forced-colors: active) {
+  .al-tab[aria-current="page"]::after, .al-tab[aria-selected="true"]::after { background: Highlight; forced-color-adjust: none; }
+}

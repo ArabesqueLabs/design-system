@@ -1,0 +1,16 @@
+/* Icon: line icons on a 24-unit grid, 1.5 stroke, square ends, drawn in
+   the text's colour. Decorative icons are aria-hidden; an icon alone in a
+   control gets its name from the control (aria-label). */
+.al-icon {
+  inline-size: var(--al-size-icon);
+  block-size: var(--al-size-icon);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  vertical-align: -0.2em;
+  flex: none;
+}
+.al-icon--sm { inline-size: 1rem; block-size: 1rem; }
+.al-icon--lg { inline-size: 1.5rem; block-size: 1.5rem; }

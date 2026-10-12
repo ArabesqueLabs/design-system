@@ -1,0 +1,40 @@
+/* Disclosure: a native <details>, for what's secondary. Its summary can
+   show what's chosen inside ("Plan 2", "5%, salary sacrifice"), so it
+   doesn't need opening to be checked. The chevron points the way text
+   reads, and down when open. */
+.al-disclosure { border-block-start: var(--al-border-hairline) solid var(--al-color-line); }
+.al-disclosure > summary {
+  display: flex;
+  align-items: baseline;
+  gap: var(--al-space-2);
+  min-block-size: var(--al-size-target-min);
+  padding-block: var(--al-space-2);
+  list-style: none;
+  cursor: pointer;
+  font-weight: var(--al-weight-medium);
+}
+.al-disclosure > summary::-webkit-details-marker { display: none; }
+.al-disclosure > summary::before {
+  content: "";
+  flex: none;
+  inline-size: 0.45em;
+  block-size: 0.45em;
+  margin-inline-end: 0.15em;
+  border-block-end: 1.5px solid currentColor;
+  border-inline-end: 1.5px solid currentColor;
+  transform: translateY(-0.1em) rotate(-45deg);
+  transition: transform var(--al-duration-fast) var(--al-ease-standard);
+}
+[dir="rtl"] .al-disclosure > summary::before { transform: translateY(-0.1em) rotate(45deg); }
+.al-disclosure[open] > summary::before { transform: translateY(-0.25em) rotate(45deg); }
+[dir="rtl"] .al-disclosure[open] > summary::before { transform: translateY(-0.25em) rotate(-45deg); }
+.al-disclosure__value {
+  margin-inline-start: auto;
+  color: var(--al-color-text-muted);
+  font-weight: var(--al-weight-regular);
+  font-size: var(--al-text-sm);
+  text-align: end;
+}
+.al-disclosure__body { padding-block: var(--al-space-2) var(--al-space-4); display: flex; flex-direction: column; gap: var(--al-space-3); }
+.al-disclosure:hover > summary { color: var(--al-color-accent); }
+.al-disclosure:hover > summary .al-disclosure__value { color: var(--al-color-text-muted); }

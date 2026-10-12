@@ -1,0 +1,21 @@
+/* Bulk action bar: once things are selected, what can be done to all of
+   them, with how many are selected and a way to clear. Sticks to the end
+   of the view; every action names its count ("Archive 3"). */
+.al-bulk-bar {
+  position: sticky;
+  inset-block-end: var(--al-space-4);
+  z-index: var(--al-z-sticky);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--al-space-2) var(--al-space-4);
+  padding: var(--al-space-2) var(--al-space-3) var(--al-space-2) var(--al-space-4);
+  border-radius: var(--al-radius-md);
+  background: var(--al-color-inverse);
+  color: var(--al-color-on-inverse);
+}
+.al-bulk-bar__count { font-weight: var(--al-weight-semibold); font-variant-numeric: tabular-nums; margin-inline-end: auto; }
+.al-bulk-bar .al-button { --_fg: var(--al-color-on-inverse); --_border: color-mix(in oklch, var(--al-color-on-inverse) 45%, transparent); --_hover-bg: color-mix(in oklch, var(--al-color-on-inverse) 12%, transparent); }
+.al-bulk-bar .al-button:hover { border-color: var(--al-color-on-inverse); }
+.al-bulk-bar .al-button--quiet { --_border: transparent; }
+@media (forced-colors: active) { .al-bulk-bar { border: 1px solid CanvasText; } }

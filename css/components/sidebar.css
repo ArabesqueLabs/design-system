@@ -1,0 +1,54 @@
+/* Sidebar: the app's sections, in a column; collapsible to icons, with each
+   name kept for screen readers and shown on hover. Under the md breakpoint
+   it becomes a scrolling bar along the top. */
+.al-sidebar {
+  position: sticky;
+  inset-block-start: 0;
+  block-size: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--al-space-6);
+  padding: var(--al-space-5) var(--al-space-3);
+  background: var(--al-color-surface-sunk);
+  border-inline-end: var(--al-border-hairline) solid var(--al-color-line);
+  overflow-y: auto;
+}
+.al-sidebar__nav { display: flex; flex-direction: column; gap: var(--al-space-0-5); }
+.al-sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: var(--al-space-3);
+  min-block-size: var(--al-size-control-sm);
+  padding-inline: var(--al-space-2);
+  border-inline-start: 2px solid transparent;
+  border-radius: var(--al-radius-sm);
+  color: var(--al-color-text-muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+/* A button among the links (Collapse) looks like them. */
+button.al-sidebar__link { inline-size: 100%; border-block: 0; border-inline-end: 0; background: none; font: inherit; cursor: pointer; text-align: start; }
+.al-sidebar__link:hover { color: var(--al-color-text); background: color-mix(in oklch, var(--al-color-surface) 60%, transparent); }
+.al-sidebar__link[aria-current="page"] {
+  color: var(--al-color-text);
+  background: var(--al-color-surface);
+  border-inline-start-color: var(--al-color-accent);
+  font-weight: var(--al-weight-medium);
+}
+.al-sidebar__link[aria-current="page"] .al-icon { color: var(--al-color-accent); }
+.al-sidebar__foot { margin-block-start: auto; display: flex; flex-direction: column; gap: var(--al-space-1); padding-block-start: var(--al-space-3); border-block-start: var(--al-border-hairline) solid var(--al-color-line); }
+
+/* Collapsed: icons only; names stay for screen readers, and as tooltips. */
+[data-sidebar="collapsed"] .al-sidebar { padding-inline: var(--al-space-2); }
+[data-sidebar="collapsed"] .al-sidebar__link { justify-content: center; padding-inline: 0; }
+[data-sidebar="collapsed"] .al-sidebar__label { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (max-width: 52rem) {
+  .al-sidebar { position: sticky; z-index: var(--al-z-sticky); block-size: auto; flex-direction: row; align-items: center; padding: var(--al-space-2) var(--al-space-3); border-inline-end: 0; border-block-end: var(--al-border-hairline) solid var(--al-color-line); overflow-x: auto; overflow-y: hidden; }
+  .al-sidebar__nav { flex-direction: row; }
+  .al-sidebar__foot { margin: 0; padding: 0; border: 0; flex-direction: row; }
+  .al-sidebar__link { border-inline-start: 0; }
+  [data-sidebar="collapsed"] .al-sidebar__label { position: static; inline-size: auto; block-size: auto; clip-path: none; }
+  .al-sidebar__collapse { display: none; }
+}
+@media (forced-colors: active) { .al-sidebar__link[aria-current="page"] { border-inline-start-color: Highlight; } }

@@ -1,0 +1,19 @@
+/* Tooltip: a short label for an icon or a mark, on hover and on focus, never
+   holding anything essential. Escape hides it; it stays while the pointer
+   is over it (WCAG 1.4.13). For anything longer, use a disclosure. */
+.al-tooltip {
+  position: fixed;
+  z-index: var(--al-z-toast);
+  max-inline-size: 18rem;
+  margin: 0;
+  padding: var(--al-space-1-5) var(--al-space-2);
+  border: 0;
+  border-radius: var(--al-radius-sm);
+  background: var(--al-color-inverse);
+  color: var(--al-color-on-inverse);
+  font-size: var(--al-text-sm);
+  line-height: var(--al-leading-ui);
+  inset: auto;
+}
+.al-tooltip b { font-weight: var(--al-weight-semibold); }
+@media (forced-colors: active) { .al-tooltip { border: 1px solid CanvasText; } }

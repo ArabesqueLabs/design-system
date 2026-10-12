@@ -1,0 +1,14 @@
+/* Phase banner (from GOV.UK): under the header, says the product (or a
+   part of it) is new or changing, and asks for feedback. The badge names
+   the phase (Alpha, Beta, Preview, Experimental); the sentence says what
+   that means for the person. */
+.al-phase-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--al-space-1) var(--al-space-3);
+  padding-block: var(--al-space-2);
+  border-block-end: var(--al-border-hairline) solid var(--al-color-line);
+  font-size: var(--al-text-sm);
+}
+.al-phase-banner__text { color: var(--al-color-text-muted); }

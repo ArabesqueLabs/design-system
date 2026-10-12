@@ -1,0 +1,9 @@
+/* Date input (from GOV.UK): day, month and year as three short number
+   fields, for dates people know (a birthday, a start date on a document).
+   A calendar picker is for choosing a date near today; the native
+   <input type=date> remains for that. Fields keep their order in
+   right-to-left, as the date is written. */
+.al-date-input { display: flex; flex-wrap: wrap; gap: var(--al-space-3); }
+.al-date-input .al-field { flex: none; }
+.al-date-input .al-input { inline-size: 3.5rem; }
+.al-date-input__year .al-input { inline-size: 5rem; }

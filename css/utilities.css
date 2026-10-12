@@ -1,0 +1,40 @@
+/* Utilities: few, and each does one thing. */
+
+/* Read by screen readers, not shown. */
+.al-visually-hidden:not(:focus):not(:active) {
+  position: absolute !important;
+  inline-size: 1px; block-size: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+
+/* The first thing a keyboard reaches: "Skip to content". */
+.al-skip-link {
+  position: absolute; inset-block-start: var(--al-space-2); inset-inline-start: var(--al-space-2);
+  z-index: var(--al-z-toast);
+  padding: var(--al-space-2) var(--al-space-4);
+  background: var(--al-color-inverse); color: var(--al-color-on-inverse);
+  border-radius: var(--al-radius-sm);
+  transform: translateY(-200%);
+}
+.al-skip-link:focus { transform: none; }
+
+/* Bidi: a left-to-right fragment (a number, money, a code, an address)
+   kept whole inside right-to-left text; and any fragment isolated from
+   what's around it. In markup, <bdi> does the same. */
+.al-ltr { direction: ltr; unicode-bidi: isolate; }
+.al-isolate { unicode-bidi: isolate; }
+/* Text whose direction follows its own first strong letter (user content). */
+.al-auto-dir { unicode-bidi: plaintext; }
+
+/* Mirrored in right-to-left: arrows, chevrons, undo, progress. */
+[dir="rtl"] .al-mirror { transform: scaleX(-1); }
+
+.al-muted { color: var(--al-color-text-muted); }
+.al-tabular { font-variant-numeric: tabular-nums; }
+.al-nowrap { white-space: nowrap; }
+.al-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.al-prose { font-family: var(--al-font-serif); font-size: var(--al-text-md); line-height: var(--al-leading-prose); max-inline-size: var(--al-size-measure); }
+.al-prose > * + * { margin-block-start: 1em; }
+.al-display { font-family: var(--al-font-display); font-size: var(--al-text-display); line-height: var(--al-leading-tight); letter-spacing: var(--al-tracking-tight); font-weight: var(--al-weight-regular); }
+.al-lede { font-family: var(--al-font-serif); font-size: var(--al-text-lg); line-height: var(--al-leading-prose); color: var(--al-color-text-muted); max-inline-size: var(--al-size-measure); }

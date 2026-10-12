@@ -1,0 +1,21 @@
+/* Brand: the mark (one tile of the pattern, in a square frame) beside the
+   wordmark. The mark is always one colour (currentColor), never redrawn,
+   never on a busy ground; its clear space is a quarter of its size. */
+.al-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  color: var(--al-color-text);
+  text-decoration: none;
+  font-family: var(--al-font-display);
+  font-weight: var(--al-weight-medium);
+  font-size: var(--al-text-lg);
+  line-height: 1;
+}
+.al-lockup:hover { color: var(--al-color-text); }
+.al-mark { inline-size: 1.5em; block-size: 1.5em; color: currentColor; flex: none; }
+/* The wordmark's tracking is Latin's; in Arabic text it's still the Latin
+   name, so it keeps it (lang="en" on the name). */
+.al-wordmark { letter-spacing: 0.05em; }
+.al-lockup__product { color: var(--al-color-text-muted); font-weight: var(--al-weight-regular); }
+.al-lockup__product::before { content: "·"; margin-inline: 0.4em; }

@@ -1,0 +1,22 @@
+/* Error summary (from GOV.UK): when a form is submitted with errors, a box
+   at the top of the main content lists every error, in the order of the
+   fields, each a link that moves focus to its field. It takes focus when it
+   appears, and the page's title gains "Error: " so screen readers say so at
+   once. Messages are worded exactly as the ones beside the fields. Shown
+   even for one error. js/validate.js does the wiring. */
+.al-error-summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--al-space-2);
+  padding: var(--al-space-4) var(--al-space-5);
+  border: var(--al-border-focus) solid var(--al-color-danger);
+  border-radius: var(--al-radius-sm);
+  background: var(--al-color-surface);
+}
+.al-error-summary:focus { outline: var(--al-border-focus) solid var(--al-color-focus); outline-offset: var(--al-border-focus-offset); }
+.al-error-summary__title { display: flex; align-items: center; gap: var(--al-space-2); font-size: var(--al-text-lg); font-weight: var(--al-weight-medium); color: var(--al-color-text); letter-spacing: var(--al-tracking-none); }
+.al-error-summary__title > .al-icon { color: var(--al-color-danger); }
+.al-error-summary__list { margin: 0; padding-inline-start: var(--al-space-5); display: flex; flex-direction: column; gap: var(--al-space-1); }
+.al-error-summary__list a { color: var(--al-color-danger); font-weight: var(--al-weight-medium); text-underline-offset: 0.2em; }
+.al-error-summary__list a:hover { text-decoration-thickness: 2px; }
+@media (forced-colors: active) { .al-error-summary { border-color: Mark; } }

@@ -1,0 +1,905 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arabesque Labs design system</title>
+  <meta name="description" content="Tokens, foundations, components and patterns for Arabesque Labs products: accessible, and left-to-right and right-to-left from the start.">
+  <script>
+    // Theme and language before the first paint, so nothing flashes.
+    try {
+      const t = localStorage.getItem("al-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+      if (localStorage.getItem("al-showcase-lang") === "ar") { document.documentElement.lang = "ar"; document.documentElement.dir = "rtl"; }
+    } catch {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Jost:wght@400;500;600&family=Kufam:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+  <link rel="stylesheet" href="dist/arabesque.css">
+  <link rel="stylesheet" href="showcase.css">
+  <link rel="icon" href="assets/brand/star.svg" type="image/svg+xml">
+</head>
+<body>
+  <a class="al-skip-link" href="#main">Skip to content</a>
+
+  <header class="sc-top">
+    <div class="al-page sc-top__inner">
+      <a class="al-lockup" href="#main"><span class="al-mark" data-brand="mark" aria-hidden="true"></span><span class="al-wordmark" lang="en">Arabesque Labs</span><span class="al-lockup__product">Design system</span></a>
+      <div class="al-cluster sc-top__controls">
+        <div class="al-segmented sc-numerals" role="group" aria-label="Numerals">
+          <button type="button" data-numerals="latn" aria-pressed="true"><bdi>123</bdi></button>
+          <button type="button" data-numerals="arab" aria-pressed="false" aria-label="Arabic-Indic numerals"><bdi>١٢٣</bdi></button>
+        </div>
+        <div class="al-segmented" role="group" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true" lang="en">English</button>
+          <button type="button" data-lang="ar" aria-pressed="false" lang="ar">العربية</button>
+        </div>
+        <button type="button" class="al-button al-button--icon" data-theme-toggle aria-label="Switch to dark theme">
+          <svg class="al-icon" aria-hidden="true"><use href="dist/icons.svg#al-icon-theme"></use></svg>
+        </button>
+      </div>
+    </div>
+    <div class="al-page">
+      <div class="al-phase-banner">
+        <span class="al-badge al-badge--warning">Experimental</span>
+        <span class="al-phase-banner__text" data-t>This design system is new, and is actively being evolved. <a href="CHANGELOG.md">Check the changelog</a>.</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="al-pattern sc-hero">
+      <div class="al-pattern__art" data-pattern></div>
+      <div class="al-page al-stack">
+        <h1 class="al-display sc-hero__title">One tile, a whole system.</h1>
+        <p class="al-lede" data-t>The tokens, components and patterns every Arabesque Labs product is built from: <mark class="al-highlight" data-tint="teal">accessible</mark> to WCAG 2.2 AA, written for <mark class="al-highlight" data-tint="yellow">left-to-right and right-to-left</mark> alike, and designed so people get things done in <mark class="al-highlight" data-tint="pink">the fewest steps</mark>, seeing every consequence.</p>
+        <div class="al-cluster">
+          <a class="al-button al-button--primary" href="#components">See the components</a>
+          <a class="al-button" href="README.md">How to use it</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="al-page sc-layout">
+      <nav class="sc-toc" aria-label="Contents">
+        <ul>
+      <li><p class="sc-toc__group">Foundations</p>
+        <ul><li><a href="#colour">Colour</a></li><li><a href="#tints">Tints</a></li><li><a href="#type">Type</a></li><li><a href="#space">Space and shape</a></li><li><a href="#motion">Motion</a></li><li><a href="#icons">Icons</a></li></ul></li>
+      <li><p class="sc-toc__group">Actions</p>
+        <ul><li><a href="#button">Button</a></li><li><a href="#back-link">Back link and breadcrumbs</a></li></ul></li>
+      <li><p class="sc-toc__group">Forms</p>
+        <ul><li><a href="#text-input">Text input</a></li><li><a href="#select">Select and combobox</a></li><li><a href="#textarea">Textarea and character count</a></li><li><a href="#date-input">Date input</a></li><li><a href="#search">Search</a></li><li><a href="#checkboxes">Checkboxes</a></li><li><a href="#radios">Radios</a></li><li><a href="#switch">Switch</a></li><li><a href="#segmented">Segmented control</a></li><li><a href="#error-summary">Error summary</a></li></ul></li>
+      <li><p class="sc-toc__group">Content</p>
+        <ul><li><a href="#disclosure">Disclosure</a></li><li><a href="#card">Card, panel and stat</a></li><li><a href="#summary-list">Summary list</a></li><li><a href="#table">Table</a></li><li><a href="#badge">Badge</a></li><li><a href="#tag">Tag, highlight and avatar</a></li><li><a href="#task-list">Task list</a></li></ul></li>
+      <li><p class="sc-toc__group">Navigation</p>
+        <ul><li><a href="#page-head">Page head and tabs</a></li><li><a href="#sidebar">Sidebar</a></li></ul></li>
+      <li><p class="sc-toc__group">Feedback</p>
+        <ul><li><a href="#notice">Notice and side-effect note</a></li><li><a href="#phase-banner">Phase banner</a></li><li><a href="#toast">Toast</a></li><li><a href="#dialog">Dialog</a></li><li><a href="#menu">Menu</a></li><li><a href="#tooltip">Tooltip</a></li><li><a href="#empty-state">Empty state</a></li><li><a href="#loading">Loading and progress</a></li><li><a href="#confirmation">Confirmation</a></li></ul></li>
+      <li><p class="sc-toc__group">Pending changes</p>
+        <ul><li><a href="#save-state">Save state, changes and stale results</a></li><li><a href="#rollback">Rolled back</a></li><li><a href="#bulk-bar">Bulk action bar</a></li><li><a href="#keyboard">Keyboard shortcuts</a></li></ul></li>
+      <li><p class="sc-toc__group">Charts</p>
+        <ul><li><a href="#columns">Column chart</a></li><li><a href="#split-bar">Split bar</a></li><li><a href="#bullet">Bullet chart</a></li></ul></li>
+      <li><p class="sc-toc__group">Brand</p>
+        <ul><li><a href="#lockup">Mark and lockup</a></li><li><a href="#pattern">Pattern</a></li></ul></li>
+      <li><p class="sc-toc__group">Patterns</p>
+        <ul><li><a href="#ask-check-confirm">Ask, check, confirm</a></li></ul></li>
+        </ul>
+      </nav>
+      <div class="sc-content">
+        <section class="sc-group" id="foundations" aria-labelledby="foundations-title">
+          <h2 id="foundations-title" class="sc-h">Foundations</h2>
+
+          <section class="sc-component" id="colour" aria-labelledby="colour-h">
+            <h3 id="colour-h">Colour</h3>
+            <p class="sc-lead">Roles, not hues: each name says what the colour is for. Every pair the system relies on is measured at build time.</p>
+            <div class="sc-swatches" data-swatches></div>
+          </section>
+
+          <section class="sc-component" id="tints" aria-labelledby="tints-h">
+            <h3 id="tints-h">Tints</h3>
+            <p class="sc-lead">Eight bright tints for identity and emphasis: tags, highlights, avatars. Each ink is readable on its ground.</p>
+            <div class="sc-swatches" data-tints></div>
+          </section>
+
+          <section class="sc-component" id="type" aria-labelledby="type-h">
+            <h3 id="type-h">Type</h3>
+            <p class="sc-lead">Jost for the interface and headings, Newsreader for reading. Arabic falls through to IBM Plex Sans Arabic, Kufam and Amiri: a little larger, more line height, no letter-spacing.</p>
+            <div class="sc-type" data-type-scale></div>
+            <div class="al-grid">
+              <div class="al-card"><p class="sc-label">Reading text</p><p class="al-prose">Islamic geometric patterns are intricate structures built from simple, repeated rules. We build software the same way: small, well-made modules, clear interfaces, a coherent system.</p></div>
+              <div class="al-card"><p class="sc-label">Numbers inside a sentence</p><p data-t>It costs <bdi class="al-tabular">£12</bdi> a month for each person, or <bdi class="al-tabular">$1,440</bdi> a year for 10 people.</p></div>
+            </div>
+          </section>
+
+          <section class="sc-component" id="space" aria-labelledby="space-h">
+            <h3 id="space-h">Space and shape</h3>
+            <p class="sc-lead">A 4px step for everything spatial. Corners are crisp (2px); depth comes from borders and surface steps, never shadows.</p>
+            <div class="sc-space" data-space-scale></div>
+          </section>
+
+          <section class="sc-component" id="motion" aria-labelledby="motion-h">
+            <h3 id="motion-h">Motion</h3>
+            <p class="sc-lead">Quick, and only in answer to something done: 150ms for feedback, 250ms for disclosure and themes. With reduced motion, things change at once.</p>
+            <div class="al-cluster">
+              <button type="button" class="al-button" data-motion-demo>Try a change</button>
+              <span class="sc-motion" data-motion-target aria-hidden="true"></span>
+            </div>
+          </section>
+
+          <section class="sc-component" id="icons" aria-labelledby="icons-h">
+            <h3 id="icons-h">Icons</h3>
+            <p class="sc-lead">Line icons on a 24-unit grid. Those that point along the reading direction mirror in right-to-left.</p>
+            <ul class="sc-icons" data-icons></ul>
+          </section>
+
+        </section>
+
+        <section class="sc-group" id="components" aria-labelledby="components-title">
+          <h2 id="components-title" class="sc-h">Components</h2>
+
+          <section class="sc-component" id="button" aria-labelledby="button-h">
+            <h3 id="button-h">Button</h3>
+            <p class="sc-lead">Does something. One primary per view; the label names the action and its object.</p>
+            <div class="sc-example" data-example>
+              <div class="al-stack">
+                <div class="al-cluster">
+                  <button type="button" class="al-button al-button--primary">Save changes</button>
+                  <button type="button" class="al-button">Add item</button>
+                  <button type="button" class="al-button al-button--quiet">Edit</button>
+                  <button type="button" class="al-button al-button--danger">Delete item</button>
+                  <button type="button" class="al-button al-button--icon" aria-label="Edit item" data-al-tip="Edit item"><svg class="al-icon" aria-hidden="true"><use href="dist/icons.svg#al-icon-edit"></use></svg></button>
+                </div>
+                <div class="al-cluster">
+                  <button type="button" class="al-button al-button--primary al-button--sm">Save</button>
+                  <button type="button" class="al-button al-button--sm">Cancel</button>
+                  <button type="button" class="al-button al-button--primary" aria-busy="true">Saving changes</button>
+                  <button type="button" class="al-button" aria-disabled="true" aria-describedby="why-disabled">Export</button>
+                  <span id="why-disabled" class="al-hint">Add an item to export.</span>
+                </div>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/button.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="back-link" aria-labelledby="back-link-h">
+            <h3 id="back-link-h">Back link and breadcrumbs</h3>
+            <p class="sc-lead">A way back, before the page's title: a back link for the previous step, breadcrumbs for where a page sits.</p>
+            <div class="sc-example" data-example>
+              <div class="al-stack">
+                <a class="al-back-link" href="#back-link">Back</a>
+                <nav class="al-breadcrumbs" aria-label="Breadcrumb">
+                  <ol>
+                    <li><a href="#back-link">Home</a></li>
+                    <li><a href="#back-link">Section</a></li>
+                    <li><span aria-current="page">Page title</span></li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/breadcrumbs.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="text-input" aria-labelledby="text-input-h">
+            <h3 id="text-input-h">Text input</h3>
+            <p class="sc-lead">A visible label, an optional hint, the field; optional fields say so.</p>
+            <div class="sc-example" data-example>
+              <div class="al-grid sc-form">
+                <div class="al-field">
+                  <label class="al-label" for="ti-name">Full name</label>
+                  <input class="al-input" id="ti-name" autocomplete="name" spellcheck="false">
+                </div>
+                <div class="al-field">
+                  <label class="al-label" for="ti-email">Email address <span class="al-label__optional">(optional)</span></label>
+                  <span class="al-hint" id="ti-email-hint">We'll only use this to reply to you.</span>
+                  <input class="al-input" id="ti-email" type="email" autocomplete="email" spellcheck="false" dir="ltr" aria-describedby="ti-email-hint">
+                </div>
+                <div class="al-field">
+                  <label class="al-label" for="ti-amount">Amount</label>
+                  <span class="al-hint" id="ti-amount-hint">Type 5000, 5k or ٥٬٠٠٠.</span>
+                  <div class="al-affix">
+                    <select class="al-select" aria-label="Currency"><option>GBP</option><option>USD</option><option>EUR</option></select>
+                    <input class="al-input al-input--number" id="ti-amount" inputmode="decimal" value="5,000" aria-describedby="ti-amount-hint">
+                    <span class="al-affix__text">a month</span>
+                  </div>
+                </div>
+                <div class="al-field">
+                  <label class="al-label" for="ti-code">Reference</label>
+                  <p class="al-error" id="ti-code-error"><svg class="al-icon al-icon--sm" aria-hidden="true"><use href="dist/icons.svg#al-icon-danger"></use></svg><span class="al-visually-hidden">Error:</span> <span>Enter a reference that's 2 letters then 6 numbers, like AB123456</span></p>
+                  <input class="al-input" id="ti-code" value="12" aria-invalid="true" aria-describedby="ti-code-error" dir="ltr">
+                </div>
+                <div class="al-field">
+                  <label class="al-label" for="ti-ro">Account number</label>
+                  <input class="al-input" id="ti-ro" value="40-12-76" readonly dir="ltr">
+                </div>
+                <div class="al-field" data-changed>
+                  <label class="al-label" for="ti-qty">Quantity</label>
+                  <input class="al-input al-input--number" id="ti-qty" inputmode="numeric" value="12">
+                  <span class="al-field__changed">Changed, not saved</span>
+                </div>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/field.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="select" aria-labelledby="select-h">
+            <h3 id="select-h">Select and combobox</h3>
+            <p class="sc-lead">A select for a fixed list; a combobox (a datalist) where people may also type their own.</p>
+            <div class="sc-example" data-example>
+              <div class="al-grid sc-form">
+                <div class="al-field">
+                  <label class="al-label" for="se-sort">Sort by</label>
+                  <select class="al-select" id="se-sort"><option>Newest first</option><option>Oldest first</option><option>Name, A to Z</option></select>
+                </div>
+                <div class="al-field">
+                  <label class="al-label" for="se-group">Group</label>
+                  <input class="al-input" id="se-group" list="se-groups" placeholder="Choose, or type a new one">
+                  <datalist id="se-groups"><option value="Group one"></option><option value="Group two"></option><option value="Group three"></option></datalist>
+                  <span class="al-side-effect"><svg class="al-icon al-icon--sm" aria-hidden="true"><use href="dist/icons.svg#al-icon-info"></use></svg><span>A new group is created when you save.</span></span>
+                </div>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/field.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="textarea" aria-labelledby="textarea-h">
+            <h3 id="textarea-h">Textarea and character count</h3>
+            <p class="sc-lead">For longer answers. With a limit, it says what's left in words, and lets people type past it.</p>
+            <div class="sc-example" data-example>
+              <div class="al-field sc-narrow">
+                <label class="al-label" for="ta-desc">Description</label>
+                <span class="al-hint" id="ta-desc-hint">A sentence or two is enough.</span>
+                <textarea class="al-textarea" id="ta-desc" data-al-maxlength="120" aria-describedby="ta-desc-hint">A short description, so people know what this is for before they open it.</textarea>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/field.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="date-input" aria-labelledby="date-input-h">
+            <h3 id="date-input-h">Date input</h3>
+            <p class="sc-lead">Three fields for dates people know; the calendar picker for dates chosen near today.</p>
+            <div class="sc-example" data-example>
+              <div class="al-grid sc-form">
+                <fieldset class="al-fieldset">
+                  <legend>Date of birth</legend>
+                  <span class="al-hint" id="di-hint">For example, 27 3 1990</span>
+                  <div class="al-date-input" aria-describedby="di-hint">
+                    <div class="al-field"><label class="al-label" for="di-day">Day</label><input class="al-input al-input--number" id="di-day" inputmode="numeric" autocomplete="bday-day"></div>
+                    <div class="al-field"><label class="al-label" for="di-month">Month</label><input class="al-input al-input--number" id="di-month" inputmode="numeric" autocomplete="bday-month"></div>
+                    <div class="al-field al-date-input__year"><label class="al-label" for="di-year">Year</label><input class="al-input al-input--number" id="di-year" inputmode="numeric" autocomplete="bday-year"></div>
+                  </div>
+                </fieldset>
+                <div class="al-field">
+                  <label class="al-label" for="di-due">Due date</label>
+                  <input class="al-input" id="di-due" type="date" value="2026-11-30">
+                </div>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/date-input.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="search" aria-labelledby="search-h">
+            <h3 id="search-h">Search</h3>
+            <p class="sc-lead">A field with its icon, and Clear once there's text. Escape clears it too.</p>
+            <div class="sc-example" data-example>
+              <div class="al-field sc-narrow">
+                <label class="al-label" for="sr-q">Search</label>
+                <div class="al-search" role="search">
+                  <svg class="al-icon" aria-hidden="true"><use href="dist/icons.svg#al-icon-search"></use></svg>
+                  <input class="al-input" id="sr-q" type="search" placeholder=" " value="report">
+                  <button type="button" class="al-search__clear" aria-label="Clear search"><svg class="al-icon al-icon--sm" aria-hidden="true"><use href="dist/icons.svg#al-icon-close"></use></svg></button>
+                </div>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/search.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="checkboxes" aria-labelledby="checkboxes-h">
+            <h3 id="checkboxes-h">Checkboxes</h3>
+            <p class="sc-lead">Independent options, in a fieldset with a legend; the whole row is the target.</p>
+            <div class="sc-example" data-example>
+              <fieldset class="al-fieldset">
+                <legend>How should we contact you?</legend>
+                <div class="al-choices">
+                  <label class="al-choice"><input type="checkbox" checked><span>Email</span></label>
+                  <label class="al-choice"><input type="checkbox"><span class="al-choice__text"><span>Text message</span><span class="al-choice__hint">To the number on your account</span></span></label>
+                  <label class="al-choice"><input type="checkbox" disabled><span>Post</span></label>
+                </div>
+              </fieldset>
+            </div>
+            <p class="sc-spec"><a href="docs/components/choice.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="radios" aria-labelledby="radios-h">
+            <h3 id="radios-h">Radios</h3>
+            <p class="sc-lead">One of several, with a sensible default where there is one.</p>
+            <div class="sc-example" data-example>
+              <fieldset class="al-fieldset">
+                <legend>Who can see this?</legend>
+                <div class="al-choices">
+                  <label class="al-choice"><input type="radio" name="rd" checked><span>Only you</span></label>
+                  <label class="al-choice"><input type="radio" name="rd"><span>Your team</span></label>
+                  <label class="al-choice"><input type="radio" name="rd"><span>Anyone with the link</span></label>
+                </div>
+              </fieldset>
+            </div>
+            <p class="sc-spec"><a href="docs/components/choice.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="switch" aria-labelledby="switch-h">
+            <h3 id="switch-h">Switch</h3>
+            <p class="sc-lead">A setting that applies the moment it's flipped: no Save.</p>
+            <div class="sc-example" data-example>
+              <div class="al-stack al-stack--tight">
+                <label class="al-choice"><input class="al-switch" type="checkbox" role="switch" checked><span>Show details</span></label>
+                <label class="al-choice"><input class="al-switch" type="checkbox" role="switch"><span>Compact view</span></label>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/choice.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="segmented" aria-labelledby="segmented-h">
+            <h3 id="segmented-h">Segmented control</h3>
+            <p class="sc-lead">Two to five short options, all visible: a choice in a form, or a view switch.</p>
+            <div class="sc-example" data-example>
+              <fieldset class="al-fieldset">
+                <legend>View</legend>
+                <div class="al-segmented">
+                  <label><input type="radio" name="sg" checked>List</label>
+                  <label><input type="radio" name="sg">Grid</label>
+                  <label><input type="radio" name="sg">Calendar</label>
+                </div>
+              </fieldset>
+            </div>
+            <p class="sc-spec"><a href="docs/components/segmented.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="error-summary" aria-labelledby="error-summary-h">
+            <h3 id="error-summary-h">Error summary</h3>
+            <p class="sc-lead">When a form is submitted with errors: every error, at the top, each a link to its field. It takes focus, and the page title starts with “Error:”.</p>
+            <div class="sc-example" data-example>
+              <div class="al-error-summary" aria-labelledby="es-title">
+                <h4 class="al-error-summary__title" id="es-title"><svg class="al-icon" aria-hidden="true"><use href="dist/icons.svg#al-icon-danger"></use></svg>There is a problem</h4>
+                <ul class="al-error-summary__list">
+                  <li><a href="#ti-name">Enter your full name</a></li>
+                  <li><a href="#ti-code">Enter a reference that's 2 letters then 6 numbers, like AB123456</a></li>
+                </ul>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/error-summary.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="disclosure" aria-labelledby="disclosure-h">
+            <h3 id="disclosure-h">Disclosure</h3>
+            <p class="sc-lead">What's secondary, folded away, with the value inside shown beside its name.</p>
+            <div class="sc-example" data-example>
+              <div class="sc-narrow">
+                <details class="al-disclosure">
+                  <summary>Advanced settings <span class="al-disclosure__value">3 changed</span></summary>
+                  <div class="al-disclosure__body"><p class="al-muted">Settings most people never need.</p></div>
+                </details>
+                <details class="al-disclosure" open>
+                  <summary>Keep deleted items for <span class="al-disclosure__value">90 days</span></summary>
+                  <div class="al-disclosure__body">
+                    <div class="al-field"><label class="al-label" for="dc-days">Days</label><input class="al-input al-input--number" id="dc-days" inputmode="numeric" value="90"></div>
+                  </div>
+                </details>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/disclosure.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="card" aria-labelledby="card-h">
+            <h3 id="card-h">Card, panel and stat</h3>
+            <p class="sc-lead">A card holds one thing people act on; a panel is a rule above a group; a stat is a figure with its label.</p>
+            <div class="sc-example" data-example>
+              <div class="al-grid">
+                <article class="al-card">
+                  <header class="al-card__header"><h4>Card title</h4><p class="al-card__description">Supporting text · updated today</p></header>
+                  <p>A card groups one thing: its summary, and what you can do with it.</p>
+                  <div class="al-cluster"><button type="button" class="al-button al-button--sm">Open</button><button type="button" class="al-button al-button--sm al-button--quiet">Edit</button></div>
+                </article>
+                <div class="al-stat"><span class="al-stat__label">Figure, this month</span><span class="al-stat__value"><bdi>12,480</bdi></span><span class="al-stat__note">last month: <bdi>11,902</bdi></span></div>
+                <section class="al-panel"><h4>Panel title</h4><p class="al-muted">A rule above a group: most groupings need no box.</p></section>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/card.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="summary-list" aria-labelledby="summary-list-h">
+            <h3 id="summary-list-h">Summary list</h3>
+            <p class="sc-lead">Facts about one thing, each with its own action: for checking answers, and for any record.</p>
+            <div class="sc-example" data-example>
+              <dl class="al-summary-list">
+                <div class="al-summary-list__row">
+                  <dt class="al-summary-list__key">Name</dt>
+                  <dd class="al-summary-list__value">Sam Taylor</dd>
+                  <dd class="al-summary-list__actions"><a href="#summary-list">Change<span class="al-visually-hidden"> name</span></a></dd>
+                </div>
+                <div class="al-summary-list__row">
+                  <dt class="al-summary-list__key">Email address</dt>
+                  <dd class="al-summary-list__value"><bdi>sam@example.com</bdi></dd>
+                  <dd class="al-summary-list__actions"><a href="#summary-list">Change<span class="al-visually-hidden"> email address</span></a></dd>
+                </div>
+                <div class="al-summary-list__row al-summary-list__row--no-actions">
+                  <dt class="al-summary-list__key">Member since</dt>
+                  <dd class="al-summary-list__value">4 January 2024</dd>
+                </div>
+              </dl>
+            </div>
+            <p class="sc-spec"><a href="docs/components/summary-list.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="table" aria-labelledby="table-h">
+            <h3 id="table-h">Table</h3>
+            <p class="sc-lead">For comparing values: numbers line up, the total stands out, asides recede. Wide tables scroll in their own region.</p>
+            <div class="sc-example" data-example>
+              <div class="al-table-wrap" tabindex="0" role="region" aria-label="Example table">
+                <table class="al-table">
+                  <thead><tr><th scope="col">Item</th><th scope="col" class="al-num">Quantity</th><th scope="col" class="al-num">Price</th><th scope="col" class="al-num">Total</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Item one</th><td class="al-num">2</td><td class="al-num">£12.00</td><td class="al-num">£24.00</td></tr>
+                    <tr><th scope="row">Item two</th><td class="al-num">1</td><td class="al-num">£120.00</td><td class="al-num">£120.00</td></tr>
+                    <tr><th scope="row">Item three</th><td class="al-num">4</td><td class="al-num">£2.50</td><td class="al-num">£10.00</td></tr>
+                    <tr class="is-total"><th scope="row">Total</th><td class="al-num"></td><td class="al-num"></td><td class="al-num">£154.00</td></tr>
+                    <tr class="is-aside"><th scope="row">Of which VAT, at 20%</th><td class="al-num"></td><td class="al-num"></td><td class="al-num">£25.67</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/table.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="badge" aria-labelledby="badge-h">
+            <h3 id="badge-h">Badge</h3>
+            <p class="sc-lead">A short status beside something, in words. Sentence case, never capitals.</p>
+            <div class="sc-example" data-example>
+              <div class="al-cluster">
+                <span class="al-badge">Draft</span>
+                <span class="al-badge al-badge--accent">Active</span>
+                <span class="al-badge al-badge--success">Done</span>
+                <span class="al-badge al-badge--warning">Beta</span>
+                <span class="al-badge al-badge--danger">Overdue</span>
+                <span class="al-badge al-badge--info">New</span>
+                <span class="al-badge al-badge--outline al-badge--count" aria-label="3 unread">3</span>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/badge.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="tag" aria-labelledby="tag-h">
+            <h3 id="tag-h">Tag, highlight and avatar</h3>
+            <p class="sc-lead">Colour for identity and emphasis, in eight bright tints; never for status.</p>
+            <div class="sc-example" data-example>
+              <div class="al-stack">
+                <div class="al-cluster">
+                  <span class="al-tag" data-tint="blue">Design<button type="button" class="al-tag__remove" aria-label="Remove tag Design"><svg class="al-icon al-icon--sm" aria-hidden="true"><use href="dist/icons.svg#al-icon-close"></use></svg></button></span>
+                  <span class="al-tag" data-tint="pink">Urgent<button type="button" class="al-tag__remove" aria-label="Remove tag Urgent"><svg class="al-icon al-icon--sm" aria-hidden="true"><use href="dist/icons.svg#al-icon-close"></use></svg></button></span>
+                  <span class="al-tag" data-tint="purple">Research<button type="button" class="al-tag__remove" aria-label="Remove tag Research"><svg class="al-icon al-icon--sm" aria-hidden="true"><use href="dist/icons.svg#al-icon-close"></use></svg></button></span>
+                  <span class="al-tag" style="--al-tag-color: var(--al-color-chart-1)">Plain tag</span>
+                </div>
+                <p class="al-measure" data-t>Highlights draw the eye to <mark class="al-highlight" data-tint="teal">key words</mark>, <mark class="al-highlight" data-tint="yellow">names</mark> and <mark class="al-highlight" data-tint="pink">ideas</mark>, in <mark class="al-highlight" data-tint="purple">any of eight tints</mark>.</p>
+                <div class="al-cluster">
+                  <span class="al-avatar" data-tint="teal" aria-hidden="true">LH</span>
+                  <span class="al-avatar" data-tint="orange" aria-hidden="true">SO</span>
+                  <span class="al-avatar" data-tint="blue" aria-hidden="true">YA</span>
+                  <span class="al-avatar al-avatar--lg" data-tint="green" aria-hidden="true">ST</span>
+                </div>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/tint.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="task-list" aria-labelledby="task-list-h">
+            <h3 id="task-list-h">Task list</h3>
+            <p class="sc-lead">The parts of a longer job, each with its status in words; done in any order.</p>
+            <div class="sc-example" data-example>
+              <ul class="al-task-list sc-narrow">
+                <li class="al-task-list__item"><span class="al-task-list__name"><a href="#task-list">Add your details</a></span><span class="al-task-list__status al-badge al-badge--success">Done</span></li>
+                <li class="al-task-list__item"><span class="al-task-list__name"><a href="#task-list">Upload a document</a></span><span class="al-task-list__status al-badge al-badge--info">In progress</span></li>
+                <li class="al-task-list__item"><span class="al-task-list__name"><a href="#task-list">Choose your settings</a></span><span class="al-task-list__status al-badge">Not started</span></li>
+                <li class="al-task-list__item"><span class="al-task-list__name">Review and send</span><span class="al-task-list__hint">Finish the other tasks first</span><span class="al-task-list__status al-badge al-badge--outline">Can't start yet</span></li>
+              </ul>
+            </div>
+            <p class="sc-spec"><a href="docs/components/task-list.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="page-head" aria-labelledby="page-head-h">
+            <h3 id="page-head-h">Page head and tabs</h3>
+            <p class="sc-lead">The page's title, what applies to the whole page, then its views.</p>
+            <div class="sc-example" data-example>
+              <div class="sc-frame">
+                <div class="al-page-head">
+                  <h4 class="sc-example-title">Page title</h4>
+                  <span class="al-badge al-badge--warning">Beta</span>
+                  <div class="al-page-head__end">
+                    <span class="al-muted al-nowrap">Period</span>
+                    <select class="al-select" aria-label="Period" style="inline-size:auto"><option>Last 30 days</option><option>Last 7 days</option></select>
+                  </div>
+                </div>
+                <div class="al-tabs" role="tablist" aria-label="Page title">
+                  <button class="al-tab" role="tab" id="tab-1" aria-controls="panel-1" aria-selected="true">Overview</button>
+                  <button class="al-tab" role="tab" id="tab-2" aria-controls="panel-2" aria-selected="false">Activity <span class="al-tab__count">12</span></button>
+                  <button class="al-tab" role="tab" id="tab-3" aria-controls="panel-3" aria-selected="false">Settings</button>
+                </div>
+                <div class="al-tabpanel" role="tabpanel" id="panel-1" aria-labelledby="tab-1"><p>The first view.</p></div>
+                <div class="al-tabpanel" role="tabpanel" id="panel-2" aria-labelledby="tab-2" hidden><p>The second view.</p></div>
+                <div class="al-tabpanel" role="tabpanel" id="panel-3" aria-labelledby="tab-3" hidden><p>The third view.</p></div>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/page-head.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="sidebar" aria-labelledby="sidebar-h">
+            <h3 id="sidebar-h">Sidebar</h3>
+            <p class="sc-lead">An app's sections, collapsible to icons; a bar along the top on small screens.</p>
+            <div class="sc-example" data-example>
+              <div class="al-shell sc-shell" data-sidebar-demo>
+                <div class="al-sidebar">
+                  <nav class="al-sidebar__nav" aria-label="Sections (example)">
+                    <a class="al-sidebar__link" href="#sidebar" aria-current="page"><svg class="al-icon" aria-hidden="true"><use href="dist/icons.svg#al-icon-board"></use></svg><span class="al-sidebar__label">Home</span></a>
+                    <a class="al-sidebar__link" href="#sidebar"><svg class="al-icon" aria-hidden="true"><use href="dist/icons.svg#al-icon-calendar"></use></svg><span class="al-sidebar__label">Calendar</span></a>
+                    <a class="al-sidebar__link" href="#sidebar"><svg class="al-icon" aria-hidden="true"><use href="dist/icons.svg#al-icon-file"></use></svg><span class="al-sidebar__label">Files</span></a>
+                  </nav>
+                  <div class="al-sidebar__foot">
+                    <a class="al-sidebar__link" href="#sidebar"><svg class="al-icon" aria-hidden="true"><use href="dist/icons.svg#al-icon-settings"></use></svg><span class="al-sidebar__label">Settings</span></a>
+                    <button type="button" class="al-sidebar__link al-sidebar__collapse" aria-expanded="true" data-collapse><svg class="al-icon al-mirror" aria-hidden="true"><use href="dist/icons.svg#al-icon-sidebar"></use></svg><span class="al-sidebar__label">Collapse sidebar</span></button>
+                  </div>
+                </div>
+                <div class="sc-shell__main"><p class="al-muted">The main column.</p></div>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/sidebar.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="notice" aria-labelledby="notice-h">
+            <h3 id="notice-h">Notice and side-effect note</h3>
+            <p class="sc-lead">A message in the page, in four kinds, each with an icon and a title. A side-effect note says what else will change, before it does.</p>
+            <div class="sc-example" data-example>
+              <div class="al-stack">
+                <div class="al-notice" role="status"><svg class="al-icon" aria-hidden="true"><use href="dist/icons.svg#al-icon-info"></use></svg><div class="al-notice__body"><p class="al-notice__title">Planned maintenance</p><p>On Sunday, from 2am to 4am, saving may be slow.</p></div></div>
+                <div class="al-notice al-notice--success" role="status"><svg class="al-icon" aria-hidden="true"><use href="dist/icons.svg#al-icon-success"></use></svg><div class="al-notice__body"><p class="al-notice__title">Changes saved</p><p>Everyone with access can see them now.</p></div></div>
+                <div class="al-notice al-notice--warning" role="status"><svg class="al-icon" aria-hidden="true"><use href="dist/icons.svg#al-icon-warning"></use></svg><div class="al-notice__body"><p class="al-notice__title">Check your details</p><p>Some of your details may be out of date.</p><div class="al-notice__actions"><button type="button" class="al-button al-button--sm">Review details</button></div></div></div>
+                <div class="al-notice al-notice--danger" role="alert"><svg class="al-icon" aria-hidden="true"><use href="dist/icons.svg#al-icon-danger"></use></svg><div class="al-notice__body"><p class="al-notice__title">Couldn't load this page</p><p>The connection dropped. Check you're online, then try again.</p><div class="al-notice__actions"><button type="button" class="al-button al-button--sm">Try again</button></div></div></div>
+                <p class="al-side-effect"><svg class="al-icon al-icon--sm" aria-hidden="true"><use href="dist/icons.svg#al-icon-info"></use></svg><span data-t>Changing this also updates <strong>2 related items</strong>.</span></p>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/notice.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="phase-banner" aria-labelledby="phase-banner-h">
+            <h3 id="phase-banner-h">Phase banner</h3>
+            <p class="sc-lead">Under the header: the product, or part of it, is new or changing, and feedback is welcome.</p>
+            <div class="sc-example" data-example>
+              <div class="al-phase-banner">
+                <span class="al-badge al-badge--warning">Beta</span>
+                <span class="al-phase-banner__text" data-t>This is a new service. <a href="#phase-banner">Tell us what you think</a>.</span>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/phase-banner.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="toast" aria-labelledby="toast-h">
+            <h3 id="toast-h">Toast</h3>
+            <p class="sc-lead">What just happened, briefly, with Undo when it can be undone.</p>
+            <div class="sc-example" data-example>
+              <button type="button" class="al-button" data-toast>Archive item</button>
+            </div>
+            <p class="sc-spec"><a href="docs/components/toast.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="dialog" aria-labelledby="dialog-h">
+            <h3 id="dialog-h">Dialog</h3>
+            <p class="sc-lead">A decision that needs attention now. It never loses what was typed, and confirms only what can't be undone. A sheet on small screens.</p>
+            <div class="sc-example" data-example>
+              <div class="al-cluster">
+                <button type="button" class="al-button" data-dialog-open="rename">Rename item…</button>
+                <button type="button" class="al-button al-button--danger" data-dialog-open="confirm">Delete account…</button>
+              </div>
+              <dialog class="al-dialog" id="rename" aria-labelledby="rename-title">
+                <form method="dialog">
+                  <h2 class="al-dialog__title" id="rename-title">Rename item</h2>
+                  <div class="al-dialog__body">
+                    <div class="al-field"><label class="al-label" for="rename-name">Name</label><input class="al-input" id="rename-name" name="name" value="Item one"></div>
+                  </div>
+                  <div class="al-dialog__discard" hidden role="alert">
+                    <p>Discard your changes?</p>
+                    <button type="button" class="al-button al-button--sm" data-al-keep>Keep editing</button>
+                    <button type="button" class="al-button al-button--sm al-button--danger" data-al-discard>Discard changes</button>
+                  </div>
+                  <div class="al-dialog__actions">
+                    <button class="al-button" value="cancel">Cancel</button>
+                    <button class="al-button al-button--primary" value="save">Save name</button>
+                  </div>
+                </form>
+              </dialog>
+              <dialog class="al-dialog" id="confirm" aria-labelledby="confirm-title">
+                <form method="dialog">
+                  <h2 class="al-dialog__title" id="confirm-title">Delete your account?</h2>
+                  <div class="al-dialog__body">
+                    <p>This deletes your account and everything in it: 12 items, 3 folders and 40 files. It can't be undone.</p>
+                    <div class="al-field"><label class="al-label" for="confirm-email">Type your email address to confirm</label><input class="al-input" id="confirm-email" type="email" autocomplete="off" dir="ltr"></div>
+                  </div>
+                  <div class="al-dialog__actions">
+                    <button class="al-button" value="cancel">Keep my account</button>
+                    <button class="al-button al-button--danger al-button--primary" value="delete">Delete account and data</button>
+                  </div>
+                </form>
+              </dialog>
+            </div>
+            <p class="sc-spec"><a href="docs/components/dialog.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="menu" aria-labelledby="menu-h">
+            <h3 id="menu-h">Menu</h3>
+            <p class="sc-lead">Actions on one thing, behind a button. Arrow keys move; Escape closes; destructive items last.</p>
+            <div class="sc-example" data-example>
+              <button type="button" class="al-button" popovertarget="item-menu" aria-haspopup="menu" aria-expanded="false">Actions <svg class="al-icon al-icon--sm al-mirror" aria-hidden="true"><use href="dist/icons.svg#al-icon-chevron"></use></svg></button>
+              <div class="al-menu" id="item-menu" popover role="menu" aria-label="Actions">
+                <button type="button" class="al-menu__item" role="menuitem">Duplicate</button>
+                <button type="button" class="al-menu__item" role="menuitem">Rename</button>
+                <button type="button" class="al-menu__item" role="menuitem">Move to…</button>
+                <hr class="al-menu__separator">
+                <button type="button" class="al-menu__item al-menu__item--danger" role="menuitem">Delete</button>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/menu.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="tooltip" aria-labelledby="tooltip-h">
+            <h3 id="tooltip-h">Tooltip</h3>
+            <p class="sc-lead">A short label for an icon or a mark, on hover and on focus. Never essential.</p>
+            <div class="sc-example" data-example>
+              <div class="al-cluster">
+                <button type="button" class="al-button al-button--icon" aria-label="Copy link" data-al-tip="Copy link|to this page"><svg class="al-icon" aria-hidden="true"><use href="dist/icons.svg#al-icon-external"></use></svg></button>
+                <button type="button" class="al-button al-button--icon" aria-label="Settings" data-al-tip="Settings"><svg class="al-icon" aria-hidden="true"><use href="dist/icons.svg#al-icon-settings"></use></svg></button>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/tooltip.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="empty-state" aria-labelledby="empty-state-h">
+            <h3 id="empty-state-h">Empty state</h3>
+            <p class="sc-lead">Why there's nothing here, and the next action. Never a dead end.</p>
+            <div class="sc-example" data-example>
+              <div class="al-empty">
+                <p class="al-empty__title">No items yet</p>
+                <p class="al-empty__text">Add one to get started. You can import several at once, too.</p>
+                <button type="button" class="al-button al-button--primary al-button--sm">Add item</button>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/empty-state.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="loading" aria-labelledby="loading-h">
+            <h3 id="loading-h">Loading and progress</h3>
+            <p class="sc-lead">Progress where the work happens: a skeleton, a spinner, or a bar when it can be measured.</p>
+            <div class="sc-example" data-example>
+              <div class="al-stack sc-narrow" aria-busy="true" aria-label="Loading items">
+                <span class="al-skeleton" style="inline-size:60%"></span>
+                <span class="al-skeleton" style="inline-size:90%"></span>
+                <span class="al-skeleton" style="inline-size:75%"></span>
+                <p class="al-muted"><span class="al-spinner" aria-hidden="true"></span> Loading items</p>
+                <label class="al-label" for="prog">Uploading, 60%</label>
+                <progress class="al-progress" id="prog" max="100" value="60">60%</progress>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/progress.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="confirmation" aria-labelledby="confirmation-h">
+            <h3 id="confirmation-h">Confirmation</h3>
+            <p class="sc-lead">The end of a flow that sends something: it's done, the reference, then what happens next.</p>
+            <div class="sc-example" data-example>
+              <div class="al-confirmation">
+                <h4 class="al-confirmation__title">Request sent</h4>
+                <p class="al-confirmation__body" data-t>Your reference <strong><bdi>AL-4K7Q-92</bdi></strong></p>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/confirmation.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="save-state" aria-labelledby="save-state-h">
+            <h3 id="save-state-h">Save state, changes and stale results</h3>
+            <p class="sc-lead">Whether a change is kept, what else it touches, and which figures are being worked out again. Try them.</p>
+            <div class="sc-example" data-example>
+              <div class="al-card al-stack">
+                <div class="al-cluster al-cluster--between">
+                  <div class="al-field" style="flex:1 1 16rem">
+                    <label class="al-label" for="p-amount">Amount</label>
+                    <div class="al-affix"><span class="al-affix__text">£</span><input class="al-input al-input--number" id="p-amount" inputmode="decimal" value="550" data-pending-input></div>
+                  </div>
+                  <span class="al-save-state" role="status" data-state="saved" data-save-state>Saved</span>
+                </div>
+                <p class="al-side-effect"><svg class="al-icon al-icon--sm" aria-hidden="true"><use href="dist/icons.svg#al-icon-info"></use></svg><span data-t>Changing the amount also updates <strong>2 related items</strong>.</span></p>
+                <div class="al-cluster">
+                  <button type="button" class="al-button al-button--primary al-button--sm" data-save>Save</button>
+                  <button type="button" class="al-button al-button--sm" data-save-fail>Save, and fail</button>
+                  <button type="button" class="al-button al-button--quiet al-button--sm" data-discard>Discard changes</button>
+                </div>
+                <div class="al-stack al-stack--tight">
+                  <p class="al-stale-note" data-stale-note hidden><span class="al-spinner" aria-hidden="true"></span><span>Working out again…</span></p>
+                  <p class="sc-figure" data-stale-figure data-t>Total: <strong><bdi>£1,240</bdi></strong></p>
+                </div>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/save-state.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="rollback" aria-labelledby="rollback-h">
+            <h3 id="rollback-h">Rolled back</h3>
+            <p class="sc-lead">A change shown at once that the server then refused: put back where it was, with why, and Retry.</p>
+            <div class="sc-example" data-example>
+              <ul class="sc-list sc-narrow" data-rollback-list>
+                <li><span>Item one</span> <button type="button" class="al-button al-button--quiet al-button--sm" data-archive-fail>Archive, and fail</button></li>
+                <li><span>Item two</span> <button type="button" class="al-button al-button--quiet al-button--sm" data-archive>Archive</button></li>
+              </ul>
+            </div>
+            <p class="sc-spec"><a href="docs/components/save-state.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="bulk-bar" aria-labelledby="bulk-bar-h">
+            <h3 id="bulk-bar-h">Bulk action bar</h3>
+            <p class="sc-lead">Once things are selected: how many, what can be done to all of them, and a way to clear.</p>
+            <div class="sc-example" data-example>
+              <div class="al-bulk-bar" role="region" aria-label="3 selected">
+                <span class="al-bulk-bar__count">3 selected</span>
+                <button type="button" class="al-button al-button--sm">Move 3 to…</button>
+                <button type="button" class="al-button al-button--sm">Archive 3</button>
+                <button type="button" class="al-button al-button--sm al-button--quiet">Clear selection</button>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/bulk-bar.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="keyboard" aria-labelledby="keyboard-h">
+            <h3 id="keyboard-h">Keyboard shortcuts</h3>
+            <p class="sc-lead">The platform's modifier: ⌘ on Apple devices, Ctrl elsewhere. Single keys never fire while typing.</p>
+            <div class="sc-example" data-example>
+              <dl class="al-shortcuts">
+                <dt><kbd class="al-kbd">N</kbd></dt><dd>New item</dd>
+                <dt><kbd class="al-kbd">/</kbd></dt><dd>Search</dd>
+                <dt><kbd class="al-kbd" data-al-mod>Ctrl</kbd><kbd class="al-kbd">K</kbd></dt><dd>Open the command menu</dd>
+                <dt><kbd class="al-kbd" data-al-mod>Ctrl</kbd><kbd class="al-kbd">Z</kbd></dt><dd>Undo</dd>
+                <dt><kbd class="al-kbd">?</kbd></dt><dd>Show the shortcuts</dd>
+              </dl>
+            </div>
+            <p class="sc-spec"><a href="docs/components/kbd.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="columns" aria-labelledby="columns-h">
+            <h3 id="columns-h">Column chart</h3>
+            <p class="sc-lead">Values over time or across categories, grouped, with an optional target line.</p>
+            <div class="sc-example" data-example>
+              <figure class="al-card al-stack al-stack--tight sc-chart">
+                <figcaption class="al-stack al-stack--tight">
+                  <span class="al-chart__title">Series by quarter</span>
+                  <span class="al-chart__summary">Series A met the target of 400 in three of four quarters; Series C doubled.</span>
+                </figcaption>
+                <div data-chart-columns></div>
+              </figure>
+            </div>
+            <p class="sc-spec"><a href="docs/components/chart.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="split-bar" aria-labelledby="split-bar-h">
+            <h3 id="split-bar-h">Split bar</h3>
+            <p class="sc-lead">The parts of a whole, in one bar, with a key.</p>
+            <div class="sc-example" data-example>
+              <figure class="al-card al-stack al-stack--tight sc-chart">
+                <figcaption class="al-stack al-stack--tight">
+                  <span class="al-chart__title">How the total divides</span>
+                  <span class="al-chart__summary">Part A is half of the total.</span>
+                </figcaption>
+                <div data-chart-split></div>
+              </figure>
+            </div>
+            <p class="sc-spec"><a href="docs/components/chart.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="bullet" aria-labelledby="bullet-h">
+            <h3 id="bullet-h">Bullet chart</h3>
+            <p class="sc-lead">Each value against its target, with the difference in words.</p>
+            <div class="sc-example" data-example>
+              <figure class="al-card al-stack al-stack--tight sc-chart">
+                <figcaption class="al-stack al-stack--tight">
+                  <span class="al-chart__title">Against the target</span>
+                  <span class="al-chart__summary">Two of three are above target; Series C is £833 short.</span>
+                </figcaption>
+                <div data-chart-bullet></div>
+              </figure>
+            </div>
+            <p class="sc-spec"><a href="docs/components/chart.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="lockup" aria-labelledby="lockup-h">
+            <h3 id="lockup-h">Mark and lockup</h3>
+            <p class="sc-lead">The mark beside the wordmark, built from the logo pack. One colour; never redrawn.</p>
+            <div class="sc-example" data-example>
+              <div class="al-stack">
+                <span class="al-lockup"><span class="al-mark" data-brand="mark" aria-hidden="true"></span><span class="al-wordmark" lang="en">Arabesque Labs</span></span>
+                <span class="al-lockup"><span class="al-mark" data-brand="mark" aria-hidden="true"></span><span class="al-wordmark" lang="en">Arabesque Labs</span><span class="al-lockup__product">Product name</span></span>
+                <div class="al-cluster sc-marks"><span class="al-mark" data-brand="mark" style="font-size:calc(16px / 1.5)" aria-hidden="true"></span><span class="al-mark" data-brand="mark" style="font-size:calc(32px / 1.5)" aria-hidden="true"></span><span class="al-mark" data-brand="mark" style="font-size:calc(64px / 1.5)" aria-hidden="true"></span></div>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/brand.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="pattern" aria-labelledby="pattern-h">
+            <h3 id="pattern-h">Pattern</h3>
+            <p class="sc-lead">The 4.8.8 tessellation of the mark's tile, contact angle 67.5°, drawn by rule as background texture.</p>
+            <div class="sc-example" data-example>
+              <div class="al-card al-pattern al-pattern--full sc-pattern-demo"><div class="al-pattern__art" data-pattern></div></div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/pattern.md">Read the spec</a></p>
+          </section>
+
+        </section>
+
+        <section class="sc-group" id="patterns" aria-labelledby="patterns-title">
+          <h2 id="patterns-title" class="sc-h">Patterns</h2>
+
+          <section class="sc-component" id="ask-check-confirm" aria-labelledby="ask-check-confirm-h">
+            <h3 id="ask-check-confirm-h">Ask, check, confirm</h3>
+            <p class="sc-lead">For anything sent, or hard to take back: ask; check errors on submit, with an error summary; let people check their answers; then confirm, with what happens next. Try submitting it empty.</p>
+            <div class="al-card sc-flow" data-flow>
+              <form id="ask" class="al-stack" novalidate data-step="ask">
+                <h4>Your details</h4>
+                <div class="al-field">
+                  <label class="al-label" for="ask-name">Full name</label>
+                  <input class="al-input" id="ask-name" name="name" autocomplete="name" spellcheck="false">
+                </div>
+                <div class="al-field">
+                  <label class="al-label" for="ask-email">Email address</label>
+                  <span class="al-hint" id="ask-email-hint">We'll send a confirmation here.</span>
+                  <input class="al-input" id="ask-email" name="email" type="email" autocomplete="email" spellcheck="false" dir="ltr" aria-describedby="ask-email-hint">
+                </div>
+                <fieldset class="al-fieldset">
+                  <legend>How should we contact you?</legend>
+                  <div class="al-choices">
+                    <label class="al-choice"><input type="radio" name="contact" id="ask-contact-email" value="Email"><span>Email</span></label>
+                    <label class="al-choice"><input type="radio" name="contact" value="Phone"><span>Phone</span></label>
+                    <label class="al-choice"><input type="radio" name="contact" value="Post"><span>Post</span></label>
+                  </div>
+                </fieldset>
+                <div class="al-cluster"><button class="al-button al-button--primary">Continue</button></div>
+              </form>
+              <div class="al-stack" data-step="check" hidden>
+                <h4 tabindex="-1">Check your answers</h4>
+                <dl class="al-summary-list" data-answers></dl>
+                <div class="al-cluster"><button type="button" class="al-button al-button--primary" data-send>Send request</button></div>
+              </div>
+              <div class="al-stack" data-step="done" hidden>
+                <div class="al-confirmation" tabindex="-1">
+                  <h4 class="al-confirmation__title">Request sent</h4>
+                  <p class="al-confirmation__body" data-t>Your reference <strong><bdi>AL-4K7Q-92</bdi></strong></p>
+                </div>
+                <h4>What happens next</h4>
+                <p class="al-measure">We've sent a confirmation to your email address. We'll reply within 2 working days.</p>
+                <div class="al-cluster"><button type="button" class="al-button" data-restart>Start again</button></div>
+              </div>
+            </div>
+          </section>
+
+          <p class="sc-spec"><a href="docs/patterns.md">Read the patterns</a></p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="al-page">
+    <div class="al-footer">
+      <span class="al-lockup"><span class="al-mark" data-brand="mark" aria-hidden="true"></span><span class="al-wordmark" lang="en">Arabesque Labs</span></span>
+      <ul class="al-footer__links">
+        <li><a href="docs/principles.md">Principles</a></li>
+        <li><a href="docs/interaction.md">Interaction</a></li>
+        <li><a href="docs/patterns.md">Patterns</a></li>
+        <li><a href="docs/accessibility.md">Accessibility</a></li>
+        <li><a href="docs/rtl.md">Right to left</a></li>
+      </ul>
+      <p class="al-footer__legal">© 2026 Arabesque Labs Ltd. Structure. Clarity. Craftsmanship.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="showcase.js"></script>
+</body>
+</html>

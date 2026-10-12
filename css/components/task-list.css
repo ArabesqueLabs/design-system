@@ -1,0 +1,21 @@
+/* Task list (from GOV.UK): the parts of a longer job (set-up, onboarding,
+   an application), each with its status in words, so people can do them
+   in any order and see what's left. A task that can't start yet says
+   why, and isn't a link. */
+.al-task-list { margin: 0; padding: 0; list-style: none; border-block-start: var(--al-border-hairline) solid var(--al-color-line); }
+.al-task-list__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--al-space-1) var(--al-space-4);
+  align-items: center;
+  padding-block: var(--al-space-3);
+  border-block-end: var(--al-border-hairline) solid var(--al-color-line);
+}
+.al-task-list__name { font-weight: var(--al-weight-medium); }
+.al-task-list__name a { color: var(--al-color-accent); text-underline-offset: 0.2em; }
+/* The whole row is the link's target. */
+.al-task-list__name a::after { content: ""; position: absolute; inset: 0; }
+.al-task-list__item:has(a):hover { background: var(--al-color-surface-sunk); }
+.al-task-list__hint { grid-column: 1; font-size: var(--al-text-sm); color: var(--al-color-text-muted); }
+.al-task-list__status { grid-row: 1 / span 2; grid-column: 2; }

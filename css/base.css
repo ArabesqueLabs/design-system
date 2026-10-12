@@ -1,0 +1,128 @@
+/* Base: a small reset (after modern-normalize), the page, text, links,
+   focus, and the system-wide rules for reduced motion and forced colours.
+   Every value comes from a token. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  font-family: var(--al-font-sans);
+  font-size: 100%;
+  line-height: var(--al-leading-ui);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  tab-size: 4;
+  color: var(--al-color-text);
+  background: var(--al-color-bg);
+  hanging-punctuation: first last;
+}
+
+body {
+  margin: 0;
+  font-size: var(--al-text-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---- text -------------------------------------------------------------------------------- */
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-family: var(--al-font-display);
+  font-weight: var(--al-weight-regular);
+  line-height: var(--al-leading-heading);
+  letter-spacing: var(--al-tracking-tight);
+  text-wrap: balance;
+}
+h1 { font-size: var(--al-text-3xl); }
+h2 { font-size: var(--al-text-xl); }
+h3 { font-size: var(--al-text-lg); font-weight: var(--al-weight-medium); letter-spacing: var(--al-tracking-none); }
+h4, h5, h6 { font-size: var(--al-text-base); font-weight: var(--al-weight-medium); letter-spacing: var(--al-tracking-none); }
+
+p, ul, ol, dl, figure, blockquote, pre { margin: 0; }
+p { text-wrap: pretty; }
+small { font-size: var(--al-text-sm); }
+strong, b { font-weight: var(--al-weight-semibold); }
+
+code, kbd, samp, pre { font-family: var(--al-font-mono); font-size: 0.92em; }
+pre { overflow-x: auto; }
+
+hr { border: 0; border-block-start: var(--al-border-hairline) solid var(--al-color-line); margin: var(--al-space-6) 0; }
+
+/* Arabic: the tokens already drop tracking and add line height; nothing is
+   ever set in capitals, and Latin product names inside keep their tracking. */
+:lang(ar) { letter-spacing: 0; }
+
+/* ---- links ------------------------------------------------------------------------------- */
+
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--al-color-line-strong);
+  text-underline-offset: 0.2em;
+  transition: color var(--al-duration-fast) var(--al-ease-standard), text-decoration-color var(--al-duration-fast) var(--al-ease-standard);
+}
+a:hover { color: var(--al-color-accent); text-decoration-color: currentColor; }
+
+/* ---- media, tables, forms ---------------------------------------------------------------- */
+
+img, video, canvas { display: block; max-inline-size: 100%; block-size: auto; }
+svg { flex: none; }
+table { border-collapse: collapse; border-spacing: 0; }
+button, input, select, textarea { font: inherit; color: inherit; margin: 0; letter-spacing: inherit; }
+button, [role="button"] { cursor: pointer; }
+:disabled, [aria-disabled="true"] { cursor: not-allowed; }
+[hidden] { display: none !important; }
+
+/* ---- focus and selection ----------------------------------------------------------------- */
+
+/* One focus style everywhere: an outline (never a box-shadow, which forced
+   colours removes), offset from the edge, only for keyboard focus. */
+:focus-visible {
+  outline: var(--al-border-focus) solid var(--al-color-focus);
+  outline-offset: var(--al-border-focus-offset);
+}
+:focus:not(:focus-visible) { outline: none; }
+
+::selection { background: color-mix(in oklch, var(--al-color-accent) 22%, transparent); }
+
+/* ---- motion ------------------------------------------------------------------------------ */
+
+/* Reduced motion: nothing moves; changes still happen, instantly. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---- forced colours ---------------------------------------------------------------------- */
+
+/* Windows high contrast and other forced palettes: the system's colours
+   win; keep every boundary visible as a border. Components add their own. */
+@media (forced-colors: active) {
+  :focus-visible { outline-color: Highlight; }
+}
+
+/* More contrast, when asked for: secondary text becomes body text,
+   hairlines become control borders, and focus is drawn thicker. Each
+   token resolves in its own theme, so this holds in light and dark. */
+@media (prefers-contrast: more) {
+  :root {
+    --al-color-text-muted: var(--al-color-text);
+    --al-color-line: var(--al-color-control);
+    --al-color-line-strong: var(--al-color-text);
+    --al-border-focus: 3px;
+  }
+}
+
+/* Less transparency, when asked for (from Apple's HIG, "Reduce
+   transparency"): translucent grounds become solid. */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --al-color-backdrop: color-mix(in oklch, var(--al-color-text) 70%, var(--al-color-bg));
+    --al-color-accent-wash: color-mix(in oklch, var(--al-color-accent) 12%, var(--al-color-surface));
+  }
+}

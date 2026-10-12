@@ -1,0 +1,44 @@
+/* Toast: says what just happened, briefly, where it doesn't block; offers
+   Undo when the change can be undone. Lives in one polite live region
+   (js/toast.js). Stays at least 6s with an action, 4s without; pauses
+   while hovered or focused; never holds the only copy of an error. */
+.al-toaster {
+  position: fixed;
+  inset-block-end: var(--al-space-5);
+  inset-inline: var(--al-space-4);
+  z-index: var(--al-z-toast);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--al-space-2);
+  pointer-events: none;
+}
+.al-toast {
+  display: flex;
+  align-items: center;
+  gap: var(--al-space-3);
+  max-inline-size: min(36rem, 100%);
+  padding-block: var(--al-space-2);
+  padding-inline: var(--al-space-4) var(--al-space-2);
+  border-radius: var(--al-radius-md);
+  background: var(--al-color-inverse);
+  color: var(--al-color-on-inverse);
+  font-size: var(--al-text-base);
+  pointer-events: auto;
+  animation: al-toast-in var(--al-duration-base) var(--al-ease-standard);
+}
+.al-toast:not(:has(.al-toast__action)) { padding-inline-end: var(--al-space-4); }
+.al-toast__action {
+  all: unset;
+  min-block-size: var(--al-size-target-min);
+  padding-inline: var(--al-space-2);
+  border-radius: var(--al-radius-sm);
+  font-weight: var(--al-weight-semibold);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+.al-toast__action:focus-visible { outline: var(--al-border-focus) solid currentColor; }
+.al-toast[data-leaving] { opacity: 0; transition: opacity var(--al-duration-base) var(--al-ease-exit); }
+@keyframes al-toast-in { from { opacity: 0; transform: translateY(0.5rem); } }
+@media (forced-colors: active) { .al-toast { border: 1px solid CanvasText; } }

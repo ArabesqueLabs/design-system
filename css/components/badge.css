@@ -1,0 +1,43 @@
+/* Badge: a short status beside something ("Active", "Experimental", "3").
+   Sentence case, never capitals; its meaning in words, not colour alone.
+   Tag: a label people add and remove; its colour is a dot, beside the name. */
+.al-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--al-space-1);
+  min-block-size: 1.375rem;
+  padding-inline: var(--al-space-2);
+  border-radius: var(--al-radius-sm);
+  background: var(--al-color-surface-sunk);
+  color: var(--al-color-text);
+  font-size: var(--al-text-xs);
+  font-weight: var(--al-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.al-badge--accent { background: var(--al-color-accent-wash); color: var(--al-color-accent); }
+.al-badge--success { background: var(--al-color-success-wash); color: var(--al-color-success); }
+.al-badge--warning { background: var(--al-color-warning-wash); color: var(--al-color-warning); }
+.al-badge--danger { background: var(--al-color-danger-wash); color: var(--al-color-danger); }
+.al-badge--info { background: var(--al-color-info-wash); color: var(--al-color-info); }
+.al-badge--outline { background: transparent; box-shadow: inset 0 0 0 1px var(--al-color-line-strong); }
+.al-badge--count { font-variant-numeric: tabular-nums; min-inline-size: 1.375rem; justify-content: center; }
+
+.al-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--al-space-1-5);
+  min-block-size: var(--al-size-target-min);
+  padding-inline: var(--al-space-2);
+  border: var(--al-border-hairline) solid var(--al-color-line);
+  border-radius: var(--al-radius-sm);
+  background: var(--al-color-surface);
+  font-size: var(--al-text-sm);
+}
+.al-tag::before { content: ""; inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background: var(--al-tag-color, var(--al-color-chart-0)); flex: none; }
+.al-tag__remove { all: unset; display: inline-grid; place-items: center; inline-size: var(--al-size-target-min); block-size: var(--al-size-target-min); margin-inline-end: calc(-1 * var(--al-space-2)); color: var(--al-color-text-muted); cursor: pointer; border-radius: var(--al-radius-sm); }
+.al-tag__remove:hover { color: var(--al-color-danger); }
+.al-tag__remove:focus-visible { outline: var(--al-border-focus) solid var(--al-color-focus); }
+
+@media (forced-colors: active) { .al-badge { border: 1px solid CanvasText; } .al-tag::before { forced-color-adjust: none; } }

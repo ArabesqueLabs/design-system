@@ -1,0 +1,49 @@
+/* Tints: eight bright, pastel colours (teal, green, yellow, orange, pink,
+   purple, blue, cyan), each a ground with an ink readable on it. They add
+   colour where colour means identity or emphasis (a tag, a highlighted
+   phrase, an avatar), never status: errors, warnings and success keep
+   their own colours, icons and words. Choose with data-tint. */
+[data-tint="teal"]   { --al-tint-bg: var(--al-color-tint-teal-bg);   --al-tint-ink: var(--al-color-tint-teal-ink); }
+[data-tint="green"]  { --al-tint-bg: var(--al-color-tint-green-bg);  --al-tint-ink: var(--al-color-tint-green-ink); }
+[data-tint="yellow"] { --al-tint-bg: var(--al-color-tint-yellow-bg); --al-tint-ink: var(--al-color-tint-yellow-ink); }
+[data-tint="orange"] { --al-tint-bg: var(--al-color-tint-orange-bg); --al-tint-ink: var(--al-color-tint-orange-ink); }
+[data-tint="pink"]   { --al-tint-bg: var(--al-color-tint-pink-bg);   --al-tint-ink: var(--al-color-tint-pink-ink); }
+[data-tint="purple"] { --al-tint-bg: var(--al-color-tint-purple-bg); --al-tint-ink: var(--al-color-tint-purple-ink); }
+[data-tint="blue"]   { --al-tint-bg: var(--al-color-tint-blue-bg);   --al-tint-ink: var(--al-color-tint-blue-ink); }
+[data-tint="cyan"]   { --al-tint-bg: var(--al-color-tint-cyan-bg);   --al-tint-ink: var(--al-color-tint-cyan-ink); }
+
+/* A highlighted phrase in running text: <mark class="al-highlight">. */
+.al-highlight {
+  padding-inline: 0.25em;
+  border-radius: var(--al-radius-sm);
+  background: var(--al-tint-bg, var(--al-color-tint-yellow-bg));
+  color: var(--al-tint-ink, var(--al-color-tint-yellow-ink));
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+a.al-highlight { text-decoration-color: currentColor; text-underline-offset: 0.2em; }
+
+/* Tinted badges and tags. */
+.al-badge[data-tint], .al-tag[data-tint] { background: var(--al-tint-bg); color: var(--al-tint-ink); border-color: transparent; }
+.al-tag[data-tint]::before { background: currentColor; }
+
+/* Avatar: initials on a tint, for a person or a workspace without a picture. */
+.al-avatar {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  flex: none;
+  border-radius: var(--al-radius-full);
+  background: var(--al-tint-bg, var(--al-color-surface-sunk));
+  color: var(--al-tint-ink, var(--al-color-text));
+  font-size: var(--al-text-sm);
+  font-weight: var(--al-weight-semibold);
+  line-height: 1;
+}
+.al-avatar--lg { inline-size: 3rem; block-size: 3rem; font-size: var(--al-text-lg); }
+
+@media (forced-colors: active) {
+  .al-highlight { forced-color-adjust: none; background: Mark; color: MarkText; }
+  .al-avatar { border: 1px solid CanvasText; }
+}

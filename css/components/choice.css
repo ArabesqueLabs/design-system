@@ -1,0 +1,61 @@
+/* Choices: checkboxes and radios are native inputs in the accent colour,
+   with a 24px row so the label is the target; a switch is a checkbox with
+   role="switch" for settings that apply at once. */
+.al-choice {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--al-space-2);
+  min-block-size: var(--al-size-target-min);
+  padding-block: var(--al-space-0-5);
+  cursor: pointer;
+  font-size: var(--al-text-base);
+}
+.al-choice > input:is([type="checkbox"], [type="radio"]):not(.al-switch) {
+  inline-size: 1.125rem;
+  block-size: 1.125rem;
+  margin: 0.15em 0 0;
+  flex: none;
+  accent-color: var(--al-color-accent);
+  cursor: pointer;
+}
+.al-choice__text { display: flex; flex-direction: column; gap: var(--al-space-0-5); }
+.al-choice__hint { font-size: var(--al-text-sm); color: var(--al-color-text-muted); }
+.al-choice:has(input:disabled) { opacity: 0.5; cursor: not-allowed; }
+.al-choices { display: flex; flex-direction: column; gap: var(--al-space-1); }
+.al-choices--inline { flex-direction: row; flex-wrap: wrap; gap: var(--al-space-1) var(--al-space-5); }
+
+/* Switch: on or off, now. */
+.al-switch {
+  appearance: none;
+  position: relative;
+  inline-size: 2.25rem;
+  block-size: 1.25rem;
+  margin: 0.1em 0 0;
+  flex: none;
+  border: var(--al-border-hairline) solid var(--al-color-control);
+  border-radius: var(--al-radius-full);
+  background: var(--al-color-surface-sunk);
+  cursor: pointer;
+  transition: background-color var(--al-duration-fast) var(--al-ease-standard);
+}
+.al-switch::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 0.125rem;
+  inline-size: 0.875rem;
+  block-size: 0.875rem;
+  border-radius: 50%;
+  background: var(--al-color-text-muted);
+  transform: translateY(-50%);
+  transition: inset-inline-start var(--al-duration-fast) var(--al-ease-standard), background-color var(--al-duration-fast) var(--al-ease-standard);
+}
+.al-switch:checked { background: var(--al-color-accent); border-color: var(--al-color-accent); }
+.al-switch:checked::before { inset-inline-start: calc(100% - 1rem); background: var(--al-color-on-accent); }
+
+@media (forced-colors: active) {
+  .al-switch { border-color: ButtonText; }
+  .al-switch::before { background: ButtonText; forced-color-adjust: none; }
+  .al-switch:checked { background: Highlight; }
+  .al-switch:checked::before { background: HighlightText; }
+}

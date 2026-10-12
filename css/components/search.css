@@ -1,0 +1,22 @@
+/* Search field: an input with its icon and a Clear button once there's
+   text. role="search" on its form; results update as people type, with
+   the count announced politely. "/" focuses it (see kbd). */
+.al-search { position: relative; display: flex; align-items: center; min-inline-size: 0; }
+.al-search > .al-icon { position: absolute; inset-inline-start: var(--al-space-3); color: var(--al-color-text-muted); pointer-events: none; }
+.al-search > .al-input { padding-inline-start: calc(var(--al-space-3) * 2 + var(--al-size-icon)); padding-inline-end: var(--al-size-control-sm); }
+.al-search > .al-input::-webkit-search-cancel-button { display: none; }
+.al-search__clear {
+  all: unset;
+  position: absolute;
+  inset-inline-end: var(--al-space-1);
+  display: inline-grid;
+  place-items: center;
+  inline-size: var(--al-size-control-sm);
+  block-size: var(--al-size-control-sm);
+  border-radius: var(--al-radius-sm);
+  color: var(--al-color-text-muted);
+  cursor: pointer;
+}
+.al-search__clear:hover { color: var(--al-color-text); }
+.al-search__clear:focus-visible { outline: var(--al-border-focus) solid var(--al-color-focus); }
+.al-search > .al-input:placeholder-shown + .al-search__clear { display: none; }

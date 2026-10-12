@@ -1,0 +1,27 @@
+/* Pattern: the tessellation of the mark's tile, as background texture only
+   (js/pattern.js draws it as SVG). It fades out behind text: from the
+   trailing side towards the start, mirrored in right-to-left. Never behind
+   body copy at full strength; aria-hidden; still under reduced motion. */
+.al-pattern { position: relative; isolation: isolate; overflow: hidden; }
+.al-pattern__art {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  color: var(--al-color-pattern-line);
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to right, transparent 0 40%, black 80%);
+  mask-image: linear-gradient(to right, transparent 0 40%, black 80%);
+}
+[dir="rtl"] .al-pattern__art {
+  -webkit-mask-image: linear-gradient(to left, transparent 0 40%, black 80%);
+  mask-image: linear-gradient(to left, transparent 0 40%, black 80%);
+}
+.al-pattern__art svg { inline-size: 100%; block-size: 100%; display: block; }
+.al-pattern--full .al-pattern__art { -webkit-mask-image: none; mask-image: none; }
+@media (max-width: 52rem) {
+  .al-pattern__art, [dir="rtl"] .al-pattern__art {
+    -webkit-mask-image: linear-gradient(to bottom, black 0 30%, transparent 70%);
+    mask-image: linear-gradient(to bottom, black 0 30%, transparent 70%);
+  }
+}
+@media (forced-colors: active) { .al-pattern__art { display: none; } }

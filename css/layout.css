@@ -1,0 +1,57 @@
+/* Layout primitives: compose pages from a few rules rather than one-off
+   margins. All of them use logical properties, so they mirror with dir. */
+
+/* A page's content column: centred, capped, with a fluid side gutter. */
+.al-page {
+  inline-size: 100%;
+  max-inline-size: calc(var(--al-size-page) + 2 * var(--al-space-gutter));
+  margin-inline: auto;
+  padding-inline: var(--al-space-gutter);
+}
+
+/* A website section: generous, fluid space above and below, a hairline between. */
+.al-section { padding-block: var(--al-space-section); }
+.al-section + .al-section { border-block-start: var(--al-border-hairline) solid var(--al-color-line); }
+
+/* Stack: children one under another, evenly spaced (--al-stack-gap). */
+.al-stack { display: flex; flex-direction: column; gap: var(--al-stack-gap, var(--al-space-4)); }
+.al-stack--tight { --al-stack-gap: var(--al-space-2); }
+.al-stack--loose { --al-stack-gap: var(--al-space-8); }
+
+/* Cluster: children in a row that wraps, aligned to the start. */
+.al-cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--al-cluster-gap, var(--al-space-3)); }
+.al-cluster--end { justify-content: flex-end; }
+.al-cluster--between { justify-content: space-between; }
+
+/* Grid: as many columns of at least --al-grid-min as fit. */
+.al-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--al-grid-min, 16rem), 100%), 1fr));
+  gap: var(--al-grid-gap, var(--al-space-4));
+}
+
+/* Split: a narrow and a wide column, stacked on small screens. */
+.al-split {
+  display: grid;
+  grid-template-columns: minmax(16rem, 22rem) minmax(0, 1fr);
+  gap: var(--al-space-8);
+  align-items: start;
+}
+@media (max-width: 52rem) { .al-split { grid-template-columns: minmax(0, 1fr); } }
+
+/* Reading width. */
+.al-measure { max-inline-size: var(--al-size-measure); }
+
+/* The app shell: a sidebar and the main column; the sidebar becomes a bar
+   along the top on small screens (see components/sidebar.css). */
+.al-shell {
+  display: grid;
+  grid-template-columns: var(--al-size-sidebar) minmax(0, 1fr);
+  min-block-size: 100dvh;
+}
+.al-shell[data-sidebar="collapsed"] { grid-template-columns: var(--al-size-sidebar-collapsed) minmax(0, 1fr); }
+.al-shell > main { min-inline-size: 0; padding: var(--al-space-8) var(--al-space-gutter); }
+@media (max-width: 52rem) {
+  .al-shell, .al-shell[data-sidebar="collapsed"] { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr; }
+  .al-shell > main { padding: var(--al-space-4); }
+}

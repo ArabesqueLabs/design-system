@@ -1,0 +1,38 @@
+/* Menu: actions on one thing, behind a button ("More", "Move to…"), in a
+   native popover. Arrow keys move between items, Escape closes and returns
+   focus (js/menu.js, the ARIA APG menu button pattern). Destructive items
+   last, after a separator. Positioned next to its button. */
+.al-menu {
+  margin: 0;
+  min-inline-size: 12rem;
+  max-inline-size: 20rem;
+  padding: var(--al-space-1);
+  border: var(--al-border-hairline) solid var(--al-color-line);
+  border-radius: var(--al-radius-sm);
+  background: var(--al-color-surface);
+  color: var(--al-color-text);
+  inset: auto;
+}
+.al-menu__item {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--al-space-2);
+  inline-size: 100%;
+  min-block-size: var(--al-size-control-sm);
+  padding-inline: var(--al-space-3);
+  border-radius: var(--al-radius-sm);
+  cursor: pointer;
+  text-align: start;
+}
+.al-menu__item:hover, .al-menu__item:focus-visible { background: var(--al-color-surface-sunk); outline: none; }
+.al-menu__item:focus-visible { box-shadow: inset 0 0 0 var(--al-border-focus) var(--al-color-focus); }
+.al-menu__item[aria-checked="true"]::after { content: "✓"; margin-inline-start: auto; color: var(--al-color-accent); }
+.al-menu__item--danger { color: var(--al-color-danger); }
+.al-menu__separator { block-size: 1px; margin-block: var(--al-space-1); background: var(--al-color-line); border: 0; }
+.al-menu__label { padding: var(--al-space-1-5) var(--al-space-3) var(--al-space-1); font-size: var(--al-text-xs); color: var(--al-color-text-muted); }
+@media (forced-colors: active) {
+  .al-menu { border-color: CanvasText; }
+  .al-menu__item:focus-visible { outline: 2px solid Highlight; box-shadow: none; }
+}

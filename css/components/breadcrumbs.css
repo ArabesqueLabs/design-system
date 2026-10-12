@@ -1,0 +1,36 @@
+/* Back link and breadcrumbs (from GOV.UK): a way back, at the top of the
+   page, before the title. A back link goes to the previous step of a flow;
+   breadcrumbs show where a page sits in a hierarchy. Not both. Their
+   chevrons point back the way text reads, so they mirror in right-to-left. */
+.al-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--al-space-1);
+  min-block-size: var(--al-size-target-min);
+  color: var(--al-color-text);
+  font-size: var(--al-text-sm);
+  text-underline-offset: 0.2em;
+}
+.al-back-link::before {
+  content: "";
+  inline-size: 0.4em;
+  block-size: 0.4em;
+  border-block-end: 1.5px solid currentColor;
+  border-inline-start: 1.5px solid currentColor;
+  transform: rotate(45deg);
+}
+[dir="rtl"] .al-back-link::before { transform: rotate(-45deg); }
+.al-breadcrumbs ol { display: flex; flex-wrap: wrap; align-items: center; gap: var(--al-space-1) 0; margin: 0; padding: 0; list-style: none; font-size: var(--al-text-sm); }
+.al-breadcrumbs li { display: inline-flex; align-items: center; min-block-size: var(--al-size-target-min); }
+.al-breadcrumbs li + li::before {
+  content: "";
+  inline-size: 0.35em;
+  block-size: 0.35em;
+  margin-inline: var(--al-space-2);
+  border-block-start: 1.5px solid var(--al-color-text-muted);
+  border-inline-end: 1.5px solid var(--al-color-text-muted);
+  transform: rotate(45deg);
+}
+[dir="rtl"] .al-breadcrumbs li + li::before { transform: rotate(-45deg); }
+.al-breadcrumbs a { color: var(--al-color-text); text-underline-offset: 0.2em; }
+.al-breadcrumbs [aria-current="page"] { color: var(--al-color-text-muted); }

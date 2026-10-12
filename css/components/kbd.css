@@ -1,0 +1,20 @@
+/* Keyboard keys, and the list of shortcuts (opened with "?"). Shortcuts are
+   single keys only when focus isn't in a text field, and can be turned off
+   (WCAG 2.1.4). */
+.al-kbd {
+  display: inline-block;
+  min-inline-size: 1.5em;
+  padding: 0.05em 0.4em;
+  border: var(--al-border-hairline) solid var(--al-color-line-strong);
+  border-block-end-width: 2px;
+  border-radius: var(--al-radius-sm);
+  background: var(--al-color-surface);
+  font-family: var(--al-font-mono);
+  font-size: var(--al-text-xs);
+  line-height: 1.5;
+  text-align: center;
+  white-space: nowrap;
+}
+.al-shortcuts { display: grid; grid-template-columns: auto 1fr; gap: var(--al-space-2) var(--al-space-5); align-items: baseline; margin: 0; }
+.al-shortcuts dt { display: flex; gap: var(--al-space-1); }
+.al-shortcuts dd { margin: 0; }

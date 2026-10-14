@@ -5,12 +5,15 @@
    a split bar (parts of a whole) and a bullet chart (each against a
    target). In right-to-left, categories and time run with the reading
    direction and bars grow from the start side; numbers stay as written. */
-.al-c0 { background: var(--al-color-chart-0); }
-.al-c1 { background: var(--al-color-chart-1); }
-.al-c2 { background: var(--al-color-chart-2); }
-.al-c3 { background: var(--al-color-chart-3); }
-.al-c4 { background: var(--al-color-chart-4); }
-[class*="al-c"]:is(.al-chart__bar, .al-chart__seg, .al-split-bar__part, .al-bullet__bar, .al-swatch) { forced-color-adjust: none; }
+/* A mark's colour is its series: data-series="1" to "4", in that order;
+   "0" is the neutral, for tracks and the rest, never for a series of data.
+   (.al-c0 to .al-c4 are the old names, kept until 0.3.) */
+:is([data-series="0"], .al-c0) { background: var(--al-color-chart-0); }
+:is([data-series="1"], .al-c1) { background: var(--al-color-chart-1); }
+:is([data-series="2"], .al-c2) { background: var(--al-color-chart-2); }
+:is([data-series="3"], .al-c3) { background: var(--al-color-chart-3); }
+:is([data-series="4"], .al-c4) { background: var(--al-color-chart-4); }
+:is(.al-chart__bar, .al-chart__seg, .al-split-bar__part, .al-bullet__bar, .al-swatch) { forced-color-adjust: none; }
 
 .al-chart { display: flex; flex-direction: column; gap: var(--al-space-2); padding-inline-start: 3rem; }
 .al-chart__plot { position: relative; block-size: 12rem; }
@@ -50,8 +53,10 @@
 .al-bullet__target { position: absolute; inset-block: -4px; border-inline-start: 2px dashed var(--al-color-text); }
 .al-bullet__value { text-align: end; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .al-bullet > .al-key { grid-column: 1 / -1; }
-.al-more { color: var(--al-color-success); }
-.al-less { color: var(--al-color-danger); }
+/* The difference from the target, in words and colour (.al-more and
+   .al-less are the old names, kept until 0.3). */
+:is(.al-bullet__diff--more, .al-more) { color: var(--al-color-success); }
+:is(.al-bullet__diff--less, .al-less) { color: var(--al-color-danger); }
 @media (max-width: 40rem) {
   .al-bullet { grid-template-columns: minmax(0, 1fr) auto; }
   .al-bullet__label { grid-column: 1 / -1; }

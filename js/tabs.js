@@ -3,6 +3,8 @@
 // reading direction (reversed in right-to-left), Home and End jump.
 export function initTabs(root = document) {
   for (const list of root.querySelectorAll('[role="tablist"]')) {
+    if (list.dataset.alTabs) continue;
+    list.dataset.alTabs = "on";
     const tabs = [...list.querySelectorAll('[role="tab"]')];
     const select = (tab) => {
       for (const t of tabs) {

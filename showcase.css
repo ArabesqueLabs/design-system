@@ -61,9 +61,9 @@ main:focus { outline: none; }
 
 .sc-motion { display: inline-block; inline-size: 1.5rem; block-size: 1.5rem; border-radius: var(--al-radius-sm); background: var(--al-color-accent); transition: transform var(--al-duration-base) var(--al-ease-standard); }
 .sc-motion.is-moved { transform: translateX(4rem); }
-[dir="rtl"] .sc-motion.is-moved { transform: translateX(-4rem); }
+.sc-motion.is-moved:dir(rtl) { transform: translateX(-4rem); }
 /* Token names read left to right, but sit on the page's side. */
-[dir="rtl"] code[dir="ltr"] { text-align: right; }
+:dir(rtl) > code[dir="ltr"] { text-align: right; }
 
 .sc-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr)); gap: var(--al-space-2); list-style: none; margin: 0; padding: 0; }
 .sc-icons li { display: flex; align-items: center; gap: var(--al-space-2); padding: var(--al-space-2); border: var(--al-border-hairline) solid var(--al-color-line); border-radius: var(--al-radius-sm); font-family: var(--al-font-mono); font-size: var(--al-text-xs); background: var(--al-color-surface); }

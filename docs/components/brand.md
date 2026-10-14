@@ -34,7 +34,7 @@ One accessible name: "Arabesque Labs"; the mark is `aria-hidden`.
 
 ## Right to left
 
-Never mirrors. In Arabic pages the wordmark stays Latin (`lang="en"`, keeps its tracking); the lockup sits at the start (right).
+Never mirrors. In Arabic pages the wordmark is written in Arabic, "معامل آرابيسك", with `lang="ar"` and no tracking (`--al-tracking-wide` is 0 in Arabic); the mark stays the same, and the lockup sits at the start (right). In English it's "Arabesque Labs", tracked.
 
 ## Do
 

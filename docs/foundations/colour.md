@@ -2,33 +2,42 @@
 
 Colours are named for their **role**, never their hue: `--al-color-accent`, not
 `--al-teal`. A role has one value per theme; components use roles only.
-Primitives (`--al-color-sand-95`, `--al-color-teal-46`…) exist to build roles
-and are not used directly in components.
+Primitives (`--al-color-cloud-98`, `--al-color-teal-51`…) exist to build roles
+and are not used directly in components. Every primitive is used by a role
+(`tests/system.test.js` checks it).
 
 ## Roles
 
+The values below are the primitives each role points to, from
+`tokens/tokens.json`; a percentage is a translucent colour.
+
 | Token | Use it for | Light | Dark |
 |---|---|---|---|
-| `bg` | The page | Cream (sand 95) | Night (slate 18) |
-| `surface` | Cards, panels, inputs, menus, dialogs | sand 98 | slate 21 |
-| `surface-sunk` | Wells, hover, table head, affixes | sand 92 | slate 24 |
-| `text` | Body text, headings | Ink (slate 25) | Pale (sand 93) |
-| `text-muted` | Hints, labels of secondary things, axes | slate 45 | sand 74 |
-| `line` | Hairlines: dividers, card borders, table rules | sand 88 | white 12% |
-| `line-strong` | Dividers that need to be seen (selected, dashed frames) | ink 45% | white 40% |
+| `bg` | The page | cloud 98 | Night (slate 18) |
+| `surface` | Cards, panels, inputs, menus, dialogs | white | slate 21 |
+| `surface-sunk` | Wells, hover, table head, affixes | cloud 96 | slate 24 |
+| `text` | Body text, headings | cloud 21 | Pale (sand 93) |
+| `text-muted` | Hints, labels of secondary things, axes; stale figures | cloud 45 | sand 74 |
+| `line` | Hairlines: dividers, card borders, table rules | cloud 93 | white 12% |
+| `line-strong` | Dividers that need to be seen (selected, dashed frames) | cloud 21 at 40% | white 40% |
 | `control` | The border of anything you operate: inputs, buttons, checkboxes | slate 62 | slate 62 |
-| `accent` | Primary actions, links, focus, the selected tab; success | Teal | Mint |
-| `on-accent` | Text on an accent fill | sand 98 | slate 18 |
-| `accent-wash` | Selected rows, highlighted totals | teal 10% | mint 12% |
-| `focus` | The focus outline | Teal | Mint |
-| `danger`, `danger-wash` | Errors, and actions that destroy | red 52 | red 68 |
+| `accent` | Primary actions, links, focus, the selected tab; success | teal 51 | Mint (teal 83) |
+| `accent-hover` | A primary button, hovered | teal 43 | teal 91 |
+| `on-accent` | Text on an accent or danger fill | white | slate 18 |
+| `accent-wash` | Selected rows, highlighted totals | teal 12% | mint 12% |
+| `focus` | The focus outline | teal 51 | Mint |
+| `focus-on-inverse` | The focus outline on the inverse ground (bulk bar, toasts) | Mint | teal 51 |
+| `danger`, `danger-wash` | Errors, and actions that destroy | red 54 | red 68 |
+| `danger-hover` | A filled danger button, hovered | red 46 | red 78 |
 | `warning`, `warning-wash` | Needs attention; unsaved | amber 49 | amber 80 |
-| `success`, `success-wash` | Done, saved (the accent) | Teal | Mint |
-| `info`, `info-wash` | Neutral information | blue 48 | blue 80 |
-| `inverse`, `on-inverse` | Toasts, tooltips, the bulk bar | Ink on Cream | Pale on Night |
-| `backdrop` | Behind a modal dialog | ink 45% | black 60% |
-| `chart-0…4` | Chart series, in this order; 0 is "other" | see below | |
-| `pattern-line`, `pattern-scaffold` | The tessellation's strands and its guide lines | ink 22% / 10% | white 16% / 8% |
+| `success`, `success-wash` | Done, saved (the accent) | teal 51 | Mint |
+| `info`, `info-wash` | Neutral information | blue 53 | blue 80 |
+| `inverse`, `on-inverse` | Toasts, tooltips, the bulk bar | cloud 98 on cloud 21 | slate 18 on Pale |
+| `backdrop` | Behind a modal dialog | cloud 21 at 45% | black 60% |
+| `chart-1…4` | Chart series, in this order | see below | |
+| `chart-0` | The neutral: tracks and grounds, never a series of data | cloud 87 | white 20% |
+| `tint-*-bg`, `tint-*-ink` | Tags, highlights, avatars: identity, never status | see `tint.md` | |
+| `pattern-line` | The tessellation's strands | teal 24% | white 16% |
 
 All tokens are prefixed: `var(--al-color-surface)`.
 
@@ -36,7 +45,8 @@ All tokens are prefixed: `var(--al-color-surface)`.
 
 - **Contrast is computed, not judged.** `scripts/build.mjs` measures every pair
   the system relies on, in both themes, and the build fails if any falls short:
-  4.5:1 for text, 3:1 for control borders, focus and chart marks. Translucent
+  4.5:1 for text, 3:1 for control borders, focus (on every ground it can
+  be drawn on, the inverse one too) and chart marks. Translucent
   grounds (washes) are measured on both the page and the surface, and the worse
   counts. The results are in [`../contrast.md`](../contrast.md).
 - **Hairlines aren't boundaries.** `line` is decoration (1.3:1), so anything a
@@ -81,8 +91,11 @@ tritanopia) with the dataviz validator, in each theme against its surface:
 | 2 orange | `#c26300` | `#ca7e31` |
 | 3 blue | `#3d73b6` | `#5188cd` |
 | 4 raspberry | `#b8336a` | `#d75b8f` |
-| 0 other / track | sand 82 | white 20% |
+| 0 track (not data) | cloud 87 | white 20% |
 
-Assign them in this order and never cycle: a fifth series folds into "Other".
+Assign them in this order and never cycle: a fifth series folds into "Other",
+which takes the next series colour, not `chart-0`. `chart-0` is too light to
+be read as data (it's under 3:1), so it's only for tracks and grounds. In
+markup, a mark's series is `data-series="1"` to `"4"` (see `chart.md`).
 A series keeps its colour when others are filtered out. Status colours
 (danger, warning, success) are never chart series.

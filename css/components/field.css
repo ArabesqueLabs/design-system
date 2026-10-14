@@ -76,6 +76,12 @@
 .al-field[data-changed] .al-input, .al-field[data-changed] .al-select, .al-field[data-changed] .al-textarea {
   border-inline-start: 3px solid var(--al-color-warning);
 }
+/* Invalid wins over changed: the error is what needs doing. */
+.al-field[data-changed] :is(.al-input, .al-select, .al-textarea)[aria-invalid="true"] { border-inline-start-color: var(--al-color-danger); }
+/* On touch screens, 16px at least: iOS zooms the page into smaller fields. */
+@media (pointer: coarse) {
+  .al-input, .al-select, .al-textarea { font-size: max(1rem, var(--al-text-base)); }
+}
 .al-field__changed { font-size: var(--al-text-xs); color: var(--al-color-warning); font-weight: var(--al-weight-medium); }
 
 @media (pointer: coarse) { .al-input, .al-select { min-block-size: var(--al-size-target-touch); } }

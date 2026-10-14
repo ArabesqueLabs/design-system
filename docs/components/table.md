@@ -2,19 +2,19 @@
 
 For comparing values: numbers line up, the total stands out, asides recede. A wide table scrolls inside its own region, never the page.
 
-**CSS:** [`css/components/table.css`](../../css/components/table.css). **Classes:** `.al-num`, `.al-table`, `.al-table--compact`, `.al-table--interactive`, `.al-table-wrap`.
+**CSS:** [`css/components/table.css`](../../css/components/table.css). **Classes:** `.al-table`, `.al-table__num`, `.al-table__row--aside`, `.al-table__row--sub`, `.al-table__row--total`, `.al-table--compact`, `.al-table--interactive`, `.al-table-wrap`.
 
 ## Anatomy
 
 ```html
 <div class="al-table-wrap" role="region" aria-label="Take-home pay, by period" tabindex="0">
   <table class="al-table">
-    <thead><tr><th scope="col">What</th><th scope="col" class="al-num">Year</th><th scope="col" class="al-num">Month</th></tr></thead>
+    <thead><tr><th scope="col">What</th><th scope="col" class="al-table__num">Year</th><th scope="col" class="al-table__num">Month</th></tr></thead>
     <tbody>
-      <tr><th scope="row">Gross pay</th><td class="al-num">£108,000</td><td class="al-num">£9,000</td></tr>
-      <tr><th scope="row">Income tax</th><td class="al-num">−£32,232</td><td class="al-num">−£2,686</td></tr>
-      <tr class="is-total"><th scope="row">Take-home pay</th><td class="al-num">£71,597</td><td class="al-num">£5,966</td></tr>
-      <tr class="is-aside"><th scope="row">Employer's National Insurance</th><td class="al-num">£15,450</td><td class="al-num">£1,288</td></tr>
+      <tr><th scope="row">Gross pay</th><td class="al-table__num">£108,000</td><td class="al-table__num">£9,000</td></tr>
+      <tr><th scope="row">Income tax</th><td class="al-table__num">−£32,232</td><td class="al-table__num">−£2,686</td></tr>
+      <tr class="al-table__row--total"><th scope="row">Take-home pay</th><td class="al-table__num">£71,597</td><td class="al-table__num">£5,966</td></tr>
+      <tr class="al-table__row--aside"><th scope="row">Employer's National Insurance</th><td class="al-table__num">£15,450</td><td class="al-table__num">£1,288</td></tr>
     </tbody>
   </table>
 </div>
@@ -24,10 +24,12 @@ For comparing values: numbers line up, the total stands out, asides recede. A wi
 
 | Class | Use |
 |---|---|
-| `.al-num` | Numeric cells and their headers: end-aligned, tabular, unbroken |
-| `tr.is-sub` | A subtotal |
-| `tr.is-total` | The total: semibold, accent wash, rule above |
-| `tr.is-aside` | Context that isn't part of the sum: muted, smaller |
+| `.al-table__num` | Numeric cells and their headers: end-aligned, tabular, unbroken |
+| `.al-table__row--sub` | A subtotal |
+| `.al-table__row--total` | The total: semibold, accent wash, rule above |
+| `.al-table__row--aside` | Context that isn't part of the sum: muted, smaller |
+
+The old names (`.al-num`, `tr.is-sub`, `tr.is-total`, `tr.is-aside`) still work, until 0.3. A sortable column's arrow shows only once it's sorted (`aria-sort="ascending"` or `"descending"`), not for `"none"`.
 | `--compact` | Tighter rows for dense data |
 | `--interactive` | Rows highlight on hover (rows that open something) |
 | `aria-selected` on `tr` | Selected rows, with the bulk bar |

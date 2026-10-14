@@ -17,9 +17,11 @@ export function initMenus(root = document) {
       const open = e.newState === "open";
       button.setAttribute("aria-expanded", String(open));
       // While open, it follows its button through scrolling and resizing.
-      const follow = () => place(menu, button);
+      // Once a frame at most, however fast the scroll events come.
+      let frame = 0;
+      const follow = () => { if (!frame) frame = requestAnimationFrame(() => { frame = 0; place(menu, button); }); };
       if (open) {
-        follow();
+        place(menu, button);
         addEventListener("scroll", follow, { capture: true, passive: true });
         addEventListener("resize", follow);
         menu.alFollow = follow;

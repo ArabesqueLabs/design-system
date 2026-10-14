@@ -38,7 +38,15 @@ Flex and grid already follow `dir`: a row starts on the right in Arabic.
 | A disclosure's chevron (points the way text reads) | Media timelines, code, maths |
 | The pattern's fade (it clears behind the start side, where text begins) | Phone numbers, codes, URLs |
 
-Icons that mirror get `.al-mirror`: `[dir="rtl"] .al-mirror { transform: scaleX(-1) }`.
+Icons that mirror get `.al-mirror`: `.al-mirror:dir(rtl) { transform: scaleX(-1) }`.
+The system's direction rules use `:dir(rtl)`, not `[dir="rtl"] .x`, so they
+follow the nearest direction: a `dir="ltr"` block inside an Arabic page (a
+code sample, an English quote) doesn't mirror. Likewise a `lang="en"` element
+inside an Arabic page gets Latin type metrics back (size, line height,
+tracking).
+
+The wordmark doesn't mirror; in Arabic pages it's written in Arabic,
+"معامل آرابيسك" (`lang="ar"`, untracked), beside the same mark.
 
 ## 3. Bidi isolation
 

@@ -46,11 +46,17 @@ export function tile(side = 32, angle = 67.5) {
 
 let count = 0;
 /**
- * Fill an element with the pattern (it's decoration: aria-hidden). The side
- * is 32px on wide screens and 22px on narrow ones, as the tokens say.
+ * Fill an element with the pattern (it's decoration: aria-hidden). The
+ * geometry comes from the tokens (--al-pattern-side, -side-narrow under the
+ * md breakpoint, -stroke, -contact-angle), unless it's given here.
  */
-export function drawPattern(el, { side, angle = 67.5, stroke = 1.25 } = {}) {
-  const s = side ?? (matchMedia("(max-width: 52rem)").matches ? 22 : 32);
+export function drawPattern(el, { side, angle, stroke } = {}) {
+  const style = getComputedStyle(el);
+  const token = (name, fallback) => parseFloat(style.getPropertyValue(`--al-pattern-${name}`)) || fallback;
+  const narrow = matchMedia("(max-width: 52rem)").matches;
+  const s = side ?? (narrow ? token("side-narrow", 22) : token("side", 32));
+  angle ??= token("contact-angle", 67.5);
+  stroke ??= token("stroke", 1.25);
   const { d, period } = tile(s, angle);
   const id = `al-pattern-${++count}`;
   el.setAttribute("aria-hidden", "true");

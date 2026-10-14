@@ -1,0 +1,18 @@
+# Cloudflare: cache headers for the site's assets.
+
+# A released version never changes (scripts/release.mjs refuses to rebuild
+# one), so it can be cached for good.
+/v/*
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+# The latest build changes with every deploy: cached briefly, revalidated.
+/dist/*
+  Cache-Control: public, max-age=300, must-revalidate
+  Access-Control-Allow-Origin: *
+/fonts/*
+  Cache-Control: public, max-age=604800
+  Access-Control-Allow-Origin: *
+/js/*
+  Cache-Control: public, max-age=300, must-revalidate
+  Access-Control-Allow-Origin: *

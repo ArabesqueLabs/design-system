@@ -8,7 +8,10 @@ already true.
 
 - **Contrast is computed.** Every text pair is at least 4.5:1 and every
   control border, focus outline and chart mark at least 3:1, in both themes;
-  the build fails otherwise ([contrast.md](contrast.md)).
+  the build fails otherwise ([contrast.md](contrast.md)). The pairs are the
+  ones components actually draw: focus on every ground it can sit on
+  (including the inverse ground of the bulk bar and toasts, which has its own
+  focus colour), hover fills under their text, washes under text and links.
 - **Focus is always visible**: a 2px outline in the focus colour, offset 2px
   (on fields, inset, with the border in the accent too). It's an outline, not
   a shadow, so it survives forced colours.
@@ -33,6 +36,8 @@ already true.
 - [ ] Works with the keyboard alone, in a sensible order, with no traps.
 - [ ] Checked in light and dark, English and Arabic, at 320px, at 200% zoom,
       with forced colours, and with axe (no violations).
+- [ ] Before a release: the [screen reader checks](screen-readers.md), with
+      VoiceOver and NVDA, in English and Arabic.
 
 ## Per component
 

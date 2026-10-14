@@ -12,15 +12,25 @@
 //
 // Give the form `novalidate`, so the browser's own bubbles don't compete.
 
+// The sprite next to this file, wherever the page is.
+const SPRITE = new URL("../dist/icons.svg", import.meta.url).href;
+let uid = 0;
 const icon = '<svg class="al-icon al-icon--sm" aria-hidden="true"><use href="__SPRITE__#al-icon-danger"></use></svg>';
 
 export function validateOnSubmit(form, checks, {
   onValid,
   title = "There is a problem",
   prefix = "Error:",
-  sprite = "dist/icons.svg",
+  sprite = SPRITE,
 } = {}) {
   const fieldOf = (c) => (typeof c.field === "string" ? form.querySelector(c.field) : c.field);
+  // A field that isn't there is a mistake in the page: say so now, not on submit.
+  for (const c of checks) {
+    const input = fieldOf(c);
+    if (!input) throw new Error(`validateOnSubmit: no field matches ${c.field}`);
+    if (!input.id) input.id = `al-field-${++uid}`;
+  }
+  const formId = form.id || `al-form-${++uid}`;
   const text = (x) => (typeof x === "function" ? x() : x);
   // The title without our prefix (the prefix may be translated meanwhile).
   const untitled = () => document.title.replace(`${text(prefix)} `, "");
@@ -68,10 +78,10 @@ export function validateOnSubmit(form, checks, {
     summary.className = "al-error-summary";
     summary.tabIndex = -1;
     summary.setAttribute("role", "alert");
-    summary.setAttribute("aria-labelledby", `${form.id || "form"}-error-title`);
+    summary.setAttribute("aria-labelledby", `${formId}-error-title`);
     const h = document.createElement("h2");
     h.className = "al-error-summary__title";
-    h.id = `${form.id || "form"}-error-title`;
+    h.id = `${formId}-error-title`;
     h.innerHTML = icon.replace("__SPRITE__", sprite).replace("al-icon--sm", "");
     h.append(text(title));
     const list = document.createElement("ul");

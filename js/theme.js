@@ -1,12 +1,16 @@
 // Theme: follow the system's light or dark, unless the person chose one;
 // the choice is remembered, and kept only while it differs from the system
-// (when they agree again, the override goes). Put this in the <head> so
-// there's no flash:
-//   <script type="module">import { applyTheme } from "./js/theme.js"; applyTheme();</script>
+// (when they agree again, the override goes).
+//
+// So there's no flash, apply the stored choice with a classic inline
+// script in the <head> (a module is deferred, so it runs after first paint):
+//   <script>try { const t = localStorage.getItem("al-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}</script>
+// then import this module for the toggle. It's safe to import where there's
+// no window (server rendering): nothing runs until a function is called.
 
 const KEY = "al-theme";
-const media = matchMedia("(prefers-color-scheme: dark)");
-const systemTheme = () => (media.matches ? "dark" : "light");
+const media = typeof matchMedia === "function" ? matchMedia("(prefers-color-scheme: dark)") : null;
+const systemTheme = () => (media?.matches ? "dark" : "light");
 
 /** The stored choice, or null when following the system. */
 export function chosenTheme() {
@@ -37,4 +41,4 @@ export function setTheme(theme) {
 export const toggleTheme = () => setTheme(currentTheme() === "dark" ? "light" : "dark");
 
 // The system changing back to the chosen theme ends the override.
-media.addEventListener("change", () => { if (chosenTheme() === systemTheme()) setTheme(systemTheme()); });
+media?.addEventListener("change", () => { if (chosenTheme() === systemTheme()) setTheme(systemTheme()); });

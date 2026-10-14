@@ -72,7 +72,12 @@ table { border-collapse: collapse; border-spacing: 0; }
 button, input, select, textarea { font: inherit; color: inherit; margin: 0; letter-spacing: inherit; }
 button, [role="button"] { cursor: pointer; }
 :disabled, [aria-disabled="true"] { cursor: not-allowed; }
-[hidden] { display: none !important; }
+/* hidden always hides (it's !important, and in a layer, so a project's own
+   display rules can't undo it); hidden="until-found" is left to the browser. */
+[hidden]:not([hidden="until-found"]) { display: none !important; }
+
+/* The one spinning motion, for the spinner, busy buttons and saving. */
+@keyframes al-spin { to { transform: rotate(360deg); } }
 
 /* ---- focus and selection ----------------------------------------------------------------- */
 

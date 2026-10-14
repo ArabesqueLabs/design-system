@@ -12,9 +12,8 @@
       if (localStorage.getItem("al-showcase-lang") === "ar") { document.documentElement.lang = "ar"; document.documentElement.dir = "rtl"; }
     } catch {}
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Jost:wght@400;500;600&family=Kufam:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+  <link rel="preload" href="fonts/jost-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="fonts/fonts.css">
   <link rel="stylesheet" href="dist/arabesque.css">
   <link rel="stylesheet" href="showcase.css">
   <link rel="icon" href="assets/brand/star.svg" type="image/svg+xml">
@@ -251,7 +250,7 @@
                 <textarea class="al-textarea" id="ta-desc" data-al-maxlength="120" aria-describedby="ta-desc-hint">A short description, so people know what this is for before they open it.</textarea>
               </div>
             </div>
-            <p class="sc-spec"><a href="docs/components/field.md">Read the spec</a></p>
+            <p class="sc-spec"><a href="docs/components/character-count.md">Read the spec</a></p>
           </section>
 
           <section class="sc-component" id="date-input" aria-labelledby="date-input-h">
@@ -259,10 +258,10 @@
             <p class="sc-lead">Three fields for dates people know; the calendar picker for dates chosen near today.</p>
             <div class="sc-example" data-example>
               <div class="al-grid sc-form">
-                <fieldset class="al-fieldset">
+                <fieldset class="al-fieldset" aria-describedby="di-hint">
                   <legend>Date of birth</legend>
                   <span class="al-hint" id="di-hint">For example, 27 3 1990</span>
-                  <div class="al-date-input" aria-describedby="di-hint">
+                  <div class="al-date-input">
                     <div class="al-field"><label class="al-label" for="di-day">Day</label><input class="al-input al-input--number" id="di-day" inputmode="numeric" autocomplete="bday-day"></div>
                     <div class="al-field"><label class="al-label" for="di-month">Month</label><input class="al-input al-input--number" id="di-month" inputmode="numeric" autocomplete="bday-month"></div>
                     <div class="al-field al-date-input__year"><label class="al-label" for="di-year">Year</label><input class="al-input al-input--number" id="di-year" inputmode="numeric" autocomplete="bday-year"></div>
@@ -285,7 +284,7 @@
                 <label class="al-label" for="sr-q">Search</label>
                 <div class="al-search" role="search">
                   <svg class="al-icon" aria-hidden="true"><use href="dist/icons.svg#al-icon-search"></use></svg>
-                  <input class="al-input" id="sr-q" type="search" placeholder=" " value="report">
+                  <input class="al-input" id="sr-q" type="search" placeholder=" " value="report" data-t-value>
                   <button type="button" class="al-search__clear" aria-label="Clear search"><svg class="al-icon al-icon--sm" aria-hidden="true"><use href="dist/icons.svg#al-icon-close"></use></svg></button>
                 </div>
               </div>
@@ -435,13 +434,13 @@
             <div class="sc-example" data-example>
               <div class="al-table-wrap" tabindex="0" role="region" aria-label="Example table">
                 <table class="al-table">
-                  <thead><tr><th scope="col">Item</th><th scope="col" class="al-num">Quantity</th><th scope="col" class="al-num">Price</th><th scope="col" class="al-num">Total</th></tr></thead>
+                  <thead><tr><th scope="col">Item</th><th scope="col" class="al-table__num">Quantity</th><th scope="col" class="al-table__num">Price</th><th scope="col" class="al-table__num">Total</th></tr></thead>
                   <tbody>
-                    <tr><th scope="row">Item one</th><td class="al-num">2</td><td class="al-num">£12.00</td><td class="al-num">£24.00</td></tr>
-                    <tr><th scope="row">Item two</th><td class="al-num">1</td><td class="al-num">£120.00</td><td class="al-num">£120.00</td></tr>
-                    <tr><th scope="row">Item three</th><td class="al-num">4</td><td class="al-num">£2.50</td><td class="al-num">£10.00</td></tr>
-                    <tr class="is-total"><th scope="row">Total</th><td class="al-num"></td><td class="al-num"></td><td class="al-num">£154.00</td></tr>
-                    <tr class="is-aside"><th scope="row">Of which VAT, at 20%</th><td class="al-num"></td><td class="al-num"></td><td class="al-num">£25.67</td></tr>
+                    <tr><th scope="row">Item one</th><td class="al-table__num">2</td><td class="al-table__num">£12.00</td><td class="al-table__num">£24.00</td></tr>
+                    <tr><th scope="row">Item two</th><td class="al-table__num">1</td><td class="al-table__num">£120.00</td><td class="al-table__num">£120.00</td></tr>
+                    <tr><th scope="row">Item three</th><td class="al-table__num">4</td><td class="al-table__num">£2.50</td><td class="al-table__num">£10.00</td></tr>
+                    <tr class="al-table__row--total"><th scope="row">Total</th><td class="al-table__num"></td><td class="al-table__num"></td><td class="al-table__num">£154.00</td></tr>
+                    <tr class="al-table__row--aside"><th scope="row">Of which VAT, at 20%</th><td class="al-table__num"></td><td class="al-table__num"></td><td class="al-table__num">£25.67</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -460,7 +459,7 @@
                 <span class="al-badge al-badge--warning">Beta</span>
                 <span class="al-badge al-badge--danger">Overdue</span>
                 <span class="al-badge al-badge--info">New</span>
-                <span class="al-badge al-badge--outline al-badge--count" aria-label="3 unread">3</span>
+                <span class="al-badge al-badge--outline al-badge--count">3<span class="al-visually-hidden"> unread</span></span>
               </div>
             </div>
             <p class="sc-spec"><a href="docs/components/badge.md">Read the spec</a></p>
@@ -599,7 +598,7 @@
                 <form method="dialog">
                   <h2 class="al-dialog__title" id="rename-title">Rename item</h2>
                   <div class="al-dialog__body">
-                    <div class="al-field"><label class="al-label" for="rename-name">Name</label><input class="al-input" id="rename-name" name="name" value="Item one"></div>
+                    <div class="al-field"><label class="al-label" for="rename-name">Name</label><input class="al-input" id="rename-name" name="name" value="Item one" data-t-value></div>
                   </div>
                   <div class="al-dialog__discard" hidden role="alert">
                     <p>Discard your changes?</p>
@@ -617,10 +616,10 @@
                   <h2 class="al-dialog__title" id="confirm-title">Delete your account?</h2>
                   <div class="al-dialog__body">
                     <p>This deletes your account and everything in it: 12 items, 3 folders and 40 files. It can't be undone.</p>
-                    <div class="al-field"><label class="al-label" for="confirm-email">Type your email address to confirm</label><input class="al-input" id="confirm-email" type="email" autocomplete="off" dir="ltr"></div>
+                    <div class="al-field"><label class="al-label" for="confirm-word">To confirm, type delete</label><span class="al-hint" id="confirm-word-hint">This is an example: nothing is deleted.</span><p class="al-error" id="confirm-word-error" hidden><span class="al-visually-hidden">Error: </span>Type delete to confirm</p><input class="al-input" id="confirm-word" autocomplete="off" spellcheck="false" aria-describedby="confirm-word-hint"></div>
                   </div>
                   <div class="al-dialog__actions">
-                    <button class="al-button" value="cancel">Keep my account</button>
+                    <button class="al-button" value="cancel" autofocus>Keep my account</button>
                     <button class="al-button al-button--danger al-button--primary" value="delete">Delete account and data</button>
                   </div>
                 </form>
@@ -674,7 +673,7 @@
             <h3 id="loading-h">Loading and progress</h3>
             <p class="sc-lead">Progress where the work happens: a skeleton, a spinner, or a bar when it can be measured.</p>
             <div class="sc-example" data-example>
-              <div class="al-stack sc-narrow" aria-busy="true" aria-label="Loading items">
+              <div class="al-stack sc-narrow" aria-busy="true"><span class="al-visually-hidden">Loading items</span>
                 <span class="al-skeleton" style="inline-size:60%"></span>
                 <span class="al-skeleton" style="inline-size:90%"></span>
                 <span class="al-skeleton" style="inline-size:75%"></span>
@@ -718,7 +717,7 @@
                 </div>
                 <div class="al-stack al-stack--tight">
                   <p class="al-stale-note" data-stale-note hidden><span class="al-spinner" aria-hidden="true"></span><span>Working out again…</span></p>
-                  <p class="sc-figure" data-stale-figure data-t>Total: <strong><bdi>£1,240</bdi></strong></p>
+                  <p class="sc-figure" data-stale-figure><span>Over 12 months:</span> <strong><bdi data-stale-value>£6,600</bdi></strong></p>
                 </div>
               </div>
             </div>
@@ -729,7 +728,7 @@
             <h3 id="rollback-h">Rolled back</h3>
             <p class="sc-lead">A change shown at once that the server then refused: put back where it was, with why, and Retry.</p>
             <div class="sc-example" data-example>
-              <ul class="sc-list sc-narrow" data-rollback-list>
+              <ul class="sc-list sc-narrow" data-rollback-list tabindex="-1">
                 <li><span>Item one</span> <button type="button" class="al-button al-button--quiet al-button--sm" data-archive-fail>Archive, and fail</button></li>
                 <li><span>Item two</span> <button type="button" class="al-button al-button--quiet al-button--sm" data-archive>Archive</button></li>
               </ul>
@@ -762,6 +761,7 @@
                 <dt><kbd class="al-kbd" data-al-mod>Ctrl</kbd><kbd class="al-kbd">Z</kbd></dt><dd>Undo</dd>
                 <dt><kbd class="al-kbd">?</kbd></dt><dd>Show the shortcuts</dd>
               </dl>
+              <label class="al-choice"><input class="al-switch" type="checkbox" role="switch" id="sc-shortcuts" checked><span>Single-key shortcuts</span></label>
             </div>
             <p class="sc-spec"><a href="docs/components/kbd.md">Read the spec</a></p>
           </section>
@@ -772,8 +772,8 @@
             <div class="sc-example" data-example>
               <figure class="al-card al-stack al-stack--tight sc-chart">
                 <figcaption class="al-stack al-stack--tight">
-                  <span class="al-chart__title">Series by quarter</span>
-                  <span class="al-chart__summary">Series A met the target of 400 in three of four quarters; Series C doubled.</span>
+                  <span class="al-chart__title">Take-home pay a year, by offer</span>
+                  <span class="al-chart__summary" data-summary-columns></span>
                 </figcaption>
                 <div data-chart-columns></div>
               </figure>
@@ -787,8 +787,8 @@
             <div class="sc-example" data-example>
               <figure class="al-card al-stack al-stack--tight sc-chart">
                 <figcaption class="al-stack al-stack--tight">
-                  <span class="al-chart__title">How the total divides</span>
-                  <span class="al-chart__summary">Part A is half of the total.</span>
+                  <span class="al-chart__title">Where a year's pay goes</span>
+                  <span class="al-chart__summary" data-summary-split></span>
                 </figcaption>
                 <div data-chart-split></div>
               </figure>
@@ -802,8 +802,8 @@
             <div class="sc-example" data-example>
               <figure class="al-card al-stack al-stack--tight sc-chart">
                 <figcaption class="al-stack al-stack--tight">
-                  <span class="al-chart__title">Against the target</span>
-                  <span class="al-chart__summary">Two of three are above target; Series C is £833 short.</span>
+                  <span class="al-chart__title">Take-home pay a month, against what you want</span>
+                  <span class="al-chart__summary" data-summary-bullet></span>
                 </figcaption>
                 <div data-chart-bullet></div>
               </figure>

@@ -1,0 +1,85 @@
+# Keeps a "Release x.y.z" pull request up to date with main. After every
+# push to main, the next version is worked out from the changelog's
+# Unreleased section (scripts/next-version.mjs; a release:major,
+# release:minor or release:patch label on the PR overrides it), the release
+# is cut on the release/next branch (scripts/release.mjs: the changelog
+# dated, the version set, v/<version>/ copied) and checked, and the PR is
+# opened or updated. Merging it is releasing: tag-release.yml then tags it.
+# With nothing unreleased, an open release PR is closed.
+#
+# Needs a RELEASE_TOKEN secret (a fine-grained token, or a GitHub App's,
+# with contents and pull requests read and write): a PR opened with the
+# default GITHUB_TOKEN doesn't start check.yml, so it would go unchecked.
+name: Release PR
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: release-pr
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-pr:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.RELEASE_TOKEN || github.token }}
+      BRANCH: release/next
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.RELEASE_TOKEN || github.token }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Work out the next version
+        id: next
+        run: |
+          pr="$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number // empty')"
+          bump="$(test -n "$pr" && gh pr view "$pr" --json labels --jq '[.labels[].name | select(startswith("release:")) | ltrimstr("release:")][0] // empty' || true)"
+          version="$(node scripts/next-version.mjs ${bump:+--bump "$bump"})"
+          echo "pr=$pr" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Next version: ${version:-none}${bump:+ (forced $bump)}"
+
+      - name: Nothing unreleased, so no release PR
+        if: steps.next.outputs.version == '' && steps.next.outputs.pr != ''
+        run: gh pr close "${{ steps.next.outputs.pr }}" --delete-branch --comment "Nothing is unreleased any more, so there's nothing to release."
+
+      - name: Cut the release on release/next, and check it
+        if: steps.next.outputs.version != ''
+        env:
+          VERSION: ${{ steps.next.outputs.version }}
+        run: |
+          git checkout -B "$BRANCH"
+          node scripts/release.mjs "$VERSION"
+          # The unit tests here; the whole check (check.yml) runs on the PR.
+          node --test "tests/*.test.js"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Release $VERSION"
+          git push --force origin "$BRANCH"
+
+      - name: Open or update the release PR
+        if: steps.next.outputs.version != ''
+        env:
+          VERSION: ${{ steps.next.outputs.version }}
+          PR: ${{ steps.next.outputs.pr }}
+        run: |
+          # The PR's description: this version's changelog entries.
+          notes="$(awk -v v="$VERSION" '$0 ~ "^## \\[" v "\\]" {on=1; next} on && /^## \[/ {exit} on' CHANGELOG.md)"
+          body="$(printf 'Merging this releases **%s**: `v/%s/` is published with the next deploy, and the tag is made.\n\nThe version comes from the changelog. Label this PR `release:major`, `release:minor` or `release:patch` to choose another; it updates on the next push to main.\n\n---\n%s\n' "$VERSION" "$VERSION" "$notes")"
+          if [ -n "$PR" ]; then
+            gh pr edit "$PR" --title "Release $VERSION" --body "$body"
+          else
+            gh pr create --head "$BRANCH" --base main --title "Release $VERSION" --body "$body"
+          fi

@@ -1,0 +1,36 @@
+# Tags a release once it reaches main: when a push changes the version in
+# package.json (merging the release PR from release-pr.yml, or a release cut
+# by hand with npm run release), v<version> is tagged on that commit, if
+# there's no such tag yet. Deploying stays as it is: the site deploys from
+# main, and serves v/<version>/ from then on.
+name: Tag release
+
+on:
+  push:
+    branches: [main]
+    paths: [package.json]
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Tag the new version
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          now="$(node -p 'require("./package.json").version')"
+          was="$(git show "$BEFORE:package.json" 2>/dev/null | node -e 'let s="";process.stdin.on("data",(d)=>s+=d).on("end",()=>{try{console.log(JSON.parse(s).version)}catch{console.log("")}})')"
+          if [ "$now" = "$was" ]; then echo "The version is still $now: nothing to tag."; exit 0; fi
+          if git rev-parse -q --verify "refs/tags/v$now" >/dev/null; then echo "v$now is already tagged."; exit 0; fi
+          if [ ! -d "v/$now" ]; then echo "package.json says $now, but there's no v/$now/: was it released with npm run release?"; exit 1; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "v$now" -m "Release $now"
+          git push origin "v$now"
+          echo "Tagged v$now (was $was)."

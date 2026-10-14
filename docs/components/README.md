@@ -2,6 +2,8 @@
 
 Each spec covers anatomy, variants and sizes, states, keyboard, ARIA, right to left, do and don't, and the tokens it uses (listed from its CSS). See them working in `index.html`.
 
+Every spec is also in Arabic, in [`ar/`](ar/README.md); the showcase's spec reader opens those when the page is in Arabic. The English is the reference: change a spec and its translation together (a test fails if a spec has no translation, or a link in either is broken).
+
 | Component | What it is |
 |---|---|
 | [Button](button.md) | An action. |
@@ -34,6 +36,7 @@ Each spec covers anatomy, variants and sizes, states, keyboard, ARIA, right to l
 | [Confirmation](confirmation.md) | Says that something has been done, gives a reference when there is one, and says what happens next. |
 | [Character count](character-count.md) | A limit on a text field, said as what's left and, once over, by how much. |
 | [Date input](date-input.md) | Three fields for a date people already know (a birthday, an issue date). |
+| [Date picker](date-picker.md) | A date near today, typed or chosen from a calendar in the page's language. |
 | [Error summary](error-summary.md) | When a form is submitted with problems: a list at the top of the form, each problem a link to its field. |
 | [Phase banner](phase-banner.md) | Tells people a service is new or experimental, and where to say what they think. |
 | [Search](search.md) | A search field with a visible label, a search icon and a Clear button. |

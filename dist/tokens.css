@@ -83,7 +83,6 @@
   --al-color-tint-cyan-bg: #CFFAFE;
   --al-color-tint-cyan-ink: #155E75;
   --al-color-pattern-line: oklch(51% 0.095 183 / 0.24);
-  --al-color-pattern-scaffold: oklch(51% 0.095 183 / 0.1); /* deprecated: Nothing in the system draws construction lines; kept for sites that alias it (hunt). Removed in 0.3. */
   --al-font-sans: "Jost", "IBM Plex Sans Arabic", "Noto Sans Arabic", "SF Arabic", "Geeza Pro", ui-sans-serif, system-ui, sans-serif;
   --al-font-display: "Jost", "Kufam", "Noto Kufi Arabic", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
   --al-font-serif: "Newsreader", "Amiri", "Noto Naskh Arabic", "Scheherazade New", "Georgia", serif;
@@ -212,7 +211,6 @@
     --al-color-tint-cyan-bg: oklch(75% 0.13 215 / 0.18);
     --al-color-tint-cyan-ink: #67E8F9;
     --al-color-pattern-line: oklch(100% 0 0 / 0.16);
-    --al-color-pattern-scaffold: oklch(100% 0 0 / 0.08);
   }
 }
 :root[data-theme="dark"] {
@@ -264,7 +262,6 @@
   --al-color-tint-cyan-bg: oklch(75% 0.13 215 / 0.18);
   --al-color-tint-cyan-ink: #67E8F9;
   --al-color-pattern-line: oklch(100% 0 0 / 0.16);
-  --al-color-pattern-scaffold: oklch(100% 0 0 / 0.08);
 }
 
 /* Arabic: a little larger, more line height, no letter-spacing. Declared

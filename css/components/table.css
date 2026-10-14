@@ -19,11 +19,10 @@
   white-space: nowrap;
 }
 .al-table tbody th { font-weight: var(--al-weight-regular); }
-/* .al-num, .is-sub, .is-total and .is-aside are the old names, kept until 0.3. */
-.al-table :is(.al-table__num, .al-num) { text-align: end; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.al-table :is(.al-table__row--sub, tr.is-sub) > * { font-weight: var(--al-weight-medium); }
-.al-table :is(.al-table__row--total, tr.is-total) > * { font-weight: var(--al-weight-semibold); background: var(--al-color-accent-wash); border-block-start: var(--al-border-hairline) solid var(--al-color-line-strong); }
-.al-table :is(.al-table__row--aside, tr.is-aside) > * { color: var(--al-color-text-muted); font-size: var(--al-text-sm); }
+.al-table .al-table__num { text-align: end; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.al-table .al-table__row--sub > * { font-weight: var(--al-weight-medium); }
+.al-table .al-table__row--total > * { font-weight: var(--al-weight-semibold); background: var(--al-color-accent-wash); border-block-start: var(--al-border-hairline) solid var(--al-color-line-strong); }
+.al-table .al-table__row--aside > * { color: var(--al-color-text-muted); font-size: var(--al-text-sm); }
 .al-table--interactive tbody tr:hover > * { background: var(--al-color-surface-sunk); }
 .al-table tbody tr[aria-selected="true"] > * { background: var(--al-color-accent-wash); }
 .al-table--compact th, .al-table--compact td { padding-block: var(--al-space-1-5); }
@@ -34,4 +33,4 @@
 .al-table th:is([aria-sort="ascending"], [aria-sort="descending"]) > button::after { content: ""; border: 0.3em solid transparent; border-block-start-color: currentColor; margin-block-start: 0.3em; }
 .al-table th[aria-sort="ascending"] > button::after { border-block-start-color: transparent; border-block-end-color: currentColor; margin-block: -0.3em 0; }
 
-@media (forced-colors: active) { .al-table :is(.al-table__row--total, tr.is-total) > * { border-block-start-color: CanvasText; } }
+@media (forced-colors: active) { .al-table .al-table__row--total > * { border-block-start-color: CanvasText; } }

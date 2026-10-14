@@ -53,8 +53,6 @@ Bullet (each against a target):
 
 Series `data-series="1"` to `"4"`, in order. `data-series="0"` is the neutral, for tracks and grounds only: it's too light to be read as data, so "Other" takes the next series colour. Marker (`__marker`) and target line (`__target`). Swatches for lines (`--line`) and targets (`--target`). `.al-bullet__diff--more` and `--less` for differences (with a sign and a word).
 
-The old names (`.al-c0` to `.al-c4`, `.al-more`, `.al-less`) still work, until 0.3.
-
 ## States
 
 Marks show their tooltip on hover and on focus; it stays while the pointer is over it.

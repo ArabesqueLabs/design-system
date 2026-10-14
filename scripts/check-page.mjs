@@ -74,7 +74,7 @@ async function page() {
   };
   const key = async (key, code = key, mods = {}) => {
     const modifiers = (mods.alt ? 1 : 0) | (mods.ctrl ? 2 : 0) | (mods.meta ? 4 : 0) | (mods.shift ? 8 : 0);
-    const vk = { Escape: 27, Enter: 13, Tab: 9, F6: 117, ArrowRight: 39, ArrowLeft: 37 }[key] ?? key.toUpperCase().charCodeAt(0);
+    const vk = { Escape: 27, Enter: 13, Tab: 9, F6: 117, ArrowRight: 39, ArrowLeft: 37, ArrowUp: 38, ArrowDown: 40, PageUp: 33, PageDown: 34, Home: 36, End: 35 }[key] ?? key.toUpperCase().charCodeAt(0);
     const text = key.length === 1 ? key : key === "Enter" ? "\r" : undefined;
     await send("Input.dispatchKeyEvent", { type: text ? "keyDown" : "rawKeyDown", key, code, windowsVirtualKeyCode: vk, modifiers, text });
     await send("Input.dispatchKeyEvent", { type: "keyUp", key, code, windowsVirtualKeyCode: vk, modifiers });
@@ -179,6 +179,43 @@ await p.key("Z", "KeyZ", { ...mod, shift: true });
 const log = await p.run(`document.querySelector("#keys-log").textContent.trim()`);
 check("shortcuts: mod+z, then mod+shift+z, each once", log === "undo redo", log);
 
+// Date picker, in English: opens on the value, arrows move, Enter chooses.
+const dp = (sel) => p.run(sel);
+// Wait for the calendar to open or close, rather than a fixed time.
+const anyOpen = `[...document.querySelectorAll("dialog.al-date-picker__dialog")].some((d) => d.open)`;
+const until = async (expr) => { for (let i = 0; i < 50 && !(await p.run(expr)); i++) await wait(50); };
+await p.run(`document.querySelector("#date-toggle").click()`);
+await until(`${anyOpen} && !!document.activeElement?.dataset.date`);
+const opened = await dp(`({ open: document.querySelector("#date-en ~ dialog, dialog.al-date-picker__dialog")?.open, focus: document.activeElement?.dataset.date, selected: document.activeElement?.getAttribute("aria-selected") })`);
+check("date picker: opens with focus on the chosen date", opened.open && opened.focus === "2026-11-30" && opened.selected === "true", JSON.stringify(opened));
+await axe(p, "helpers, the date picker open");
+await p.key("ArrowRight");
+const moved = await dp(`({ focus: document.activeElement?.dataset.date, title: document.activeElement?.closest("dialog").querySelector("h2").textContent })`);
+check("date picker: ArrowRight crosses into the next month", moved.focus === "2026-12-01" && moved.title === "December 2026", JSON.stringify(moved));
+await p.key("PageUp", "PageUp", { shift: true });
+const clamped = await dp(`document.activeElement?.dataset.date`);
+check("date picker: can't go before data-min", clamped === "2026-11-10", String(clamped));
+await p.key("ArrowRight");
+await p.key("Enter");
+await until(`!${anyOpen}`);
+const chosen = await dp(`({ open: [...document.querySelectorAll("dialog.al-date-picker__dialog")].some((d) => d.open), text: document.querySelector("#date").value, iso: document.querySelector('input[type="hidden"][name="due"]').value, focus: document.activeElement?.id })`);
+check("date picker: Enter chooses, and focus returns to the button", !chosen.open && chosen.text === "11/11/2026" && chosen.iso === "2026-11-11" && chosen.focus === "date-toggle", JSON.stringify(chosen));
+
+// In Arabic: Arabic names and digits, the week from Saturday, arrows mirrored.
+await p.run(`document.querySelector("#date-ar-toggle").click()`);
+await until(`${anyOpen} && !!document.activeElement?.dataset.date`);
+const ar = await dp(`(() => { const d = document.activeElement.closest("dialog"); return { lang: d.lang, dir: d.dir, title: d.querySelector("h2").textContent, first: d.querySelector("th").getAttribute("abbr"), cell: document.activeElement.textContent }; })()`);
+check("date picker: in Arabic, Arabic names and digits, from Saturday", ar.lang === "ar" && ar.dir === "rtl" && ar.title === "نوفمبر ٢٠٢٦" && ar.first === "السبت" && ar.cell === "٣٠", JSON.stringify(ar));
+await p.key("ArrowLeft");
+check("date picker: in right to left, ArrowLeft goes forward", await dp(`document.activeElement?.dataset.date`) === "2026-12-01");
+await p.key("Escape");
+// Escape closes it natively; focus comes back with the close event.
+await until(`!${anyOpen} && document.activeElement?.id === "date-ar-toggle"`);
+const kept = await dp(`({ iso: document.querySelector('input[name="due-ar"]').value, focus: document.activeElement?.id })`);
+check("date picker: Escape closes without changing it", kept.iso === "2026-11-30" && kept.focus === "date-ar-toggle", JSON.stringify(kept));
+const typed = await dp(`(() => { const i = document.querySelector("#date-ar-input"); i.value = "٥/١٢/٢٠٢٦"; i.dispatchEvent(new Event("change")); return { iso: document.querySelector('input[name="due-ar"]').value, text: i.value.replace(/[\u200e\u200f]/g, "") }; })()`);
+check("date picker: a typed Arabic date is read, and written back", typed.iso === "2026-12-05" && typed.text === "٥/١٢/٢٠٢٦", JSON.stringify(typed));
+
 // Toast with an action: no time limit, F6 reaches it, focus comes back.
 await p.run(`document.querySelector("#toast").focus(); document.querySelector("#toast").click()`);
 await wait(7000);
@@ -218,6 +255,29 @@ const inner = await p.run(`(() => { const a = [...document.querySelectorAll("#sc
 await wait(1500);
 const reader = await p.run(`({ open: document.querySelector("#sc-spec-modal").open, failed: !!document.querySelector("#sc-spec-modal [data-spec-body] .al-badge--danger") })`);
 check("showcase: a link inside the spec reader opens that spec", reader.open && !reader.failed, JSON.stringify({ inner, ...reader }));
+await p.run(`document.querySelector("#sc-spec-modal").close()`);
+
+// In Arabic, a spec opens in Arabic; its link to the original opens the English.
+await open(p, { lang: "ar" });
+await p.run(`document.querySelector('a[href="docs/components/date-picker.md"]').click()`);
+const specBody = `document.querySelector("#sc-spec-modal [data-spec-body]")`;
+for (let i = 0; i < 50 && !(await p.run(`${specBody}.lang === "ar"`)); i++) await wait(100);
+const arSpec = await p.run(`({ lang: ${specBody}.lang, dir: ${specBody}.dir, h2: ${specBody}.querySelector("h2")?.textContent, raw: document.querySelector("#sc-spec-modal [data-spec-raw]").getAttribute("href") })`);
+check("showcase: in Arabic, the spec reader opens the Arabic spec", arSpec.lang === "ar" && arSpec.dir === "rtl" && arSpec.h2 === "البنية" && arSpec.raw === "docs/components/ar/date-picker.md", JSON.stringify(arSpec));
+await p.run(`${specBody}.querySelector('a[href="../date-picker.md"]').click()`);
+for (let i = 0; i < 50 && !(await p.run(`${specBody}.lang === "en"`)); i++) await wait(100);
+check("showcase: an Arabic spec's link to its original opens the English", await p.run(`${specBody}.lang === "en" && ${specBody}.querySelector("h2")?.textContent === "Anatomy"`));
+await p.run(`document.querySelector("#sc-spec-modal").close()`);
+// "How to use it" opens the README, in Arabic too.
+await p.run(`document.querySelector('a[href="README.md"]').click()`);
+for (let i = 0; i < 50 && !(await p.run(`document.querySelector("#sc-spec-modal [data-spec-raw]").getAttribute("href") === "ar/README.md" && ${specBody}.lang === "ar"`)); i++) await wait(100);
+const readme = await p.run(`({ raw: document.querySelector("#sc-spec-modal [data-spec-raw]").getAttribute("href"), lang: ${specBody}.lang, h2: ${specBody}.querySelector("h2")?.textContent })`);
+check("showcase: in Arabic, the README opens in Arabic", readme.raw === "ar/README.md" && readme.lang === "ar" && readme.h2 === "ما في المستودع", JSON.stringify(readme));
+await p.run(`document.querySelector("#sc-spec-modal").close()`);
+// An untranslated document falls back to the English.
+await p.run(`document.querySelector('a[href="docs/principles.md"]').click()`);
+for (let i = 0; i < 50 && !(await p.run(`${specBody}.lang === "en"`)); i++) await wait(100);
+check("showcase: in Arabic, an untranslated document opens in English", await p.run(`${specBody}.lang === "en" && document.querySelector("#sc-spec-modal [data-spec-raw]").getAttribute("href") === "docs/principles.md"`));
 await p.run(`document.querySelector("#sc-spec-modal").close()`);
 
 // The fonts are served from here, not a third party.

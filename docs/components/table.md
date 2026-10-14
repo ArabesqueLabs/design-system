@@ -28,11 +28,11 @@ For comparing values: numbers line up, the total stands out, asides recede. A wi
 | `.al-table__row--sub` | A subtotal |
 | `.al-table__row--total` | The total: semibold, accent wash, rule above |
 | `.al-table__row--aside` | Context that isn't part of the sum: muted, smaller |
-
-The old names (`.al-num`, `tr.is-sub`, `tr.is-total`, `tr.is-aside`) still work, until 0.3. A sortable column's arrow shows only once it's sorted (`aria-sort="ascending"` or `"descending"`), not for `"none"`.
 | `--compact` | Tighter rows for dense data |
 | `--interactive` | Rows highlight on hover (rows that open something) |
 | `aria-selected` on `tr` | Selected rows, with the bulk bar |
+
+A sortable column's arrow shows only once it's sorted (`aria-sort="ascending"` or `"descending"`), not for `"none"`.
 
 ## States
 

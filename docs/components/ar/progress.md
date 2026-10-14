@@ -1,0 +1,49 @@
+# التحميل والتقدم
+
+> ترجمة لـ[المواصفات بالإنجليزية](../progress.md). إن اختلفت الترجمة عن الأصل، فالإنجليزية هي المرجع.
+
+التقدم يظهر حيث يجري العمل: مؤشر دوّار في العنصر أو المنطقة المشغولة، وهيكل مبدئي حيث سيظهر المحتوى، وشريط حين يمكن قياس التقدم.
+
+**CSS:** [`css/components/progress.css`](../../../css/components/progress.css). **الأصناف:** `.al-progress`، `.al-skeleton`، `.al-spinner`.
+
+## البنية
+
+```html
+<button class="al-button al-button--primary" aria-busy="true">Saving offer</button>
+<div aria-busy="true"><span class="al-skeleton" style="inline-size:60%"></span> …</div>
+<p><span class="al-spinner" aria-hidden="true"></span> Loading offers</p>
+<label class="al-label" for="imp">Importing, 60%</label><progress class="al-progress" id="imp" max="100" value="60"></progress>
+```
+
+## الأنواع والأحجام
+
+المؤشر الدوّار (مدة غير معروفة، وقصيرة)، والهيكل المبدئي (محتوى في طريقه)، والشريط (قابل للقياس).
+
+## الحالات
+
+عند تقليل الحركة، يصبح المؤشر الدوّار حلقة منقّطة ساكنة، ولا تتلألأ الهياكل المبدئية.
+
+## لوحة المفاتيح
+
+لا شيء.
+
+## ARIA
+
+`aria-busy="true"` على المنطقة؛ وبجانب المؤشر الدوّار نص؛ وللعنصر `<progress>` تسمية.
+
+## من اليمين إلى اليسار
+
+يمتلئ الشريط من البداية (اليمين في العربية).
+
+## افعل
+
+- أظهر هيكلًا مبدئيًا بشكل ما هو قادم.
+- أظهر الأعداد للأعمال الطويلة («12 من 40 ملفًا»).
+
+## لا تفعل
+
+- حجب الصفحة كلها بمؤشر دوّار بعد التحميل الأول.
+
+## الرموز
+
+`--al-color-accent`، `--al-color-surface`، `--al-color-surface-sunk`، `--al-radius-full`، `--al-radius-sm`

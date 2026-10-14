@@ -53,6 +53,11 @@ already true.
 - [ ] `autocomplete` and `inputmode` set where they apply.
 - [ ] Related fields in a `<fieldset>` with a `<legend>`.
 
+**Date picker** ([spec](components/date-picker.md))
+- [ ] The date can be typed as well as chosen; the hint gives an example written as the field writes it.
+- [ ] The calendar is in the page's language and direction, a modal dialog named by its month; Escape closes it and focus returns to its button.
+- [ ] Each day is named by its full date; the chosen day is `aria-selected`, today `aria-current="date"`.
+
 **Checkbox, radio, switch** ([spec](components/choice.md))
 - [ ] Native inputs; the label wraps or points to the input, so it's the target.
 - [ ] Radios grouped in a `fieldset`/`legend`; a switch has `role="switch"` and applies at once.

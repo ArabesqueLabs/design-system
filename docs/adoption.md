@@ -138,7 +138,7 @@ names at them:
 | `--primary-foreground`, `--accent-foreground` | `--al-color-on-accent` |
 | `--destructive` | `--al-color-danger` |
 | `--chart-1…5` | `--al-color-chart-1…4`, `--al-color-chart-0` |
-| `--pattern-line`, `--pattern-scaffold` | `--al-color-pattern-line`; `--al-color-pattern-scaffold` is deprecated (until 0.3): nothing in the system draws construction lines |
+| `--pattern-line`, `--pattern-scaffold` | `--al-color-pattern-line`; the scaffold has no equivalent (gone since 0.3): nothing in the system draws construction lines |
 | `.dark` class | `data-theme="dark"` on `<html>` (keep `.dark` as an alias for one release) |
 
 ### Phase 2: focus and forced colours

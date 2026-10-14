@@ -15,6 +15,7 @@ import { drawPattern } from "./js/pattern.js";
 import { formatMoney, formatNumber, formatPercent } from "./js/format.js";
 import { validateOnSubmit } from "./js/validate.js";
 import { initChartKeys } from "./js/chart.js";
+import { initDatePickers } from "./js/datepicker.js";
 
 const html = document.documentElement;
 const $ = (s, r = document) => r.querySelector(s);
@@ -119,10 +120,13 @@ async function setLanguage(next) {
   try { localStorage.setItem("al-showcase-lang", next); } catch {}
   for (const b of $$("[data-lang]")) b.setAttribute("aria-pressed", String(b.dataset.lang === next));
   translate();
+  drawType();
   drawCharts();
   redrawCounts();
+  redrawDates();
 }
 let redrawCounts = () => {};
+let redrawDates = () => {};
 
 // ---- theme --------------------------------------------------------------------------------
 
@@ -148,12 +152,19 @@ $("[data-swatches]").append(...ROLES.map(([name, role]) => el("div", { class: "s
   el("code", { class: "sc-swatch__name", lang: "en", dir: "ltr" }, `--al-color-${name}`),
   el("span", { class: "sc-swatch__role" }, role))));
 
-const SAMPLE = { en: "Know where every application stands", ar: "اعرف أين يقف كل طلب" };
+// Google Fonts' sample sentence for each script (its "tester" text, from the
+// Universal Declaration of Human Rights), so the faces read as they do there.
+const SAMPLE = {
+  en: "Whereas disregard and contempt for human rights have resulted",
+  ar: "ولما كان تناسي حقوق الإنسان وازدراؤها قد أفضيا إلى أعمال همجية",
+};
+// Each row in the page's language: the English sentence, or the Arabic.
 const typeRows = () => ["display", "3xl", "2xl", "xl", "lg", "md", "base", "sm", "xs"].map((step) => el("div", { class: "sc-type__row" },
   el("code", { lang: "en", dir: "ltr" }, step),
   el("span", { style: `font-size: var(--al-text-${step}); font-family: var(--al-font-${["display", "3xl", "2xl", "xl"].includes(step) ? "display" : step === "md" ? "serif" : "sans"})` },
-    el("span", { lang: "en" }, SAMPLE.en), " · ", el("span", { lang: "ar", dir: "rtl" }, SAMPLE.ar))));
-$("[data-type-scale]").append(...typeRows());
+    lang === "ar" ? el("span", { lang: "ar", dir: "rtl" }, SAMPLE.ar) : el("span", { lang: "en", dir: "ltr" }, SAMPLE.en))));
+function drawType() { $("[data-type-scale]").replaceChildren(...typeRows()); }
+drawType();
 
 $("[data-space-scale]").append(...["1", "2", "3", "4", "5", "6", "8", "12", "16"].map((n) => el("div", { class: "sc-space__row" },
   el("code", { lang: "en", dir: "ltr" }, `--al-space-${n}`),
@@ -500,7 +511,17 @@ function initSpecReader() {
     return u.origin === here.origin && u.pathname.startsWith(here.pathname) ? u.pathname.slice(here.pathname.length) : u.href;
   };
 
-  async function openSpec(url) {
+  // In Arabic, a document opens in Arabic where it's translated: a file's
+  // translation is beside it, in ar/ (README.md → ar/README.md,
+  // docs/components/button.md → docs/components/ar/button.md). Where there's
+  // none, the English opens.
+  const inLanguage = (path) => {
+    if (lang !== "ar" || /(^|\/)ar\//.test(path) || /^[a-z]+:/.test(path)) return path;
+    const at = path.lastIndexOf("/");
+    return `${path.slice(0, at + 1)}ar/${path.slice(at + 1)}`;
+  };
+
+  async function openSpec(url, { fallback } = {}) {
     rawBtn.href = url;
     pathEl.textContent = url.replace(/^[./]+/, "");
     
@@ -517,6 +538,7 @@ function initSpecReader() {
 
     try {
       const res = await fetch(url);
+      if (!res.ok && fallback) return openSpec(fallback);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const md = await res.text();
       
@@ -524,6 +546,11 @@ function initSpecReader() {
       // Without the parser (offline, say), the spec as plain text: still readable.
       const html = parser ? parser.parse(md) : `<pre class="sc-spec-modal__plain">${md.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</pre>`;
       bodyEl.innerHTML = html;
+      // The spec is in its own language, whatever the page's (and the page's
+      // translation passes it by).
+      const arabic = /(^|\/)ar\/[^/]+\.md$/.test(url);
+      bodyEl.lang = arabic ? "ar" : "en";
+      bodyEl.dir = arabic ? "rtl" : "ltr";
       // Code that scrolls sideways must be reachable from the keyboard.
       for (const pre of bodyEl.querySelectorAll("pre")) { pre.tabIndex = 0; pre.setAttribute("role", "region"); pre.setAttribute("aria-label", T("Code example")); }
 
@@ -556,7 +583,8 @@ function initSpecReader() {
     const a = e.target.closest('a[href$=".md"]:not([data-spec-raw])');
     if (!a || browserClick(e) || !a.getAttribute("href")) return;
     e.preventDefault();
-    openSpec(fromPage(new URL(a.getAttribute("href"), location.href)));
+    const path = fromPage(new URL(a.getAttribute("href"), location.href));
+    openSpec(inLanguage(path), { fallback: path });
   });
 }
 
@@ -571,6 +599,7 @@ for (const b of $$("[data-numerals]")) b.addEventListener("click", () => {
   translate();
   drawCharts();
   redrawCounts();
+  redrawDates();
 });
 drawNumerals();
 drawCharts();
@@ -580,6 +609,13 @@ initTabs();
 initTooltips();
 initSpecReader();
 initSearch();
+
+// Date picker, in the page's language and digits.
+const datePickers = initDatePickers(document, {
+  numerals: () => (lang === "ar" ? numerals : "latn"),
+  labels: () => ({ previous: T("Previous month"), next: T("Next month") }),
+});
+redrawDates = () => datePickers.forEach((p) => p.refresh());
 
 // Character count, in the page's language and digits.
 const COUNT = {

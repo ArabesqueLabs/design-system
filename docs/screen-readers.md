@@ -34,6 +34,13 @@ screen reader's own way.
 2. Type a word and stop. After a moment, hears "You have … characters remaining", once, not on every key.
 3. Paste past the limit. Hears "You have … characters too many", and the field is announced as invalid.
 
+**Date picker** (Date picker → Due date)
+1. Focus the field. Hears its label, "30/11/2026" and the hint with its example.
+2. Choose date. Hears the month ("November 2026"), the grid, then the chosen day by its full date, as selected.
+3. Arrow keys: each day is read by its full date; crossing into December, the new month is announced.
+4. Enter chooses; focus is back on "Choose date", and the field reads the new date. Escape changes nothing.
+5. In Arabic: the month and days are read in Arabic, with the chosen digits; → goes back a day.
+
 **Toast with an action** (Toast → Archive item)
 1. Archive item. Hears "Process archived" without focus moving.
 2. Press F6. Focus moves to "Undo". Use it; focus returns to the button you were on.

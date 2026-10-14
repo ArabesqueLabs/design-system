@@ -75,3 +75,46 @@ test("the pattern's tile repeats at side × (1 + √2)", () => {
   assert.equal(Math.round(period * 1000) / 1000, Math.round(32 * (1 + Math.SQRT2) * 1000) / 1000);
   assert.match(d, /^M[\d.\- ]+L/);
 });
+
+test("nothing kept 'until' a version outlives it", () => {
+  // A deprecation says when it goes ("kept until 0.3"). Once the package
+  // reaches that version, the release must have removed it.
+  const [major, minor] = JSON.parse(read("package.json")).version.split(".").map(Number);
+  const files = [
+    ...cssFiles, "tokens/tokens.json", "README.md",
+    ...readdirSync(join(root, "js")).filter((f) => f.endsWith(".js")).map((f) => `js/${f}`),
+    ...readdirSync(join(root, "docs"), { recursive: true }).filter((f) => f.endsWith(".md")).map((f) => `docs/${f}`),
+  ];
+  const overdue = [];
+  for (const f of files) {
+    read(f).split("\n").forEach((line, i) => {
+      for (const [, a, b] of line.matchAll(/\buntil (\d+)\.(\d+)\b/gi)) {
+        if (major > Number(a) || (major === Number(a) && minor >= Number(b))) overdue.push(`${f}:${i + 1}: ${line.trim()}`);
+      }
+    });
+  }
+  assert.deepEqual(overdue, []);
+});
+
+test("every component spec, and the README, has its Arabic translation, and no other", () => {
+  const specs = (dir) => readdirSync(join(root, dir)).filter((f) => f.endsWith(".md")).sort();
+  assert.deepEqual(specs("docs/components/ar"), specs("docs/components"));
+  assert.deepEqual(specs("ar"), ["README.md"]);
+});
+
+test("every relative link in the README and the component specs, English and Arabic, resolves", () => {
+  const broken = [];
+  const files = [".", "ar", "docs/components", "docs/components/ar"].map((dir) => [dir, dir === "." ? ["README.md"] : readdirSync(join(root, dir)).filter((x) => x.endsWith(".md"))]);
+  for (const [dir, list] of files) {
+    for (const f of list) {
+      // Links outside code: fenced blocks and inline code are dropped first.
+      const text = read(`${dir}/${f}`).replace(/```[\s\S]*?```/g, "").replace(/`[^`\n]*`/g, (m) => (m.includes("](") ? m : ""));
+      for (const [, href] of text.matchAll(/\]\(([^)\s]+)\)/g)) {
+        if (/^(https?:|#|mailto:)/.test(href)) continue;
+        const target = join(root, dir, href.split("#")[0]);
+        try { readFileSync(target); } catch { broken.push(`${dir}/${f}: ${href}`); }
+      }
+    }
+  }
+  assert.deepEqual(broken, []);
+});

@@ -53,7 +53,9 @@ main:focus { outline: none; }
 .sc-type { display: flex; flex-direction: column; gap: var(--al-space-3); }
 .sc-type__row { display: grid; grid-template-columns: 5rem minmax(0, 1fr); gap: var(--al-space-4); align-items: baseline; border-block-end: var(--al-border-hairline) solid var(--al-color-line); padding-block-end: var(--al-space-2); }
 .sc-type__row > code { font-size: var(--al-text-xs); color: var(--al-color-text-muted); }
-.sc-type__row > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* The sentence on one line, cut off at the edge as Google Fonts does. */
+.sc-type__row > span { display: grid; min-inline-size: 0; }
+.sc-type__row > span > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: start; }
 
 .sc-space { display: flex; flex-direction: column; gap: var(--al-space-1-5); }
 .sc-space__row { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: var(--al-space-4); align-items: center; font-size: var(--al-text-xs); }
@@ -136,6 +138,9 @@ main:focus { outline: none; }
   flex-direction: column;
   gap: var(--al-space-4);
 }
+/* Nothing in a spec shrinks to fit: the body scrolls instead (a code block,
+   which scrolls sideways, would otherwise be squashed to a line). */
+.sc-spec-modal__body > * { flex-shrink: 0; }
 .sc-spec-modal__body h1 { display: none; }
 .sc-spec-modal__body h2 {
   font-size: var(--al-text-lg);
@@ -197,6 +202,9 @@ main:focus { outline: none; }
   background: var(--al-color-surface-sunk);
   border-radius: 2px;
 }
+/* Code is written left to right: in Arabic text, each piece is its own
+   left-to-right run, so "--sm" and <input type="date"> keep their order. */
+.sc-spec-modal__body :not(pre) > code { direction: ltr; unicode-bidi: isolate; }
 .sc-spec-modal__body pre code {
   padding: 0;
   background: transparent;

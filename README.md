@@ -22,7 +22,7 @@ file. The optional JavaScript helpers have no dependencies either.
 | `dist/tokens.json` | Resolved token values per mode, for other tools |
 | `dist/icons.svg` | The icon sprite |
 | `css/` | The sources: `base.css`, `layout.css`, `utilities.css`, `components/*.css` |
-| `js/` | Optional helpers, each with its types (`.d.ts`): `theme`, `toast`, `dialog`, `menu`, `tabs`, `tooltip`, `position`, `validate`, `count`, `search`, `keys`, `format`, `chart`, `pattern` |
+| `js/` | Optional helpers, each with its types (`.d.ts`): `theme`, `toast`, `dialog`, `menu`, `tabs`, `tooltip`, `position`, `validate`, `count`, `search`, `keys`, `format`, `chart`, `datepicker`, `pattern` |
 | `tests/`, `scripts/check-page.mjs` | Unit tests and the system's own rules; the showcase checked in a real browser |
 | `icons/`, `assets/brand/` | Icon sources; the mark, star and wordmark from the logo pack |
 | `docs/` | Foundations, interaction, accessibility, RTL, adoption, component specs, the audit, the contrast report |
@@ -130,7 +130,7 @@ as the tokens do: the system's setting unless light is chosen, or a chosen dark.
 - [Accessibility](docs/accessibility.md): what the system guarantees, and a checklist per component; [screen reader checks](docs/screen-readers.md) to run before a release.
 - [Right to left](docs/rtl.md): mirroring, bidi isolation and digits.
 - Foundations: [colour](docs/foundations/colour.md), [typography](docs/foundations/typography.md), [space and shape](docs/foundations/space-and-shape.md), [motion](docs/foundations/motion.md), [iconography](docs/foundations/iconography.md), [layout](docs/foundations/layout.md), [writing](docs/foundations/writing.md).
-- [Components](docs/components/README.md).
+- [Components](docs/components/README.md), and [in Arabic](docs/components/ar/README.md).
 - [Adoption](docs/adoption.md): moving hunt and arabesquelabs.com onto it.
 - [Audit](docs/00-audit.md): where it came from, and the decisions.
 
@@ -153,25 +153,49 @@ attributes (`aria-*`, `data-state`, `[open]`), not classes.
   contrast).
 - **Patch:** fixes that don't change the intended look or markup.
 
-Deprecated names keep working, as aliases, for at least one minor version
-before a major removes them. Projects pin a version and update deliberately.
+Deprecated names keep working, as aliases, for at least one released
+version, and say which version removes them ("kept until X.Y"); a test
+fails if one outlives it. From 1.0, only a major removes them. Projects pin
+a version and update deliberately.
 
-Before 1.0, a minor version may remove what nothing in the system uses (as
-semver allows for 0.x); the changelog lists each removal under **Removed**,
-with what to use instead.
+Before 1.0 (as semver allows for 0.x), a minor version may remove: what
+nothing in the system uses, and what the previous minor deprecated. The
+changelog lists each removal under **Removed**, with what to use instead.
 
 ## Release
 
-```sh
-npm run release -- 0.2.0
-```
+Releases are a pull request. After every push to `main`,
+`.github/workflows/release-pr.yml` works out the next version from the
+changelog's **Unreleased** section (`scripts/next-version.mjs`):
 
-moves the changelog's **Unreleased** entries under the version, dated, sets
-`version` in `package.json`, builds, and copies `dist/`, `fonts/` and `js/` to
-`v/0.2.0/`. A released version is never rebuilt or changed (the script
-refuses, and CI fails if a file under `v/` is modified), so it's served with a
-year's cache (`_headers`). Then:
+| Unreleased has | Next version |
+|---|---|
+| **Removed** | major (minor before 1.0) |
+| **Added**, **Changed**, **Deprecated** | minor |
+| only **Fixed** or **Security** | patch |
+| nothing | no release |
 
-1. `npm run check`, and commit ("Release 0.2.0").
-2. Tag it: `git tag v0.2.0 && git push --tags`.
-3. Deploy.
+It cuts that release on the `release/next` branch with
+`npm run release -- <version>`, which moves the Unreleased entries under the
+version, dated, sets `version` in `package.json`, builds, and copies `dist/`,
+`fonts/` and `js/` to `v/<version>/`. Then it opens a **Release x.y.z** PR, or
+updates the open one. To choose a different version, label the PR
+`release:major`, `release:minor` or `release:patch`; it takes effect on the
+next push to `main` (or run the workflow by hand).
+
+**Merging it is releasing.** `.github/workflows/tag-release.yml` tags
+`v<version>`, and the next deploy serves `v/<version>/`. A released version is
+never rebuilt or changed (the script refuses, and CI fails if a file under
+`v/` is modified), so it's served with a year's cache (`_headers`).
+
+So: write each change's entry under **Unreleased** in the change itself, and
+only for what ships (tokens, CSS, helpers, docs). An entry is what makes a
+release, so changes to the repository alone (CI, scripts) leave the changelog
+as it is.
+
+Setup, once: a `RELEASE_TOKEN` secret, a fine-grained token (or a GitHub
+App's) with contents and pull requests read and write. With the default
+token, the release PR wouldn't start `check.yml`.
+
+By hand, the same steps: `npm run release -- 0.3.0`, `npm run check`, commit
+("Release 0.3.0"), and merge; the tag follows.

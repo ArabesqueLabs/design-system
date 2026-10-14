@@ -1,0 +1,61 @@
+/* Date picker: a field for a date near today, and a calendar beside it
+   (js/datepicker.js, the APG date picker dialog). The calendar is a modal
+   <dialog> placed under the field, with a month grid in the page's
+   language: in right to left the week runs from the right, and the
+   month buttons point the way the reading goes. The date can always be
+   typed instead. For a date people already know, use the date input. */
+.al-date-picker { display: flex; align-items: stretch; gap: var(--al-space-2); max-inline-size: 16rem; }
+.al-date-picker > .al-input { flex: 1; min-inline-size: 0; }
+.al-date-picker__toggle { flex: none; block-size: auto; }
+
+.al-date-picker__dialog {
+  margin: 0;
+  inset: auto;
+  padding: var(--al-space-3);
+  border: var(--al-border-hairline) solid var(--al-color-line);
+  border-radius: var(--al-radius-sm);
+  background: var(--al-color-surface);
+  color: var(--al-color-text);
+}
+/* Modal for focus and Escape, but it reads as a popover: no dimmed page. */
+.al-date-picker__dialog::backdrop { background: transparent; }
+
+.al-date-picker__head { display: flex; align-items: center; justify-content: space-between; gap: var(--al-space-2); margin-block-end: var(--al-space-2); }
+.al-date-picker__title { font-size: var(--al-text-base); font-weight: var(--al-weight-medium); }
+/* The chevron points forward; "previous" points back. Both turn round in
+   right to left, where forward is to the left. */
+.al-date-picker__prev .al-icon { transform: scaleX(-1); }
+.al-date-picker__next .al-icon:dir(rtl) { transform: scaleX(-1); }
+.al-date-picker__prev .al-icon:dir(rtl) { transform: none; }
+
+.al-date-picker__grid { border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.al-date-picker__grid th {
+  block-size: var(--al-size-control-sm);
+  font-size: var(--al-text-xs);
+  font-weight: var(--al-weight-medium);
+  color: var(--al-color-text-muted);
+  text-align: center;
+}
+.al-date-picker__grid td { padding: 0; text-align: center; }
+.al-date-picker__grid td[data-date] {
+  inline-size: var(--al-size-control-md);
+  block-size: var(--al-size-control-md);
+  border-radius: var(--al-radius-sm);
+  cursor: pointer;
+}
+.al-date-picker__grid td[data-date]:hover { background: var(--al-color-surface-sunk); }
+/* The ring sits just outside the day, on the calendar's ground, so it
+   shows on the chosen day's accent too. */
+.al-date-picker__grid td[data-date]:focus-visible { outline: var(--al-border-focus) solid var(--al-color-focus); outline-offset: var(--al-border-hairline); position: relative; z-index: 1; }
+/* Today: a ring, so it doesn't look chosen. */
+.al-date-picker__grid td[aria-current="date"] { box-shadow: inset 0 0 0 var(--al-border-hairline) var(--al-color-control); font-weight: var(--al-weight-semibold); }
+.al-date-picker__grid td[aria-selected="true"] { background: var(--al-color-accent); color: var(--al-color-on-accent); }
+.al-date-picker__grid td[aria-selected="true"]:hover { background: var(--al-color-accent-hover); }
+.al-date-picker__grid td[aria-disabled="true"] { color: var(--al-color-text-muted); text-decoration: line-through; cursor: not-allowed; }
+.al-date-picker__grid td[aria-disabled="true"]:hover { background: none; }
+
+@media (forced-colors: active) {
+  .al-date-picker__dialog { border-color: CanvasText; }
+  .al-date-picker__grid td[aria-selected="true"] { background: Highlight; color: HighlightText; forced-color-adjust: none; }
+  .al-date-picker__grid td[aria-current="date"] { outline: 1px solid CanvasText; outline-offset: -3px; }
+}

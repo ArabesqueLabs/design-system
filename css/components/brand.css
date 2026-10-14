@@ -14,8 +14,8 @@
 }
 .al-lockup:hover { color: var(--al-color-text); }
 .al-mark { inline-size: 1.5em; block-size: 1.5em; color: currentColor; flex: none; }
-/* The wordmark's tracking is Latin's; in Arabic text it's still the Latin
-   name, so it keeps it (lang="en" on the name). */
-.al-wordmark { letter-spacing: 0.05em; }
+/* The wordmark is tracked in Latin; written in Arabic, it isn't
+   (--al-tracking-wide is 0 under lang="ar"). */
+.al-wordmark { letter-spacing: var(--al-tracking-wide); }
 .al-lockup__product { color: var(--al-color-text-muted); font-weight: var(--al-weight-regular); }
 .al-lockup__product::before { content: "·"; margin-inline: 0.4em; }

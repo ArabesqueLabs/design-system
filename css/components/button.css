@@ -39,7 +39,7 @@
   --_bg: var(--al-color-accent);
   --_fg: var(--al-color-on-accent);
   --_border: var(--al-color-accent);
-  --_hover-bg: color-mix(in oklch, var(--al-color-accent) 86%, var(--al-color-text));
+  --_hover-bg: var(--al-color-accent-hover);
 }
 .al-button--primary:hover { border-color: var(--_hover-bg); }
 
@@ -57,14 +57,14 @@
 
 /* Danger: destroys something; the label says what. As a secondary button, a
    quiet one, or (the last step of a confirmation) a filled one. */
-.al-button--danger { --_fg: var(--al-color-danger); --_border: color-mix(in oklch, var(--al-color-danger) 60%, transparent); }
+.al-button--danger { --_fg: var(--al-color-danger); --_border: var(--al-color-danger); }
 .al-button--danger:hover { border-color: var(--al-color-danger); }
 .al-button--danger.al-button--quiet { --_border: transparent; }
 .al-button--danger.al-button--primary {
   --_bg: var(--al-color-danger);
   --_fg: var(--al-color-on-accent);
   --_border: var(--al-color-danger);
-  --_hover-bg: color-mix(in oklch, var(--al-color-danger) 86%, var(--al-color-text));
+  --_hover-bg: var(--al-color-danger-hover);
 }
 
 /* Icon: square, borderless until hovered; always with an aria-label. */
@@ -93,7 +93,9 @@
 .al-button:disabled:hover,
 .al-button[aria-disabled="true"]:hover { background: var(--_bg); border-color: var(--_border); text-decoration: none; }
 
-/* Busy: the label stays; a spinner follows it; it can't be pressed twice. */
+/* Busy: the label stays; a spinner follows it. pointer-events stops a
+   second click, but not Enter or Space: the handler must ignore presses
+   while aria-busy="true" (check it first, and return). */
 .al-button[aria-busy="true"] { cursor: progress; pointer-events: none; }
 .al-button[aria-busy="true"]::after {
   content: "";
@@ -117,4 +119,3 @@
   .al-button--primary { border-width: 2px; }
 }
 
-@keyframes al-spin { to { transform: rotate(360deg); } }

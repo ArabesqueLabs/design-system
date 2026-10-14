@@ -22,7 +22,9 @@
 .al-save-state[data-state="saved"]::before { background: none; inline-size: 0.35em; block-size: 0.7em; border-radius: 0; border: solid currentColor; border-width: 0 2px 2px 0; transform: rotate(45deg) translateY(-0.1em); }
 .al-save-state[data-state="failed"] { color: var(--al-color-danger); }
 
-.al-stale { position: relative; opacity: 0.55; transition: opacity var(--al-duration-fast) var(--al-ease-standard); }
+/* Stale: muted, not faded, so the figure stays readable (4.5:1) while it's
+   worked out again. */
+.al-stale { position: relative; color: var(--al-color-text-muted); transition: color var(--al-duration-fast) var(--al-ease-standard); }
 .al-stale-note {
   display: inline-flex;
   align-items: center;
@@ -30,7 +32,6 @@
   font-size: var(--al-text-sm);
   color: var(--al-color-text-muted);
 }
-@keyframes al-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .al-save-state[data-state="saving"]::before { border-inline-end-color: currentColor; border-style: dotted; } }
 
 /* Rolled back: an optimistic change (shown at once, before the server

@@ -24,8 +24,8 @@ Masked (default: fades out from the trailing side towards the start, where text 
 ## States
 
 **Rules:**
-- Geometry: the 4.8.8 tiling (octagons and squares), side `--al-pattern-side` (32px), strands leaving each edge's midpoint at the contact angle (67.5°), meeting on each vertex's bisector; one repeat is side·(1+√2).
-- Stroke: `--al-pattern-stroke` (1.25px) in `--al-color-pattern-line` (ink 22% in light, white 16% in dark); the scaffold in `pattern-scaffold`.
+- Geometry: the 4.8.8 tiling (octagons and squares), side `--al-pattern-side` (32px; `--al-pattern-side-narrow`, 22px, under the md breakpoint), strands leaving each edge's midpoint at the contact angle `--al-pattern-contact-angle` (67.5°), meeting on each vertex's bisector; one repeat is side·(1+√2). `drawPattern` reads these from the tokens.
+- Stroke: `--al-pattern-stroke` (1.25px) in `--al-color-pattern-line` (teal 24% in light, white 16% in dark).
 - Never moves; still under reduced motion by definition.
 - Hidden under forced colours.
 

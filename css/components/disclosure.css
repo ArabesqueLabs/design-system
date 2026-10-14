@@ -25,9 +25,9 @@
   transform: translateY(-0.1em) rotate(-45deg);
   transition: transform var(--al-duration-fast) var(--al-ease-standard);
 }
-[dir="rtl"] .al-disclosure > summary::before { transform: translateY(-0.1em) rotate(45deg); }
+.al-disclosure > summary:dir(rtl)::before { transform: translateY(-0.1em) rotate(45deg); }
 .al-disclosure[open] > summary::before { transform: translateY(-0.25em) rotate(45deg); }
-[dir="rtl"] .al-disclosure[open] > summary::before { transform: translateY(-0.25em) rotate(-45deg); }
+.al-disclosure[open] > summary:dir(rtl)::before { transform: translateY(-0.25em) rotate(-45deg); }
 .al-disclosure__value {
   margin-inline-start: auto;
   color: var(--al-color-text-muted);

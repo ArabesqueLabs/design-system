@@ -1,0 +1,91 @@
+<!doctype html>
+<!-- The helpers on their own, for scripts/check-page.mjs: the least markup
+     each needs, as its spec shows it, so a change to the showcase's demos
+     can't break their checks. Not published (tests/ is in .assetsignore). -->
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Helpers under test</title>
+  <link rel="stylesheet" href="../../dist/arabesque.css">
+</head>
+<body>
+<main class="al-stack" style="padding: 2rem">
+  <h1>Helpers under test</h1>
+
+  <section aria-labelledby="h-dialog">
+    <h2 id="h-dialog">Dialog</h2>
+    <button class="al-button" id="dialog-open">Rename</button>
+    <dialog class="al-dialog" id="dialog" aria-labelledby="dialog-title">
+      <form method="dialog">
+        <h2 class="al-dialog__title" id="dialog-title">Rename item</h2>
+        <div class="al-dialog__body">
+          <div class="al-field"><label class="al-label" for="dialog-name">Name</label><input class="al-input" id="dialog-name" name="name" value="Item one"></div>
+        </div>
+        <div class="al-dialog__discard" hidden role="alert">
+          <p>Discard your changes?</p>
+          <button type="button" class="al-button al-button--sm" data-al-keep>Keep editing</button>
+          <button type="button" class="al-button al-button--sm al-button--danger" data-al-discard>Discard changes</button>
+        </div>
+        <div class="al-dialog__actions">
+          <button class="al-button" value="cancel">Cancel</button>
+          <button class="al-button al-button--primary" value="save">Save name</button>
+        </div>
+      </form>
+    </dialog>
+  </section>
+
+  <section aria-labelledby="h-count">
+    <h2 id="h-count">Character count</h2>
+    <div class="al-field">
+      <label class="al-label" for="count">Description</label>
+      <textarea class="al-textarea" id="count" data-al-maxlength="20"></textarea>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-tip">
+    <h2 id="h-tip">Tooltip</h2>
+    <p class="al-hint" id="tip-hint">Its own description.</p>
+    <button class="al-button" id="tip" data-al-tip="£120|Offer A" aria-describedby="tip-hint">Offer A</button>
+  </section>
+
+  <section aria-labelledby="h-chart">
+    <h2 id="h-chart">Chart keys</h2>
+    <div class="al-chart" id="chart" role="group" aria-label="Offers">
+      <span class="al-chart__bar" data-series="1" role="img" aria-label="£1 A" data-al-tip="£1|A"></span>
+      <span class="al-chart__bar" data-series="2" role="img" aria-label="£2 B" data-al-tip="£2|B"></span>
+      <span class="al-chart__bar" data-series="3" role="img" aria-label="£3 C" data-al-tip="£3|C"></span>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-toast">
+    <h2 id="h-toast">Toast</h2>
+    <button class="al-button" id="toast">Archive</button>
+  </section>
+
+  <section aria-labelledby="h-keys">
+    <h2 id="h-keys">Shortcuts</h2>
+    <output id="keys-log"></output>
+  </section>
+</main>
+<script type="module">
+  import { openDialog } from "../../js/dialog.js";
+  import { initCharacterCounts } from "../../js/count.js";
+  import { initTooltips } from "../../js/tooltip.js";
+  import { initChartKeys } from "../../js/chart.js";
+  import { toast } from "../../js/toast.js";
+  import { onShortcut } from "../../js/keys.js";
+
+  const $ = (s) => document.querySelector(s);
+  $("#dialog-open").addEventListener("click", (e) => openDialog($("#dialog"), { opener: e.currentTarget }));
+  initCharacterCounts();
+  initTooltips();
+  initChartKeys($("#chart"));
+  $("#toast").addEventListener("click", () => toast("Item archived", { action: "Undo", onAction: () => {} }));
+  const log = (s) => { $("#keys-log").textContent += `${s} `; };
+  onShortcut("mod+z", () => log("undo"));
+  onShortcut("mod+shift+z", () => log("redo"));
+  document.documentElement.dataset.ready = "yes";
+</script>
+</body>
+</html>

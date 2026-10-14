@@ -8,7 +8,7 @@ A badge is a short status beside something ("Active", "Experimental", a count). 
 
 ```html
 <span class="al-badge al-badge--warning">Experimental</span>
-<span class="al-badge al-badge--count" aria-label="3 unread">3</span>
+<span class="al-badge al-badge--count">3<span class="al-visually-hidden"> unread</span></span>
 <span class="al-tag" style="--al-tag-color: var(--al-color-chart-1)">Dream job
   <button type="button" class="al-tag__remove" aria-label="Remove tag Dream job">×</button></span>
 ```
@@ -27,7 +27,7 @@ Only the tag's remove button is focusable.
 
 ## ARIA
 
-The words are the status; a count gets an `aria-label` with its noun. The remove button names its tag.
+The words are the status; a count says its noun in visually hidden text (an `aria-label` on a `span` isn't read: a span has no role to name). The remove button names its tag.
 
 ## Right to left
 

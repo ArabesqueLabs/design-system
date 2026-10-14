@@ -58,5 +58,4 @@
   background: var(--al-color-warning-wash);
   font-size: var(--al-text-sm);
 }
-.al-dialog__discard[hidden] { display: none; }
 .al-dialog__discard > p { margin: 0; margin-inline-end: auto; font-weight: var(--al-weight-medium); }

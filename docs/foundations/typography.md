@@ -26,8 +26,12 @@ fallbacks), they're free on Google Fonts, and they pair by feeling:
 - **Amiri** is a Naskh in the Bulaq tradition: a bookish, calligraphic text
   face, as Newsreader is for Latin. It's for reading, never for controls.
 
-Load them with one Google Fonts request (see the showcase's `<head>`), with
-`display=swap`.
+They're served from the system itself: `fonts/fonts.css` (link it before
+`arabesque.css`), with `font-display: swap`, made by `npm run fonts` from
+Google Fonts once, so no page sends its visitors to Google. Only the Latin,
+Latin Extended and Arabic subsets are kept, and a browser fetches a file only
+when the page has a character in its range: an English page never downloads
+the Arabic faces. All are under the SIL Open Font License (`fonts/OFL-*.txt`).
 
 ## Scale
 
@@ -47,6 +51,12 @@ A fixed scale for the interface, fluid only at the top:
 
 hunt used 47 distinct sizes; these nine replace all of them. If a size you need
 isn't here, use the nearest one.
+
+**Fields on touch screens** are 16px at least (`max(1rem, text-base)` under
+`pointer: coarse`): iOS zooms the page into any field set smaller. On the
+smallest sizes: 12px clears every platform's minimum in Apple's guidelines
+(11pt on iOS, 10pt on macOS); keep it for captions and keys, not for anything
+people must read to act.
 
 **Weights:** 400 (regular) and 500 (medium) carry everything; 600 only for
 small labels that must stand out (badges, the count in the bulk bar). Never
@@ -81,5 +91,5 @@ English page needs its own values.
 
 - Sentence case for everything: titles, buttons, tabs, badges.
 - Numbers in tables and figures use `font-variant-numeric: tabular-nums`
-  (`.al-tabular`, `.al-num`), so columns line up.
+  (`.al-tabular`, `.al-table__num`), so columns line up.
 - Don't set text in the accent colour except links and the selected state.

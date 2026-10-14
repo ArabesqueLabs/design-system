@@ -30,3 +30,13 @@ Each spec covers anatomy, variants and sizes, states, keyboard, ARIA, right to l
 | [Brand: mark, wordmark, lockup](brand.md) | The mark (one tile of the pattern, in a square frame) beside the wordmark. |
 | [Pattern](pattern.md) | The tessellation of the mark's tile, as background texture. |
 | [Icon](icon.md) | Line icons from the sprite. |
+| [Breadcrumbs and back link](breadcrumbs.md) | Breadcrumbs show where a page sits in the hierarchy; a back link returns to the previous step of a flow. |
+| [Confirmation](confirmation.md) | Says that something has been done, gives a reference when there is one, and says what happens next. |
+| [Character count](character-count.md) | A limit on a text field, said as what's left and, once over, by how much. |
+| [Date input](date-input.md) | Three fields for a date people already know (a birthday, an issue date). |
+| [Error summary](error-summary.md) | When a form is submitted with problems: a list at the top of the form, each problem a link to its field. |
+| [Phase banner](phase-banner.md) | Tells people a service is new or experimental, and where to say what they think. |
+| [Search](search.md) | A search field with a visible label, a search icon and a Clear button. |
+| [Summary list](summary-list.md) | Facts as key–value pairs, each optionally with a Change link: the "check your answers" step, or a record's details. |
+| [Task list](task-list.md) | The parts of a long job, each with its status, so people can do them in any order and see what's left. |
+| [Tints: highlight, tag and avatar](tint.md) | Soft colour washes for emphasis and identity. |

@@ -6,6 +6,8 @@ All notable changes to the design system. The format follows
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-10-14
+
 ### Fixed
 
 - **Dialogs (`js/dialog.js`) don't lose work on a second Escape.** Browsers let

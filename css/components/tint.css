@@ -3,28 +3,28 @@
    colour where colour means identity or emphasis (a tag, a highlighted
    phrase, an avatar), never status: errors, warnings and success keep
    their own colours, icons and words. Choose with data-tint. */
-[data-tint="teal"]   { --al-tint-bg: var(--al-color-tint-teal-bg);   --al-tint-ink: var(--al-color-tint-teal-ink); }
-[data-tint="green"]  { --al-tint-bg: var(--al-color-tint-green-bg);  --al-tint-ink: var(--al-color-tint-green-ink); }
-[data-tint="yellow"] { --al-tint-bg: var(--al-color-tint-yellow-bg); --al-tint-ink: var(--al-color-tint-yellow-ink); }
-[data-tint="orange"] { --al-tint-bg: var(--al-color-tint-orange-bg); --al-tint-ink: var(--al-color-tint-orange-ink); }
-[data-tint="pink"]   { --al-tint-bg: var(--al-color-tint-pink-bg);   --al-tint-ink: var(--al-color-tint-pink-ink); }
-[data-tint="purple"] { --al-tint-bg: var(--al-color-tint-purple-bg); --al-tint-ink: var(--al-color-tint-purple-ink); }
-[data-tint="blue"]   { --al-tint-bg: var(--al-color-tint-blue-bg);   --al-tint-ink: var(--al-color-tint-blue-ink); }
-[data-tint="cyan"]   { --al-tint-bg: var(--al-color-tint-cyan-bg);   --al-tint-ink: var(--al-color-tint-cyan-ink); }
+[data-tint="teal"]   { --_tint-bg: var(--al-color-tint-teal-bg);   --_tint-ink: var(--al-color-tint-teal-ink); }
+[data-tint="green"]  { --_tint-bg: var(--al-color-tint-green-bg);  --_tint-ink: var(--al-color-tint-green-ink); }
+[data-tint="yellow"] { --_tint-bg: var(--al-color-tint-yellow-bg); --_tint-ink: var(--al-color-tint-yellow-ink); }
+[data-tint="orange"] { --_tint-bg: var(--al-color-tint-orange-bg); --_tint-ink: var(--al-color-tint-orange-ink); }
+[data-tint="pink"]   { --_tint-bg: var(--al-color-tint-pink-bg);   --_tint-ink: var(--al-color-tint-pink-ink); }
+[data-tint="purple"] { --_tint-bg: var(--al-color-tint-purple-bg); --_tint-ink: var(--al-color-tint-purple-ink); }
+[data-tint="blue"]   { --_tint-bg: var(--al-color-tint-blue-bg);   --_tint-ink: var(--al-color-tint-blue-ink); }
+[data-tint="cyan"]   { --_tint-bg: var(--al-color-tint-cyan-bg);   --_tint-ink: var(--al-color-tint-cyan-ink); }
 
 /* A highlighted phrase in running text: <mark class="al-highlight">. */
 .al-highlight {
   padding-inline: 0.25em;
   border-radius: var(--al-radius-sm);
-  background: var(--al-tint-bg, var(--al-color-tint-yellow-bg));
-  color: var(--al-tint-ink, var(--al-color-tint-yellow-ink));
+  background: var(--_tint-bg, var(--al-color-tint-yellow-bg));
+  color: var(--_tint-ink, var(--al-color-tint-yellow-ink));
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
 a.al-highlight { text-decoration-color: currentColor; text-underline-offset: 0.2em; }
 
 /* Tinted badges and tags. */
-.al-badge[data-tint], .al-tag[data-tint] { background: var(--al-tint-bg); color: var(--al-tint-ink); border-color: transparent; }
+.al-badge[data-tint], .al-tag[data-tint] { background: var(--_tint-bg); color: var(--_tint-ink); border-color: transparent; }
 .al-tag[data-tint]::before { background: currentColor; }
 
 /* Avatar: initials on a tint, for a person or a workspace without a picture. */
@@ -35,8 +35,8 @@ a.al-highlight { text-decoration-color: currentColor; text-underline-offset: 0.2
   block-size: 2rem;
   flex: none;
   border-radius: var(--al-radius-full);
-  background: var(--al-tint-bg, var(--al-color-surface-sunk));
-  color: var(--al-tint-ink, var(--al-color-text));
+  background: var(--_tint-bg, var(--al-color-surface-sunk));
+  color: var(--_tint-ink, var(--al-color-text));
   font-size: var(--al-text-sm);
   font-weight: var(--al-weight-semibold);
   line-height: 1;

@@ -13,6 +13,8 @@
   border-radius: var(--al-radius-md);
   background: var(--al-color-inverse);
   color: var(--al-color-on-inverse);
+  /* The page's focus colour doesn't show on the inverse ground. */
+  --al-color-focus: var(--al-color-focus-on-inverse);
 }
 .al-bulk-bar__count { font-weight: var(--al-weight-semibold); font-variant-numeric: tabular-nums; margin-inline-end: auto; }
 .al-bulk-bar .al-button { --_fg: var(--al-color-on-inverse); --_border: color-mix(in oklch, var(--al-color-on-inverse) 45%, transparent); --_hover-bg: color-mix(in oklch, var(--al-color-on-inverse) 12%, transparent); }

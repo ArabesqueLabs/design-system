@@ -1,7 +1,8 @@
 /* Toast: says what just happened, briefly, where it doesn't block; offers
    Undo when the change can be undone. Lives in one polite live region
-   (js/toast.js). Stays at least 6s with an action, 4s without; pauses
-   while hovered or focused; never holds the only copy of an error. */
+   (js/toast.js). Stays 4s without an action, pausing while hovered or
+   focused; with an action, until it's used or dismissed (WCAG 2.2.1).
+   Never holds the only copy of an error. */
 .al-toaster {
   position: fixed;
   inset-block-end: var(--al-space-5);
@@ -23,6 +24,7 @@
   border-radius: var(--al-radius-md);
   background: var(--al-color-inverse);
   color: var(--al-color-on-inverse);
+  --al-color-focus: var(--al-color-focus-on-inverse);
   font-size: var(--al-text-base);
   pointer-events: auto;
   animation: al-toast-in var(--al-duration-base) var(--al-ease-standard);
@@ -38,7 +40,19 @@
   text-underline-offset: 0.2em;
   cursor: pointer;
 }
-.al-toast__action:focus-visible { outline: var(--al-border-focus) solid currentColor; }
+.al-toast__dismiss {
+  all: unset;
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: var(--al-size-target-min);
+  min-block-size: var(--al-size-target-min);
+  border-radius: var(--al-radius-sm);
+  font-size: var(--al-text-lg);
+  line-height: 1;
+  cursor: pointer;
+}
+.al-toast__action:focus-visible,
+.al-toast__dismiss:focus-visible { outline: var(--al-border-focus) solid currentColor; }
 .al-toast[data-leaving] { opacity: 0; transition: opacity var(--al-duration-base) var(--al-ease-exit); }
 @keyframes al-toast-in { from { opacity: 0; transform: translateY(0.5rem); } }
 @media (forced-colors: active) { .al-toast { border: 1px solid CanvasText; } }

@@ -33,6 +33,5 @@
 .al-progress::-webkit-progress-value { background: var(--al-color-accent); border-radius: var(--al-radius-full); }
 .al-progress::-moz-progress-bar { background: var(--al-color-accent); }
 @keyframes al-shimmer { from { background-position: 100% 0; } to { background-position: 0 0; } }
-@keyframes al-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .al-spinner { border-inline-end-color: currentColor; border-style: dotted; } }
 @media (forced-colors: active) { .al-progress { border: 1px solid CanvasText; } }

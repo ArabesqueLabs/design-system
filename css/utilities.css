@@ -28,7 +28,7 @@
 .al-auto-dir { unicode-bidi: plaintext; }
 
 /* Mirrored in right-to-left: arrows, chevrons, undo, progress. */
-[dir="rtl"] .al-mirror { transform: scaleX(-1); }
+.al-mirror:dir(rtl) { transform: scaleX(-1); }
 
 .al-muted { color: var(--al-color-text-muted); }
 .al-tabular { font-variant-numeric: tabular-nums; }

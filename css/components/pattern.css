@@ -12,14 +12,14 @@
   -webkit-mask-image: linear-gradient(to right, transparent 0 40%, black 80%);
   mask-image: linear-gradient(to right, transparent 0 40%, black 80%);
 }
-[dir="rtl"] .al-pattern__art {
+.al-pattern__art:dir(rtl) {
   -webkit-mask-image: linear-gradient(to left, transparent 0 40%, black 80%);
   mask-image: linear-gradient(to left, transparent 0 40%, black 80%);
 }
 .al-pattern__art svg { inline-size: 100%; block-size: 100%; display: block; }
 .al-pattern--full .al-pattern__art { -webkit-mask-image: none; mask-image: none; }
 @media (max-width: 52rem) {
-  .al-pattern__art, [dir="rtl"] .al-pattern__art {
+  .al-pattern__art, .al-pattern__art:dir(rtl) {
     -webkit-mask-image: linear-gradient(to bottom, black 0 30%, transparent 70%);
     mask-image: linear-gradient(to bottom, black 0 30%, transparent 70%);
   }

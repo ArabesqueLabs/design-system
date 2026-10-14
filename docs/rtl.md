@@ -96,6 +96,11 @@ parseNumber("١٠٨٬٠٠٠");                                      // 108000
   isolated run, because Arabic locales otherwise spell some symbols out
   ("UK£") and move them.
 - Use `inputmode="decimal"` on number inputs so phones show the right keypad.
+- **Dates** are written day, month, year in both languages; in Arabic the day
+  is at the right. `js/datepicker.js` writes them in the chosen digits
+  (`formatDate`), reads either (`parseDate`), and its calendar runs from the
+  right with the week from Saturday. Don't use `<input type="date">` on an
+  Arabic page: its calendar follows the browser's language, not the page's.
 
 ## 5. Type
 

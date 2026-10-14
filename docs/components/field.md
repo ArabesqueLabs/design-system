@@ -31,7 +31,7 @@ Label → control → hint → error, in that order. The error goes under the co
 | Number, money | `.al-input--number` (tabular, LTR), `inputmode="decimal"`, in `.al-affix` with a currency select or symbol and a period |
 | Select | `<select class="al-select">` |
 | Combobox | `<input class="al-input" list="companies">` + `<datalist>`; a hint says what happens to a new value |
-| Date | `<input type="date" class="al-input">` |
+| Date | The [date picker](date-picker.md) for a date near today; the [date input](date-input.md) for one people know. `<input type="date">` only where the page is never in Arabic: its calendar follows the browser's language |
 | Textarea | `<textarea class="al-textarea">`, resizes vertically |
 | Fieldset | `<fieldset class="al-fieldset"><legend>…` around related fields and all radio groups |
 | Optional | `<span class="al-label__optional">(optional)</span>` in the label; required fields aren't marked |

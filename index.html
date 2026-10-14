@@ -67,7 +67,7 @@
       <li><p class="sc-toc__group">Actions</p>
         <ul><li><a href="#button">Button</a></li><li><a href="#back-link">Back link and breadcrumbs</a></li></ul></li>
       <li><p class="sc-toc__group">Forms</p>
-        <ul><li><a href="#text-input">Text input</a></li><li><a href="#select">Select and combobox</a></li><li><a href="#textarea">Textarea and character count</a></li><li><a href="#date-input">Date input</a></li><li><a href="#search">Search</a></li><li><a href="#checkboxes">Checkboxes</a></li><li><a href="#radios">Radios</a></li><li><a href="#switch">Switch</a></li><li><a href="#segmented">Segmented control</a></li><li><a href="#error-summary">Error summary</a></li></ul></li>
+        <ul><li><a href="#text-input">Text input</a></li><li><a href="#select">Select and combobox</a></li><li><a href="#textarea">Textarea and character count</a></li><li><a href="#date-input">Date input</a></li><li><a href="#date-picker">Date picker</a></li><li><a href="#search">Search</a></li><li><a href="#checkboxes">Checkboxes</a></li><li><a href="#radios">Radios</a></li><li><a href="#switch">Switch</a></li><li><a href="#segmented">Segmented control</a></li><li><a href="#error-summary">Error summary</a></li></ul></li>
       <li><p class="sc-toc__group">Content</p>
         <ul><li><a href="#disclosure">Disclosure</a></li><li><a href="#card">Card, panel and stat</a></li><li><a href="#summary-list">Summary list</a></li><li><a href="#table">Table</a></li><li><a href="#badge">Badge</a></li><li><a href="#tag">Tag, highlight and avatar</a></li><li><a href="#task-list">Task list</a></li></ul></li>
       <li><p class="sc-toc__group">Navigation</p>
@@ -255,7 +255,7 @@
 
           <section class="sc-component" id="date-input" aria-labelledby="date-input-h">
             <h3 id="date-input-h">Date input</h3>
-            <p class="sc-lead">Three fields for dates people know; the calendar picker for dates chosen near today.</p>
+            <p class="sc-lead">Three fields for dates people know. For a date near today, use the date picker.</p>
             <div class="sc-example" data-example>
               <div class="al-grid sc-form">
                 <fieldset class="al-fieldset" aria-describedby="di-hint">
@@ -267,13 +267,25 @@
                     <div class="al-field al-date-input__year"><label class="al-label" for="di-year">Year</label><input class="al-input al-input--number" id="di-year" inputmode="numeric" autocomplete="bday-year"></div>
                   </div>
                 </fieldset>
-                <div class="al-field">
-                  <label class="al-label" for="di-due">Due date</label>
-                  <input class="al-input" id="di-due" type="date" value="2026-11-30">
-                </div>
               </div>
             </div>
             <p class="sc-spec"><a href="docs/components/date-input.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="date-picker" aria-labelledby="date-picker-h">
+            <h3 id="date-picker-h">Date picker</h3>
+            <p class="sc-lead">A date near today, typed or chosen from a calendar in the page's language: in Arabic, Arabic month and day names, the week from Saturday, the chosen digits, and a grid that runs from the right.</p>
+            <div class="sc-example" data-example>
+              <div class="al-field">
+                <label class="al-label" for="dp-due">Due date</label>
+                <span class="al-hint" id="dp-due-hint">For example, <span data-al-date-example="2026-11-30">30/11/2026</span></span>
+                <div class="al-date-picker">
+                  <input class="al-input" id="dp-due" name="due" value="2026-11-30" aria-describedby="dp-due-hint" data-al-date-picker>
+                  <button type="button" class="al-button al-button--icon al-date-picker__toggle" aria-label="Choose date"><svg class="al-icon" aria-hidden="true"><use href="dist/icons.svg#al-icon-calendar"></use></svg></button>
+                </div>
+              </div>
+            </div>
+            <p class="sc-spec"><a href="docs/components/date-picker.md">Read the spec</a></p>
           </section>
 
           <section class="sc-component" id="search" aria-labelledby="search-h">

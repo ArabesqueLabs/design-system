@@ -6,6 +6,54 @@ All notable changes to the design system. The format follows
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-14
+
+### Added
+
+- **Date picker** (`js/datepicker.js`, `css/components/date-picker.css`,
+  [spec](docs/components/date-picker.md)): a field for a date near today,
+  typed or chosen from a calendar in the page's language, where the browser's
+  `<input type="date">` follows the browser's. In Arabic: Arabic month and
+  day names, the week from Saturday, Western or Arabic-Indic digits, a grid
+  that runs from the right, and arrow keys that follow it. The APG date
+  picker dialog's keyboard; typed dates read in either digit set; the value
+  an ISO date in a hidden field; `data-min`, `data-max`; Gregorian only. In
+  the showcase, it replaces the date input section's native date field.
+- **The component specs and the README in Arabic** (`docs/components/ar/`,
+  all 38, and `ar/README.md`): in Arabic, the showcase's spec reader opens a
+  document's translation, which sits beside it in `ar/` (the English where
+  there's none), each with a link to its original. Code, classes and
+  tokens stay as they are. A test fails if a spec has no translation, or a
+  relative link in either language is broken.
+- A test that fails if anything marked "kept until" a version is still
+  there once the package reaches it.
+
+### Changed
+
+- Showcase: the type scale's samples are Google Fonts' own sentences, from
+  the Universal Declaration of Human Rights: the English one in English, the
+  Arabic one in Arabic.
+- README: the deprecation example is "kept until X.Y", so the test for
+  overdue deprecations doesn't catch the README itself at 0.3.0.
+- Spec reader: inline code keeps its order in Arabic text (`--sm`, not
+  `sm--`), and code blocks are no longer squashed to a line.
+- The field spec's date row points to the date picker and date input; a
+  misplaced sentence no longer splits the table spec's variants table.
+
+- README: before 1.0, a minor version removes what the previous minor
+  deprecated (it said a major would).
+
+### Removed
+
+- The names 0.2.0 deprecated:
+  - `.al-c0` to `.al-c4`: use `data-series="0"` to `"4"`.
+  - `.al-more`, `.al-less`: use `.al-bullet__diff--more`, `--less`.
+  - `.al-num`: use `.al-table__num`.
+  - `tr.is-sub`, `tr.is-total`, `tr.is-aside`: use `.al-table__row--sub`,
+    `--total`, `--aside`.
+  - `--al-color-pattern-scaffold`: use `--al-color-pattern-line`, or a
+    colour of your own (nothing in the system draws construction lines).
+
 ## [0.2.0] - 2026-10-14
 
 ### Fixed

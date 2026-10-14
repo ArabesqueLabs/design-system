@@ -63,6 +63,25 @@
     <button class="al-button" id="toast">Archive</button>
   </section>
 
+  <section aria-labelledby="h-date">
+    <h2 id="h-date">Date picker</h2>
+    <div class="al-field" id="date-en">
+      <label class="al-label" for="date">Due date</label>
+      <span class="al-hint" id="date-hint">For example, <span data-al-date-example="2026-11-30">30/11/2026</span></span>
+      <div class="al-date-picker">
+        <input class="al-input" id="date" name="due" value="2026-11-30" data-min="2026-11-10" aria-describedby="date-hint" data-al-date-picker>
+        <button type="button" class="al-button al-button--icon al-date-picker__toggle" id="date-toggle" aria-label="Choose date"><svg class="al-icon" aria-hidden="true"><use href="../../dist/icons.svg#al-icon-calendar"></use></svg></button>
+      </div>
+    </div>
+    <div class="al-field" id="date-ar" lang="ar" dir="rtl">
+      <label class="al-label" for="date-ar-input">تاريخ الاستحقاق</label>
+      <div class="al-date-picker">
+        <input class="al-input" id="date-ar-input" name="due-ar" value="2026-11-30" data-al-date-picker>
+        <button type="button" class="al-button al-button--icon al-date-picker__toggle" id="date-ar-toggle" aria-label="اختر التاريخ"><svg class="al-icon" aria-hidden="true"><use href="../../dist/icons.svg#al-icon-calendar"></use></svg></button>
+      </div>
+    </div>
+  </section>
+
   <section aria-labelledby="h-keys">
     <h2 id="h-keys">Shortcuts</h2>
     <output id="keys-log"></output>
@@ -75,6 +94,7 @@
   import { initChartKeys } from "../../js/chart.js";
   import { toast } from "../../js/toast.js";
   import { onShortcut } from "../../js/keys.js";
+  import { initDatePickers } from "../../js/datepicker.js";
 
   const $ = (s) => document.querySelector(s);
   $("#dialog-open").addEventListener("click", (e) => openDialog($("#dialog"), { opener: e.currentTarget }));
@@ -82,6 +102,8 @@
   initTooltips();
   initChartKeys($("#chart"));
   $("#toast").addEventListener("click", () => toast("Item archived", { action: "Undo", onAction: () => {} }));
+  initDatePickers($("#date-en"));
+  initDatePickers($("#date-ar"), { numerals: "arab", labels: { previous: "الشهر السابق", next: "الشهر التالي" } });
   const log = (s) => { $("#keys-log").textContent += `${s} `; };
   onShortcut("mod+z", () => log("undo"));
   onShortcut("mod+shift+z", () => log("redo"));

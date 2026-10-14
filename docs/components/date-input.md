@@ -1,6 +1,6 @@
 # Date input
 
-Three fields for a date people already know (a birthday, an issue date). For a date near today that people choose, use a native date picker instead.
+Three fields for a date people already know (a birthday, an issue date). For a date near today that people choose, use the [date picker](date-picker.md) instead.
 
 **CSS:** [`css/components/date-input.css`](../../css/components/date-input.css). **Classes:** `.al-date-input`, `.al-date-input__year`, `.al-field`, `.al-input`.
 
@@ -48,7 +48,7 @@ The order follows the locale, not the direction: day, month, year in both Englis
 
 ## Don't
 
-- Use for dates near today, where a calendar helps.
+- Use for dates near today, where a calendar helps: that's the [date picker](date-picker.md).
 - Use `type="number"`: it adds spinners and drops leading zeros.
 
 ## Tokens

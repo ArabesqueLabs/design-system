@@ -24,7 +24,7 @@ None.
 
 ## Keyboard
 
-Single-key shortcuts work only when focus isn't in a text field, and can be turned off or remapped in settings (WCAG 2.1.4).
+Single-key shortcuts work only when focus isn't in a text field, and can be turned off: offer `setShortcutsEnabled()` from `js/keys.js` as a setting (WCAG 2.1.4); it's remembered. `onShortcut` matches Shift exactly (⌘Z isn't ⌘⇧Z), except for symbols typed with it ("?"); ignores key repeat and IME composition; and on a non-Latin layout, matches the key by its position, so ⌘K and / work with an Arabic keyboard.
 
 ## ARIA
 

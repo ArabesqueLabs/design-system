@@ -51,7 +51,7 @@ system's so `style.css` keeps working:
 | `--soon`, `--soon-wash` | `--al-color-warning`, `--al-color-warning-wash` | light value darkened to amber 49 (4.9:1 on its wash) |
 | — | `--al-color-info`, `--al-color-info-wash` | new, for neutral notices |
 | `--backdrop` | `--al-color-backdrop` | |
-| `--pattern` | `--al-color-pattern-line`, `--al-color-pattern-scaffold` | |
+| `--pattern` | `--al-color-pattern-line` | hunt's scaffold colour has no equivalent: drop it |
 | `--viz-0…4` | `--al-color-chart-0…4` | same validated palette |
 | `--sans`, `--serif`, `--mono` | `--al-font-sans`, `--al-font-serif`, `--al-font-mono` | gains the Arabic stacks |
 | `--radius` | `--al-radius-sm` | |
@@ -138,7 +138,7 @@ names at them:
 | `--primary-foreground`, `--accent-foreground` | `--al-color-on-accent` |
 | `--destructive` | `--al-color-danger` |
 | `--chart-1…5` | `--al-color-chart-1…4`, `--al-color-chart-0` |
-| `--pattern-line`, `--pattern-scaffold` | `--al-color-pattern-line`, `--al-color-pattern-scaffold` |
+| `--pattern-line`, `--pattern-scaffold` | `--al-color-pattern-line`; `--al-color-pattern-scaffold` is deprecated (until 0.3): nothing in the system draws construction lines |
 | `.dark` class | `data-theme="dark"` on `<html>` (keep `.dark` as an alias for one release) |
 
 ### Phase 2: focus and forced colours

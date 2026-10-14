@@ -8,13 +8,13 @@ Says what just happened, briefly, without blocking; offers Undo when it can be u
 
 ```js
 import { toast } from "./js/toast.js";
-toast("Process archived", { action: "Undo", onAction: () => restore() });
+toast("Process archived", { action: "Undo", onAction: () => restore(), dismissLabel: "Dismiss" });
 ```
-Renders `.al-toaster` (one polite live region, created on first use) holding `.al-toast` with a message and an optional `.al-toast__action`.
+Renders `.al-toaster` (one polite live region, made as soon as the module loads, so the first message is announced) holding `.al-toast` with a message, and, with an action, `.al-toast__action` and a dismiss button (`.al-toast__dismiss`, named by `dismissLabel`).
 
 ## Variants and sizes
 
-With an action (stays 6s) or without (4s); `timeout` overrides.
+Without an action, it stays 4s. With an action, it has no time limit (WCAG 2.2.1): it stays until it's used, dismissed, or replaced by the next toast with an action. `timeout` sets one anyway.
 
 ## States
 
@@ -22,7 +22,7 @@ Enters rising and fading in; leaves fading. Pauses while hovered or focused.
 
 ## Keyboard
 
-The action is a button in the tab order; focus stops the timer.
+F6 moves focus to the action, from anywhere on the page. After the action or Dismiss, focus goes back to where it was when the toast appeared.
 
 ## ARIA
 

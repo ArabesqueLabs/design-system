@@ -1,5 +1,8 @@
 # Arabesque Labs design system: audit and decisions (Phase 1)
 
+> **Historical.** This is the Phase 1 audit, kept for its reasoning. It is
+> not a list of open issues; see `CHANGELOG.md` for what has changed since.
+
 What exists today, what's rough, and what the system will decide, for review
 before anything is built. Paths are relative to `~/workspace/`. Line numbers
 are as of 12 October 2026.

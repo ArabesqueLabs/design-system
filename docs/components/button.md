@@ -37,7 +37,7 @@ Label, optionally with an icon before it (or a trailing chevron for "Move to…"
 | Focus | The system outline (2px, offset 2px) |
 | Active | Nudged down 1px |
 | Unavailable | `aria-disabled="true"` (stays focusable; the reason is next to it or in `aria-describedby`); `disabled` only inside forms where it can't be explained |
-| Busy | `aria-busy="true"`: the label stays, a spinner follows it; clicks are ignored |
+| Busy | `aria-busy="true"`: the label stays, a spinner follows it; clicks are ignored, but Enter and Space aren't, so the handler checks `aria-busy` first and returns |
 
 ## Keyboard
 

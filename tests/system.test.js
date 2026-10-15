@@ -5,7 +5,7 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { tile } from "../js/pattern.js";
+import { tile, cells } from "../js/pattern.js";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (p) => readFileSync(join(root, p), "utf8");
@@ -74,6 +74,16 @@ test("the pattern's tile repeats at side × (1 + √2)", () => {
   const { d, period } = tile(32, 67.5);
   assert.equal(Math.round(period * 1000) / 1000, Math.round(32 * (1 + Math.SQRT2) * 1000) / 1000);
   assert.match(d, /^M[\d.\- ]+L/);
+});
+
+test("the hero's geometry is the mark's: one octagon's star at the mark's scale draws the mark's star", () => {
+  // The mark is a 64-unit tile centred on an octagon, so its side is 64 / (1 + √2).
+  const { cells: all, period } = cells(64 / (1 + Math.SQRT2), 67.5, 32, 32, 64, 64);
+  assert.equal(Math.round(period * 1000) / 1000, 64);
+  const centre = all.find((c) => c.kind === "octagon" && Math.abs(c.cx - 32) < 1e-9 && Math.abs(c.cy - 32) < 1e-9);
+  const points = (d) => [...d.matchAll(/(-?[\d.]+) (-?[\d.]+)/g)].map((m) => `${Number(m[1]).toFixed(1)},${Number(m[2]).toFixed(1)}`);
+  const mark = read("assets/brand/mark.svg").match(/<path d="(M64 32[^"]+)"/)[1];
+  assert.deepEqual(new Set(points(centre.star)), new Set(points(mark)));
 });
 
 test("nothing kept 'until' a version outlives it", () => {

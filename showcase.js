@@ -11,7 +11,8 @@ import { renderModifierKeys, onShortcut, setShortcutsEnabled, shortcutsEnabled }
 import { initMenus } from "./js/menu.js";
 import { initTabs } from "./js/tabs.js";
 import { initTooltips } from "./js/tooltip.js";
-import { drawPattern } from "./js/pattern.js";
+import { drawPattern, drawHero, initConstruction } from "./js/pattern.js";
+import { initSiteHeaders } from "./js/site-header.js";
 import { formatMoney, formatNumber, formatPercent } from "./js/format.js";
 import { validateOnSubmit } from "./js/validate.js";
 import { initChartKeys } from "./js/chart.js";
@@ -120,6 +121,7 @@ async function setLanguage(next) {
   try { localStorage.setItem("al-showcase-lang", next); } catch {}
   for (const b of $$("[data-lang]")) b.setAttribute("aria-pressed", String(b.dataset.lang === next));
   translate();
+  drawHeroes(false);
   drawType();
   drawCharts();
   redrawCounts();
@@ -183,6 +185,11 @@ fetch("assets/brand/mark.svg").then((r) => r.text()).then((svg) => {
   for (const m of $$('[data-brand="mark"]')) m.innerHTML = clean;
 });
 for (const p of $$("[data-pattern]")) drawPattern(p);
+// The hero, drawn in once; redrawn when the language (and so the direction) changes.
+function drawHeroes(animate) { for (const p of $$("[data-pattern-hero]")) drawHero(p, { animate }); }
+drawHeroes(true);
+initConstruction();
+initSiteHeaders();
 
 // ---- feedback examples ----------------------------------------------------------------------
 

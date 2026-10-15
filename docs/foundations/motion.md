@@ -2,7 +2,8 @@
 
 Motion only ever **answers something a person did**: a disclosure opening, a
 toast arriving, a theme changing. Nothing moves by itself, loops (except a
-spinner while something is busy) or plays on load.
+spinner while something is busy) or plays on load, with one exception: the
+hero's pattern may draw itself in, once (below).
 
 | Token | Value | For |
 |---|---|---|
@@ -22,6 +23,11 @@ spinner while something is busy) or plays on load.
   `css/base.css` brings every transition and animation to an instant; the
   spinner becomes a still dotted ring; skeletons stop shimmering; nothing
   scrolls smoothly.
-- **The pattern never moves.** It's a texture, not an illustration.
+- **The pattern never moves,** with one exception. As texture, it's never
+  animated. The hero (`drawHero` with `animate: true`) may draw itself in once
+  when the page loads, the way it's constructed: the tiling as scaffolding,
+  the strands from the focal tile outwards, then the scaffolding fades and
+  the focal tile appears, in under three seconds. Never again on that page,
+  never in a loop, and never under reduced motion.
 - **Direction-aware.** Anything that moves sideways mirrors in right-to-left;
   a toast rises into place, which reads the same in both directions.

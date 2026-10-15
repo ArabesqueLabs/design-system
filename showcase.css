@@ -77,6 +77,10 @@ main:focus { outline: none; }
 .sc-figure { font-size: var(--al-text-lg); }
 .sc-marks { align-items: flex-end; }
 .sc-pattern-demo { min-block-size: 14rem; }
+.sc-example--flush { padding-block: 0; }
+/* In the hero, the text keeps to the leading side; the focal tile and its caption sit on the trailing side. */
+.sc-hero.al-pattern--hero .al-stack > :not(.al-pattern__caption) { max-inline-size: min(40rem, 60%); }
+@media (max-width: 52rem) { .sc-hero.al-pattern--hero .al-stack > :not(.al-pattern__caption) { max-inline-size: none; } }
 .sc-chart { border: 0; padding: 0; }
 
 .sc-numerals { display: none; }

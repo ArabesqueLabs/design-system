@@ -1,6 +1,6 @@
 # Components
 
-Each spec covers anatomy, variants and sizes, states, keyboard, ARIA, right to left, do and don't, and the tokens it uses (listed from its CSS). See them working in `index.html`.
+Each spec covers anatomy, variants and sizes, states, keyboard, ARIA, right to left, do and don't, and the tokens it uses (listed from its CSS). See them working in `index.html`, and in React, a page each, in [`examples/`](../../examples/index.html) ([`docs/react.md`](../react.md)).
 
 Every spec is also in Arabic, in [`ar/`](ar/README.md); the showcase's spec reader opens those when the page is in Arabic. The English is the reference: change a spec and its translation together (a test fails if a spec has no translation, or a link in either is broken).
 
@@ -14,8 +14,10 @@ Every spec is also in Arabic, in [`ar/`](ar/README.md); the showcase's spec read
 | [Card, panel and stat](card.md) | Containers. |
 | [Page head](page-head.md) | The page's title, and on the trailing side what applies to the whole page: its settings, views and primary action. |
 | [Tabs and section nav](nav.md) | Tabs between views of one thing, and section navigation between pages; they look the same, and differ in markup. |
+| [Site header](site-header.md) | A website's top bar: the lockup, the sections, language and theme; a menu under md. |
 | [Sidebar](sidebar.md) | The app's sections in a column, collapsible to icons; a scrolling bar along the top under the `md` breakpoint. |
 | [Footer](footer.md) | Who made it, where to go next, and the legal line; quiet, and the same on every page. |
+| [Steps](steps.md) | A numbered sequence: the stages of how something is done. |
 | [Table](table.md) | For comparing values: numbers line up, the total stands out, asides recede. |
 | [Badge and tag](badge.md) | A badge is a short status beside something ("Active", "Experimental", a count). |
 | [Notice and side-effect note](notice.md) | A notice is a message in the page, in four kinds. |
@@ -30,7 +32,8 @@ Every spec is also in Arabic, in [`ar/`](ar/README.md); the showcase's spec read
 | [Keyboard keys and shortcuts](kbd.md) | Keys, and the list of shortcuts that `?` opens. |
 | [Charts](chart.md) | Columns, a split bar and a bullet chart, in plain HTML and CSS. |
 | [Brand: mark, wordmark, lockup](brand.md) | The mark (one tile of the pattern, in a square frame) beside the wordmark. |
-| [Pattern](pattern.md) | The tessellation of the mark's tile, as background texture. |
+| [Pattern](pattern.md) | The tessellation of the mark's tile: as texture behind a band, or across a hero with its focal tile, drawn in on load. |
+| [Construction figure](construction.md) | How the pattern is made, in three steps read as software. |
 | [Icon](icon.md) | Line icons from the sprite. |
 | [Breadcrumbs and back link](breadcrumbs.md) | Breadcrumbs show where a page sits in the hierarchy; a back link returns to the previous step of a flow. |
 | [Confirmation](confirmation.md) | Says that something has been done, gives a reference when there is one, and says what happens next. |

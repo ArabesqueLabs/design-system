@@ -1,10 +1,12 @@
 # Pattern
 
-The tessellation of the mark's tile, as background texture. `js/pattern.js` draws it by rule as SVG.
+The tessellation of the mark's tile, drawn by rule as SVG (`js/pattern.js`). Two forms: **texture**, behind a band; and **the hero**, across the top of a site with one focal tile in the accent, as on arabesquelabs.com.
 
-**CSS:** [`css/components/pattern.css`](../../css/components/pattern.css). **Classes:** `.al-pattern`, `.al-pattern--full`, `.al-pattern__art`.
+**CSS:** [`css/components/pattern.css`](../../css/components/pattern.css). **Classes:** `.al-pattern`, `.al-pattern--full`, `.al-pattern--hero`, `.al-pattern__art`, `.al-pattern__caption`.
 
 ## Anatomy
+
+Texture:
 
 ```html
 <section class="al-pattern">
@@ -17,17 +19,36 @@ The tessellation of the mark's tile, as background texture. `js/pattern.js` draw
 </script>
 ```
 
+The hero:
+
+```html
+<section class="al-pattern al-pattern--hero">
+  <div class="al-pattern__art" aria-hidden="true" data-pattern-hero></div>
+  …header, heading, lede, actions…
+  <p class="al-pattern__caption" data-pattern-caption>This tile is our mark. Everything around it follows from the same rule.</p>
+</section>
+<script type="module">
+  import { drawHero } from "./js/pattern.js";
+  for (const el of document.querySelectorAll("[data-pattern-hero]")) drawHero(el, { animate: true });
+</script>
+```
+
 ## Variants and sizes
 
-Masked (default: fades out from the trailing side towards the start, where text begins) and `--full` (no mask: for a band with no text on it).
+- **Texture, masked** (default): fades out from the trailing side towards the start, where text begins.
+- **Texture, `--full`**: no mask, for a band with no text on it.
+- **The hero, `--hero`**: for the one section that introduces a site. One quiet line across the whole section, and one octagon, the focal tile, about three quarters across and half way down: its star filled and outlined in the accent, its octagon outlined at reduced opacity. The caption sits under the focal tile, its rule starting at the tile's centre. Under the md breakpoint, where the text takes the whole width, there's no focal tile and no caption.
 
 ## States
 
 **Rules:**
-- Geometry: the 4.8.8 tiling (octagons and squares), side `--al-pattern-side` (32px; `--al-pattern-side-narrow`, 22px, under the md breakpoint), strands leaving each edge's midpoint at the contact angle `--al-pattern-contact-angle` (67.5°), meeting on each vertex's bisector; one repeat is side·(1+√2). `drawPattern` reads these from the tokens.
-- Stroke: `--al-pattern-stroke` (1.25px) in `--al-color-pattern-line` (teal 24% in light, white 16% in dark).
-- Never moves; still under reduced motion by definition.
-- Hidden under forced colours.
+- Geometry: the 4.8.8 tiling (octagons and squares), strands leaving each edge's midpoint at the contact angle `--al-pattern-contact-angle` (67.5°), meeting on each vertex's bisector; one repeat is side·(1+√2). Both forms read their geometry from the tokens.
+- Texture: side `--al-pattern-side` (32px; `--al-pattern-side-narrow`, 22px, under md), stroke `--al-pattern-stroke` (1.25px).
+- Hero: side `--al-pattern-hero-side` (46px; `--al-pattern-hero-side-narrow`, 30px, under md), strands `--al-pattern-hero-stroke` (1px), the focal star `--al-pattern-focal-stroke` (1.6px) in `--al-color-pattern-focal` over `--al-color-pattern-focal-fill`.
+- Both draw their strands in `--al-color-pattern-line`: ink at 26% (white at 20% in dark), light enough for the hero's heading and lede to sit on. Keep body copy out of the hero.
+- Texture never moves. The hero may draw itself in once when the page loads (`animate: true`), the way it's constructed: the tiling appears as scaffolding (`--al-color-pattern-scaffold`), the strands draw outwards from the focal tile over 1.8 seconds, then the scaffolding fades and the focal tile and caption appear. It's the one motion that plays on load, and it never plays under reduced motion.
+- `drawHero` redraws when the section's width changes; call it again after switching `dir`.
+- Both are hidden under forced colours.
 
 ## Keyboard
 
@@ -35,20 +56,22 @@ None.
 
 ## ARIA
 
-`aria-hidden="true"`; it's decoration.
+The art is `aria-hidden="true"`: it's decoration. The caption is ordinary text, in the page's language.
 
 ## Right to left
 
-The geometry never mirrors; the mask does, so the pattern clears behind the start side in both directions.
+The geometry never mirrors; the layout does. Texture's mask clears behind the start side in both directions. The hero's focal tile moves to a quarter across, and its caption's rule runs towards the trailing side.
 
 ## Do
 
-- Use on heroes and large empty areas, faded behind text.
+- Use texture on bands and large empty areas, faded behind text.
+- Use the hero once, on the section that introduces a site or product, with the heading and lede on the leading side and the caption saying what the teal tile is.
 
 ## Don't
 
-- Put it behind body text at full strength, animate it, or draw it by hand.
+- Put body copy over either, draw either by hand, or use a raster image of the pattern.
+- Use the hero more than once on a page, or animate texture.
 
 ## Tokens
 
-`--al-color-pattern-line`
+`--al-color-pattern-line`, `--al-color-pattern-scaffold`, `--al-color-pattern-focal`, `--al-color-pattern-focal-fill`, `--al-color-accent`, `--al-color-text-muted`, `--al-pattern-side`, `--al-pattern-side-narrow`, `--al-pattern-stroke`, `--al-pattern-contact-angle`, `--al-pattern-hero-side`, `--al-pattern-hero-side-narrow`, `--al-pattern-hero-stroke`, `--al-pattern-focal-stroke`, `--al-space-3`, `--al-space-12`, `--al-text-sm`, `--al-leading-prose`, `--al-border-hairline`, `--al-ease-standard`

@@ -1,0 +1,21 @@
+/* The studio homepage template: page layout only. Everything else is the
+   system's components (dist/arabesque.css). Tokens only, logical properties only. */
+.tp-hero { border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
+.tp-hero__body { padding-block: var(--al-space-16) var(--al-space-section); }
+.tp-hero__title { max-inline-size: 15ch; margin: 0; }
+.tp-hero__lede { margin: var(--al-space-8) 0 0; max-inline-size: 44ch; }
+.tp-hero__actions { margin-block-start: var(--al-space-8); gap: var(--al-space-6); }
+.tp-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--al-space-12) var(--al-space-16); align-items: start; }
+.tp-two--baseline { align-items: baseline; }
+.tp-h2 { margin: 0; max-inline-size: 14ch; font-family: var(--al-font-display); font-size: var(--al-text-3xl); font-weight: var(--al-weight-regular); line-height: var(--al-leading-heading); letter-spacing: var(--al-tracking-tight); }
+.tp-copy { margin-block-start: var(--al-space-8); max-inline-size: 42ch; }
+.tp-lede { margin: 0; }
+.tp-steps { margin-block-start: var(--al-space-16); }
+.tp-email { margin: var(--al-space-4) 0 0; font-family: var(--al-font-display); font-size: var(--al-text-2xl); overflow-wrap: anywhere; }
+.tp-tagline { margin: 0; }
+.tp-lang { display: inline-flex; align-items: center; min-block-size: var(--al-size-target-min); padding-inline: var(--al-space-2); color: var(--al-color-text-muted); text-decoration: none; }
+.tp-lang:hover { color: var(--al-color-text); }
+@media (max-width: 52rem) {
+  .tp-two { grid-template-columns: minmax(0, 1fr); }
+  .tp-hero__body { padding-block-start: var(--al-space-8); }
+}

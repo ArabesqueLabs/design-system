@@ -6,6 +6,56 @@ All notable changes to the design system. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- **The hero** (`drawHero` in `js/pattern.js`, `.al-pattern--hero`,
+  [spec](docs/components/pattern.md)), as on arabesquelabs.com: one quiet line
+  across the section, and one octagon, the focal tile, in the accent, with
+  its caption beneath. It can draw itself in once on load: the tiling as
+  scaffolding, the strands from the focal tile outwards, then the scaffolding
+  fades and the focal tile and caption appear. Never under reduced motion.
+  Mirrors in right to left; under md there's no focal tile. The showcase's
+  hero uses it.
+- **Construction figure** (`initConstruction`, `drawConstruction`,
+  `css/components/construction.css`, [spec](docs/components/construction.md)):
+  how the pattern is made, in three steps read as software, as on the site;
+  an optional contact-angle slider redraws steps 2 and 3.
+- **Steps** (`css/components/steps.css`, [spec](docs/components/steps.md)): a
+  numbered sequence, such as the four build stages.
+- **Site header** (`css/components/site-header.css`, `js/site-header.js`,
+  [spec](docs/components/site-header.md)): a website's top bar with the
+  lockup, sections, language and theme, folding into a menu under md.
+- **Templates** ([`templates/`](templates/README.md)): the studio homepage,
+  in English and Arabic, assembled from the system.
+- `cells()` in `js/pattern.js`: every cell of the tiling over an area, as SVG
+  paths.
+- Tokens: `--al-color-pattern-scaffold` (back, now that something draws it),
+  `-pattern-focal` and `-pattern-focal-fill`; `--al-pattern-hero-side` (46px),
+  `-hero-side-narrow` (30px), `-hero-stroke` (1px) and `-focal-stroke` (1.6px).
+- Every component spec above, in Arabic too.
+- **React components** (`@arabesquelabs/design-system/react`, `dist/react/`
+  with types, from `react/src/`; [guide](docs/react.md)): every component,
+  one module per spec, writing the spec's markup and using the helpers in
+  `js/` for behaviour, so `arabesque.css` styles them and pages without
+  React are unchanged. `ArabesqueProvider` gives them the page's language
+  (their own labels, in English and Arabic), digits and sprite. Fields join
+  up their label, hint and error by themselves. React 19 or later, an
+  optional peer dependency.
+- **Examples** ([`examples/`](examples/index.html)): every component working,
+  in React, a page each, in English and then in Arabic, right to left, with
+  a gallery; and the "ask, check, confirm" pattern. Checked in Chrome with
+  axe in light and dark.
+- The homepage template in React ([`templates/react/home.tsx`](templates/react/home.tsx)):
+  `templates/home.html` and `templates/ar/home.html` are now rendered from
+  it, its words in both languages in one place.
+
+### Changed
+
+- `--al-color-pattern-line` is ink at 26% (white at 20% in dark), as on
+  arabesquelabs.com, instead of teal at 24% (white at 16%).
+- Motion: the hero's one-time draw-in is the one motion allowed on load
+  ([motion](docs/foundations/motion.md)). Texture still never moves.
+
 ## [0.3.0] - 2026-10-14
 
 ### Added

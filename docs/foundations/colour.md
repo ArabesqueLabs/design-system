@@ -37,7 +37,10 @@ The values below are the primitives each role points to, from
 | `chart-1…4` | Chart series, in this order | see below | |
 | `chart-0` | The neutral: tracks and grounds, never a series of data | cloud 87 | white 20% |
 | `tint-*-bg`, `tint-*-ink` | Tags, highlights, avatars: identity, never status | see `tint.md` | |
-| `pattern-line` | The tessellation's strands | teal 24% | white 16% |
+| `pattern-line` | The tessellation's strands, in ink as on arabesquelabs.com | cloud 21 at 26% | white 20% |
+| `pattern-scaffold` | The tiling's polygons: the hero's scaffolding while it draws in, and the construction figure | cloud 21 at 12% | white 10% |
+| `pattern-focal` | The hero's focal tile | the accent | the accent |
+| `pattern-focal-fill` | Inside the focal tile's star | teal at 16% | mint at 16% |
 
 All tokens are prefixed: `var(--al-color-surface)`.
 

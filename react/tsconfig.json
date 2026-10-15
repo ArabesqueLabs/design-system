@@ -1,0 +1,21 @@
+{
+  // Types only: esbuild compiles (scripts/build-react.mjs). The .d.ts files
+  // go to dist/react/, at the same depth as react/src/, so their imports of
+  // ../../js/*.js resolve in both.
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "rootDir": "src",
+    "outDir": "../dist/react"
+  },
+  "include": ["src"]
+}

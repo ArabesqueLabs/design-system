@@ -25,3 +25,32 @@
   }
 }
 @media (forced-colors: active) { .al-pattern__art { display: none; } }
+
+/* Hero (js/pattern.js drawHero): the tessellation across a hero, as on
+   arabesquelabs.com. One quiet line everywhere, quiet enough for the
+   heading and lede to sit on; one octagon, the focal tile, in the accent,
+   with its caption. Drawn in once on load if asked: the scaffolding, the
+   strands from the focal tile outwards, then the focal tile and caption. */
+.al-pattern--hero .al-pattern__art { color: inherit; -webkit-mask-image: none; mask-image: none; }
+/* Drawn at its own size (a little taller than the section, so small changes in height don't need a redraw). */
+.al-pattern--hero .al-pattern__art svg { inline-size: auto; block-size: auto; }
+.al-pattern__scaffold { fill: none; stroke: var(--al-color-pattern-scaffold); stroke-width: var(--al-pattern-hero-stroke); opacity: 0; }
+.al-pattern__strands { fill: none; stroke: var(--al-color-pattern-line); stroke-width: var(--al-pattern-hero-stroke); stroke-linejoin: miter; }
+.al-pattern__focal-tile { fill: none; stroke: var(--al-color-pattern-focal); stroke-opacity: 0.45; stroke-width: var(--al-pattern-hero-stroke); }
+.al-pattern__focal-star { fill: var(--al-color-pattern-focal-fill); stroke: var(--al-color-pattern-focal); stroke-width: var(--al-pattern-focal-stroke); stroke-linejoin: miter; }
+.al-pattern__caption {
+  margin: var(--al-space-12) 0 0;
+  max-inline-size: 19rem;
+  padding-block-start: var(--al-space-3);
+  border-block-start: var(--al-border-hairline) solid var(--al-color-accent);
+  font-size: var(--al-text-sm);
+  line-height: var(--al-leading-prose);
+  color: var(--al-color-text-muted);
+}
+.al-pattern__caption.is-placed { position: absolute; margin: 0; inline-size: 19rem; pointer-events: none; }
+.al-pattern.is-drawing .al-pattern__strands path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: al-strand-draw 900ms var(--al-ease-standard) forwards; }
+.al-pattern.is-drawing .al-pattern__scaffold { opacity: 1; animation: al-scaffold-fade 600ms var(--al-ease-standard) 1900ms forwards; }
+.al-pattern.is-drawing :is(.al-pattern__focal, .al-pattern__caption) { opacity: 0; animation: al-focal-reveal 700ms var(--al-ease-standard) 1900ms forwards; }
+@keyframes al-strand-draw { to { stroke-dashoffset: 0; } }
+@keyframes al-scaffold-fade { to { opacity: 0; } }
+@keyframes al-focal-reveal { to { opacity: 1; } }

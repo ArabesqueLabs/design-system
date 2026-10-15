@@ -1,0 +1,23 @@
+/* Site header: the website's top bar. The lockup, the sections, the
+   language and theme controls; under the md breakpoint the sections fold
+   into a menu (js/site-header.js), which drops below the bar. */
+.al-site-header { position: relative; }
+.al-site-header__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--al-space-6); min-block-size: 5rem; }
+.al-site-header__lockup { color: var(--al-color-text); text-decoration: none; }
+.al-site-header__end { display: flex; align-items: center; gap: var(--al-space-4) var(--al-space-8); }
+.al-site-header__nav ul, .al-site-header__menu ul { list-style: none; margin: 0; padding: 0; }
+.al-site-header__nav ul { display: flex; gap: var(--al-space-8); }
+.al-site-header__nav a { color: var(--al-color-text-muted); text-decoration: none; transition: color var(--al-duration-fast) var(--al-ease-standard); }
+.al-site-header__nav a:hover, .al-site-header__nav a[aria-current] { color: var(--al-color-text); }
+.al-site-header__tools { display: flex; align-items: center; gap: var(--al-space-2); }
+.al-site-header__toggle { display: none; }
+.al-site-header__menu { padding-block: var(--al-space-2) var(--al-space-6); border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
+.al-site-header__menu a { display: block; padding-block: var(--al-space-4); font-size: var(--al-text-lg); color: var(--al-color-text); text-decoration: none; border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
+.al-site-header__menu a:hover { color: var(--al-color-accent); }
+.al-site-header__menu[hidden] { display: none; }
+@media (max-width: 52rem) {
+  .al-site-header__nav { display: none; }
+  .al-site-header__toggle { display: inline-flex; }
+  .al-site-header__bar { min-block-size: 4rem; }
+}
+@media (min-width: 52.0625rem) { .al-site-header__menu { display: none; } }

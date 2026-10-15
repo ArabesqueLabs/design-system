@@ -47,8 +47,8 @@
   </header>
 
   <main id="main" tabindex="-1">
-    <section class="al-pattern sc-hero">
-      <div class="al-pattern__art" data-pattern></div>
+    <section class="al-pattern al-pattern--hero sc-hero">
+      <div class="al-pattern__art" data-pattern-hero></div>
       <div class="al-page al-stack">
         <h1 class="al-display sc-hero__title">One tile, a whole system.</h1>
         <p class="al-lede" data-t>The tokens, components and patterns every Arabesque Labs product is built from: <mark class="al-highlight" data-tint="teal">accessible</mark> to WCAG 2.2 AA, written for <mark class="al-highlight" data-tint="yellow">left-to-right and right-to-left</mark> alike, and designed so people get things done in <mark class="al-highlight" data-tint="pink">the fewest steps</mark>, seeing every consequence.</p>
@@ -56,6 +56,7 @@
           <a class="al-button al-button--primary" href="#components">See the components</a>
           <a class="al-button" href="README.md">How to use it</a>
         </div>
+        <p class="al-pattern__caption" data-pattern-caption>This tile is our mark. Everything around it follows from the same rule.</p>
       </div>
     </section>
 
@@ -69,9 +70,9 @@
       <li><p class="sc-toc__group">Forms</p>
         <ul><li><a href="#text-input">Text input</a></li><li><a href="#select">Select and combobox</a></li><li><a href="#textarea">Textarea and character count</a></li><li><a href="#date-input">Date input</a></li><li><a href="#date-picker">Date picker</a></li><li><a href="#search">Search</a></li><li><a href="#checkboxes">Checkboxes</a></li><li><a href="#radios">Radios</a></li><li><a href="#switch">Switch</a></li><li><a href="#segmented">Segmented control</a></li><li><a href="#error-summary">Error summary</a></li></ul></li>
       <li><p class="sc-toc__group">Content</p>
-        <ul><li><a href="#disclosure">Disclosure</a></li><li><a href="#card">Card, panel and stat</a></li><li><a href="#summary-list">Summary list</a></li><li><a href="#table">Table</a></li><li><a href="#badge">Badge</a></li><li><a href="#tag">Tag, highlight and avatar</a></li><li><a href="#task-list">Task list</a></li></ul></li>
+        <ul><li><a href="#disclosure">Disclosure</a></li><li><a href="#card">Card, panel and stat</a></li><li><a href="#summary-list">Summary list</a></li><li><a href="#table">Table</a></li><li><a href="#badge">Badge</a></li><li><a href="#tag">Tag, highlight and avatar</a></li><li><a href="#task-list">Task list</a></li><li><a href="#steps">Steps</a></li></ul></li>
       <li><p class="sc-toc__group">Navigation</p>
-        <ul><li><a href="#page-head">Page head and tabs</a></li><li><a href="#sidebar">Sidebar</a></li></ul></li>
+        <ul><li><a href="#page-head">Page head and tabs</a></li><li><a href="#sidebar">Sidebar</a></li><li><a href="#site-header">Site header</a></li></ul></li>
       <li><p class="sc-toc__group">Feedback</p>
         <ul><li><a href="#notice">Notice and side-effect note</a></li><li><a href="#phase-banner">Phase banner</a></li><li><a href="#toast">Toast</a></li><li><a href="#dialog">Dialog</a></li><li><a href="#menu">Menu</a></li><li><a href="#tooltip">Tooltip</a></li><li><a href="#empty-state">Empty state</a></li><li><a href="#loading">Loading and progress</a></li><li><a href="#confirmation">Confirmation</a></li></ul></li>
       <li><p class="sc-toc__group">Pending changes</p>
@@ -79,7 +80,7 @@
       <li><p class="sc-toc__group">Charts</p>
         <ul><li><a href="#columns">Column chart</a></li><li><a href="#split-bar">Split bar</a></li><li><a href="#bullet">Bullet chart</a></li></ul></li>
       <li><p class="sc-toc__group">Brand</p>
-        <ul><li><a href="#lockup">Mark and lockup</a></li><li><a href="#pattern">Pattern</a></li></ul></li>
+        <ul><li><a href="#lockup">Mark and lockup</a></li><li><a href="#pattern">Pattern</a></li><li><a href="#construction">Construction figure</a></li></ul></li>
       <li><p class="sc-toc__group">Patterns</p>
         <ul><li><a href="#ask-check-confirm">Ask, check, confirm</a></li></ul></li>
         </ul>
@@ -514,6 +515,20 @@
             <p class="sc-spec"><a href="docs/components/task-list.md">Read the spec</a></p>
           </section>
 
+          <section class="sc-component" id="steps" aria-labelledby="steps-h">
+            <h3 id="steps-h">Steps</h3>
+            <p class="sc-lead">A numbered sequence: the stages of how something is done. Only for real sequences.</p>
+            <div class="sc-example" data-example>
+              <ol class="al-steps">
+                <li><p class="al-steps__num"><bdi>1</bdi></p><h4 class="al-steps__title">Discover</h4><p class="al-steps__body">Start with the real problem, not the assumed solution. We take time to understand the constraints before writing a line of code.</p></li>
+                <li><p class="al-steps__num"><bdi>2</bdi></p><h4 class="al-steps__title">Design</h4><p class="al-steps__body">Structure comes before pixels. We sketch the system's shape, its data, flows and edge cases, so the build has a foundation.</p></li>
+                <li><p class="al-steps__num"><bdi>3</bdi></p><h4 class="al-steps__title">Build</h4><p class="al-steps__body">Small, deliberate increments instead of big-bang releases. Working software, reviewed and tested at every step.</p></li>
+                <li><p class="al-steps__num"><bdi>4</bdi></p><h4 class="al-steps__title">Refine</h4><p class="al-steps__body">The first version is rarely the right one. We revisit, simplify and polish until the details hold up.</p></li>
+              </ol>
+            </div>
+            <p class="sc-spec"><a href="docs/components/steps.md">Read the spec</a></p>
+          </section>
+
           <section class="sc-component" id="page-head" aria-labelledby="page-head-h">
             <h3 id="page-head-h">Page head and tabs</h3>
             <p class="sc-lead">The page's title, what applies to the whole page, then its views.</p>
@@ -560,6 +575,26 @@
               </div>
             </div>
             <p class="sc-spec"><a href="docs/components/sidebar.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="site-header" aria-labelledby="site-header-h">
+            <h3 id="site-header-h">Site header</h3>
+            <p class="sc-lead">A website's top bar: the lockup, the sections, and the language and theme controls. Under the md breakpoint the sections fold into a menu.</p>
+            <div class="sc-example sc-example--flush" data-example>
+              <header class="al-site-header">
+                <div class="al-site-header__bar">
+                  <a class="al-lockup al-site-header__lockup" href="#site-header"><span class="al-mark" data-brand="mark" aria-hidden="true"></span><span class="al-wordmark" lang="en">Arabesque Labs</span></a>
+                  <div class="al-site-header__end">
+                    <nav class="al-site-header__nav" aria-label="Sections example"><ul><li><a href="#site-header" aria-current="true">The idea</a></li><li><a href="#site-header">Approach</a></li><li><a href="#site-header">Contact</a></li></ul></nav>
+                    <div class="al-site-header__tools">
+                      <button type="button" class="al-button al-button--icon al-site-header__toggle" data-site-menu-toggle aria-controls="site-menu-example" aria-expanded="false" aria-label="Menu"><svg class="al-icon" aria-hidden="true"><use href="dist/icons.svg#al-icon-menu"></use></svg></button>
+                    </div>
+                  </div>
+                </div>
+                <nav class="al-site-header__menu" id="site-menu-example" aria-label="Sections example" hidden><ul><li><a href="#site-header">The idea</a></li><li><a href="#site-header">Approach</a></li><li><a href="#site-header">Contact</a></li></ul></nav>
+              </header>
+            </div>
+            <p class="sc-spec"><a href="docs/components/site-header.md">Read the spec</a></p>
           </section>
 
           <section class="sc-component" id="notice" aria-labelledby="notice-h">
@@ -838,11 +873,26 @@
 
           <section class="sc-component" id="pattern" aria-labelledby="pattern-h">
             <h3 id="pattern-h">Pattern</h3>
-            <p class="sc-lead">The 4.8.8 tessellation of the mark's tile, contact angle 67.5°, drawn by rule as background texture.</p>
+            <p class="sc-lead">The 4.8.8 tessellation of the mark's tile, contact angle 67.5°, drawn by rule: as texture behind a band, or across a hero with its focal tile (as at the top of this page).</p>
             <div class="sc-example" data-example>
               <div class="al-card al-pattern al-pattern--full sc-pattern-demo"><div class="al-pattern__art" data-pattern></div></div>
             </div>
             <p class="sc-spec"><a href="docs/components/pattern.md">Read the spec</a></p>
+          </section>
+
+          <section class="sc-component" id="construction" aria-labelledby="construction-h">
+            <h3 id="construction-h">Construction figure</h3>
+            <p class="sc-lead">How the pattern is made, in three steps, each read as software.</p>
+            <div class="sc-example" data-example>
+              <figure class="al-construction" data-construction>
+                <ol class="al-construction__steps">
+                  <li><div class="al-construction__art" data-construction-step="1" role="img" aria-label="Octagons and squares tiling a square."></div><p class="al-construction__title"><span class="al-construction__num"><bdi>1</bdi></span> Tile the plane with simple shapes.</p><p class="al-construction__aside">In software: modules.</p></li>
+                  <li><div class="al-construction__art" data-construction-step="2" role="img" aria-label="The same tiling, with two lines drawn from each edge's midpoint at the contact angle; where they meet, stars form."></div><p class="al-construction__title"><span class="al-construction__num"><bdi>2</bdi></span> From each edge's midpoint, draw two lines at a fixed angle.</p><p class="al-construction__aside">In software: interfaces.</p></li>
+                  <li><div class="al-construction__art" data-construction-step="3" role="img" aria-label="Only the stars remain: the pattern."></div><p class="al-construction__title"><span class="al-construction__num"><bdi>3</bdi></span> Remove the scaffolding. The pattern holds.</p><p class="al-construction__aside">In software: the system.</p></li>
+                </ol>
+              </figure>
+            </div>
+            <p class="sc-spec"><a href="docs/components/construction.md">Read the spec</a></p>
           </section>
 
         </section>

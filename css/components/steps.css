@@ -1,0 +1,8 @@
+/* Steps: a numbered sequence, such as the stages of how something is done
+   ("Discover, Design, Build, Refine"). A rule above each, its number in the
+   accent, a title and a short paragraph. Only for real sequences. */
+.al-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr)); gap: var(--al-space-12) var(--al-space-8); }
+.al-steps > li { border-block-start: var(--al-border-hairline) solid var(--al-color-line-strong); padding-block-start: var(--al-space-5); }
+.al-steps__num { margin: 0; font-size: var(--al-text-sm); font-variant-numeric: tabular-nums; color: var(--al-color-accent); }
+.al-steps__title { margin: var(--al-space-3) 0 0; font-family: var(--al-font-display); font-size: var(--al-text-xl); font-weight: var(--al-weight-medium); line-height: var(--al-leading-heading); }
+.al-steps__body { margin: var(--al-space-4) 0 0; max-inline-size: 30ch; font-family: var(--al-font-serif); line-height: var(--al-leading-prose); color: var(--al-color-text-muted); }

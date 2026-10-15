@@ -1,8 +1,10 @@
 # The build (which fails on any colour pair short of its WCAG minimum, a pair
-# it doesn't measure, or the CSS over its size budget), released versions
-# left alone, the unit tests, dist/ being up to date with its sources, and
-# the showcase in a real browser: axe in light, dark, English and Arabic, and
-# the helpers' behaviour with real key presses.
+# it doesn't measure, or the CSS over its size budget), and the React build
+# (which fails on a type error, or an example with no Arabic); released
+# versions left alone; the unit tests; dist/, the examples and the template
+# up to date with their sources; and the showcase, the examples and the
+# template in a real browser: axe in light, dark, English and Arabic, and the
+# helpers' behaviour with real key presses.
 name: Check
 
 on:
@@ -20,10 +22,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Build, and fail if dist/ or the contrast report weren't rebuilt
+      - run: npm ci
+      - name: Build, and fail if dist/, the contrast report, the examples or the template weren't rebuilt
         run: |
           node scripts/build.mjs
-          git diff --exit-code -- dist docs/contrast.md
+          node scripts/build-react.mjs
+          git diff --exit-code -- dist docs/contrast.md examples templates
       - name: Released versions (v/) are never changed, only added
         run: |
           base="${{ github.event.pull_request.base.sha || github.event.before }}"
@@ -32,7 +36,7 @@ jobs:
           fi
       - name: Unit tests
         run: node --test "tests/*.test.js"
-      - name: The showcase in Chrome
+      - name: The showcase, the examples and the template in Chrome
         run: |
           npm i --no-save axe-core@4.10.2
           CHROME="$(command -v google-chrome || command -v chromium)" node scripts/check-page.mjs

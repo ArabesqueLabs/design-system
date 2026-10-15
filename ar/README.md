@@ -18,41 +18,52 @@
 |---|---|
 | `tokens/tokens.json` | المصدر الوحيد للحقيقة (بصيغة W3C Design Tokens): الرموز الأولية، والأدوار الدلالية، ورموز المكوّنات؛ مع الوضع الداكن ووضع العربية |
 | `scripts/build.mjs` | يبني `dist/` و`docs/contrast.md` من الرموز |
+| `scripts/build-react.mjs` | يبني `dist/react/` والأمثلة وقالب الصفحة الرئيسية من `react/` و`examples/src/` و`templates/react/` |
 | `dist/arabesque.css` | كل شيء في ملف واحد، في طبقات متتالية: الرموز، والأساس، والتخطيط، والمكوّنات، والأدوات المساعدة |
 | `dist/tokens.css` | الرموز وحدها، خصائصَ مخصّصة `--al-*`، فاتحة وداكنة |
 | `dist/tailwind-theme.css` | ربط `@theme` لإصدار Tailwind الرابع على المتغيرات نفسها |
 | `dist/tokens.json` | قيم الرموز محسوبة لكل وضع، للأدوات الأخرى |
 | `dist/icons.svg` | ملف الأيقونات المجمّع |
+| `dist/react/` | مكوّنات React، مع أنواعها ([`docs/react.md`](../docs/react.md)، بالإنجليزية) |
 | `css/` | المصادر: `base.css`، و`layout.css`، و`utilities.css`، و`components/*.css` |
-| `js/` | مساعدات اختيارية، لكل منها أنواعه (`.d.ts`): `theme`، `toast`، `dialog`، `menu`، `tabs`، `tooltip`، `position`، `validate`، `count`، `search`، `keys`، `format`، `chart`، `datepicker`، `pattern` |
+| `react/src/` | مصادر مكوّنات React: وحدة لكل مواصفة، تكتب الترميز نفسه وتستخدم المساعدات |
+| `js/` | مساعدات اختيارية، لكل منها أنواعه (`.d.ts`): `theme`، `toast`، `dialog`، `menu`، `tabs`، `tooltip`، `position`، `validate`، `count`، `search`، `keys`، `format`، `chart`، `datepicker`، `pattern`، `site-header` |
 | `tests/`، `scripts/check-page.mjs` | اختبارات الوحدات وقواعد النظام نفسه؛ وصفحة العرض مفحوصة في متصفح حقيقي |
 | `icons/`، `assets/brand/` | مصادر الأيقونات؛ والعلامة والنجمة والشعار النصي من حزمة الشعار |
 | `docs/` | الأسس، والتفاعل، وإتاحة الوصول، والكتابة من اليمين إلى اليسار، والتبنّي، ومواصفات المكوّنات، والتدقيق، وتقرير التباين |
 | `index.html` | صفحة العرض |
+| `examples/` | كل مكوّن يعمل، بـReact، في صفحة لكل منها، بالإنجليزية والعربية ([`examples/index.html`](../examples/index.html)) |
+| `templates/` | صفحات كاملة يُبدأ منها موقع: الصفحة الرئيسية للاستوديو، بالإنجليزية والعربية، بـHTML وبـReact ([`templates/README.md`](../templates/README.md)) |
 
 ## البناء
 
-يتطلب Node 20 أو أحدث. لا خطوة تثبيت.
+يتطلب Node 20 أو أحدث. لا تحتاج الأنماط والرموز والأيقونات إلى خطوة تثبيت؛ أما
+مكوّنات React وأمثلتها وقالب الصفحة الرئيسية فتحتاج إلى `npm install` أولًا
+(esbuild وTypeScript وReact).
 
 ```sh
-npm run build        # or: node scripts/build.mjs
+node scripts/build.mjs        # dist/: the CSS, tokens and sprite, and docs/contrast.md
+npm run build:react           # dist/react/, examples/, templates/home.html (type-checked)
+npm run build                 # both
 ```
 
-يطبع ملخصًا، وينتهي بخطأ إن قصّر أي زوج ألوان عن الحد الأدنى للتباين. لا تعدّل
-`dist/` يدويًا؛ فهو محفوظ في المستودع، لذا أعد بناءه واحفظه مع المصادر التي
-يأتي منها.
+يطبع ملخصًا، وينتهي بخطأ إن قصّر أي زوج ألوان عن الحد الأدنى للتباين، أو كان
+نوع خاطئًا، أو كان في مثال جملة بلا ترجمة عربية. لا تعدّل `dist/` ولا
+`examples/*.html` ولا HTML القالب يدويًا؛ فهي محفوظة في المستودع، لذا أعد
+بناءها واحفظها مع المصادر التي تأتي منها.
 
 ## الاختبار
 
 ```sh
 npm test             # unit tests, and the system's rules: logical properties only,
                      # every var() a token, every primitive used, one @keyframes each
-npm run check        # build, test, and fail if dist/ wasn't rebuilt
+npm run check        # build, test, and fail if dist/, the examples or the template weren't rebuilt
 
 npm i --no-save axe-core@4.10.2
 node scripts/check-page.mjs   # in Chrome: the helpers on their own page
                               # (tests/pages/helpers.html), with real key presses;
-                              # the showcase with axe in light, dark, English and Arabic
+                              # the showcase with axe in light, dark, English and Arabic;
+                              # every example page, and the template, the same way
 ```
 
 تعمل الثلاثة مع كل دفع وكل طلب دمج (`.github/workflows/check.yml`). ويفشل
@@ -70,6 +81,10 @@ npm run serve        # then open http://127.0.0.1:4900/
 
 بدّل السمة واللغة من الأعلى؛ وفي العربية، اختر الأرقام الغربية أو الهندية
 العربية. وتُحفظ الاختيارات الثلاثة.
+
+والمكوّنات نفسها بـReact، في صفحة لكل منها، على
+`http://127.0.0.1:4900/examples/`: كل منها بالإنجليزية، ثم بالعربية من اليمين
+إلى اليسار.
 
 ## استخدامه في مشروع
 
@@ -102,7 +117,9 @@ npm run serve        # then open http://127.0.0.1:4900/
    ```
 
 4. **ابنِ بالأصناف** (`al-button`، `al-field`…)، متّبعًا المواصفات في
-   [`docs/components/ar/`](../docs/components/ar/README.md).
+   [`docs/components/ar/`](../docs/components/ar/README.md)؛ أو، في تطبيق
+   React، بالمكوّنات (`@arabesquelabs/design-system/react`)، التي تكتب
+   الترميز نفسه: انظر [`docs/react.md`](../docs/react.md) (بالإنجليزية).
 5. **استخدم المساعدات** وحداتٍ حيث تحتاجها:
 
    ```js
@@ -133,6 +150,7 @@ npm run serve        # then open http://127.0.0.1:4900/
 - [من اليمين إلى اليسار](../docs/rtl.md): الانعكاس، وعزل الاتجاه، والأرقام.
 - الأسس: [اللون](../docs/foundations/colour.md)، و[الخط](../docs/foundations/typography.md)، و[المسافة والشكل](../docs/foundations/space-and-shape.md)، و[الحركة](../docs/foundations/motion.md)، و[الأيقونات](../docs/foundations/iconography.md)، و[التخطيط](../docs/foundations/layout.md)، و[الكتابة](../docs/foundations/writing.md).
 - [المكوّنات](../docs/components/ar/README.md)، بالعربية.
+- [React](../docs/react.md): المكوّنات بـReact، وكيف تُغيَّر.
 - [التبنّي](../docs/adoption.md): نقل hunt وarabesquelabs.com إليه.
 - [التدقيق](../docs/00-audit.md): من أين جاء، والقرارات.
 

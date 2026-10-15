@@ -16,41 +16,52 @@ file. The optional JavaScript helpers have no dependencies either.
 |---|---|
 | `tokens/tokens.json` | The single source of truth (W3C Design Tokens format): primitives, semantic roles, component tokens; dark and Arabic modes |
 | `scripts/build.mjs` | Builds `dist/` and `docs/contrast.md` from the tokens |
+| `scripts/build-react.mjs` | Builds `dist/react/`, the examples and the homepage template from `react/`, `examples/src/` and `templates/react/` |
 | `dist/arabesque.css` | Everything in one file, in cascade layers: tokens, base, layout, components, utilities |
 | `dist/tokens.css` | The tokens alone, as `--al-*` custom properties, light and dark |
 | `dist/tailwind-theme.css` | A Tailwind v4 `@theme` mapping onto the same variables |
 | `dist/tokens.json` | Resolved token values per mode, for other tools |
 | `dist/icons.svg` | The icon sprite |
+| `dist/react/` | The React components, with their types ([`docs/react.md`](docs/react.md)) |
 | `css/` | The sources: `base.css`, `layout.css`, `utilities.css`, `components/*.css` |
-| `js/` | Optional helpers, each with its types (`.d.ts`): `theme`, `toast`, `dialog`, `menu`, `tabs`, `tooltip`, `position`, `validate`, `count`, `search`, `keys`, `format`, `chart`, `datepicker`, `pattern` |
+| `react/src/` | The React components' sources: one module per spec, writing the same markup and using the helpers |
+| `js/` | Optional helpers, each with its types (`.d.ts`): `theme`, `toast`, `dialog`, `menu`, `tabs`, `tooltip`, `position`, `validate`, `count`, `search`, `keys`, `format`, `chart`, `datepicker`, `pattern`, `site-header` |
 | `tests/`, `scripts/check-page.mjs` | Unit tests and the system's own rules; the showcase checked in a real browser |
 | `icons/`, `assets/brand/` | Icon sources; the mark, star and wordmark from the logo pack |
 | `docs/` | Foundations, interaction, accessibility, RTL, adoption, component specs, the audit, the contrast report |
 | `index.html` | The showcase |
+| `examples/` | Every component working, in React, a page each, in English and Arabic ([`examples/index.html`](examples/index.html)) |
+| `templates/` | Whole pages to start a site from: the studio homepage, in English and Arabic, in HTML and in React ([`templates/README.md`](templates/README.md)) |
 
 ## Build
 
-Requires Node 20 or later. No install step.
+Requires Node 20 or later. The CSS, tokens and icons need no install step;
+the React components, their examples and the homepage template need
+`npm install` (esbuild, TypeScript, React) first.
 
 ```sh
-npm run build        # or: node scripts/build.mjs
+node scripts/build.mjs        # dist/: the CSS, tokens and sprite, and docs/contrast.md
+npm run build:react           # dist/react/, examples/, templates/home.html (type-checked)
+npm run build                 # both
 ```
 
 It prints a summary and exits non-zero if any colour pair fails its contrast
-minimum. Don't edit `dist/` by hand; it's committed, so rebuild and commit it
-with the sources it comes from.
+minimum, a type is wrong, or an example has a sentence with no Arabic. Don't
+edit `dist/`, `examples/*.html` or the template's HTML by hand; they're
+committed, so rebuild and commit them with the sources they come from.
 
 ## Test
 
 ```sh
 npm test             # unit tests, and the system's rules: logical properties only,
                      # every var() a token, every primitive used, one @keyframes each
-npm run check        # build, test, and fail if dist/ wasn't rebuilt
+npm run check        # build, test, and fail if dist/, the examples or the template weren't rebuilt
 
 npm i --no-save axe-core@4.10.2
 node scripts/check-page.mjs   # in Chrome: the helpers on their own page
                               # (tests/pages/helpers.html), with real key presses;
-                              # the showcase with axe in light, dark, English and Arabic
+                              # the showcase with axe in light, dark, English and Arabic;
+                              # every example page, and the template, the same way
 ```
 
 All three run on every push and pull request (`.github/workflows/check.yml`).
@@ -69,6 +80,10 @@ npm run serve        # then open http://127.0.0.1:4900/
 
 Switch theme and language at the top; in Arabic, choose Western or
 Arabic-Indic digits. All three are remembered.
+
+The same components in React, a page each, are at
+`http://127.0.0.1:4900/examples/`: each in English, then in Arabic, right to
+left.
 
 ## Use it in a project
 
@@ -102,7 +117,9 @@ Arabic-Indic digits. All three are remembered.
    ```
 
 4. **Build with the classes** (`al-button`, `al-field`…), following the
-   specs in [`docs/components/`](docs/components/README.md).
+   specs in [`docs/components/`](docs/components/README.md); or, in a React
+   app, with the components (`@arabesquelabs/design-system/react`), which
+   write the same markup: see [`docs/react.md`](docs/react.md).
 5. **Use the helpers** as modules where you need them:
 
    ```js
@@ -131,6 +148,7 @@ as the tokens do: the system's setting unless light is chosen, or a chosen dark.
 - [Right to left](docs/rtl.md): mirroring, bidi isolation and digits.
 - Foundations: [colour](docs/foundations/colour.md), [typography](docs/foundations/typography.md), [space and shape](docs/foundations/space-and-shape.md), [motion](docs/foundations/motion.md), [iconography](docs/foundations/iconography.md), [layout](docs/foundations/layout.md), [writing](docs/foundations/writing.md).
 - [Components](docs/components/README.md), and [in Arabic](docs/components/ar/README.md).
+- [React](docs/react.md): the components in React, and how to change them.
 - [Adoption](docs/adoption.md): moving hunt and arabesquelabs.com onto it.
 - [Audit](docs/00-audit.md): where it came from, and the decisions.
 

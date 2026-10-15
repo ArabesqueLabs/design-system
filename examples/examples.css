@@ -1,0 +1,42 @@
+/* The example pages: their frame only. Everything inside an example is the
+   system's own (dist/arabesque.css). Tokens only, logical properties only. */
+body { margin: 0; }
+.ex-top { display: flex; align-items: center; justify-content: space-between; gap: var(--al-space-4); padding-block: var(--al-space-4); }
+.ex-back { color: var(--al-color-text-muted); }
+.ex-main { padding-block: var(--al-space-8) var(--al-space-16); display: flex; flex-direction: column; gap: var(--al-space-6); }
+.ex-main > * { margin: 0; }
+.ex-title { font-family: var(--al-font-display); font-size: var(--al-text-3xl); font-weight: var(--al-weight-regular); letter-spacing: var(--al-tracking-tight); }
+.ex-spec { color: var(--al-color-text-muted); }
+.ex-example { display: flex; flex-direction: column; gap: var(--al-space-4); padding: var(--al-space-6); border: var(--al-border-hairline) solid var(--al-color-line); border-radius: var(--al-radius-sm); background: var(--al-color-surface); min-inline-size: 0; }
+.ex-h { margin: 0; font-size: var(--al-text-sm); font-weight: var(--al-weight-medium); color: var(--al-color-text-muted); }
+
+/* Inside the examples, as in the showcase (showcase.css). */
+.ex-form { --al-grid-min: 15rem; align-items: start; }
+.ex-narrow { max-inline-size: 28rem; }
+.ex-frame { padding: var(--al-space-5); border: var(--al-border-hairline) dashed var(--al-color-line-strong); border-radius: var(--al-radius-sm); }
+.ex-shell { min-block-size: 0; border: var(--al-border-hairline) solid var(--al-color-line); border-radius: var(--al-radius-sm); overflow: hidden; }
+.ex-shell .al-sidebar { position: static; block-size: auto; min-block-size: 16rem; }
+.ex-shell__main { padding: var(--al-space-5); }
+.ex-flush .al-site-header { position: static; }
+.ex-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--al-space-2); }
+.ex-list > li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--al-space-2) var(--al-space-4); padding-block: var(--al-space-1); }
+.ex-list > li > .al-rollback-note { flex-basis: 100%; }
+.ex-marks { align-items: flex-end; }
+.ex-pattern { min-block-size: 14rem; }
+.ex-hero { min-block-size: 18rem; border: var(--al-border-hairline) solid var(--al-color-line); border-radius: var(--al-radius-sm); }
+.ex-hero__body { padding: var(--al-space-8) var(--al-space-6); }
+.ex-hero__title { margin: 0; max-inline-size: 12ch; font-size: var(--al-text-3xl); }
+.ex-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr)); gap: var(--al-space-2); list-style: none; margin: 0; padding: 0; }
+.ex-icons li { display: flex; align-items: center; gap: var(--al-space-2); padding: var(--al-space-2); border: var(--al-border-hairline) solid var(--al-color-line); border-radius: var(--al-radius-sm); font-family: var(--al-font-mono); font-size: var(--al-text-xs); }
+
+/* The gallery. */
+.ex-cover { border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
+.ex-cover__body { padding-block: var(--al-space-12) var(--al-space-16); }
+.ex-cover__title { margin: 0; max-inline-size: 14ch; }
+.ex-cover__lede { margin: var(--al-space-6) 0 0; max-inline-size: 48ch; }
+.ex-group { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: var(--al-space-5); padding-block-start: var(--al-space-6); border-block-start: var(--al-border-hairline) solid var(--al-color-line); }
+.ex-group__h { margin: 0; font-size: var(--al-text-lg); font-weight: var(--al-weight-medium); }
+.ex-group__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--al-space-3); }
+@media (max-width: 40rem) {
+  .ex-group { grid-template-columns: minmax(0, 1fr); }
+}

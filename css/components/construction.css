@@ -1,0 +1,22 @@
+/* Construction figure: how the pattern is made, in three steps, each with
+   its software reading (js/pattern.js initConstruction): the tiling; the
+   strands drawn at the contact angle; the strands alone. An optional slider
+   redraws steps 2 and 3 at another angle. */
+.al-construction { margin: 0; }
+.al-construction__steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(9rem, 100%), 1fr)); gap: var(--al-space-8) var(--al-space-6); }
+.al-construction__art { max-inline-size: 16rem; aspect-ratio: 1; overflow: hidden; border: var(--al-border-hairline) solid var(--al-color-line); background: var(--al-color-surface); }
+.al-construction__svg { display: block; inline-size: 100%; block-size: 100%; }
+.al-construction__scaffold { fill: none; stroke: var(--al-color-pattern-scaffold); stroke-width: 0.9; }
+.al-construction__rays { fill: none; stroke: var(--al-color-accent); stroke-width: 1.1; stroke-linejoin: miter; }
+.al-construction__strands { fill: none; stroke: var(--al-color-text); stroke-width: 1.1; stroke-linejoin: miter; }
+.al-construction__title { margin: var(--al-space-5) 0 0; max-inline-size: 24ch; line-height: var(--al-leading-prose); }
+.al-construction__num { color: var(--al-color-accent); font-variant-numeric: tabular-nums; }
+.al-construction__aside { margin: var(--al-space-3) 0 0; font-family: var(--al-font-serif); font-style: italic; color: var(--al-color-text-muted); }
+.al-construction__aside:lang(ar) { font-style: normal; }
+.al-construction__control { display: flex; flex-wrap: wrap; align-items: center; gap: var(--al-space-3) var(--al-space-4); margin-block-start: var(--al-space-8); }
+.al-construction__control input[type="range"] { inline-size: min(20rem, 100%); min-block-size: var(--al-size-target-min); accent-color: var(--al-color-accent); margin: 0; }
+.al-construction__control output { min-inline-size: 4.5ch; font-variant-numeric: tabular-nums; }
+@media (forced-colors: active) {
+  .al-construction__scaffold, .al-construction__strands { stroke: CanvasText; }
+  .al-construction__rays { stroke: Highlight; }
+}

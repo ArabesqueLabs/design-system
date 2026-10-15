@@ -2,7 +2,8 @@
 // Checks in a real browser, with no dependencies but Chrome and axe-core:
 // the helpers' behaviour, with real key presses, on a page of their own
 // (tests/pages/helpers.html); then the showcase: axe (WCAG 2.2 A and AA) in
-// light and dark, English and Arabic, and its demos wired to the helpers.
+// light and dark, English and Arabic, and its demos wired to the helpers;
+// then every React example page and the homepage template, the same way.
 //
 //   npm i --no-save axe-core@4.10.2
 //   CHROME="/path/to/chrome" node scripts/check-page.mjs   (or AXE=/path/to/axe.min.js)
@@ -12,7 +13,7 @@
 
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
-import { existsSync, mkdtempSync } from "node:fs";
+import { existsSync, mkdtempSync, readdirSync } from "node:fs";
 import { spawn } from "node:child_process";
 import { join, dirname, extname, normalize } from "node:path";
 import { tmpdir } from "node:os";
@@ -61,10 +62,13 @@ async function page() {
   let id = 0;
   const pending = new Map();
   const errors = [];
+  // console.error too: React reports hydration mismatches and its own warnings there.
+  const consoleErrors = [];
   ws.addEventListener("message", (m) => {
     const d = JSON.parse(m.data);
     if (d.id && pending.has(d.id)) { pending.get(d.id)(d); pending.delete(d.id); }
     if (d.method === "Runtime.exceptionThrown") errors.push(d.params.exceptionDetails.exception?.description ?? d.params.exceptionDetails.text);
+    if (d.method === "Runtime.consoleAPICalled" && d.params.type === "error") consoleErrors.push(d.params.args.map((a) => a.value ?? a.description ?? "").join(" ").slice(0, 300));
   });
   const send = (method, params = {}) => new Promise((r) => { const i = ++id; pending.set(i, r); ws.send(JSON.stringify({ id: i, method, params })); });
   const run = async (expression) => {
@@ -82,15 +86,15 @@ async function page() {
   await send("Runtime.enable");
   await send("Page.enable");
   await send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 900, deviceScaleFactor: 1, mobile: false });
-  return { send, run, key, errors, close: () => fetch(`http://127.0.0.1:${port}/json/close/${t.id}`) };
+  return { send, run, key, errors, consoleErrors, close: () => fetch(`http://127.0.0.1:${port}/json/close/${t.id}`) };
 }
 
-async function open(p, { url = SHOWCASE, theme = "light", lang = "en" } = {}) {
+async function open(p, { url = SHOWCASE, theme = "light", lang = "en", ready: when } = {}) {
   await p.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-color-scheme", value: theme }] });
   await p.send("Page.navigate", { url });
-  const ready = url === SHOWCASE
+  const ready = when ?? (url === SHOWCASE
     ? `document.readyState === "complete" && !!document.querySelector("#sc-spec-modal") && !!document.querySelector("[data-chart-bullet] .al-bullet")`
-    : `document.documentElement.dataset.ready === "yes"`;
+    : `document.documentElement.dataset.ready === "yes"`);
   for (let i = 0; i < 150; i++) {
     await new Promise((r) => setTimeout(r, 100));
     if (await p.run(ready).catch(() => false)) break;
@@ -288,6 +292,72 @@ check("showcase: fonts load, and only from this site", fonts.length > 0 && fonts
 await open(p, { theme: "dark" });
 const ring = await p.run(`(() => { const b = document.querySelector(".al-bulk-bar .al-button"); return b ? getComputedStyle(b).getPropertyValue("--al-color-focus").trim() : null; })()`);
 check("showcase: the bulk bar has its own focus colour", ring === null || ring !== "", String(ring));
+
+// ---- the React examples (examples/) and the homepage template ----
+
+// Every page in light and dark, each with its demo in English and in Arabic:
+// accessible, and React with no errors (a hydration mismatch is one).
+const examples = readdirSync(join(root, "examples")).filter((f) => f.endsWith(".html")).sort();
+check("examples: a page for each demo, and the gallery", examples.length > 40 && examples.includes("index.html"), String(examples.length));
+for (const file of examples) {
+  for (const theme of ["light", "dark"]) {
+    p.errors.length = 0;
+    p.consoleErrors.length = 0;
+    await open(p, { url: `${origin}/examples/${file}`, theme });
+    const ready = await p.run(`document.documentElement.dataset.ready === "yes"`);
+    await axe(p, `examples/${file}, ${theme}`);
+    check(`examples/${file}, ${theme}: React ran, with no errors`, ready && !p.errors.length && !p.consoleErrors.length, [...p.errors, ...p.consoleErrors].join(" | "));
+  }
+}
+
+// The components behave, in React: one of each kind of wiring.
+const ex = (file) => open(p, { url: `${origin}/examples/${file}` });
+await ex("dialog.html");
+await p.run(`document.querySelector("main .ex-example .al-button").click()`);
+await wait(100);
+check("examples: Rename opens its dialog, in React", await p.run(`!!document.querySelector("dialog.al-dialog[open]")`));
+await p.run(`(() => { const i = document.querySelector("dialog[open] input"); i.focus(); i.value = "Changed"; })()`);
+await p.key("Escape");
+await wait(100);
+check("examples: the dialog asks before losing a change", await p.run(`!!document.querySelector("dialog[open]") && !document.querySelector("dialog[open] .al-dialog__discard").hidden`));
+await p.run(`document.querySelector("dialog[open] [data-al-discard]").click()`);
+await wait(100);
+check("examples: Discard closes it, and focus goes back", await p.run(`!document.querySelector("dialog[open]") && document.activeElement?.textContent === "Rename item…"`));
+
+await ex("page-head.html");
+await p.run(`document.querySelector('[role="tab"][aria-selected="true"]').focus()`);
+await p.key("ArrowRight");
+check("examples: tabs move with the arrow keys", await p.run(`document.activeElement?.getAttribute("aria-selected") === "true" && document.activeElement.textContent.startsWith("Activity")`));
+
+await ex("site-header.html");
+await p.send("Emulation.setDeviceMetricsOverride", { width: 400, height: 800, deviceScaleFactor: 1, mobile: true });
+await p.run(`document.querySelector(".ex-example [data-site-menu-toggle]").click()`);
+check("examples: the site header's menu opens under md", await p.run(`(() => { const b = document.querySelector(".ex-example [data-site-menu-toggle]"); return b.getAttribute("aria-expanded") === "true" && !document.getElementById(b.getAttribute("aria-controls")).hidden; })()`));
+await p.send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 900, deviceScaleFactor: 1, mobile: false });
+
+await ex("character-count.html");
+check("examples: the character count, in Arabic", await p.run(`(() => { const t = document.querySelector('[lang="ar"] textarea'); return /حرف/.test(t.parentElement.querySelector(".al-character-count__message")?.textContent ?? ""); })()`));
+
+await ex("ask-check-confirm.html");
+await p.run(`document.querySelector(".ex-example form button[type=submit]").click()`);
+await wait(100);
+check("examples: submitted empty, the error summary takes focus", await p.run(`document.activeElement?.classList.contains("al-error-summary") && document.activeElement.querySelectorAll("li").length === 3`));
+
+await ex("date-picker.html");
+await p.run(`document.querySelector('[lang="ar"] .al-date-picker__toggle').click()`);
+for (let i = 0; i < 50 && !(await p.run(`!!document.activeElement?.dataset.date`)); i++) await wait(50);
+check("examples: the date picker, in Arabic", await p.run(`(() => { const d = document.activeElement.closest("dialog"); return d.lang === "ar" && /٢٠٢٦|2026/.test(d.querySelector("h2").textContent); })()`));
+await p.key("Escape");
+
+// The template: static, wired by the helpers alone.
+for (const [file, lang] of [["templates/home.html", "en"], ["templates/ar/home.html", "ar"]]) {
+  for (const theme of ["light", "dark"]) {
+    p.errors.length = 0;
+    await open(p, { url: `${origin}/${file}`, theme, ready: `document.readyState === "complete" && !!document.querySelector(".al-construction svg")` });
+    await axe(p, `${file}, ${theme}`);
+    check(`${file}, ${theme}: drawn, with no errors`, !p.errors.length && await p.run(`document.documentElement.lang === "${lang}" && !!document.querySelector(".al-pattern--hero svg")`), p.errors.join(" | "));
+  }
+}
 
 await p.close();
 chrome.kill();

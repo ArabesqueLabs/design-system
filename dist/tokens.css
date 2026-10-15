@@ -82,7 +82,10 @@
   --al-color-tint-blue-ink: #1E40AF;
   --al-color-tint-cyan-bg: #CFFAFE;
   --al-color-tint-cyan-ink: #155E75;
-  --al-color-pattern-line: oklch(51% 0.095 183 / 0.24);
+  --al-color-pattern-line: oklch(24.5% 0.028 265 / 0.26);
+  --al-color-pattern-scaffold: oklch(24.5% 0.028 265 / 0.12);
+  --al-color-pattern-focal: var(--al-color-accent);
+  --al-color-pattern-focal-fill: oklch(51% 0.095 183 / 0.16);
   --al-font-sans: "Jost", "IBM Plex Sans Arabic", "Noto Sans Arabic", "SF Arabic", "Geeza Pro", ui-sans-serif, system-ui, sans-serif;
   --al-font-display: "Jost", "Kufam", "Noto Kufi Arabic", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
   --al-font-serif: "Newsreader", "Amiri", "Noto Naskh Arabic", "Scheherazade New", "Georgia", serif;
@@ -151,6 +154,10 @@
   --al-pattern-side-narrow: 22px;
   --al-pattern-stroke: 1.25px;
   --al-pattern-contact-angle: 67.5;
+  --al-pattern-hero-side: 46px;
+  --al-pattern-hero-side-narrow: 30px;
+  --al-pattern-hero-stroke: 1px;
+  --al-pattern-focal-stroke: 1.6px;
   --al-button-height: var(--al-size-control-md);
   --al-button-height-sm: var(--al-size-control-sm);
   --al-button-padding-inline: var(--al-space-4);
@@ -210,7 +217,9 @@
     --al-color-tint-blue-ink: #93C5FD;
     --al-color-tint-cyan-bg: oklch(75% 0.13 215 / 0.18);
     --al-color-tint-cyan-ink: #67E8F9;
-    --al-color-pattern-line: oklch(100% 0 0 / 0.16);
+    --al-color-pattern-line: oklch(100% 0 0 / 0.2);
+    --al-color-pattern-scaffold: oklch(100% 0 0 / 0.1);
+    --al-color-pattern-focal-fill: oklch(82.5% 0.105 168 / 0.16);
   }
 }
 :root[data-theme="dark"] {
@@ -261,7 +270,9 @@
   --al-color-tint-blue-ink: #93C5FD;
   --al-color-tint-cyan-bg: oklch(75% 0.13 215 / 0.18);
   --al-color-tint-cyan-ink: #67E8F9;
-  --al-color-pattern-line: oklch(100% 0 0 / 0.16);
+  --al-color-pattern-line: oklch(100% 0 0 / 0.2);
+  --al-color-pattern-scaffold: oklch(100% 0 0 / 0.1);
+  --al-color-pattern-focal-fill: oklch(82.5% 0.105 168 / 0.16);
 }
 
 /* Arabic: a little larger, more line height, no letter-spacing. Declared

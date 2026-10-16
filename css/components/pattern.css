@@ -18,6 +18,9 @@
 }
 .al-pattern__art svg { inline-size: 100%; block-size: 100%; display: block; }
 .al-pattern--full .al-pattern__art { -webkit-mask-image: none; mask-image: none; }
+/* Quiet: a low-contrast field for a small area with nothing on it (an empty
+   state, a card). No mask, at any width. */
+.al-pattern--quiet .al-pattern__art, .al-pattern--quiet .al-pattern__art:dir(rtl) { color: var(--al-color-pattern-quiet); -webkit-mask-image: none; mask-image: none; }
 @media (max-width: 52rem) {
   .al-pattern__art, .al-pattern__art:dir(rtl) {
     -webkit-mask-image: linear-gradient(to bottom, black 0 30%, transparent 70%);
@@ -31,7 +34,25 @@
    heading and lede to sit on; one octagon, the focal tile, in the accent,
    with its caption. Drawn in once on load if asked: the scaffolding, the
    strands from the focal tile outwards, then the focal tile and caption. */
-.al-pattern--hero .al-pattern__art { color: inherit; -webkit-mask-image: none; mask-image: none; }
+/* Behind the heading and lede, at the start, the strands fall to a trace
+   (a fifth of their strength), so the text reads clearly; towards the
+   focal tile they come back in full. Under md, where the text takes the
+   whole width, they're faint everywhere. */
+.al-pattern--hero .al-pattern__art {
+  color: inherit;
+  -webkit-mask-image: linear-gradient(to right, rgb(0 0 0 / 0.2) 0 40%, black 72%);
+  mask-image: linear-gradient(to right, rgb(0 0 0 / 0.2) 0 40%, black 72%);
+}
+.al-pattern--hero .al-pattern__art:dir(rtl) {
+  -webkit-mask-image: linear-gradient(to left, rgb(0 0 0 / 0.2) 0 40%, black 72%);
+  mask-image: linear-gradient(to left, rgb(0 0 0 / 0.2) 0 40%, black 72%);
+}
+@media (max-width: 52rem) {
+  .al-pattern--hero .al-pattern__art, .al-pattern--hero .al-pattern__art:dir(rtl) {
+    -webkit-mask-image: linear-gradient(rgb(0 0 0 / 0.35), rgb(0 0 0 / 0.35));
+    mask-image: linear-gradient(rgb(0 0 0 / 0.35), rgb(0 0 0 / 0.35));
+  }
+}
 /* Drawn at its own size (a little taller than the section, so small changes in height don't need a redraw). */
 .al-pattern--hero .al-pattern__art svg { inline-size: auto; block-size: auto; }
 .al-pattern__scaffold { fill: none; stroke: var(--al-color-pattern-scaffold); stroke-width: var(--al-pattern-hero-stroke); opacity: 0; }

@@ -14,6 +14,8 @@ Line icons from the sprite. See [iconography](../foundations/iconography.md).
 
 Default (18px), `--sm` (16px), `--lg` (24px). `.al-mirror` for directional icons.
 
+The set: arrow, board, calendar, check, chevron, chevron-down, close, copy, danger, edit, external, file, info, language, mail, menu, minus, more, plus, retry, search, settings, sidebar, success, theme, trash, undo, warning. `copy` is for copying (a link, a reference); `mail` for an email address or sending one; `language` beside a language link, where a word alone isn't clear; `chevron-down` for something that opens below (a select, a disclosure).
+
 ## States
 
 Takes the colour of its text.

@@ -6,6 +6,8 @@ export interface ErrorSummaryProps {
         message: ReactNode;
     }[];
     title?: ReactNode;
+    /** Takes focus when it appears, so it's read at once: on by default (off for one shown as an example). */
+    autoFocus?: boolean;
     id?: string;
     className?: string;
 }
@@ -13,7 +15,7 @@ export interface ErrorSummaryProps {
  * When a form is submitted with problems: a list at the top of the form.
  * It takes focus when it appears, so it's read at once.
  */
-export declare function ErrorSummary({ errors, title, id, className }: ErrorSummaryProps): import("react").JSX.Element | null;
+export declare function ErrorSummary({ errors, title, autoFocus, id, className }: ErrorSummaryProps): import("react").JSX.Element | null;
 export interface SearchProps extends Omit<ComponentPropsWithoutRef<"input">, "type"> {
     /** The visible label ("Search items"). */
     label: ReactNode;

@@ -17,9 +17,11 @@ Progress shown where the work happens: a spinner in the busy control or region, 
 
 Spinner (unknown duration, short), skeleton (content arriving), bar (measurable).
 
+The spinner is the mark's star: faint, with a bright segment going round its outline. It's the same in a busy button (`aria-busy="true"`) and a saving save state. It's `1.1em`, so it takes the size and colour of the text beside it; set `font-size` for a bigger one.
+
 ## States
 
-Under reduced motion the spinner is a still dotted ring and skeletons don't shimmer.
+Under reduced motion the spinner is the whole star, still, and skeletons don't shimmer.
 
 ## Keyboard
 
@@ -41,6 +43,7 @@ The bar fills from the start (right in Arabic).
 ## Don't
 
 - Block the whole page with a spinner after the first load.
+- Use the spinner alone for a wait of more than a few seconds: say what's happening.
 
 ## Tokens
 

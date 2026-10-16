@@ -15,6 +15,14 @@ Modern Standard Arabic.
   dates unambiguous ("4 January 2027", not "04/01/27").
 - **No jargon the person didn't bring.** "Take-home pay", not "net
   remuneration"; but "IR35" and "tax code" when they're the person's words.
+  Nor the system's own: "tessellation", "lattice", "focal tile" belong in
+  these docs, never on a page.
+- **Never invent facts.** No made-up products, customers, figures,
+  testimonials or team members, not even as placeholders: where a slot
+  needs a name, write "Product name". Example data in the showcase is
+  plainly an example ("Item one", "Offer A").
+- **No hype.** Not "revolutionary", "cutting-edge", "seamless", "next-gen";
+  no exclamation marks, no emoji.
 
 ## Labels for actions
 
@@ -46,7 +54,8 @@ BR. Check your payslip."
 
 ## Arabic
 
-- Modern Standard Arabic, in the same plain register.
+- Modern Standard Arabic, in the same plain register, written as Arabic:
+  what a person would write, not the English word for word.
 - Arabic punctuation (، ؛ ؟) in Arabic sentences.
 - Latin names, codes and amounts stay as they are, isolated (see
   [`../rtl.md`](../rtl.md)): "الرمز 0T", "Arabesque Labs".

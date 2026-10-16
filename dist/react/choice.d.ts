@@ -1,8 +1,10 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { type ComponentPropsWithoutRef, type ReactNode } from "react";
 export interface ChoiceProps extends Omit<ComponentPropsWithoutRef<"input">, "type" | "role"> {
     label: ReactNode;
     /** A line under the label, in the label (so it's read with it). */
     hint?: ReactNode;
+    /** Mixed (a checkbox only): a "Select all" whose items are some checked and some not. */
+    indeterminate?: boolean;
 }
 export declare const Checkbox: (props: ChoiceProps) => import("react").JSX.Element;
 export declare const Radio: (props: ChoiceProps) => import("react").JSX.Element;

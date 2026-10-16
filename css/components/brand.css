@@ -19,3 +19,7 @@
 .al-wordmark { letter-spacing: var(--al-tracking-wide); }
 .al-lockup__product { color: var(--al-color-text-muted); font-weight: var(--al-weight-regular); }
 .al-lockup__product::before { content: "·"; margin-inline: 0.4em; }
+/* Stacked: the mark over the wordmark, for a splash or print. */
+.al-lockup--stacked { flex-direction: column; gap: 0.6em; }
+.al-lockup--stacked .al-mark { inline-size: 2.5em; block-size: 2.5em; }
+.al-lockup--stacked .al-lockup__product::before { content: none; }

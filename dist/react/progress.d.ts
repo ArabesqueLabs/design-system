@@ -1,8 +1,15 @@
 import type { ComponentPropsWithoutRef, CSSProperties } from "react";
-/** Decoration: say what's happening in text beside it ("Loading offers"). */
-export declare function Spinner({ className }: {
+export interface SpinnerProps {
+    /**
+     * Said by screen readers, as a polite status, when there's no text beside
+     * it: true for "Loading" in the page's language, or your own words.
+     * Without it, the spinner is decoration: say what's happening beside it.
+     */
+    label?: string | true;
     className?: string;
-}): import("react").JSX.Element;
+}
+/** The mark's star, faint, with a segment going round it. Sized and coloured by its text. */
+export declare function Spinner({ label, className }: SpinnerProps): import("react").JSX.Element;
 /** A line where content will appear; put the region it's in aria-busy. */
 export declare function Skeleton({ width, className }: {
     width?: CSSProperties["inlineSize"];

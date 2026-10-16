@@ -18,12 +18,13 @@
 |---|---|
 | `tokens/tokens.json` | المصدر الوحيد للحقيقة (بصيغة W3C Design Tokens): الرموز الأولية، والأدوار الدلالية، ورموز المكوّنات؛ مع الوضع الداكن ووضع العربية |
 | `scripts/build.mjs` | يبني `dist/` و`docs/contrast.md` من الرموز |
-| `scripts/build-react.mjs` | يبني `dist/react/` والأمثلة وقالب الصفحة الرئيسية من `react/` و`examples/src/` و`templates/react/` |
+| `scripts/build-react.mjs` | يبني `dist/react/` والأمثلة وقالب الصفحة الرئيسية من `react/` و`examples/src/` و`templates/react/`؛ وصفحةً بجانب كل مستند (`README.html`، `docs/…/*.html`) |
 | `dist/arabesque.css` | كل شيء في ملف واحد، في طبقات متتالية: الرموز، والأساس، والتخطيط، والمكوّنات، والأدوات المساعدة |
 | `dist/tokens.css` | الرموز وحدها، خصائصَ مخصّصة `--al-*`، فاتحة وداكنة |
 | `dist/tailwind-theme.css` | ربط `@theme` لإصدار Tailwind الرابع على المتغيرات نفسها |
 | `dist/tokens.json` | قيم الرموز محسوبة لكل وضع، للأدوات الأخرى |
 | `dist/icons.svg` | ملف الأيقونات المجمّع |
+| `dist/brand/`، `dist/patterns/` | العلامة والنجمة وأيقونة الموقع بألوان ثابتة، وبلاطات النمط، للبريد الإلكتروني والعروض والمستندات |
 | `dist/react/` | مكوّنات React، مع أنواعها ([`docs/react.md`](../docs/react.md)، بالإنجليزية) |
 | `css/` | المصادر: `base.css`، و`layout.css`، و`utilities.css`، و`components/*.css` |
 | `react/src/` | مصادر مكوّنات React: وحدة لكل مواصفة، تكتب الترميز نفسه وتستخدم المساعدات |
@@ -31,7 +32,7 @@
 | `tests/`، `scripts/check-page.mjs` | اختبارات الوحدات وقواعد النظام نفسه؛ وصفحة العرض مفحوصة في متصفح حقيقي |
 | `icons/`، `assets/brand/` | مصادر الأيقونات؛ والعلامة والنجمة والشعار النصي من حزمة الشعار |
 | `docs/` | الأسس، والتفاعل، وإتاحة الوصول، والكتابة من اليمين إلى اليسار، والتبنّي، ومواصفات المكوّنات، والتدقيق، وتقرير التباين |
-| `index.html` | صفحة العرض |
+| `index.html` | صفحة العرض: كل الأمثلة في صفحة واحدة، مولَّدة من `examples/src/` |
 | `examples/` | كل مكوّن يعمل، بـReact، في صفحة لكل منها، بالإنجليزية والعربية ([`examples/index.html`](../examples/index.html)) |
 | `templates/` | صفحات كاملة يُبدأ منها موقع: الصفحة الرئيسية للاستوديو، بالإنجليزية والعربية، بـHTML وبـReact ([`templates/README.md`](../templates/README.md)) |
 
@@ -43,7 +44,7 @@
 
 ```sh
 node scripts/build.mjs        # dist/: the CSS, tokens and sprite, and docs/contrast.md
-npm run build:react           # dist/react/, examples/, templates/home.html (type-checked)
+npm run build:react           # dist/react/, examples/, templates/home.html, the documents' pages
 npm run build                 # both
 ```
 
@@ -68,7 +69,7 @@ node scripts/check-page.mjs   # in Chrome: the helpers on their own page
 
 تعمل الثلاثة مع كل دفع وكل طلب دمج (`.github/workflows/check.yml`). ويفشل
 البناء أيضًا إن وضع مكوّن لونًا على خلفية لا يقيسها فحص التباين، أو إن تجاوز
-`arabesque.css` ميزانية حجمه (24 KB مضغوطًا). وقبل كل إصدار، نفّذ
+`arabesque.css` ميزانية حجمه (26 KB مضغوطًا). وقبل كل إصدار، نفّذ
 [فحوص قارئ الشاشة](../docs/screen-readers.md) (بالإنجليزية) يدويًا.
 
 ## مشاهدة صفحة العرض
@@ -80,7 +81,10 @@ npm run serve        # then open http://127.0.0.1:4900/
 ```
 
 بدّل السمة واللغة من الأعلى؛ وفي العربية، اختر الأرقام الغربية أو الهندية
-العربية. وتُحفظ الاختيارات الثلاثة.
+العربية. وتُحفظ الاختيارات الثلاثة. وصفحة العرض مبنية من أمثلة صفحات الأمثلة
+نفسها (`examples/src/showcase.tsx`): فـ`index.html` مولَّد، فغيّر الأمثلة لا هو. وكل مستند، وهذا منها، صفحةٌ قائمة بذاتها
+أيضًا: `README.html`، و`docs/react.html`، وغيرهما، بالإنجليزية، وبالعربية حيث
+توجد ترجمة.
 
 والمكوّنات نفسها بـReact، في صفحة لكل منها، على
 `http://127.0.0.1:4900/examples/`: كل منها بالإنجليزية، ثم بالعربية من اليمين
@@ -195,7 +199,9 @@ npm run serve        # then open http://127.0.0.1:4900/
 
 ويُعدّ ذلك الإصدار على الفرع `release/next` بالأمر `npm run release -- <version>`،
 الذي ينقل مدخلات Unreleased تحت الإصدار، مؤرّخة، ويضبط `version` في
-`package.json`، ويبني، وينسخ `dist/` و`fonts/` و`js/` إلى `v/<version>/`. ثم يفتح
+`package.json`، ويبني، وينسخ `dist/` و`fonts/` و`js/` إلى `v/<version>/`؛ أما ملفات
+الخطوط نفسها فتُنسخ مرة واحدة إلى `v/_fonts/<hash>/`، تشترك فيها كل الإصدارات
+التي لها الخطوط نفسها، ويشير إليها `fonts/fonts.css` في الإصدار. ثم يفتح
 طلب دمج **Release x.y.z**، أو يحدّث المفتوح منه. ولاختيار إصدار آخر، ضع على
 الطلب الوسم `release:major` أو `release:minor` أو `release:patch`؛ فيسري مع
 الدفع التالي إلى `main` (أو شغّل سير العمل يدويًا).

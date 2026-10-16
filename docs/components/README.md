@@ -2,7 +2,7 @@
 
 Each spec covers anatomy, variants and sizes, states, keyboard, ARIA, right to left, do and don't, and the tokens it uses (listed from its CSS). See them working in `index.html`, and in React, a page each, in [`examples/`](../../examples/index.html) ([`docs/react.md`](../react.md)).
 
-Every spec is also in Arabic, in [`ar/`](ar/README.md); the showcase's spec reader opens those when the page is in Arabic. The English is the reference: change a spec and its translation together (a test fails if a spec has no translation, or a link in either is broken).
+Every spec is also in Arabic, in [`ar/`](ar/README.md); the showcase links to them when the page is in Arabic, and each is a page of its own (`button.html`, `ar/button.html`). The English is the reference: change a spec and its translation together (a test fails if a spec has no translation, or a link in either is broken).
 
 | Component | What it is |
 |---|---|
@@ -16,6 +16,8 @@ Every spec is also in Arabic, in [`ar/`](ar/README.md); the showcase's spec read
 | [Tabs and section nav](nav.md) | Tabs between views of one thing, and section navigation between pages; they look the same, and differ in markup. |
 | [Site header](site-header.md) | A website's top bar: the lockup, the sections, language and theme; a menu under md. |
 | [Sidebar](sidebar.md) | The app's sections in a column, collapsible to icons; a scrolling bar along the top under the `md` breakpoint. |
+| [Text link](link.md) | A link that stands on its own: underlined in the accent, with an arrow to a next step or an icon to another site. |
+| [Language link](language-switch.md) | The same page in the other language, named in that language. |
 | [Footer](footer.md) | Who made it, where to go next, and the legal line; quiet, and the same on every page. |
 | [Steps](steps.md) | A numbered sequence: the stages of how something is done. |
 | [Table](table.md) | For comparing values: numbers line up, the total stands out, asides recede. |

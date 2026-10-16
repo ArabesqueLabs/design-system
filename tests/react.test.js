@@ -45,7 +45,8 @@ test("the built components import the helpers from js/, which exist", () => {
 test("every sentence the examples write has Arabic", () => {
   // The build checks what renders; this checks what only shows after a click.
   const extra = Object.fromEntries([...read("examples/src/ar.ts").matchAll(/^\s*"(.+)": "/gm)].map((m) => [m[1].replace(/\\"/g, '"'), true]));
-  const said = [...read("examples/src/demos.tsx").matchAll(/\bt\("((?:[^"\\]|\\.)+)"\)/g)].map((m) => m[1].replace(/\\(.)/g, "$1"));
+  const sources = readdirSync(join(root, "examples/src")).filter((f) => f.endsWith(".tsx")).map((f) => read(`examples/src/${f}`)).join("\n");
+  const said = [...sources.matchAll(/\bt\("((?:[^"\\]|\\.)+)"\)/g)].map((m) => m[1].replace(/\\(.)/g, "$1"));
   const missing = [...new Set(said)].filter((s) => !(s in AR) && !(s in extra));
   assert.deepEqual(missing, []);
 });

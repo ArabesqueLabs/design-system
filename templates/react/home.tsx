@@ -7,7 +7,7 @@
 // is the system's own.
 
 import type { ReactNode } from "react";
-import { ConstructionFigure, Footer, Hero, HeroCaption, Lockup, SiteHeader, SkipLink, Steps } from "../../react/src/index.js";
+import { ConstructionFigure, Footer, Hero, HeroCaption, Lockup, SiteHeader, Steps, TextLink } from "../../react/src/index.js";
 
 export interface HomeCopy {
   lang: "en" | "ar";
@@ -107,17 +107,16 @@ export const copy: Record<"en" | "ar", HomeCopy> = {
 export function Home({ c }: { c: HomeCopy }) {
   return (
     <>
-      <SkipLink />
       <Hero className="tp-hero">
         <SiteHeader home="#top" menuId="site-menu"
           links={[{ label: c.nav.idea, href: "#idea" }, { label: c.nav.approach, href: "#approach" }, { label: c.nav.contact, href: "#contact" }]}
-          tools={<a className="tp-lang" href={c.other.href} hrefLang={c.other.lang} lang={c.other.lang}>{c.other.label}</a>} />
+          language={{ href: c.other.href, lang: c.other.lang, label: c.other.label }} />
         <div className="al-page tp-hero__body" id="top">
           <h1 className="al-display tp-hero__title">{c.heading}</h1>
           <p className="al-lede tp-hero__lede">{c.lede}</p>
           <div className="al-cluster tp-hero__actions">
             <a className="al-button al-button--primary" href="#contact">{c.hello}</a>
-            <a href="#approach">{c.how}</a>
+            <TextLink arrow href="#approach">{c.how}</TextLink>
           </div>
           <HeroCaption />
         </div>
@@ -152,7 +151,7 @@ export function Home({ c }: { c: HomeCopy }) {
             </div>
             <div>
               <p className="al-muted">{c.contact.ask}</p>
-              <p className="tp-email"><a href="mailto:hello@arabesquelabs.com"><bdi>hello@arabesquelabs.com</bdi></a></p>
+              <p className="tp-email"><TextLink href="mailto:hello@arabesquelabs.com"><bdi>hello@arabesquelabs.com</bdi></TextLink></p>
             </div>
           </div>
         </section>
@@ -160,7 +159,7 @@ export function Home({ c }: { c: HomeCopy }) {
 
       <div className="al-page">
         <Footer lockup={<Lockup name={<span lang="en" dir="ltr">Arabesque Labs Ltd.</span>} />}
-          legal={<>{c.legal} · <a href="https://arabesquelabs.com/privacy.html">{c.privacy}</a></>}>
+          legal={<>{c.legal} · <TextLink muted href="https://arabesquelabs.com/privacy.html">{c.privacy}</TextLink></>}>
           <p className="tp-tagline">{c.tagline}</p>
         </Footer>
       </div>

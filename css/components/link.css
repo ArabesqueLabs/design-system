@@ -1,0 +1,19 @@
+/* Text link: a link that stands on its own ("See how we build"), beside a
+   primary button or after a paragraph. Underlined in the accent; thicker on
+   hover. --arrow goes on to a next step: the arrow points along the reading
+   direction and moves a little that way on hover. An external link opens a
+   new tab, with its icon, and says so to screen readers. --muted is for
+   footers and legal lines. Links inside running text need none of this. */
+.al-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  color: var(--al-color-text);
+  text-decoration-color: var(--al-color-accent);
+}
+.al-link:hover { color: var(--al-color-accent); text-decoration-thickness: 2px; }
+.al-link--muted { color: var(--al-color-text-muted); text-decoration-color: currentColor; }
+.al-link .al-icon { inline-size: 1em; block-size: 1em; transition: translate var(--al-duration-fast) var(--al-ease-standard); }
+.al-link--arrow:hover .al-icon { translate: 3px 0; }
+.al-link--arrow:hover .al-icon:dir(rtl) { translate: -3px 0; }
+@media (prefers-reduced-motion: reduce) { .al-link--arrow:hover .al-icon, .al-link--arrow:hover .al-icon:dir(rtl) { translate: none; } }

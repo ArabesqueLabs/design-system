@@ -9,11 +9,16 @@ import { demos, groups, type Demo, type T } from "./demos.js";
 const SPRITE = "../dist/icons.svg";
 const catalogue: Record<string, string> = { ...(AR as Record<string, string>), ...extra };
 
+/** Every sentence given in Arabic so far: the build keeps only these in the bundle's catalogue. */
+export const usedArabic = new Set<string>();
+/** And every sentence asked for in Arabic that has none (the build fails on any). */
+export const missingArabic = new Set<string>();
+
 /** English as written, or its Arabic; a sentence with no Arabic is noted in `missing`. */
 export const translator = (lang: "en" | "ar", missing?: Set<string>): T => (s) => {
   if (lang === "en") return s;
   const ar = catalogue[s];
-  if (ar === undefined) missing?.add(s);
+  if (ar === undefined) { missing?.add(s); missingArabic.add(s); } else usedArabic.add(s);
   return ar ?? s;
 };
 
@@ -33,7 +38,7 @@ export function ExamplePage({ demo, missing }: { demo: Demo; missing?: Set<strin
       <main id="main" tabIndex={-1} className="al-page ex-main">
         <h1 className="ex-title">{demo.title}</h1>
         <p className="al-lede">{demo.lead}</p>
-        <p className="ex-spec"><a href={`../${demo.spec}`}>Read the spec</a> · <a href={`../index.html#${demo.id}`}>In the showcase</a></p>
+        <p className="ex-spec"><a href={`../${demo.spec.replace(/\.md$/, ".html")}`}>Read the spec</a> · <a href={`../index.html#${demo.id}`}>In the showcase</a></p>
         <section className="ex-example" aria-labelledby="en-h">
           <h2 className="ex-h" id="en-h">English</h2>
           <Shown t={translator("en")} />
@@ -65,7 +70,7 @@ export function Gallery() {
         </div>
       </Hero>
       <main id="main" tabIndex={-1} className="al-page ex-main">
-        <PhaseBanner phase={<Badge tone="warning">Experimental</Badge>}>The React components are new in 0.4. <a href="../docs/react.md">How to use them</a>.</PhaseBanner>
+        <PhaseBanner phase={<Badge tone="warning">Experimental</Badge>}>The React components are new in 0.4. <a href="../docs/react.html">How to use them</a>.</PhaseBanner>
         <section className="ex-group" aria-labelledby="pages-h">
           <h2 className="ex-group__h" id="pages-h">Pages</h2>
           <ul className="ex-group__list" role="list">

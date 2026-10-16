@@ -12,6 +12,8 @@
 /* A website section: generous, fluid space above and below, a hairline between. */
 .al-section { padding-block: var(--al-space-section); }
 .al-section + .al-section { border-block-start: var(--al-border-hairline) solid var(--al-color-line); }
+.al-section__title { margin: 0; max-inline-size: 20ch; font-family: var(--al-font-display); font-size: var(--al-text-3xl); font-weight: var(--al-weight-regular); line-height: var(--al-leading-heading); letter-spacing: var(--al-tracking-tight); }
+.al-section__lede { margin: 0; }
 
 /* Stack: children one under another, evenly spaced (--al-stack-gap). */
 .al-stack { display: flex; flex-direction: column; gap: var(--al-stack-gap, var(--al-space-4)); }

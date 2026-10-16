@@ -6,6 +6,8 @@ All notable changes to the design system. The format follows
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-10-16
+
 ### Added
 
 - **The hero** (`drawHero` in `js/pattern.js`, `.al-pattern--hero`,
@@ -48,8 +50,68 @@ All notable changes to the design system. The format follows
 - The homepage template in React ([`templates/react/home.tsx`](templates/react/home.tsx)):
   `templates/home.html` and `templates/ar/home.html` are now rendered from
   it, its words in both languages in one place.
+- **Text link** (`.al-link`, `--arrow`, `--muted`, `TextLink`,
+  [spec](docs/components/link.md)): a link on its own, underlined in the
+  accent; an arrow (mirrored, moving a little on hover) on to a next step;
+  for another site, its icon, a new tab and "(opens in a new tab)".
+- **Language link** (`.al-language`, `LanguageLink`,
+  [spec](docs/components/language-switch.md)): the page in the other
+  language, named in it, with `lang` and `hreflang`. The homepage template's
+  own `.tp-lang` is gone.
+- Notice: a Dismiss button (`.al-notice__dismiss`, `onDismiss`); in React,
+  its kind's word as the title when it has none (Note, Done, Warning, Error).
+- Site header: `--sticky`; the current page underlined in the accent; in
+  React, `language`, `sticky` and a skip link (`skipTo`).
+- Pattern: `--quiet` (`--al-color-pattern-quiet`, a new token), a faint field
+  for a small area with nothing on it.
+- Lockup: `--stacked`, the mark over the wordmark; in React, `Star`, the
+  mark's star alone.
+- Brand files and pattern tiles, built from the tokens: `dist/brand/`
+  (`mark-ink.svg`, `mark-reversed.svg`, `star-ink.svg`, `star-reversed.svg`,
+  and `favicon.svg`, which follows the system's light or dark) and
+  `dist/patterns/` (`tile.svg`, `tile-dark.svg`, `tile-quiet.svg`,
+  `tile-quiet-dark.svg`). The showcase, examples and templates use the new
+  favicon.
+- Icons: `chevron-down`, `copy`, `language`, `mail`.
+- Checkbox: mixed ("Select all"), the input's `indeterminate`; in React,
+  `indeterminate`.
+- React: `Section` takes a `heading` and `lede`; without a provider, the
+  components follow `<html lang>`.
+- React: `ErrorSummary` takes `autoFocus` (on by default), off for a summary
+  shown as an example, so the page doesn't jump to it.
+- Every document as a page: the README (and its translation), the
+  changelog and `docs/` are rendered beside their Markdown (`README.html`,
+  `docs/react.html`…), with the site header, what's on the page, and links
+  between them. The showcase's "How to use it" goes to the README's "Use it
+  in a project", in the page's language, instead of a dialog.
+- Writing: never invent facts, even as placeholders; no hype; Arabic written
+  as Arabic. Iconography: what imagery is, and what never is.
 
 ### Changed
+
+- **The spinner is the mark's star**: faint, with a bright segment going
+  round its outline; still under reduced motion. Busy buttons and the save
+  state's Saving use it. Its markup (`<span class="al-spinner">`) is the
+  same.
+- The hero's strands fall to a fifth of their strength behind the heading
+  and lede, and to a third under md, so the text reads clearly; they're in
+  full towards the focal tile.
+- The site header folds by its own width (a container query), not the
+  window's, so it works in a sidebar or a narrow preview.
+- The theme toggle's half-filled disc turns over in dark.
+- **The showcase is built from the demos** (`examples/src/showcase.tsx`):
+  each example is written once, for the showcase and its own page. The
+  foundations (colour, tints, type, space, motion, icons) are demos too, and
+  the tints section, which was empty, shows each tint. `showcase.js` is gone;
+  `index.html` is generated, in English, and React takes it over in the
+  browser. Its anchors are as before.
+- "Read the spec" goes to the spec's page, in Arabic where it's translated,
+  instead of a dialog; the showcase no longer loads a Markdown parser from a
+  CDN.
+- Releases keep their font files once per set of faces, in
+  `v/_fonts/<hash>/`, shared by every release with the same faces; a
+  release's `fonts/fonts.css` points there. Earlier releases are as they were.
+- `arabesque.css`'s size budget is 26 KB gzipped (was 24).
 
 - `--al-color-pattern-line` is ink at 26% (white at 20% in dark), as on
   arabesquelabs.com, instead of teal at 24% (white at 16%).

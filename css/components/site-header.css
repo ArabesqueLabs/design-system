@@ -1,7 +1,11 @@
 /* Site header: the website's top bar. The lockup, the sections, the
    language and theme controls; under the md breakpoint the sections fold
    into a menu (js/site-header.js), which drops below the bar. */
-.al-site-header { position: relative; }
+/* It folds by its own width (a container query), so it works in a sidebar
+   or a narrow preview as well as across a page. --sticky keeps it at the
+   top while the page scrolls. */
+.al-site-header { position: relative; container: al-site-header / inline-size; }
+.al-site-header--sticky { position: sticky; inset-block-start: 0; z-index: var(--al-z-sticky); background: var(--al-color-bg); border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
 .al-site-header__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--al-space-6); min-block-size: 5rem; }
 .al-site-header__lockup { color: var(--al-color-text); text-decoration: none; }
 .al-site-header__end { display: flex; align-items: center; gap: var(--al-space-4) var(--al-space-8); }
@@ -9,15 +13,22 @@
 .al-site-header__nav ul { display: flex; gap: var(--al-space-8); }
 .al-site-header__nav a { color: var(--al-color-text-muted); text-decoration: none; transition: color var(--al-duration-fast) var(--al-ease-standard); }
 .al-site-header__nav a:hover, .al-site-header__nav a[aria-current] { color: var(--al-color-text); }
+/* The current page: underlined in the accent. */
+.al-site-header__nav a[aria-current], .al-site-header__menu a[aria-current] { text-decoration: underline; text-decoration-color: var(--al-color-accent); text-decoration-thickness: 2px; text-underline-offset: 0.45em; }
 .al-site-header__tools { display: flex; align-items: center; gap: var(--al-space-2); }
 .al-site-header__toggle { display: none; }
 .al-site-header__menu { padding-block: var(--al-space-2) var(--al-space-6); border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
 .al-site-header__menu a { display: block; padding-block: var(--al-space-4); font-size: var(--al-text-lg); color: var(--al-color-text); text-decoration: none; border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
 .al-site-header__menu a:hover { color: var(--al-color-accent); }
 .al-site-header__menu[hidden] { display: none; }
-@media (max-width: 52rem) {
+@container al-site-header (max-width: 52rem) {
   .al-site-header__nav { display: none; }
   .al-site-header__toggle { display: inline-flex; }
   .al-site-header__bar { min-block-size: 4rem; }
 }
-@media (min-width: 52.0625rem) { .al-site-header__menu { display: none; } }
+@container al-site-header (min-width: 52.0625rem) { .al-site-header__menu { display: none; } }
+
+/* The theme toggle's half-filled disc turns over in dark. */
+[data-theme-toggle] .al-icon { transition: rotate var(--al-duration-base) var(--al-ease-standard); }
+:root[data-theme="dark"] [data-theme-toggle] .al-icon { rotate: 180deg; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) [data-theme-toggle] .al-icon { rotate: 180deg; } }

@@ -13,11 +13,7 @@
 }
 .al-save-state::before { content: ""; inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; flex: none; background: currentColor; }
 .al-save-state[data-state="unsaved"] { color: var(--al-color-warning); }
-.al-save-state[data-state="saving"]::before {
-  inline-size: 0.8em; block-size: 0.8em; background: none;
-  border: 2px solid currentColor; border-inline-end-color: transparent;
-  animation: al-spin 0.8s linear infinite;
-}
+/* Saving: the star spinner (css/components/progress.css). */
 .al-save-state[data-state="saved"] { color: var(--al-color-success); }
 .al-save-state[data-state="saved"]::before { background: none; inline-size: 0.35em; block-size: 0.7em; border-radius: 0; border: solid currentColor; border-width: 0 2px 2px 0; transform: rotate(45deg) translateY(-0.1em); }
 .al-save-state[data-state="failed"] { color: var(--al-color-danger); }

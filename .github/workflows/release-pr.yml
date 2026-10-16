@@ -60,6 +60,7 @@ jobs:
           VERSION: ${{ steps.next.outputs.version }}
         run: |
           git checkout -B "$BRANCH"
+          npm ci
           node scripts/release.mjs "$VERSION"
           # The unit tests here; the whole check (check.yml) runs on the PR.
           node --test "tests/*.test.js"

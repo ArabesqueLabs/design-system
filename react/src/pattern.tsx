@@ -9,14 +9,16 @@ import { cx } from "./util.js";
 export interface PatternProps extends ComponentPropsWithoutRef<"section"> {
   /** No mask: for a band with no text on it. */
   full?: boolean;
+  /** Fainter, with no mask: for a small area with nothing on it (an empty state, a card). */
+  quiet?: boolean;
 }
 
 /** Texture behind a band: masked away behind the text at the start. */
-export function Pattern({ full, className, children, ...rest }: PatternProps) {
+export function Pattern({ full, quiet, className, children, ...rest }: PatternProps) {
   const art = useRef<HTMLDivElement>(null);
   useEffect(() => { if (art.current) drawPattern(art.current); }, []);
   return (
-    <section className={cx("al-pattern", full && "al-pattern--full", className)} {...rest}>
+    <section className={cx("al-pattern", full && "al-pattern--full", quiet && "al-pattern--quiet", className)} {...rest}>
       <div className="al-pattern__art" aria-hidden="true" ref={art} />
       {children}
     </section>

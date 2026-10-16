@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef } from "react";
 /** Every icon in the sprite (icons/). */
-export declare const iconNames: readonly ["arrow", "board", "calendar", "check", "chevron", "close", "danger", "edit", "external", "file", "info", "menu", "minus", "more", "plus", "retry", "search", "settings", "sidebar", "success", "theme", "trash", "undo", "warning"];
+export declare const iconNames: readonly ["arrow", "board", "calendar", "check", "chevron", "chevron-down", "close", "copy", "danger", "edit", "external", "file", "info", "language", "mail", "menu", "minus", "more", "plus", "retry", "search", "settings", "sidebar", "success", "theme", "trash", "undo", "warning"];
 export type IconName = (typeof iconNames)[number];
 export interface IconProps extends Omit<ComponentPropsWithoutRef<"svg">, "children"> {
     name: IconName;

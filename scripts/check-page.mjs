@@ -92,16 +92,14 @@ async function page() {
 async function open(p, { url = SHOWCASE, theme = "light", lang = "en", ready: when } = {}) {
   await p.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-color-scheme", value: theme }] });
   await p.send("Page.navigate", { url });
-  const ready = when ?? (url === SHOWCASE
-    ? `document.readyState === "complete" && !!document.querySelector("#sc-spec-modal") && !!document.querySelector("[data-chart-bullet] .al-bullet")`
-    : `document.documentElement.dataset.ready === "yes"`);
+  const ready = when ?? `document.documentElement.dataset.ready === "yes"`;
   for (let i = 0; i < 150; i++) {
     await new Promise((r) => setTimeout(r, 100));
     if (await p.run(ready).catch(() => false)) break;
   }
   if (url !== SHOWCASE) return;
   // The language asked for, whatever an earlier run left stored.
-  await p.run(`(async () => { document.querySelector('[data-lang="${lang}"]').click(); for (let i = 0; i < 50 && document.documentElement.lang !== "${lang}"; i++) await new Promise((r) => setTimeout(r, 50)); await new Promise((r) => setTimeout(r, 300)); })()`);
+  await p.run(`(async () => { document.querySelector('.sc-top button[lang="${lang}"]').click(); for (let i = 0; i < 50 && document.documentElement.lang !== "${lang}"; i++) await new Promise((r) => setTimeout(r, 50)); await new Promise((r) => setTimeout(r, 300)); })()`);
 }
 
 async function axe(p, name) {
@@ -243,46 +241,36 @@ for (const theme of ["light", "dark"]) {
 await open(p);
 check("showcase: no errors on load", p.errors.length === 0, p.errors.join(" | "));
 
-// Each demo's helper is loaded and wired (the helpers' behaviour is checked above).
-await p.run(`document.querySelector('[data-dialog-open="rename"]').click()`);
-check("showcase: Rename opens its dialog", await p.run(`document.querySelector("#rename").open`));
-await p.run(`document.querySelector("#rename").close("cancel")`);
-check("showcase: the character count is wired", await p.run(`(() => { const t = document.querySelector("#ta-desc"); t.value = "x".repeat(130); t.dispatchEvent(new Event("input")); const r = t.getAttribute("aria-invalid") === "true"; t.value = ""; t.dispatchEvent(new Event("input")); return r; })()`));
-check("showcase: search's Clear empties it", await p.run(`(() => { document.querySelector("#sr-q").value = "report"; document.querySelector(".al-search__clear").click(); return document.querySelector("#sr-q").value === ""; })()`));
-check("showcase: chart marks are named images", await p.run(`(() => { const b = document.querySelector("[data-chart-bullet] [data-al-tip]"); return b.getAttribute("role") === "img" && !!b.getAttribute("aria-label"); })()`));
-check("showcase: one tab stop per chart", await p.run(`[...document.querySelectorAll("[data-chart-columns], [data-chart-split], [data-chart-bullet]")].every((c) => c.querySelectorAll('[tabindex="0"]').length === 1)`));
+// The showcase is the demos: each wired to its helper (the helpers' behaviour is checked above).
+await p.run(`[...document.querySelectorAll("#dialog button")].find((b) => b.textContent === "Rename item…").click()`);
+await wait(100);
+check("showcase: Rename opens its dialog", await p.run(`!!document.querySelector("#dialog dialog[open]")`));
+await p.run(`document.querySelector("#dialog dialog[open]").close("cancel")`);
+check("showcase: the character count is wired", await p.run(`(() => { const t = document.querySelector("#textarea textarea"); t.value = "x".repeat(130); t.dispatchEvent(new Event("input")); const r = t.getAttribute("aria-invalid") === "true"; t.value = ""; t.dispatchEvent(new Event("input")); return r; })()`));
+check("showcase: search's Clear empties it", await p.run(`(() => { const i = document.querySelector("#search input[type=search]"); i.value = "report"; i.dispatchEvent(new Event("input", { bubbles: true })); document.querySelector("#search .al-search__clear").click(); return i.value === ""; })()`));
+check("showcase: chart marks are named images", await p.run(`(() => { const b = document.querySelector("#bullet [data-al-tip]"); return b.getAttribute("role") === "img" && !!b.getAttribute("aria-label"); })()`));
+check("showcase: one tab stop per chart", await p.run(`["#columns .al-chart__plot", "#split-bar .al-split-bar__track", "#bullet .al-bullet"].every((c) => document.querySelector(c).querySelectorAll('[tabindex="0"]').length === 1)`));
+check("showcase: the tints are drawn", await p.run(`document.querySelectorAll("#tints .ex-swatch").length === 8`));
+check("showcase: every demo has its section, and the old anchors still land", await p.run(`["back-link", "textarea", "foundations", "components", "patterns", "keyboard"].every((id) => !!document.getElementById(id))`));
+// Shortcuts: N says what it would do; the switch turns single keys off.
+await p.run(`document.activeElement?.blur()`);
+await p.key("n", "KeyN");
+await wait(150);
+check("showcase: a single-key shortcut works", await p.run(`!!document.querySelector(".al-toast")`));
 
-// Spec reader: a link inside it opens that spec.
-await p.run(`document.querySelector('a[href="docs/components/button.md"]').click()`);
-await wait(1500);
-const inner = await p.run(`(() => { const a = [...document.querySelectorAll("#sc-spec-modal [data-spec-body] a")].find((x) => x.getAttribute("href")?.endsWith(".md")); if (!a) return null; a.click(); return a.getAttribute("href"); })()`);
-await wait(1500);
-const reader = await p.run(`({ open: document.querySelector("#sc-spec-modal").open, failed: !!document.querySelector("#sc-spec-modal [data-spec-body] .al-badge--danger") })`);
-check("showcase: a link inside the spec reader opens that spec", reader.open && !reader.failed, JSON.stringify({ inner, ...reader }));
-await p.run(`document.querySelector("#sc-spec-modal").close()`);
-
-// In Arabic, a spec opens in Arabic; its link to the original opens the English.
+// Specs are pages: in the page's language where they're translated, in English where they aren't.
+const specLinks = async () => p.run(`({ date: document.querySelector("#date-picker .sc-spec a").getAttribute("href"), colour: document.querySelector("#colour .sc-spec a").getAttribute("href"), how: [...document.querySelectorAll(".sc-hero a")].find((a) => a.href.includes("README"))?.getAttribute("href") })`);
+const specsEn = await specLinks();
+check("showcase: specs link to their pages", specsEn.date === "docs/components/date-picker.html" && specsEn.colour === "docs/foundations/colour.html" && specsEn.how === "README.html#use-it-in-a-project", JSON.stringify(specsEn));
 await open(p, { lang: "ar" });
-await p.run(`document.querySelector('a[href="docs/components/date-picker.md"]').click()`);
-const specBody = `document.querySelector("#sc-spec-modal [data-spec-body]")`;
-for (let i = 0; i < 50 && !(await p.run(`${specBody}.lang === "ar"`)); i++) await wait(100);
-const arSpec = await p.run(`({ lang: ${specBody}.lang, dir: ${specBody}.dir, h2: ${specBody}.querySelector("h2")?.textContent, raw: document.querySelector("#sc-spec-modal [data-spec-raw]").getAttribute("href") })`);
-check("showcase: in Arabic, the spec reader opens the Arabic spec", arSpec.lang === "ar" && arSpec.dir === "rtl" && arSpec.h2 === "البنية" && arSpec.raw === "docs/components/ar/date-picker.md", JSON.stringify(arSpec));
-await p.run(`${specBody}.querySelector('a[href="../date-picker.md"]').click()`);
-for (let i = 0; i < 50 && !(await p.run(`${specBody}.lang === "en"`)); i++) await wait(100);
-check("showcase: an Arabic spec's link to its original opens the English", await p.run(`${specBody}.lang === "en" && ${specBody}.querySelector("h2")?.textContent === "Anatomy"`));
-await p.run(`document.querySelector("#sc-spec-modal").close()`);
-// "How to use it" opens the README, in Arabic too.
-await p.run(`document.querySelector('a[href="README.md"]').click()`);
-for (let i = 0; i < 50 && !(await p.run(`document.querySelector("#sc-spec-modal [data-spec-raw]").getAttribute("href") === "ar/README.md" && ${specBody}.lang === "ar"`)); i++) await wait(100);
-const readme = await p.run(`({ raw: document.querySelector("#sc-spec-modal [data-spec-raw]").getAttribute("href"), lang: ${specBody}.lang, h2: ${specBody}.querySelector("h2")?.textContent })`);
-check("showcase: in Arabic, the README opens in Arabic", readme.raw === "ar/README.md" && readme.lang === "ar" && readme.h2 === "ما في المستودع", JSON.stringify(readme));
-await p.run(`document.querySelector("#sc-spec-modal").close()`);
-// An untranslated document falls back to the English.
-await p.run(`document.querySelector('a[href="docs/principles.md"]').click()`);
-for (let i = 0; i < 50 && !(await p.run(`${specBody}.lang === "en"`)); i++) await wait(100);
-check("showcase: in Arabic, an untranslated document opens in English", await p.run(`${specBody}.lang === "en" && document.querySelector("#sc-spec-modal [data-spec-raw]").getAttribute("href") === "docs/principles.md"`));
-await p.run(`document.querySelector("#sc-spec-modal").close()`);
+const specsAr = await specLinks();
+check("showcase: in Arabic, to the Arabic spec, the Arabic README, and the English where there's no translation", specsAr.date === "docs/components/ar/date-picker.html" && specsAr.colour === "docs/foundations/colour.html" && specsAr.how === "ar/README.html#استخدامه-في-مشروع", JSON.stringify(specsAr));
+check("showcase: in Arabic, the demos are in Arabic", await p.run(`document.querySelector("#button .al-button--primary").textContent === "حفظ التغييرات" && document.documentElement.dir === "rtl"`));
+const digits = `document.querySelector('.sc-top [role=group]:not(:has(button[lang])) button[aria-pressed="false"]')?.click()`;
+await p.run(digits);
+await wait(200);
+check("showcase: in Arabic, Arabic-Indic digits when chosen", await p.run(`/[٠-٩]/.test(document.querySelector("#steps .al-steps__num").textContent)`));
+await p.run(digits);
 
 // The fonts are served from here, not a third party.
 const fonts = await p.run(`performance.getEntriesByType("resource").filter((r) => /\\.woff2|fonts\\.(googleapis|gstatic)/.test(r.name)).map((r) => new URL(r.name).host)`);
@@ -299,16 +287,7 @@ check("showcase: the bulk bar has its own focus colour", ring === null || ring !
 // accessible, and React with no errors (a hydration mismatch is one).
 const examples = readdirSync(join(root, "examples")).filter((f) => f.endsWith(".html")).sort();
 check("examples: a page for each demo, and the gallery", examples.length > 40 && examples.includes("index.html"), String(examples.length));
-for (const file of examples) {
-  for (const theme of ["light", "dark"]) {
-    p.errors.length = 0;
-    p.consoleErrors.length = 0;
-    await open(p, { url: `${origin}/examples/${file}`, theme });
-    const ready = await p.run(`document.documentElement.dataset.ready === "yes"`);
-    await axe(p, `examples/${file}, ${theme}`);
-    check(`examples/${file}, ${theme}: React ran, with no errors`, ready && !p.errors.length && !p.consoleErrors.length, [...p.errors, ...p.consoleErrors].join(" | "));
-  }
-}
+
 
 // The components behave, in React: one of each kind of wiring.
 const ex = (file) => open(p, { url: `${origin}/examples/${file}` });
@@ -335,7 +314,7 @@ await p.run(`document.querySelector(".ex-example [data-site-menu-toggle]").click
 check("examples: the site header's menu opens under md", await p.run(`(() => { const b = document.querySelector(".ex-example [data-site-menu-toggle]"); return b.getAttribute("aria-expanded") === "true" && !document.getElementById(b.getAttribute("aria-controls")).hidden; })()`));
 await p.send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 900, deviceScaleFactor: 1, mobile: false });
 
-await ex("character-count.html");
+await ex("textarea.html");
 check("examples: the character count, in Arabic", await p.run(`(() => { const t = document.querySelector('[lang="ar"] textarea'); return /حرف/.test(t.parentElement.querySelector(".al-character-count__message")?.textContent ?? ""); })()`));
 
 await ex("ask-check-confirm.html");
@@ -349,17 +328,52 @@ for (let i = 0; i < 50 && !(await p.run(`!!document.activeElement?.dataset.date`
 check("examples: the date picker, in Arabic", await p.run(`(() => { const d = document.activeElement.closest("dialog"); return d.lang === "ar" && /٢٠٢٦|2026/.test(d.querySelector("h2").textContent); })()`));
 await p.key("Escape");
 
-// The template: static, wired by the helpers alone.
-for (const [file, lang] of [["templates/home.html", "en"], ["templates/ar/home.html", "ar"]]) {
-  for (const theme of ["light", "dark"]) {
-    p.errors.length = 0;
-    await open(p, { url: `${origin}/${file}`, theme, ready: `document.readyState === "complete" && !!document.querySelector(".al-construction svg")` });
-    await axe(p, `${file}, ${theme}`);
-    check(`${file}, ${theme}: drawn, with no errors`, !p.errors.length && await p.run(`document.documentElement.lang === "${lang}" && !!document.querySelector(".al-pattern--hero svg")`), p.errors.join(" | "));
-  }
-}
+// A dismissed notice goes, and a Select all is mixed while some are chosen.
+await ex("notice.html");
+await p.run(`document.querySelector(".ex-example .al-notice__dismiss").click()`);
+await wait(100);
+check("examples: Dismiss removes the notice", await p.run(`!document.querySelector(".ex-example:first-of-type .al-notice__dismiss")`));
+await ex("select-all.html");
+check("examples: Select all is mixed while some are chosen", await p.run(`document.querySelector(".ex-example input[type=checkbox]").indeterminate === true`));
 
-await p.close();
+// The rest page by page, in light and dark, in four tabs at once (each with
+// its own errors). Last: a tab in the background can't take focus, so the
+// focus checks above run in the one tab first.
+const tabs = [p, await page(), await page(), await page()];
+const inTabs = async (items, fn) => {
+  let next = 0;
+  await Promise.all(tabs.map(async (tab) => { while (next < items.length) await fn(tab, items[next++]); }));
+};
+const both = (list) => list.flatMap((item) => ["light", "dark"].map((theme) => [item, theme]));
+await inTabs(both(examples), async (tab, [file, theme]) => {
+  tab.errors.length = 0;
+  tab.consoleErrors.length = 0;
+  await open(tab, { url: `${origin}/examples/${file}`, theme });
+  const ready = await tab.run(`document.documentElement.dataset.ready === "yes"`);
+  await axe(tab, `examples/${file}, ${theme}`);
+  check(`examples/${file}, ${theme}: React ran, with no errors`, ready && !tab.errors.length && !tab.consoleErrors.length, [...tab.errors, ...tab.consoleErrors].join(" | "));
+});
+
+// The documents, as pages: the README in both languages, a guide, a spec in both.
+await inTabs(both([["README.html", "en"], ["ar/README.html", "ar"], ["docs/react.html", "en"], ["docs/components/button.html", "en"], ["docs/components/ar/button.html", "ar"], ["CHANGELOG.html", "en"]]), async (tab, [[file, lang], theme]) => {
+  tab.errors.length = 0;
+  await open(tab, { url: `${origin}/${file}`, theme, ready: `document.readyState === "complete"` });
+  await wait(200);
+  await axe(tab, `${file}, ${theme}`);
+  check(`${file}, ${theme}: its own page, with no errors`, !tab.errors.length && await tab.run(`document.documentElement.lang === "${lang}" && !!document.querySelector("main h1") && !!document.querySelector(".al-site-header")`), tab.errors.join(" | "));
+});
+await open(p, { url: `${origin}/README.html#use-it-in-a-project`, ready: `document.readyState === "complete"` });
+check("README.html: How to use it lands on its section", await p.run(`!!document.getElementById("use-it-in-a-project") && [...document.querySelectorAll("main a[href]")].some((a) => a.getAttribute("href") === "docs/react.html")`));
+
+// The template: static, wired by the helpers alone.
+await inTabs(both([["templates/home.html", "en"], ["templates/ar/home.html", "ar"]]), async (tab, [[file, lang], theme]) => {
+  tab.errors.length = 0;
+  await open(tab, { url: `${origin}/${file}`, theme, ready: `document.readyState === "complete" && !!document.querySelector(".al-construction svg")` });
+  await axe(tab, `${file}, ${theme}`);
+  check(`${file}, ${theme}: drawn, with no errors`, !tab.errors.length && await tab.run(`document.documentElement.lang === "${lang}" && !!document.querySelector(".al-pattern--hero svg")`), tab.errors.join(" | "));
+});
+
+for (const tab of tabs) await tab.close();
 chrome.kill();
 server.close();
 console.log(failures.length ? `\n${failures.length} failing` : "\nall passing");

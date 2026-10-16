@@ -77,7 +77,6 @@ button, [role="button"] { cursor: pointer; }
 [hidden]:not([hidden="until-found"]) { display: none !important; }
 
 /* The one spinning motion, for the spinner, busy buttons and saving. */
-@keyframes al-spin { to { transform: rotate(360deg); } }
 
 /* ---- focus and selection ----------------------------------------------------------------- */
 

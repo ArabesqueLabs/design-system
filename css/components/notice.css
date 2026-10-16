@@ -20,6 +20,9 @@
 .al-notice__body { display: flex; flex-direction: column; gap: var(--al-space-1); min-inline-size: 0; }
 .al-notice__title { font-weight: var(--al-weight-semibold); }
 .al-notice__actions { display: flex; flex-wrap: wrap; gap: var(--al-space-2) var(--al-space-4); margin-block-start: var(--al-space-1); }
+/* Dismiss: an icon button at the end of the first line. Notices never hide by themselves. */
+.al-notice:has(> .al-notice__dismiss) { grid-template-columns: auto minmax(0, 1fr) auto; }
+.al-notice__dismiss { margin-block: calc(-1 * var(--al-space-2)); margin-inline-end: calc(-1 * var(--al-space-2)); }
 .al-notice--success { --_status: var(--al-color-success); --_wash: var(--al-color-success-wash); }
 .al-notice--warning { --_status: var(--al-color-warning); --_wash: var(--al-color-warning-wash); }
 .al-notice--danger { --_status: var(--al-color-danger); --_wash: var(--al-color-danger-wash); }

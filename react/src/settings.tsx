@@ -1,7 +1,8 @@
 // What every component needs to know about the page it's on: its language
 // (for built-in labels and digits), its digits, and where the icon sprite is.
-// Set once, near the root, with <ArabesqueProvider>; without one, a component
-// is in English, with Western digits, and the sprite at /dist/icons.svg.
+// Set once, near the root, with <ArabesqueProvider>. Without one, a component
+// takes the language of <html lang> (in the browser; English on the server),
+// Western digits, and the sprite at /dist/icons.svg.
 
 import { createContext, useContext, type ReactNode } from "react";
 import type { Numerals } from "../../js/format.js";
@@ -29,6 +30,12 @@ export interface Labels {
   discardChanges: string;
   optional: string;
   change: string;
+  loading: string;
+  newTab: string;
+  noticeInfo: string;
+  noticeSuccess: string;
+  noticeWarning: string;
+  noticeDanger: string;
   errorPrefix: string;
   errorTitle: string;
   day: string;
@@ -77,6 +84,12 @@ export const englishLabels: Labels = {
   discardChanges: "Discard changes",
   optional: "(optional)",
   change: "Change",
+  loading: "Loading",
+  newTab: "(opens in a new tab)",
+  noticeInfo: "Note",
+  noticeSuccess: "Done",
+  noticeWarning: "Warning",
+  noticeDanger: "Error",
   errorPrefix: "Error:",
   errorTitle: "There is a problem",
   day: "Day",
@@ -123,6 +136,12 @@ export const arabicLabels: Labels = {
   discardChanges: "تجاهل التغييرات",
   optional: "(اختياري)",
   change: "تغيير",
+  loading: "جارٍ التحميل",
+  newTab: "(يُفتح في تبويب جديد)",
+  noticeInfo: "ملاحظة",
+  noticeSuccess: "تم",
+  noticeWarning: "تنبيه",
+  noticeDanger: "خطأ",
   errorPrefix: "خطأ:",
   errorTitle: "توجد مشكلة",
   day: "اليوم",
@@ -157,7 +176,8 @@ export interface Settings {
 }
 
 const defaults: Settings = { lang: "en", numerals: "latn", sprite: "/dist/icons.svg", labels: englishLabels };
-const Context = createContext<Settings>(defaults);
+const Context = createContext<Settings | null>(null);
+const arabicDefaults: Settings = { ...defaults, lang: "ar", labels: arabicLabels };
 
 export interface ArabesqueProviderProps {
   lang?: string;
@@ -174,7 +194,18 @@ export function ArabesqueProvider({ lang = "en", numerals = "latn", sprite = def
   return <Context.Provider value={{ lang, numerals: /^ar\b/i.test(lang) ? numerals : "latn", sprite, labels: { ...base, ...labels } }}>{children}</Context.Provider>;
 }
 
-export const useArabesque = (): Settings => useContext(Context);
+/**
+ * The page's settings: from the nearest <ArabesqueProvider>, or else from
+ * <html lang>. On the server there's no <html> to read, so a page rendered
+ * there in Arabic needs the provider (or it renders in English, and React
+ * finds a mismatch in the browser).
+ */
+export function useArabesque(): Settings {
+  const given = useContext(Context);
+  if (given) return given;
+  const lang = typeof document === "undefined" ? "" : document.documentElement.lang;
+  return /^ar\b/i.test(lang) ? { ...arabicDefaults, lang } : defaults;
+}
 
 /** A label with its placeholders filled: fill("{n} selected", { n: "3" }). */
 export const fill = (label: string, values: Record<string, string>): string => label.replace(/\{(\w+)\}/g, (m, k: string) => values[k] ?? m);

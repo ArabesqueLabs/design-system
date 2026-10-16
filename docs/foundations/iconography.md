@@ -34,3 +34,14 @@ have a direction. Media controls (play, rewind) never mirror; time on a
 player runs left to right in Arabic interfaces too.
 
 See [`../../icons/README.md`](../../icons/README.md) for the list and for adding one.
+
+## Imagery
+
+The pattern, the construction figure and real screens of real products are
+the imagery. Nothing else stands in for them:
+
+- No stock photos, and no AI-generated illustrations.
+- No mosques, domes, arches, crescents or lanterns; no Arabic calligraphy as
+  decoration; no Latin letters dressed up to look Arabic; no "Arabian
+  nights" styling. The heritage is in the geometry, used as it's made.
+- No circuit boards, glowing code or curly-bracket clichés for "software".

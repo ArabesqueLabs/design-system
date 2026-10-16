@@ -40,3 +40,32 @@ body { margin: 0; }
 @media (max-width: 40rem) {
   .ex-group { grid-template-columns: minmax(0, 1fr); }
 }
+.ex-pattern--small { min-block-size: 8rem; max-inline-size: 20rem; }
+.ex-spinners { align-items: center; }
+.ex-sections .al-section { padding-block: var(--al-space-8); }
+
+/* The foundations (examples/src/foundations.tsx): swatches, the type scale, space, motion. */
+.ex-label { font-size: var(--al-text-sm); color: var(--al-color-text-muted); font-weight: var(--al-weight-medium); margin: 0; }
+.ex-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: var(--al-space-3); }
+.ex-swatch { display: flex; flex-direction: column; border: var(--al-border-hairline) solid var(--al-color-line); border-radius: var(--al-radius-sm); overflow: hidden; background: var(--al-color-surface); }
+.ex-swatch__chip { display: grid; place-items: center; block-size: 3rem; border-block-end: var(--al-border-hairline) solid var(--al-color-line); font-weight: var(--al-weight-medium); }
+.ex-swatch__name { padding: var(--al-space-2) var(--al-space-3) 0; font-family: var(--al-font-mono); font-size: var(--al-text-xs); overflow-wrap: anywhere; }
+.ex-swatch__role { padding: 0 var(--al-space-3) var(--al-space-2); font-size: var(--al-text-xs); color: var(--al-color-text-muted); }
+
+.ex-type { display: flex; flex-direction: column; gap: var(--al-space-3); }
+.ex-type__row { display: grid; grid-template-columns: 5rem minmax(0, 1fr); gap: var(--al-space-4); align-items: baseline; border-block-end: var(--al-border-hairline) solid var(--al-color-line); padding-block-end: var(--al-space-2); }
+.ex-type__row > code { font-size: var(--al-text-xs); color: var(--al-color-text-muted); }
+/* The sentence on one line, cut off at the edge as Google Fonts does. */
+.ex-type__row > span { display: grid; min-inline-size: 0; }
+.ex-type__row > span > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: start; }
+
+.ex-space { display: flex; flex-direction: column; gap: var(--al-space-1-5); }
+.ex-space__row { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: var(--al-space-4); align-items: center; font-size: var(--al-text-xs); }
+.ex-space__bar { block-size: 0.5rem; background: var(--al-color-accent); border-radius: 1px; }
+
+.ex-motion { display: inline-block; inline-size: 1.5rem; block-size: 1.5rem; border-radius: var(--al-radius-sm); background: var(--al-color-accent); transition: transform var(--al-duration-base) var(--al-ease-standard); }
+.ex-motion.is-moved { transform: translateX(4rem); }
+.ex-motion.is-moved:dir(rtl) { transform: translateX(-4rem); }
+/* Token names read left to right, but sit on the page's side. */
+:dir(rtl) > code[dir="ltr"] { text-align: right; }
+

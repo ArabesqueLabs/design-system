@@ -2,7 +2,7 @@
 
 A notice is a message in the page, in four kinds. A side-effect note says what else an action will change, before it's taken.
 
-**CSS:** [`css/components/notice.css`](../../css/components/notice.css). **Classes:** `.al-icon`, `.al-notice`, `.al-notice--danger`, `.al-notice--success`, `.al-notice--warning`, `.al-notice__actions`, `.al-notice__body`, `.al-notice__title`, `.al-side-effect`.
+**CSS:** [`css/components/notice.css`](../../css/components/notice.css). **Classes:** `.al-icon`, `.al-notice`, `.al-notice--danger`, `.al-notice--success`, `.al-notice--warning`, `.al-notice__actions`, `.al-notice__body`, `.al-notice__dismiss`, `.al-notice__title`, `.al-side-effect`.
 
 ## Anatomy
 
@@ -14,6 +14,13 @@ A notice is a message in the page, in four kinds. A side-effect note says what e
     <p>0T taxes all of your pay. These figures would give 507T.</p>
     <div class="al-notice__actions"><button type="button" class="al-button al-button--sm">Use 507T</button></div>
   </div>
+</div>
+
+<!-- dismissible: an icon button, last -->
+<div class="al-notice al-notice--success" role="status">
+  <svg class="al-icon" aria-hidden="true">…success…</svg>
+  <div class="al-notice__body"><p class="al-notice__title">Done</p><p>Your changes are saved.</p></div>
+  <button type="button" class="al-button al-button--icon al-button--quiet al-notice__dismiss" aria-label="Dismiss">…close…</button>
 </div>
 
 <p class="al-side-effect"><svg class="al-icon al-icon--sm" aria-hidden="true">…info…</svg>
@@ -31,7 +38,9 @@ A notice is a message in the page, in four kinds. A side-effect note says what e
 
 ## States
 
-Static; may carry actions.
+Static; may carry actions. A notice someone can be done with may be dismissed (`.al-notice__dismiss`, a quiet icon button named "Dismiss"); it never hides by itself.
+
+With no title of its own, a notice's title is its kind's word: Note, Done, Warning, Error (in Arabic: ملاحظة، تم، تنبيه، خطأ).
 
 ## Keyboard
 
@@ -55,6 +64,7 @@ The status edge and icon sit at the start.
 
 - Use danger for anything but errors.
 - Stack more than two notices; merge them.
+- Make an error dismissible before it's fixed.
 
 ## Tokens
 

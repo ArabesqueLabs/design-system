@@ -6,6 +6,17 @@ All notable changes to the design system. The format follows
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-10-16
+
+### Changed
+
+- IBM Plex Sans Arabic and IBM Plex Mono are IBM's own files, from its
+  releases, not Google Fonts' subsets: their licence reserves the name
+  "Plex", so a subset made by anyone else couldn't keep it. Sans Arabic is
+  the complete file per weight (used for Arabic, as before), so it's larger;
+  Mono is IBM's own subsets. `fonts/` has IBM's licences with them, and its
+  README says where each family comes from.
+
 ## [0.4.0] - 2026-10-16
 
 ### Added

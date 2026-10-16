@@ -6,6 +6,8 @@ All notable changes to the design system. The format follows
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-10-16
+
 ### Added
 
 - **The hero** (`drawHero` in `js/pattern.js`, `.al-pattern--hero`,

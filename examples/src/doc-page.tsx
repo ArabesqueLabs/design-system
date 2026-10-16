@@ -4,6 +4,7 @@
 // Markdown; the helpers wire the header in the page.
 
 import { ArabesqueProvider, Footer, Lockup, SiteHeader, TextLink } from "../../react/src/index.js";
+import { REPO, onGitHub } from "./repo.js";
 
 export interface DocInput {
   lang: "en" | "ar";
@@ -21,8 +22,8 @@ export interface DocInput {
 }
 
 const WORDS = {
-  en: { product: "Design system", showcase: "Showcase", examples: "Examples", docs: "Using it", onPage: "On this page", source: "Markdown source", legal: "Arabesque Labs Ltd." },
-  ar: { product: "نظام التصميم", showcase: "صفحة العرض", examples: "الأمثلة", docs: "دليل الاستخدام", onPage: "في هذه الصفحة", source: "مصدر Markdown", legal: "Arabesque Labs Ltd." },
+  en: { product: "Design system", showcase: "Showcase", examples: "Examples", docs: "Using it", onPage: "On this page", source: "View this page on GitHub", legal: "Arabesque Labs Ltd." },
+  ar: { product: "نظام التصميم", showcase: "صفحة العرض", examples: "الأمثلة", docs: "دليل الاستخدام", onPage: "في هذه الصفحة", source: "اعرض هذه الصفحة على GitHub", legal: "Arabesque Labs Ltd." },
 };
 
 export function DocPage({ d }: { d: DocInput }) {
@@ -32,7 +33,8 @@ export function DocPage({ d }: { d: DocInput }) {
     <ArabesqueProvider lang={d.lang} sprite={`${d.up}dist/icons.svg`}>
       <SiteHeader home={`${d.up}index.html`} menuId="site-menu" lockup={<Lockup className="al-site-header__lockup" href={`${d.up}index.html`} product={w.product} />}
         links={[{ label: w.showcase, href: `${d.up}index.html` }, { label: w.examples, href: `${d.up}examples/index.html` }, { label: w.docs, href: readme, current: d.source.endsWith("README.md") && !d.source.includes("/") || d.source === "ar/README.md" }]}
-        language={d.other ? { href: d.other.href, lang: d.other.lang } : undefined} />
+        language={d.other ? { href: d.other.href, lang: d.other.lang } : undefined}
+        tools={<TextLink muted external href={REPO}><span lang="en">GitHub</span></TextLink>} />
       <div className="al-page dp-layout">
         {d.toc.length > 1 && (
           <nav className="dp-toc" aria-label={w.onPage}>
@@ -42,7 +44,7 @@ export function DocPage({ d }: { d: DocInput }) {
         )}
         <main id="main" tabIndex={-1} className="dp-main">
           <article className="al-prose dp-doc" dangerouslySetInnerHTML={{ __html: d.html }} />
-          <p className="dp-source"><TextLink muted href={`${d.up}${d.source}`}>{w.source}</TextLink></p>
+          <p className="dp-source"><TextLink muted external href={onGitHub(d.source)}>{w.source}</TextLink></p>
         </main>
       </div>
       <div className="al-page">

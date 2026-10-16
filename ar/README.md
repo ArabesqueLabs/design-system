@@ -12,6 +12,8 @@
 التشغيل. ونص برمجي صغير بلغة Node يبني المخرجات من ملف رموز واحد. والمساعدات
 الاختيارية بلغة JavaScript ليس لها اعتمادات أيضًا.
 
+والمصدر على GitHub: [ArabesqueLabs/design-system](https://github.com/ArabesqueLabs/design-system).
+
 ## ما في المستودع
 
 | المسار | ما هو |

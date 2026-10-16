@@ -408,4 +408,5 @@ export default {
   "React": "React",
   "Select all": "تحديد الكل",
   "Who made it, where to go next, and the legal line; quiet, and the same on every page.": "من صنعه، وإلى أين بعد ذلك، والسطر القانوني؛ هادئ، ومتطابق في كل صفحة.",
+  "Source on GitHub": "المصدر على GitHub",
 };

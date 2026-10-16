@@ -7,8 +7,9 @@
 import { useEffect, useMemo, useState } from "react";
 import type { Numerals } from "../../js/format.js";
 import {
-  ArabesqueProvider, Badge, Button, Cluster, Footer, Hero, HeroCaption, Highlight, Lockup, PhaseBanner, SegmentedButtons, SkipLink, ThemeToggle,
+  ArabesqueProvider, Badge, Button, Cluster, Footer, Hero, HeroCaption, Highlight, Lockup, PhaseBanner, SegmentedButtons, SkipLink, TextLink, ThemeToggle,
 } from "../../react/src/index.js";
+import { REPO } from "./repo.js";
 import { translator } from "./app.js";
 import { demos, groups } from "./demos.js";
 
@@ -59,6 +60,7 @@ export function Showcase({ initial = { lang: "en", numerals: "latn" } }: { initi
             )}
             <SegmentedButtons label={t("Language")} value={lang} onChange={(v) => { setLang(v); store(KEYS.lang, v); }}
               options={[{ value: "en", label: "English", lang: "en" }, { value: "ar", label: "العربية", lang: "ar" }]} />
+            <TextLink muted external href={REPO}><span lang="en">GitHub</span></TextLink>
             <ThemeToggle />
           </Cluster>
         </div>
@@ -122,6 +124,7 @@ export function Showcase({ initial = { lang: "en", numerals: "latn" } }: { initi
           { label: t("Accessibility"), href: docPage("docs/accessibility.md", lang) },
           { label: t("Right to left"), href: docPage("docs/rtl.md", lang) },
           { label: t("React"), href: docPage("docs/react.md", lang) },
+          { label: t("Source on GitHub"), href: REPO },
         ]} legal={t("© 2026 Arabesque Labs Ltd. Structure. Clarity. Craftsmanship.")} />
       </div>
     </ArabesqueProvider>

@@ -84,6 +84,10 @@ All notable changes to the design system. The format follows
   `docs/react.html`…), with the site header, what's on the page, and links
   between them. The showcase's "How to use it" goes to the README's "Use it
   in a project", in the page's language, instead of a dialog.
+- The repository is public: [ArabesqueLabs/design-system](https://github.com/ArabesqueLabs/design-system),
+  linked from the showcase (its top bar and footer), the example pages
+  (and each demo's source), every document's page (its header, and the
+  document itself on GitHub), the README and `package.json`.
 - Writing: never invent facts, even as placeholders; no hype; Arabic written
   as Arabic. Iconography: what imagery is, and what never is.
 

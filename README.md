@@ -10,6 +10,8 @@ It's plain CSS custom properties and plain HTML, with no framework and no
 runtime dependency. A small Node script builds the outputs from one token
 file. The optional JavaScript helpers have no dependencies either.
 
+The source is on GitHub: [ArabesqueLabs/design-system](https://github.com/ArabesqueLabs/design-system).
+
 ## What's here
 
 | Path | What |

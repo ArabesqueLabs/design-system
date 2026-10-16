@@ -42,4 +42,6 @@ export * from "./date-picker.js";
 export * from "./phase-banner.js";
 export * from "./task-list.js";
 export * from "./tint.js";
+export * from "./link.js";
+export * from "./language.js";
 export { cx } from "./util.js";

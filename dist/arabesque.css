@@ -87,6 +87,7 @@
   --al-color-tint-cyan-ink: #155E75;
   --al-color-pattern-line: oklch(24.5% 0.028 265 / 0.26);
   --al-color-pattern-scaffold: oklch(24.5% 0.028 265 / 0.12);
+  --al-color-pattern-quiet: oklch(24.5% 0.028 265 / 0.14);
   --al-color-pattern-focal: var(--al-color-accent);
   --al-color-pattern-focal-fill: oklch(51% 0.095 183 / 0.16);
   --al-font-sans: "Jost", "IBM Plex Sans Arabic", "Noto Sans Arabic", "SF Arabic", "Geeza Pro", ui-sans-serif, system-ui, sans-serif;
@@ -222,6 +223,7 @@
     --al-color-tint-cyan-ink: #67E8F9;
     --al-color-pattern-line: oklch(100% 0 0 / 0.2);
     --al-color-pattern-scaffold: oklch(100% 0 0 / 0.1);
+    --al-color-pattern-quiet: oklch(100% 0 0 / 0.1);
     --al-color-pattern-focal-fill: oklch(82.5% 0.105 168 / 0.16);
   }
 }
@@ -275,6 +277,7 @@
   --al-color-tint-cyan-ink: #67E8F9;
   --al-color-pattern-line: oklch(100% 0 0 / 0.2);
   --al-color-pattern-scaffold: oklch(100% 0 0 / 0.1);
+  --al-color-pattern-quiet: oklch(100% 0 0 / 0.1);
   --al-color-pattern-focal-fill: oklch(82.5% 0.105 168 / 0.16);
 }
 
@@ -402,7 +405,6 @@ button, [role="button"] { cursor: pointer; }
 [hidden]:not([hidden="until-found"]) { display: none !important; }
 
 /* The one spinning motion, for the spinner, busy buttons and saving. */
-@keyframes al-spin { to { transform: rotate(360deg); } }
 
 /* ---- focus and selection ----------------------------------------------------------------- */
 
@@ -475,6 +477,8 @@ button, [role="button"] { cursor: pointer; }
 /* A website section: generous, fluid space above and below, a hairline between. */
 .al-section { padding-block: var(--al-space-section); }
 .al-section + .al-section { border-block-start: var(--al-border-hairline) solid var(--al-color-line); }
+.al-section__title { margin: 0; max-inline-size: 20ch; font-family: var(--al-font-display); font-size: var(--al-text-3xl); font-weight: var(--al-weight-regular); line-height: var(--al-leading-heading); letter-spacing: var(--al-tracking-tight); }
+.al-section__lede { margin: 0; }
 
 /* Stack: children one under another, evenly spaced (--al-stack-gap). */
 .al-stack { display: flex; flex-direction: column; gap: var(--al-stack-gap, var(--al-space-4)); }
@@ -592,6 +596,10 @@ button, [role="button"] { cursor: pointer; }
 .al-wordmark { letter-spacing: var(--al-tracking-wide); }
 .al-lockup__product { color: var(--al-color-text-muted); font-weight: var(--al-weight-regular); }
 .al-lockup__product::before { content: "·"; margin-inline: 0.4em; }
+/* Stacked: the mark over the wordmark, for a splash or print. */
+.al-lockup--stacked { flex-direction: column; gap: 0.6em; }
+.al-lockup--stacked .al-mark { inline-size: 2.5em; block-size: 2.5em; }
+.al-lockup--stacked .al-lockup__product::before { content: none; }
 
 }
 
@@ -765,15 +773,7 @@ button, [role="button"] { cursor: pointer; }
    second click, but not Enter or Space: the handler must ignore presses
    while aria-busy="true" (check it first, and return). */
 .al-button[aria-busy="true"] { cursor: progress; pointer-events: none; }
-.al-button[aria-busy="true"]::after {
-  content: "";
-  inline-size: 0.9em;
-  block-size: 0.9em;
-  border: 2px solid currentColor;
-  border-inline-end-color: transparent;
-  border-radius: 50%;
-  animation: al-spin 0.8s linear infinite;
-}
+/* Its spinner (the star) is drawn by css/components/progress.css. */
 
 /* Bigger targets for fingers. */
 @media (pointer: coarse) {
@@ -1427,6 +1427,48 @@ button, [role="button"] { cursor: pointer; }
 }
 
 @layer al.components {
+/* css/components/language.css */
+/* Language link: the page in the other language, named in that language
+   ("العربية", "English") and marked with its lang and hreflang. Each
+   language has its own address. Never a flag: languages aren't countries. */
+.al-language {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--al-space-1-5);
+  min-block-size: var(--al-size-target-min);
+  padding-inline: var(--al-space-2);
+  color: var(--al-color-text-muted);
+  text-decoration: none;
+}
+.al-language:hover { color: var(--al-color-text); }
+
+}
+
+@layer al.components {
+/* css/components/link.css */
+/* Text link: a link that stands on its own ("See how we build"), beside a
+   primary button or after a paragraph. Underlined in the accent; thicker on
+   hover. --arrow goes on to a next step: the arrow points along the reading
+   direction and moves a little that way on hover. An external link opens a
+   new tab, with its icon, and says so to screen readers. --muted is for
+   footers and legal lines. Links inside running text need none of this. */
+.al-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  color: var(--al-color-text);
+  text-decoration-color: var(--al-color-accent);
+}
+.al-link:hover { color: var(--al-color-accent); text-decoration-thickness: 2px; }
+.al-link--muted { color: var(--al-color-text-muted); text-decoration-color: currentColor; }
+.al-link .al-icon { inline-size: 1em; block-size: 1em; transition: translate var(--al-duration-fast) var(--al-ease-standard); }
+.al-link--arrow:hover .al-icon { translate: 3px 0; }
+.al-link--arrow:hover .al-icon:dir(rtl) { translate: -3px 0; }
+@media (prefers-reduced-motion: reduce) { .al-link--arrow:hover .al-icon, .al-link--arrow:hover .al-icon:dir(rtl) { translate: none; } }
+
+}
+
+@layer al.components {
 /* css/components/menu.css */
 /* Menu: actions on one thing, behind a button ("More", "Move to…"), in a
    native popover. Arrow keys move between items, Escape closes and returns
@@ -1534,6 +1576,9 @@ button, [role="button"] { cursor: pointer; }
 .al-notice__body { display: flex; flex-direction: column; gap: var(--al-space-1); min-inline-size: 0; }
 .al-notice__title { font-weight: var(--al-weight-semibold); }
 .al-notice__actions { display: flex; flex-wrap: wrap; gap: var(--al-space-2) var(--al-space-4); margin-block-start: var(--al-space-1); }
+/* Dismiss: an icon button at the end of the first line. Notices never hide by themselves. */
+.al-notice:has(> .al-notice__dismiss) { grid-template-columns: auto minmax(0, 1fr) auto; }
+.al-notice__dismiss { margin-block: calc(-1 * var(--al-space-2)); margin-inline-end: calc(-1 * var(--al-space-2)); }
 .al-notice--success { --_status: var(--al-color-success); --_wash: var(--al-color-success-wash); }
 .al-notice--warning { --_status: var(--al-color-warning); --_wash: var(--al-color-warning-wash); }
 .al-notice--danger { --_status: var(--al-color-danger); --_wash: var(--al-color-danger-wash); }
@@ -1595,6 +1640,9 @@ button, [role="button"] { cursor: pointer; }
 }
 .al-pattern__art svg { inline-size: 100%; block-size: 100%; display: block; }
 .al-pattern--full .al-pattern__art { -webkit-mask-image: none; mask-image: none; }
+/* Quiet: a low-contrast field for a small area with nothing on it (an empty
+   state, a card). No mask, at any width. */
+.al-pattern--quiet .al-pattern__art, .al-pattern--quiet .al-pattern__art:dir(rtl) { color: var(--al-color-pattern-quiet); -webkit-mask-image: none; mask-image: none; }
 @media (max-width: 52rem) {
   .al-pattern__art, .al-pattern__art:dir(rtl) {
     -webkit-mask-image: linear-gradient(to bottom, black 0 30%, transparent 70%);
@@ -1608,7 +1656,25 @@ button, [role="button"] { cursor: pointer; }
    heading and lede to sit on; one octagon, the focal tile, in the accent,
    with its caption. Drawn in once on load if asked: the scaffolding, the
    strands from the focal tile outwards, then the focal tile and caption. */
-.al-pattern--hero .al-pattern__art { color: inherit; -webkit-mask-image: none; mask-image: none; }
+/* Behind the heading and lede, at the start, the strands fall to a trace
+   (a fifth of their strength), so the text reads clearly; towards the
+   focal tile they come back in full. Under md, where the text takes the
+   whole width, they're faint everywhere. */
+.al-pattern--hero .al-pattern__art {
+  color: inherit;
+  -webkit-mask-image: linear-gradient(to right, rgb(0 0 0 / 0.2) 0 40%, black 72%);
+  mask-image: linear-gradient(to right, rgb(0 0 0 / 0.2) 0 40%, black 72%);
+}
+.al-pattern--hero .al-pattern__art:dir(rtl) {
+  -webkit-mask-image: linear-gradient(to left, rgb(0 0 0 / 0.2) 0 40%, black 72%);
+  mask-image: linear-gradient(to left, rgb(0 0 0 / 0.2) 0 40%, black 72%);
+}
+@media (max-width: 52rem) {
+  .al-pattern--hero .al-pattern__art, .al-pattern--hero .al-pattern__art:dir(rtl) {
+    -webkit-mask-image: linear-gradient(rgb(0 0 0 / 0.35), rgb(0 0 0 / 0.35));
+    mask-image: linear-gradient(rgb(0 0 0 / 0.35), rgb(0 0 0 / 0.35));
+  }
+}
 /* Drawn at its own size (a little taller than the section, so small changes in height don't need a redraw). */
 .al-pattern--hero .al-pattern__art svg { inline-size: auto; block-size: auto; }
 .al-pattern__scaffold { fill: none; stroke: var(--al-color-pattern-scaffold); stroke-width: var(--al-pattern-hero-stroke); opacity: 0; }
@@ -1658,17 +1724,25 @@ button, [role="button"] { cursor: pointer; }
 /* Loading, where it happens: a spinner in the control or region that's
    busy, a skeleton where content will appear, a bar for progress that can
    be measured. Busy regions get aria-busy="true". Without motion, the
-   spinner is a still ring and skeletons don't shimmer. */
-.al-spinner {
+   spinner is a still star and skeletons don't shimmer.
+   The spinner is the mark's star, faint, with a bright segment going round
+   its outline: the outline is a mask, the segment a turning conic gradient.
+   A busy button and a saving save state use it too. */
+@property --al-spin-from { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.al-spinner, .al-button[aria-busy="true"]::after, .al-save-state[data-state="saving"]::before {
+  content: "";
   display: inline-block;
-  inline-size: 1em;
-  block-size: 1em;
-  border: 2px solid currentColor;
-  border-inline-end-color: transparent;
-  border-radius: 50%;
-  vertical-align: -0.15em;
-  animation: al-spin 0.8s linear infinite;
+  inline-size: 1.1em;
+  block-size: 1.1em;
+  flex: none;
+  vertical-align: -0.2em;
+  background: conic-gradient(from var(--al-spin-from), currentColor 0 25%, color-mix(in oklch, currentColor 22%, transparent) 25% 100%);
+  -webkit-mask: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 72 72'><path d='M64 32L48 38.63L54.63 54.63L38.63 48L32 64L25.37 48L9.37 54.63L16 38.63L0 32L16 25.37L9.37 9.37L25.37 16L32 0L38.63 16L54.63 9.37L48 25.37Z' fill='none' stroke='black' stroke-width='6' stroke-linejoin='miter'/></svg>") center / contain no-repeat;
+  mask: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 72 72'><path d='M64 32L48 38.63L54.63 54.63L38.63 48L32 64L25.37 48L9.37 54.63L16 38.63L0 32L16 25.37L9.37 9.37L25.37 16L32 0L38.63 16L54.63 9.37L48 25.37Z' fill='none' stroke='black' stroke-width='6' stroke-linejoin='miter'/></svg>") center / contain no-repeat;
+  animation: al-trace 1.4s linear infinite;
+  forced-color-adjust: none;
 }
+@keyframes al-trace { to { --al-spin-from: 360deg; } }
 .al-skeleton {
   display: block;
   block-size: 1em;
@@ -1690,7 +1764,9 @@ button, [role="button"] { cursor: pointer; }
 .al-progress::-webkit-progress-value { background: var(--al-color-accent); border-radius: var(--al-radius-full); }
 .al-progress::-moz-progress-bar { background: var(--al-color-accent); }
 @keyframes al-shimmer { from { background-position: 100% 0; } to { background-position: 0 0; } }
-@media (prefers-reduced-motion: reduce) { .al-spinner { border-inline-end-color: currentColor; border-style: dotted; } }
+@media (prefers-reduced-motion: reduce) {
+  .al-spinner, .al-button[aria-busy="true"]::after, .al-save-state[data-state="saving"]::before { animation: none; background: currentColor; opacity: 0.6; }
+}
 @media (forced-colors: active) { .al-progress { border: 1px solid CanvasText; } }
 
 }
@@ -1712,11 +1788,7 @@ button, [role="button"] { cursor: pointer; }
 }
 .al-save-state::before { content: ""; inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; flex: none; background: currentColor; }
 .al-save-state[data-state="unsaved"] { color: var(--al-color-warning); }
-.al-save-state[data-state="saving"]::before {
-  inline-size: 0.8em; block-size: 0.8em; background: none;
-  border: 2px solid currentColor; border-inline-end-color: transparent;
-  animation: al-spin 0.8s linear infinite;
-}
+/* Saving: the star spinner (css/components/progress.css). */
 .al-save-state[data-state="saved"] { color: var(--al-color-success); }
 .al-save-state[data-state="saved"]::before { background: none; inline-size: 0.35em; block-size: 0.7em; border-radius: 0; border: solid currentColor; border-width: 0 2px 2px 0; transform: rotate(45deg) translateY(-0.1em); }
 .al-save-state[data-state="failed"] { color: var(--al-color-danger); }
@@ -1895,7 +1967,11 @@ button.al-sidebar__link { inline-size: 100%; border-block: 0; border-inline-end:
 /* Site header: the website's top bar. The lockup, the sections, the
    language and theme controls; under the md breakpoint the sections fold
    into a menu (js/site-header.js), which drops below the bar. */
-.al-site-header { position: relative; }
+/* It folds by its own width (a container query), so it works in a sidebar
+   or a narrow preview as well as across a page. --sticky keeps it at the
+   top while the page scrolls. */
+.al-site-header { position: relative; container: al-site-header / inline-size; }
+.al-site-header--sticky { position: sticky; inset-block-start: 0; z-index: var(--al-z-sticky); background: var(--al-color-bg); border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
 .al-site-header__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--al-space-6); min-block-size: 5rem; }
 .al-site-header__lockup { color: var(--al-color-text); text-decoration: none; }
 .al-site-header__end { display: flex; align-items: center; gap: var(--al-space-4) var(--al-space-8); }
@@ -1903,18 +1979,25 @@ button.al-sidebar__link { inline-size: 100%; border-block: 0; border-inline-end:
 .al-site-header__nav ul { display: flex; gap: var(--al-space-8); }
 .al-site-header__nav a { color: var(--al-color-text-muted); text-decoration: none; transition: color var(--al-duration-fast) var(--al-ease-standard); }
 .al-site-header__nav a:hover, .al-site-header__nav a[aria-current] { color: var(--al-color-text); }
+/* The current page: underlined in the accent. */
+.al-site-header__nav a[aria-current], .al-site-header__menu a[aria-current] { text-decoration: underline; text-decoration-color: var(--al-color-accent); text-decoration-thickness: 2px; text-underline-offset: 0.45em; }
 .al-site-header__tools { display: flex; align-items: center; gap: var(--al-space-2); }
 .al-site-header__toggle { display: none; }
 .al-site-header__menu { padding-block: var(--al-space-2) var(--al-space-6); border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
 .al-site-header__menu a { display: block; padding-block: var(--al-space-4); font-size: var(--al-text-lg); color: var(--al-color-text); text-decoration: none; border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
 .al-site-header__menu a:hover { color: var(--al-color-accent); }
 .al-site-header__menu[hidden] { display: none; }
-@media (max-width: 52rem) {
+@container al-site-header (max-width: 52rem) {
   .al-site-header__nav { display: none; }
   .al-site-header__toggle { display: inline-flex; }
   .al-site-header__bar { min-block-size: 4rem; }
 }
-@media (min-width: 52.0625rem) { .al-site-header__menu { display: none; } }
+@container al-site-header (min-width: 52.0625rem) { .al-site-header__menu { display: none; } }
+
+/* The theme toggle's half-filled disc turns over in dark. */
+[data-theme-toggle] .al-icon { transition: rotate var(--al-duration-base) var(--al-ease-standard); }
+:root[data-theme="dark"] [data-theme-toggle] .al-icon { rotate: 180deg; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) [data-theme-toggle] .al-icon { rotate: 180deg; } }
 
 }
 

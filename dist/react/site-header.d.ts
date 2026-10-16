@@ -10,15 +10,25 @@ export interface SiteHeaderProps {
     /** In place of the lockup. */
     lockup?: ReactNode;
     links: SiteHeaderLink[];
-    /** Before the theme toggle: the language link, say. */
+    /** The page in the other language: a language link before the theme toggle. */
+    language?: {
+        href: string;
+        lang: string;
+        label?: string;
+    };
+    /** Before the theme toggle: anything else. */
     tools?: ReactNode;
+    /** Stays at the top of the window while the page scrolls. */
+    sticky?: boolean;
+    /** Its skip link's target, first in the header; false for none (when the page has its own). Default "#main". */
+    skipTo?: string | false;
     /** The theme toggle; on by default. */
     themeToggle?: boolean;
     /** The menu's id; one is made if it's not given. */
     menuId?: string;
     className?: string;
 }
-export declare function SiteHeader({ home, lockup, links, tools, themeToggle, menuId, className }: SiteHeaderProps): import("react").JSX.Element;
+export declare function SiteHeader({ home, lockup, links, language, tools, sticky, skipTo, themeToggle, menuId, className }: SiteHeaderProps): import("react").JSX.Element;
 /**
  * Light or dark (js/theme.js): named for what it switches to. On a page
  * without React, wire it with the same data-label-* (see templates/home.html).

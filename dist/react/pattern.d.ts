@@ -2,9 +2,11 @@ import { type ComponentPropsWithoutRef, type ReactNode } from "react";
 export interface PatternProps extends ComponentPropsWithoutRef<"section"> {
     /** No mask: for a band with no text on it. */
     full?: boolean;
+    /** Fainter, with no mask: for a small area with nothing on it (an empty state, a card). */
+    quiet?: boolean;
 }
 /** Texture behind a band: masked away behind the text at the start. */
-export declare function Pattern({ full, className, children, ...rest }: PatternProps): import("react").JSX.Element;
+export declare function Pattern({ full, quiet, className, children, ...rest }: PatternProps): import("react").JSX.Element;
 export interface HeroProps extends ComponentPropsWithoutRef<"section"> {
     /** Draw in once on load (never under reduced motion). */
     animate?: boolean;

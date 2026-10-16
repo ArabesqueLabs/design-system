@@ -11,6 +11,8 @@ export interface ErrorSummaryProps {
   /** Each problem, linked to its field (href "#field-id"). */
   errors: { href: string; message: ReactNode }[];
   title?: ReactNode;
+  /** Takes focus when it appears, so it's read at once: on by default (off for one shown as an example). */
+  autoFocus?: boolean;
   id?: string;
   className?: string;
 }
@@ -19,11 +21,11 @@ export interface ErrorSummaryProps {
  * When a form is submitted with problems: a list at the top of the form.
  * It takes focus when it appears, so it's read at once.
  */
-export function ErrorSummary({ errors, title, id, className }: ErrorSummaryProps) {
+export function ErrorSummary({ errors, title, autoFocus = true, id, className }: ErrorSummaryProps) {
   const { labels } = useArabesque();
   const base = useStableId(id, "error-summary");
   const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => { if (errors.length) ref.current?.focus(); }, [errors.length]);
+  useEffect(() => { if (autoFocus && errors.length) ref.current?.focus(); }, [autoFocus, errors.length]);
   if (!errors.length) return null;
   return (
     <div ref={ref} className={cx("al-error-summary", className)} tabIndex={-1} role="alert" aria-labelledby={`${base}-title`}>

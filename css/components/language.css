@@ -1,0 +1,13 @@
+/* Language link: the page in the other language, named in that language
+   ("العربية", "English") and marked with its lang and hreflang. Each
+   language has its own address. Never a flag: languages aren't countries. */
+.al-language {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--al-space-1-5);
+  min-block-size: var(--al-size-target-min);
+  padding-inline: var(--al-space-2);
+  color: var(--al-color-text-muted);
+  text-decoration: none;
+}
+.al-language:hover { color: var(--al-color-text); }

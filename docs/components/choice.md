@@ -30,7 +30,7 @@ Native checkboxes and radios in the accent colour, and a switch for settings tha
 
 ## States
 
-Hover follows the native control. Focus: the system outline. Checked: accent fill (switch: accent track, knob to the end). Disabled: `disabled`, dimmed, with the reason nearby. Invalid: the fieldset gets an `.al-error` under its legend.
+Hover follows the native control. Focus: the system outline. Checked: accent fill (switch: accent track, knob to the end). Mixed: a "Select all" checkbox whose items are some checked and some not shows a dash (the input's `indeterminate`, set from script; `aria-checked` isn't needed on a native checkbox). Disabled: `disabled`, dimmed, with the reason nearby. Invalid: the fieldset gets an `.al-error` under its legend.
 
 ## Keyboard
 

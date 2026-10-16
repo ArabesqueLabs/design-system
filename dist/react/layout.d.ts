@@ -4,8 +4,16 @@ type Box<T extends ElementType> = {
 } & Omit<ComponentPropsWithoutRef<T>, "as">;
 /** The page's measure and gutters. */
 export declare function Page<T extends ElementType = "div">({ as, className, ...rest }: Box<T>): import("react").JSX.Element;
-/** A band of the page, with the section spacing. */
-export declare function Section<T extends ElementType = "section">({ as, className, ...rest }: Box<T>): import("react").JSX.Element;
+export interface SectionProps extends Omit<ComponentPropsWithoutRef<"section">, "title"> {
+    /** Its heading (an h2), which names the section as a landmark. Give it an id to link to. */
+    heading?: ReactNode;
+    lede?: ReactNode;
+}
+/**
+ * A band of the page: the section spacing, a hairline from the one before,
+ * and, with a heading, its heading and lede inside the page's measure.
+ */
+export declare function Section({ heading, lede, id, className, children, ...rest }: SectionProps): import("react").JSX.Element;
 /** Children one under another, evenly spaced. */
 export declare function Stack<T extends ElementType = "div">({ as, gap, className, ...rest }: Box<T> & {
     gap?: "tight" | "loose";

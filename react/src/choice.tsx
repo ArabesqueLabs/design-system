@@ -1,18 +1,23 @@
 // Native checkboxes and radios, and a switch for a setting that takes effect at once.
 
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { useEffect, useRef, type ComponentPropsWithoutRef, type ReactNode } from "react";
 import { cx } from "./util.js";
 
 export interface ChoiceProps extends Omit<ComponentPropsWithoutRef<"input">, "type" | "role"> {
   label: ReactNode;
   /** A line under the label, in the label (so it's read with it). */
   hint?: ReactNode;
+  /** Mixed (a checkbox only): a "Select all" whose items are some checked and some not. */
+  indeterminate?: boolean;
 }
 
-function Choice({ label, hint, type, role, className, ...rest }: ChoiceProps & { type: "checkbox" | "radio"; role?: "switch" }) {
+function Choice({ label, hint, type, role, indeterminate, className, ...rest }: ChoiceProps & { type: "checkbox" | "radio"; role?: "switch" }) {
+  const ref = useRef<HTMLInputElement>(null);
+  // indeterminate is a property, not an attribute: set from script.
+  useEffect(() => { if (ref.current) ref.current.indeterminate = !!indeterminate; }, [indeterminate]);
   return (
     <label className="al-choice">
-      <input type={type} role={role} className={cx(role === "switch" && "al-switch", className)} {...rest} />{" "}
+      <input ref={ref} type={type} role={role} className={cx(role === "switch" && "al-switch", className)} {...rest} />{" "}
       <span className="al-choice__text">{label}{hint && <> <span className="al-choice__hint">{hint}</span></>}</span>
     </label>
   );

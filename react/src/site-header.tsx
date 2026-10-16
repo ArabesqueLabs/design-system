@@ -6,6 +6,8 @@ import { initSiteHeaders } from "../../js/site-header.js";
 import { currentTheme, setTheme, type Theme } from "../../js/theme.js";
 import { Lockup } from "./brand.js";
 import { Icon } from "./icon.js";
+import { LanguageLink } from "./language.js";
+import { SkipLink } from "./layout.js";
 import { useArabesque } from "./settings.js";
 import { cx, useStableId } from "./util.js";
 
@@ -21,8 +23,14 @@ export interface SiteHeaderProps {
   /** In place of the lockup. */
   lockup?: ReactNode;
   links: SiteHeaderLink[];
-  /** Before the theme toggle: the language link, say. */
+  /** The page in the other language: a language link before the theme toggle. */
+  language?: { href: string; lang: string; label?: string };
+  /** Before the theme toggle: anything else. */
   tools?: ReactNode;
+  /** Stays at the top of the window while the page scrolls. */
+  sticky?: boolean;
+  /** Its skip link's target, first in the header; false for none (when the page has its own). Default "#main". */
+  skipTo?: string | false;
   /** The theme toggle; on by default. */
   themeToggle?: boolean;
   /** The menu's id; one is made if it's not given. */
@@ -34,18 +42,20 @@ const LinkList = ({ links }: { links: SiteHeaderLink[] }) => (
   <ul>{links.map((l) => <li key={l.href}><a href={l.href} aria-current={l.current ? "page" : undefined}>{l.label}</a></li>)}</ul>
 );
 
-export function SiteHeader({ home = "/", lockup, links, tools, themeToggle = true, menuId, className }: SiteHeaderProps) {
+export function SiteHeader({ home = "/", lockup, links, language, tools, sticky, skipTo = "#main", themeToggle = true, menuId, className }: SiteHeaderProps) {
   const { labels } = useArabesque();
   const ref = useRef<HTMLElement>(null);
   const menu = useStableId(menuId, "site-menu");
   useEffect(() => { if (ref.current) initSiteHeaders(ref.current.parentNode ?? document); }, []);
   return (
-    <header ref={ref} className={cx("al-site-header", className)}>
+    <header ref={ref} className={cx("al-site-header", sticky && "al-site-header--sticky", className)}>
+      {skipTo !== false && <SkipLink href={skipTo} />}
       <div className="al-page al-site-header__bar">
         {lockup ?? <Lockup className="al-site-header__lockup" href={home} />}
         <div className="al-site-header__end">
           <nav className="al-site-header__nav" aria-label={labels.sections}><LinkList links={links} /></nav>
           <div className="al-site-header__tools">
+            {language && <LanguageLink {...language} />}
             {tools}
             {themeToggle && <ThemeToggle />}
             <button type="button" className="al-button al-button--icon al-button--quiet al-site-header__toggle" data-site-menu-toggle="" aria-controls={menu} aria-expanded="false" aria-label={labels.menu}>

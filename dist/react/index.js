@@ -25,18 +25,24 @@ var englishLabels = {
   discardChanges: "Discard changes",
   optional: "(optional)",
   change: "Change",
+  loading: "Loading",
+  newTab: "(opens in a new tab)",
+  noticeInfo: "Note",
+  noticeSuccess: "Done",
+  noticeWarning: "Warning",
+  noticeDanger: "Error",
   errorPrefix: "Error:",
   errorTitle: "There is a problem",
   day: "Day",
   month: "Month",
   year: "Year",
   unsaved: "Unsaved changes",
-  saving: "Saving\u2026",
+  saving: "Saving…",
   saved: "Saved",
   failed: "Couldn't save",
   retry: "Retry",
   clearSelection: "Clear selection",
-  workingOut: "Working out again\u2026",
+  workingOut: "Working out again…",
   contactAngle: "Contact angle",
   heroCaption: "This tile is our mark. Everything around it follows from the same rule.",
   removeTag: "Remove tag {name}",
@@ -48,56 +54,68 @@ var englishLabels = {
   countLimit: "You can enter up to {n} characters"
 };
 var arabicLabels = {
-  menu: "\u0627\u0644\u0642\u0627\u0626\u0645\u0629",
-  sections: "\u0627\u0644\u0623\u0642\u0633\u0627\u0645",
-  switchToDark: "\u0627\u0644\u062A\u0628\u062F\u064A\u0644 \u0625\u0644\u0649 \u0627\u0644\u0645\u0638\u0647\u0631 \u0627\u0644\u062F\u0627\u0643\u0646",
-  switchToLight: "\u0627\u0644\u062A\u0628\u062F\u064A\u0644 \u0625\u0644\u0649 \u0627\u0644\u0645\u0638\u0647\u0631 \u0627\u0644\u0641\u0627\u062A\u062D",
-  skipToContent: "\u0627\u0646\u062A\u0642\u0644 \u0625\u0644\u0649 \u0627\u0644\u0645\u062D\u062A\u0648\u0649",
-  clearSearch: "\u0645\u0633\u062D \u0627\u0644\u0628\u062D\u062B",
-  chooseDate: "\u0627\u062E\u062A\u0631 \u0627\u0644\u062A\u0627\u0631\u064A\u062E",
-  previousMonth: "\u0627\u0644\u0634\u0647\u0631 \u0627\u0644\u0633\u0627\u0628\u0642",
-  nextMonth: "\u0627\u0644\u0634\u0647\u0631 \u0627\u0644\u062A\u0627\u0644\u064A",
-  breadcrumb: "\u0645\u0633\u0627\u0631 \u0627\u0644\u062A\u0646\u0642\u0644",
-  back: "\u0631\u062C\u0648\u0639",
-  collapseSidebar: "\u0637\u064A\u0651 \u0627\u0644\u0634\u0631\u064A\u0637 \u0627\u0644\u062C\u0627\u0646\u0628\u064A",
-  expandSidebar: "\u062A\u0648\u0633\u064A\u0639 \u0627\u0644\u0634\u0631\u064A\u0637 \u0627\u0644\u062C\u0627\u0646\u0628\u064A",
-  dismiss: "\u0625\u063A\u0644\u0627\u0642",
-  close: "\u0625\u063A\u0644\u0627\u0642",
-  cancel: "\u0625\u0644\u063A\u0627\u0621",
-  discardQuestion: "\u0647\u0644 \u062A\u0631\u064A\u062F \u062A\u062C\u0627\u0647\u0644 \u062A\u063A\u064A\u064A\u0631\u0627\u062A\u0643\u061F",
-  keepEditing: "\u0645\u062A\u0627\u0628\u0639\u0629 \u0627\u0644\u062A\u0639\u062F\u064A\u0644",
-  discardChanges: "\u062A\u062C\u0627\u0647\u0644 \u0627\u0644\u062A\u063A\u064A\u064A\u0631\u0627\u062A",
-  optional: "(\u0627\u062E\u062A\u064A\u0627\u0631\u064A)",
-  change: "\u062A\u063A\u064A\u064A\u0631",
-  errorPrefix: "\u062E\u0637\u0623:",
-  errorTitle: "\u062A\u0648\u062C\u062F \u0645\u0634\u0643\u0644\u0629",
-  day: "\u0627\u0644\u064A\u0648\u0645",
-  month: "\u0627\u0644\u0634\u0647\u0631",
-  year: "\u0627\u0644\u0633\u0646\u0629",
-  unsaved: "\u062A\u063A\u064A\u064A\u0631\u0627\u062A \u063A\u064A\u0631 \u0645\u062D\u0641\u0648\u0638\u0629",
-  saving: "\u062C\u0627\u0631\u064D \u0627\u0644\u062D\u0641\u0638\u2026",
-  saved: "\u062D\u064F\u0641\u0638",
-  failed: "\u062A\u0639\u0630\u0651\u0631 \u0627\u0644\u062D\u0641\u0638",
-  retry: "\u0623\u0639\u062F \u0627\u0644\u0645\u062D\u0627\u0648\u0644\u0629",
-  clearSelection: "\u0627\u0645\u0633\u062D \u0627\u0644\u062A\u062D\u062F\u064A\u062F",
-  workingOut: "\u062C\u0627\u0631\u064D \u0627\u0644\u062D\u0633\u0627\u0628 \u0645\u0646 \u062C\u062F\u064A\u062F\u2026",
-  contactAngle: "\u0632\u0627\u0648\u064A\u0629 \u0627\u0644\u062A\u0644\u0627\u0645\u0633",
-  heroCaption: "\u0647\u0630\u0647 \u0627\u0644\u0628\u0644\u0627\u0637\u0629 \u0647\u064A \u0639\u0644\u0627\u0645\u062A\u0646\u0627. \u0643\u0644 \u0645\u0627 \u062D\u0648\u0644\u0647\u0627 \u064A\u0646\u0628\u0639 \u0645\u0646 \u0627\u0644\u0642\u0627\u0639\u062F\u0629 \u0646\u0641\u0633\u0647\u0627.",
-  removeTag: "\u0623\u0632\u0644 \u0648\u0633\u0645 {name}",
-  selected: "{n} \u0645\u062D\u062F\u0651\u062F\u0629",
-  countLeftOne: "\u062A\u0628\u0642\u0651\u0649 \u0644\u0643 \u062D\u0631\u0641 \u0648\u0627\u062D\u062F",
-  countLeft: "\u062A\u0628\u0642\u0651\u0649 \u0644\u0643 {n} \u062D\u0631\u0641\u064B\u0627",
-  countOverOne: "\u062A\u062C\u0627\u0648\u0632\u062A \u0627\u0644\u062D\u062F \u0628\u062D\u0631\u0641 \u0648\u0627\u062D\u062F",
-  countOver: "\u062A\u062C\u0627\u0648\u0632\u062A \u0627\u0644\u062D\u062F \u0628\u0640{n} \u062D\u0631\u0641\u064B\u0627",
-  countLimit: "\u064A\u0645\u0643\u0646\u0643 \u0625\u062F\u062E\u0627\u0644 {n} \u062D\u0631\u0641\u064B\u0627 \u0643\u062D\u062F \u0623\u0642\u0635\u0649"
+  menu: "القائمة",
+  sections: "الأقسام",
+  switchToDark: "التبديل إلى المظهر الداكن",
+  switchToLight: "التبديل إلى المظهر الفاتح",
+  skipToContent: "انتقل إلى المحتوى",
+  clearSearch: "مسح البحث",
+  chooseDate: "اختر التاريخ",
+  previousMonth: "الشهر السابق",
+  nextMonth: "الشهر التالي",
+  breadcrumb: "مسار التنقل",
+  back: "رجوع",
+  collapseSidebar: "طيّ الشريط الجانبي",
+  expandSidebar: "توسيع الشريط الجانبي",
+  dismiss: "إغلاق",
+  close: "إغلاق",
+  cancel: "إلغاء",
+  discardQuestion: "هل تريد تجاهل تغييراتك؟",
+  keepEditing: "متابعة التعديل",
+  discardChanges: "تجاهل التغييرات",
+  optional: "(اختياري)",
+  change: "تغيير",
+  loading: "جارٍ التحميل",
+  newTab: "(يُفتح في تبويب جديد)",
+  noticeInfo: "ملاحظة",
+  noticeSuccess: "تم",
+  noticeWarning: "تنبيه",
+  noticeDanger: "خطأ",
+  errorPrefix: "خطأ:",
+  errorTitle: "توجد مشكلة",
+  day: "اليوم",
+  month: "الشهر",
+  year: "السنة",
+  unsaved: "تغييرات غير محفوظة",
+  saving: "جارٍ الحفظ…",
+  saved: "حُفظ",
+  failed: "تعذّر الحفظ",
+  retry: "أعد المحاولة",
+  clearSelection: "امسح التحديد",
+  workingOut: "جارٍ الحساب من جديد…",
+  contactAngle: "زاوية التلامس",
+  heroCaption: "هذه البلاطة هي علامتنا. كل ما حولها ينبع من القاعدة نفسها.",
+  removeTag: "أزل وسم {name}",
+  selected: "{n} محدّدة",
+  countLeftOne: "تبقّى لك حرف واحد",
+  countLeft: "تبقّى لك {n} حرفًا",
+  countOverOne: "تجاوزت الحد بحرف واحد",
+  countOver: "تجاوزت الحد بـ{n} حرفًا",
+  countLimit: "يمكنك إدخال {n} حرفًا كحد أقصى"
 };
 var defaults = { lang: "en", numerals: "latn", sprite: "/dist/icons.svg", labels: englishLabels };
-var Context = createContext(defaults);
+var Context = createContext(null);
+var arabicDefaults = { ...defaults, lang: "ar", labels: arabicLabels };
 function ArabesqueProvider({ lang = "en", numerals = "latn", sprite = defaults.sprite, labels, children }) {
   const base = /^ar\b/i.test(lang) ? arabicLabels : englishLabels;
   return /* @__PURE__ */ jsx(Context.Provider, { value: { lang, numerals: /^ar\b/i.test(lang) ? numerals : "latn", sprite, labels: { ...base, ...labels } }, children });
 }
-var useArabesque = () => useContext(Context);
+function useArabesque() {
+  const given = useContext(Context);
+  if (given) return given;
+  const lang = typeof document === "undefined" ? "" : document.documentElement.lang;
+  return /^ar\b/i.test(lang) ? { ...arabicDefaults, lang } : defaults;
+}
 var fill = (label, values) => label.replace(/\{(\w+)\}/g, (m, k) => values[k] ?? m);
 
 // react/src/util.ts
@@ -110,7 +128,7 @@ function useStableId(given, prefix) {
 
 // react/src/icon.tsx
 import { jsx as jsx2 } from "react/jsx-runtime";
-var iconNames = ["arrow", "board", "calendar", "check", "chevron", "close", "danger", "edit", "external", "file", "info", "menu", "minus", "more", "plus", "retry", "search", "settings", "sidebar", "success", "theme", "trash", "undo", "warning"];
+var iconNames = ["arrow", "board", "calendar", "check", "chevron", "chevron-down", "close", "copy", "danger", "edit", "external", "file", "info", "language", "mail", "menu", "minus", "more", "plus", "retry", "search", "settings", "sidebar", "success", "theme", "trash", "undo", "warning"];
 var MIRRORED = /* @__PURE__ */ new Set(["chevron", "arrow", "undo", "retry", "external", "sidebar"]);
 function Icon({ name, size, mirror = MIRRORED.has(name), className, ...rest }) {
   const { sprite } = useArabesque();
@@ -148,14 +166,19 @@ function Button(props) {
 }
 
 // react/src/layout.tsx
-import { jsx as jsx4 } from "react/jsx-runtime";
+import { jsx as jsx4, jsxs as jsxs2 } from "react/jsx-runtime";
 function Page({ as, className, ...rest }) {
   const C = as ?? "div";
   return /* @__PURE__ */ jsx4(C, { className: cx("al-page", className), ...rest });
 }
-function Section({ as, className, ...rest }) {
-  const C = as ?? "section";
-  return /* @__PURE__ */ jsx4(C, { className: cx("al-section", className), ...rest });
+function Section({ heading, lede, id, className, children, ...rest }) {
+  const headingId = useStableId(id ? `${id}-h` : void 0, "section");
+  if (heading == null) return /* @__PURE__ */ jsx4("section", { className: cx("al-section", className), id, ...rest, children });
+  return /* @__PURE__ */ jsx4("section", { className: cx("al-section", className), id, "aria-labelledby": headingId, ...rest, children: /* @__PURE__ */ jsxs2("div", { className: "al-page al-stack", children: [
+    /* @__PURE__ */ jsx4("h2", { className: "al-section__title", id: headingId, children: heading }),
+    lede && /* @__PURE__ */ jsx4("p", { className: "al-lede al-section__lede", children: lede }),
+    children
+  ] }) });
 }
 function Stack({ as, gap, className, ...rest }) {
   const C = as ?? "div";
@@ -186,7 +209,7 @@ function Bdi({ children }) {
 
 // react/src/field.tsx
 import { createContext as createContext2, useContext as useContext2 } from "react";
-import { Fragment as Fragment2, jsx as jsx5, jsxs as jsxs2 } from "react/jsx-runtime";
+import { Fragment as Fragment2, jsx as jsx5, jsxs as jsxs3 } from "react/jsx-runtime";
 var FieldCtx = createContext2(null);
 function useField(own = {}) {
   const f = useContext2(FieldCtx);
@@ -202,10 +225,10 @@ function Field({ label, id, hint, error, optional, labelNote, changed, className
   const hintId = hint ? `${controlId}-hint` : void 0;
   const errorId = error ? `${controlId}-error` : void 0;
   const note = labelNote ?? (optional ? labels.optional : null);
-  return /* @__PURE__ */ jsxs2("div", { className: cx("al-field", className), "data-changed": changed ? "" : void 0, ...rest, children: [
-    /* @__PURE__ */ jsxs2("label", { className: "al-label", htmlFor: controlId, children: [
+  return /* @__PURE__ */ jsxs3("div", { className: cx("al-field", className), "data-changed": changed ? "" : void 0, ...rest, children: [
+    /* @__PURE__ */ jsxs3("label", { className: "al-label", htmlFor: controlId, children: [
       label,
-      note && /* @__PURE__ */ jsxs2(Fragment2, { children: [
+      note && /* @__PURE__ */ jsxs3(Fragment2, { children: [
         " ",
         /* @__PURE__ */ jsx5("span", { className: "al-label__optional", children: note })
       ] })
@@ -218,9 +241,9 @@ function Field({ label, id, hint, error, optional, labelNote, changed, className
 }
 function ErrorMessage({ className, children, ...rest }) {
   const { labels } = useArabesque();
-  return /* @__PURE__ */ jsxs2("p", { className: cx("al-error", className), ...rest, children: [
+  return /* @__PURE__ */ jsxs3("p", { className: cx("al-error", className), ...rest, children: [
     /* @__PURE__ */ jsx5(Icon, { name: "danger", size: "sm" }),
-    /* @__PURE__ */ jsxs2("span", { className: "al-visually-hidden", children: [
+    /* @__PURE__ */ jsxs3("span", { className: "al-visually-hidden", children: [
       labels.errorPrefix,
       " "
     ] }),
@@ -246,7 +269,7 @@ function AffixText({ className, ...rest }) {
   return /* @__PURE__ */ jsx5("span", { className: cx("al-affix__text", className), ...rest });
 }
 function Fieldset({ legend, className, children, ...rest }) {
-  return /* @__PURE__ */ jsxs2("fieldset", { className: cx("al-fieldset", className), ...rest, children: [
+  return /* @__PURE__ */ jsxs3("fieldset", { className: cx("al-fieldset", className), ...rest, children: [
     /* @__PURE__ */ jsx5("legend", { children: legend }),
     children
   ] });
@@ -256,14 +279,19 @@ function Hint({ className, ...rest }) {
 }
 
 // react/src/choice.tsx
-import { Fragment as Fragment3, jsx as jsx6, jsxs as jsxs3 } from "react/jsx-runtime";
-function Choice({ label, hint, type, role, className, ...rest }) {
-  return /* @__PURE__ */ jsxs3("label", { className: "al-choice", children: [
-    /* @__PURE__ */ jsx6("input", { type, role, className: cx(role === "switch" && "al-switch", className), ...rest }),
+import { useEffect as useEffect3, useRef } from "react";
+import { Fragment as Fragment3, jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
+function Choice({ label, hint, type, role, indeterminate, className, ...rest }) {
+  const ref = useRef(null);
+  useEffect3(() => {
+    if (ref.current) ref.current.indeterminate = !!indeterminate;
+  }, [indeterminate]);
+  return /* @__PURE__ */ jsxs4("label", { className: "al-choice", children: [
+    /* @__PURE__ */ jsx6("input", { ref, type, role, className: cx(role === "switch" && "al-switch", className), ...rest }),
     " ",
-    /* @__PURE__ */ jsxs3("span", { className: "al-choice__text", children: [
+    /* @__PURE__ */ jsxs4("span", { className: "al-choice__text", children: [
       label,
-      hint && /* @__PURE__ */ jsxs3(Fragment3, { children: [
+      hint && /* @__PURE__ */ jsxs4(Fragment3, { children: [
         " ",
         /* @__PURE__ */ jsx6("span", { className: "al-choice__hint", children: hint })
       ] })
@@ -278,9 +306,9 @@ function Choices({ inline, className, ...rest }) {
 }
 
 // react/src/segmented.tsx
-import { jsx as jsx7, jsxs as jsxs4 } from "react/jsx-runtime";
+import { jsx as jsx7, jsxs as jsxs5 } from "react/jsx-runtime";
 function Segmented({ options, value, name, onChange, fill: fill2, className }) {
-  return /* @__PURE__ */ jsx7("div", { className: cx("al-segmented", fill2 && "al-segmented--fill", className), children: options.map((o) => /* @__PURE__ */ jsxs4("label", { lang: o.lang, children: [
+  return /* @__PURE__ */ jsx7("div", { className: cx("al-segmented", fill2 && "al-segmented--fill", className), children: options.map((o) => /* @__PURE__ */ jsxs5("label", { lang: o.lang, children: [
     /* @__PURE__ */ jsx7(
       "input",
       {
@@ -300,12 +328,12 @@ function SegmentedButtons({ options, value, label, onChange, fill: fill2, classN
 }
 
 // react/src/disclosure.tsx
-import { Fragment as Fragment4, jsx as jsx8, jsxs as jsxs5 } from "react/jsx-runtime";
+import { Fragment as Fragment4, jsx as jsx8, jsxs as jsxs6 } from "react/jsx-runtime";
 function Disclosure({ summary, value, className, children, ...rest }) {
-  return /* @__PURE__ */ jsxs5("details", { className: cx("al-disclosure", className), ...rest, children: [
-    /* @__PURE__ */ jsxs5("summary", { children: [
+  return /* @__PURE__ */ jsxs6("details", { className: cx("al-disclosure", className), ...rest, children: [
+    /* @__PURE__ */ jsxs6("summary", { children: [
       summary,
-      value != null && /* @__PURE__ */ jsxs5(Fragment4, { children: [
+      value != null && /* @__PURE__ */ jsxs6(Fragment4, { children: [
         " ",
         /* @__PURE__ */ jsx8("span", { className: "al-disclosure__value", children: value })
       ] })
@@ -315,11 +343,11 @@ function Disclosure({ summary, value, className, children, ...rest }) {
 }
 
 // react/src/card.tsx
-import { jsx as jsx9, jsxs as jsxs6 } from "react/jsx-runtime";
+import { jsx as jsx9, jsxs as jsxs7 } from "react/jsx-runtime";
 function Card({ title, level = 3, description, interactive, selected, className, children, ...rest }) {
   const H = `h${level}`;
-  return /* @__PURE__ */ jsxs6("article", { className: cx("al-card", interactive && "al-card--interactive", selected && "al-card--selected", className), ...rest, children: [
-    (title || description) && /* @__PURE__ */ jsxs6("header", { className: "al-card__header", children: [
+  return /* @__PURE__ */ jsxs7("article", { className: cx("al-card", interactive && "al-card--interactive", selected && "al-card--selected", className), ...rest, children: [
+    (title || description) && /* @__PURE__ */ jsxs7("header", { className: "al-card__header", children: [
       title && /* @__PURE__ */ jsx9(H, { children: title }),
       description && /* @__PURE__ */ jsx9("p", { className: "al-card__description", children: description })
     ] }),
@@ -331,7 +359,7 @@ function Panel({ as, className, ...rest }) {
   return /* @__PURE__ */ jsx9(C, { className: cx("al-panel", className), ...rest });
 }
 function Stat({ label, value, note, className, ...rest }) {
-  return /* @__PURE__ */ jsxs6("div", { className: cx("al-stat", className), ...rest, children: [
+  return /* @__PURE__ */ jsxs7("div", { className: cx("al-stat", className), ...rest, children: [
     /* @__PURE__ */ jsx9("span", { className: "al-stat__label", children: label }),
     /* @__PURE__ */ jsx9("span", { className: "al-stat__value", children: /* @__PURE__ */ jsx9("bdi", { children: value }) }),
     note && /* @__PURE__ */ jsx9("span", { className: "al-stat__note", children: note })
@@ -339,11 +367,11 @@ function Stat({ label, value, note, className, ...rest }) {
 }
 
 // react/src/page-head.tsx
-import { Fragment as Fragment5, jsx as jsx10, jsxs as jsxs7 } from "react/jsx-runtime";
+import { Fragment as Fragment5, jsx as jsx10, jsxs as jsxs8 } from "react/jsx-runtime";
 function PageHead({ title, badge, end, lede, className, children, ...rest }) {
-  return /* @__PURE__ */ jsxs7("div", { className: cx("al-page-head", className), ...rest, children: [
+  return /* @__PURE__ */ jsxs8("div", { className: cx("al-page-head", className), ...rest, children: [
     /* @__PURE__ */ jsx10("h1", { children: title }),
-    badge && /* @__PURE__ */ jsxs7(Fragment5, { children: [
+    badge && /* @__PURE__ */ jsxs8(Fragment5, { children: [
       " ",
       badge
     ] }),
@@ -354,20 +382,20 @@ function PageHead({ title, badge, end, lede, className, children, ...rest }) {
 }
 
 // react/src/nav.tsx
-import { useEffect as useEffect3, useRef } from "react";
+import { useEffect as useEffect4, useRef as useRef2 } from "react";
 import { initTabs } from "../../js/tabs.js";
-import { Fragment as Fragment6, jsx as jsx11, jsxs as jsxs8 } from "react/jsx-runtime";
+import { Fragment as Fragment6, jsx as jsx11, jsxs as jsxs9 } from "react/jsx-runtime";
 function Tabs({ label, tabs, defaultTab, id, className }) {
-  const ref = useRef(null);
+  const ref = useRef2(null);
   const base = useStableId(id, "tabs");
   const first = defaultTab ?? tabs[0]?.id;
-  useEffect3(() => {
+  useEffect4(() => {
     if (ref.current) initTabs(ref.current);
   }, []);
-  return /* @__PURE__ */ jsxs8("div", { ref, className, children: [
-    /* @__PURE__ */ jsx11("div", { className: "al-tabs", role: "tablist", "aria-label": label, children: tabs.map((t) => /* @__PURE__ */ jsxs8("button", { type: "button", className: "al-tab", role: "tab", id: `${base}-${t.id}-tab`, "aria-controls": `${base}-${t.id}`, "aria-selected": t.id === first, tabIndex: t.id === first ? 0 : -1, children: [
+  return /* @__PURE__ */ jsxs9("div", { ref, className, children: [
+    /* @__PURE__ */ jsx11("div", { className: "al-tabs", role: "tablist", "aria-label": label, children: tabs.map((t) => /* @__PURE__ */ jsxs9("button", { type: "button", className: "al-tab", role: "tab", id: `${base}-${t.id}-tab`, "aria-controls": `${base}-${t.id}`, "aria-selected": t.id === first, tabIndex: t.id === first ? 0 : -1, children: [
       t.label,
-      t.count != null && /* @__PURE__ */ jsxs8(Fragment6, { children: [
+      t.count != null && /* @__PURE__ */ jsxs9(Fragment6, { children: [
         " ",
         /* @__PURE__ */ jsx11("span", { className: "al-tab__count", children: t.count })
       ] })
@@ -376,9 +404,9 @@ function Tabs({ label, tabs, defaultTab, id, className }) {
   ] });
 }
 function SectionNav({ label, links, className }) {
-  return /* @__PURE__ */ jsx11("nav", { "aria-label": label, className, children: /* @__PURE__ */ jsx11("div", { className: "al-tabs", children: links.map((l) => /* @__PURE__ */ jsxs8("a", { className: "al-tab", href: l.href, "aria-current": l.current ? "page" : void 0, children: [
+  return /* @__PURE__ */ jsx11("nav", { "aria-label": label, className, children: /* @__PURE__ */ jsx11("div", { className: "al-tabs", children: links.map((l) => /* @__PURE__ */ jsxs9("a", { className: "al-tab", href: l.href, "aria-current": l.current ? "page" : void 0, children: [
     l.label,
-    l.count != null && /* @__PURE__ */ jsxs8(Fragment6, { children: [
+    l.count != null && /* @__PURE__ */ jsxs9(Fragment6, { children: [
       " ",
       /* @__PURE__ */ jsx11("span", { className: "al-tab__count", children: l.count })
     ] })
@@ -386,13 +414,13 @@ function SectionNav({ label, links, className }) {
 }
 
 // react/src/brand.tsx
-import { Fragment as Fragment7, jsx as jsx12, jsxs as jsxs9 } from "react/jsx-runtime";
+import { Fragment as Fragment7, jsx as jsx12, jsxs as jsxs10 } from "react/jsx-runtime";
 var MARK_PATHS = [
   "M9.37 -9.37L5.49 0L9.37 9.37L0 5.49L-9.37 9.37L-5.49 0L-9.37 -9.37L0 -5.49Z M73.37 -9.37L69.49 0L73.37 9.37L64 5.49L54.63 9.37L58.51 0L54.63 -9.37L64 -5.49Z M9.37 54.63L5.49 64L9.37 73.37L0 69.49L-9.37 73.37L-5.49 64L-9.37 54.63L0 58.51Z M73.37 54.63L69.49 64L73.37 73.37L64 69.49L54.63 73.37L58.51 64L54.63 54.63L64 58.51Z",
   "M64 32L48 38.63L54.63 54.63L38.63 48L32 64L25.37 48L9.37 54.63L16 38.63L0 32L16 25.37L9.37 9.37L25.37 16L32 0L38.63 16L54.63 9.37L48 25.37Z"
 ];
 function Mark({ title, className, ...rest }) {
-  return /* @__PURE__ */ jsx12("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 64 64", className: cx("al-mark", className), role: title ? "img" : void 0, "aria-hidden": title ? void 0 : true, "aria-label": title, focusable: "false", ...rest, children: /* @__PURE__ */ jsxs9("g", { fill: "none", stroke: "currentColor", strokeWidth: "3.2", strokeLinejoin: "miter", children: [
+  return /* @__PURE__ */ jsx12("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 64 64", className: cx("al-mark", className), role: title ? "img" : void 0, "aria-hidden": title ? void 0 : true, "aria-label": title, focusable: "false", ...rest, children: /* @__PURE__ */ jsxs10("g", { fill: "none", stroke: "currentColor", strokeWidth: "3.2", strokeLinejoin: "miter", children: [
     MARK_PATHS.map((d) => /* @__PURE__ */ jsx12("path", { d }, d)),
     /* @__PURE__ */ jsx12("rect", { x: "1.6", y: "1.6", width: "60.8", height: "60.8" })
   ] }) });
@@ -400,51 +428,67 @@ function Mark({ title, className, ...rest }) {
 function Wordmark({ className }) {
   const { lang } = useArabesque();
   const ar = /^ar\b/i.test(lang);
-  return /* @__PURE__ */ jsx12("span", { className: cx("al-wordmark", className), lang: ar ? "ar" : "en", children: ar ? "\u0645\u0639\u0627\u0645\u0644 \u0622\u0631\u0627\u0628\u064A\u0633\u0643" : "Arabesque Labs" });
+  return /* @__PURE__ */ jsx12("span", { className: cx("al-wordmark", className), lang: ar ? "ar" : "en", children: ar ? "معامل آرابيسك" : "Arabesque Labs" });
 }
-function Lockup({ product, name, href, className, ...rest }) {
-  const inner = /* @__PURE__ */ jsxs9(Fragment7, { children: [
+var STAR_PATH = MARK_PATHS[1];
+function Star({ title, className, ...rest }) {
+  return /* @__PURE__ */ jsx12("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 64 64", className: cx("al-mark", className), role: title ? "img" : void 0, "aria-hidden": title ? void 0 : true, "aria-label": title, focusable: "false", ...rest, children: /* @__PURE__ */ jsx12("path", { d: STAR_PATH, fill: "currentColor" }) });
+}
+function Lockup({ product, name, stacked, href, className, ...rest }) {
+  const inner = /* @__PURE__ */ jsxs10(Fragment7, { children: [
     /* @__PURE__ */ jsx12(Mark, {}),
     name ?? /* @__PURE__ */ jsx12(Wordmark, {}),
     product && /* @__PURE__ */ jsx12("span", { className: "al-lockup__product", children: product })
   ] });
-  return href ? /* @__PURE__ */ jsx12("a", { className: cx("al-lockup", className), href, ...rest, children: inner }) : /* @__PURE__ */ jsx12("span", { className: cx("al-lockup", className), children: inner });
+  const classes = cx("al-lockup", stacked && "al-lockup--stacked", className);
+  return href ? /* @__PURE__ */ jsx12("a", { className: classes, href, ...rest, children: inner }) : /* @__PURE__ */ jsx12("span", { className: classes, children: inner });
 }
 
 // react/src/site-header.tsx
-import { useEffect as useEffect4, useRef as useRef2, useState } from "react";
+import { useEffect as useEffect5, useRef as useRef3, useState } from "react";
 import { initSiteHeaders } from "../../js/site-header.js";
 import { currentTheme, setTheme } from "../../js/theme.js";
-import { jsx as jsx13, jsxs as jsxs10 } from "react/jsx-runtime";
-var LinkList = ({ links }) => /* @__PURE__ */ jsx13("ul", { children: links.map((l) => /* @__PURE__ */ jsx13("li", { children: /* @__PURE__ */ jsx13("a", { href: l.href, "aria-current": l.current ? "page" : void 0, children: l.label }) }, l.href)) });
-function SiteHeader({ home = "/", lockup, links, tools, themeToggle = true, menuId, className }) {
+
+// react/src/language.tsx
+import { jsx as jsx13 } from "react/jsx-runtime";
+var languageNames = { en: "English", ar: "العربية" };
+function LanguageLink({ href, lang, label, className }) {
+  return /* @__PURE__ */ jsx13("a", { className: cx("al-language", className), href, hrefLang: lang, lang, children: label ?? languageNames[lang.split("-")[0]] ?? lang });
+}
+
+// react/src/site-header.tsx
+import { jsx as jsx14, jsxs as jsxs11 } from "react/jsx-runtime";
+var LinkList = ({ links }) => /* @__PURE__ */ jsx14("ul", { children: links.map((l) => /* @__PURE__ */ jsx14("li", { children: /* @__PURE__ */ jsx14("a", { href: l.href, "aria-current": l.current ? "page" : void 0, children: l.label }) }, l.href)) });
+function SiteHeader({ home = "/", lockup, links, language, tools, sticky, skipTo = "#main", themeToggle = true, menuId, className }) {
   const { labels } = useArabesque();
-  const ref = useRef2(null);
+  const ref = useRef3(null);
   const menu = useStableId(menuId, "site-menu");
-  useEffect4(() => {
+  useEffect5(() => {
     if (ref.current) initSiteHeaders(ref.current.parentNode ?? document);
   }, []);
-  return /* @__PURE__ */ jsxs10("header", { ref, className: cx("al-site-header", className), children: [
-    /* @__PURE__ */ jsxs10("div", { className: "al-page al-site-header__bar", children: [
-      lockup ?? /* @__PURE__ */ jsx13(Lockup, { className: "al-site-header__lockup", href: home }),
-      /* @__PURE__ */ jsxs10("div", { className: "al-site-header__end", children: [
-        /* @__PURE__ */ jsx13("nav", { className: "al-site-header__nav", "aria-label": labels.sections, children: /* @__PURE__ */ jsx13(LinkList, { links }) }),
-        /* @__PURE__ */ jsxs10("div", { className: "al-site-header__tools", children: [
+  return /* @__PURE__ */ jsxs11("header", { ref, className: cx("al-site-header", sticky && "al-site-header--sticky", className), children: [
+    skipTo !== false && /* @__PURE__ */ jsx14(SkipLink, { href: skipTo }),
+    /* @__PURE__ */ jsxs11("div", { className: "al-page al-site-header__bar", children: [
+      lockup ?? /* @__PURE__ */ jsx14(Lockup, { className: "al-site-header__lockup", href: home }),
+      /* @__PURE__ */ jsxs11("div", { className: "al-site-header__end", children: [
+        /* @__PURE__ */ jsx14("nav", { className: "al-site-header__nav", "aria-label": labels.sections, children: /* @__PURE__ */ jsx14(LinkList, { links }) }),
+        /* @__PURE__ */ jsxs11("div", { className: "al-site-header__tools", children: [
+          language && /* @__PURE__ */ jsx14(LanguageLink, { ...language }),
           tools,
-          themeToggle && /* @__PURE__ */ jsx13(ThemeToggle, {}),
-          /* @__PURE__ */ jsx13("button", { type: "button", className: "al-button al-button--icon al-button--quiet al-site-header__toggle", "data-site-menu-toggle": "", "aria-controls": menu, "aria-expanded": "false", "aria-label": labels.menu, children: /* @__PURE__ */ jsx13(Icon, { name: "menu" }) })
+          themeToggle && /* @__PURE__ */ jsx14(ThemeToggle, {}),
+          /* @__PURE__ */ jsx14("button", { type: "button", className: "al-button al-button--icon al-button--quiet al-site-header__toggle", "data-site-menu-toggle": "", "aria-controls": menu, "aria-expanded": "false", "aria-label": labels.menu, children: /* @__PURE__ */ jsx14(Icon, { name: "menu" }) })
         ] })
       ] })
     ] }),
-    /* @__PURE__ */ jsx13("nav", { className: "al-page al-site-header__menu", id: menu, "aria-label": labels.sections, hidden: true, children: /* @__PURE__ */ jsx13(LinkList, { links }) })
+    /* @__PURE__ */ jsx14("nav", { className: "al-page al-site-header__menu", id: menu, "aria-label": labels.sections, hidden: true, children: /* @__PURE__ */ jsx14(LinkList, { links }) })
   ] });
 }
 function ThemeToggle({ className }) {
   const { labels } = useArabesque();
   const [theme, setThemeState] = useState(null);
-  useEffect4(() => setThemeState(currentTheme()), []);
+  useEffect5(() => setThemeState(currentTheme()), []);
   const next = theme === "dark" ? "light" : "dark";
-  return /* @__PURE__ */ jsx13(
+  return /* @__PURE__ */ jsx14(
     "button",
     {
       type: "button",
@@ -457,33 +501,33 @@ function ThemeToggle({ className }) {
         setTheme(next);
         setThemeState(next);
       },
-      children: /* @__PURE__ */ jsx13(Icon, { name: "theme" })
+      children: /* @__PURE__ */ jsx14(Icon, { name: "theme" })
     }
   );
 }
 
 // react/src/sidebar.tsx
 import { useState as useState2 } from "react";
-import { jsx as jsx14, jsxs as jsxs11 } from "react/jsx-runtime";
+import { jsx as jsx15, jsxs as jsxs12 } from "react/jsx-runtime";
 function Shell({ label, links, footLinks = [], defaultCollapsed = false, onCollapsedChange, children, className }) {
   const { labels } = useArabesque();
   const [collapsed, setCollapsed] = useState2(defaultCollapsed);
-  const link = (l) => /* @__PURE__ */ jsxs11("a", { className: "al-sidebar__link", href: l.href, "aria-current": l.current ? "page" : void 0, title: collapsed ? l.label : void 0, children: [
-    /* @__PURE__ */ jsx14(Icon, { name: l.icon }),
-    /* @__PURE__ */ jsx14("span", { className: "al-sidebar__label", children: l.label })
+  const link = (l) => /* @__PURE__ */ jsxs12("a", { className: "al-sidebar__link", href: l.href, "aria-current": l.current ? "page" : void 0, title: collapsed ? l.label : void 0, children: [
+    /* @__PURE__ */ jsx15(Icon, { name: l.icon }),
+    /* @__PURE__ */ jsx15("span", { className: "al-sidebar__label", children: l.label })
   ] }, l.href + l.label);
   const toggle = () => {
     setCollapsed(!collapsed);
     onCollapsedChange?.(!collapsed);
   };
-  return /* @__PURE__ */ jsxs11("div", { className: cx("al-shell", className), "data-sidebar": collapsed ? "collapsed" : "", children: [
-    /* @__PURE__ */ jsxs11("aside", { className: "al-sidebar", children: [
-      /* @__PURE__ */ jsx14("nav", { className: "al-sidebar__nav", "aria-label": label ?? labels.sections, children: links.map(link) }),
-      /* @__PURE__ */ jsxs11("div", { className: "al-sidebar__foot", children: [
+  return /* @__PURE__ */ jsxs12("div", { className: cx("al-shell", className), "data-sidebar": collapsed ? "collapsed" : "", children: [
+    /* @__PURE__ */ jsxs12("aside", { className: "al-sidebar", children: [
+      /* @__PURE__ */ jsx15("nav", { className: "al-sidebar__nav", "aria-label": label ?? labels.sections, children: links.map(link) }),
+      /* @__PURE__ */ jsxs12("div", { className: "al-sidebar__foot", children: [
         footLinks.map(link),
-        /* @__PURE__ */ jsxs11("button", { type: "button", className: "al-sidebar__link al-sidebar__collapse", "aria-expanded": !collapsed, onClick: toggle, children: [
-          /* @__PURE__ */ jsx14(Icon, { name: "sidebar" }),
-          /* @__PURE__ */ jsx14("span", { className: "al-sidebar__label", children: collapsed ? labels.expandSidebar : labels.collapseSidebar })
+        /* @__PURE__ */ jsxs12("button", { type: "button", className: "al-sidebar__link al-sidebar__collapse", "aria-expanded": !collapsed, onClick: toggle, children: [
+          /* @__PURE__ */ jsx15(Icon, { name: "sidebar" }),
+          /* @__PURE__ */ jsx15("span", { className: "al-sidebar__label", children: collapsed ? labels.expandSidebar : labels.collapseSidebar })
         ] })
       ] })
     ] }),
@@ -492,72 +536,76 @@ function Shell({ label, links, footLinks = [], defaultCollapsed = false, onColla
 }
 
 // react/src/footer.tsx
-import { jsx as jsx15, jsxs as jsxs12 } from "react/jsx-runtime";
+import { jsx as jsx16, jsxs as jsxs13 } from "react/jsx-runtime";
 function Footer({ lockup, links, legal, className, children, ...rest }) {
-  return /* @__PURE__ */ jsxs12("footer", { className: cx("al-footer", className), ...rest, children: [
-    lockup ?? /* @__PURE__ */ jsx15(Lockup, {}),
+  return /* @__PURE__ */ jsxs13("footer", { className: cx("al-footer", className), ...rest, children: [
+    lockup ?? /* @__PURE__ */ jsx16(Lockup, {}),
     children,
-    links && links.length > 0 && /* @__PURE__ */ jsx15("ul", { className: "al-footer__links", children: links.map((l) => /* @__PURE__ */ jsx15("li", { children: /* @__PURE__ */ jsx15("a", { href: l.href, children: l.label }) }, l.href)) }),
-    legal && /* @__PURE__ */ jsx15("p", { className: "al-footer__legal", children: legal })
+    links && links.length > 0 && /* @__PURE__ */ jsx16("ul", { className: "al-footer__links", children: links.map((l) => /* @__PURE__ */ jsx16("li", { children: /* @__PURE__ */ jsx16("a", { href: l.href, children: l.label }) }, l.href)) }),
+    legal && /* @__PURE__ */ jsx16("p", { className: "al-footer__legal", children: legal })
   ] });
 }
 
 // react/src/steps.tsx
 import { formatNumber } from "../../js/format.js";
-import { jsx as jsx16, jsxs as jsxs13 } from "react/jsx-runtime";
+import { jsx as jsx17, jsxs as jsxs14 } from "react/jsx-runtime";
 function Steps({ steps, level = 3, className }) {
   const { lang, numerals } = useArabesque();
   const H = `h${level}`;
-  return /* @__PURE__ */ jsx16("ol", { className: cx("al-steps", className), children: steps.map((s, i) => /* @__PURE__ */ jsxs13("li", { children: [
-    /* @__PURE__ */ jsx16("p", { className: "al-steps__num", children: /* @__PURE__ */ jsx16("bdi", { children: formatNumber(i + 1, { lang, numerals }) }) }),
-    /* @__PURE__ */ jsx16(H, { className: "al-steps__title", children: s.title }),
-    s.body && /* @__PURE__ */ jsx16("p", { className: "al-steps__body", children: s.body })
+  return /* @__PURE__ */ jsx17("ol", { className: cx("al-steps", className), children: steps.map((s, i) => /* @__PURE__ */ jsxs14("li", { children: [
+    /* @__PURE__ */ jsx17("p", { className: "al-steps__num", children: /* @__PURE__ */ jsx17("bdi", { children: formatNumber(i + 1, { lang, numerals }) }) }),
+    /* @__PURE__ */ jsx17(H, { className: "al-steps__title", children: s.title }),
+    s.body && /* @__PURE__ */ jsx17("p", { className: "al-steps__body", children: s.body })
   ] }, i)) });
 }
 
 // react/src/table.tsx
-import { jsx as jsx17, jsxs as jsxs14 } from "react/jsx-runtime";
+import { jsx as jsx18, jsxs as jsxs15 } from "react/jsx-runtime";
 function Table({ label, columns, rows, compact, interactive, caption, className }) {
   const num = (i) => columns[i]?.numeric ? "al-table__num" : void 0;
-  return /* @__PURE__ */ jsx17("div", { className: "al-table-wrap", role: "region", "aria-label": label, tabIndex: 0, children: /* @__PURE__ */ jsxs14("table", { className: cx("al-table", compact && "al-table--compact", interactive && "al-table--interactive", className), children: [
-    caption && /* @__PURE__ */ jsx17("caption", { children: caption }),
-    /* @__PURE__ */ jsx17("thead", { children: /* @__PURE__ */ jsx17("tr", { children: columns.map((c, i) => /* @__PURE__ */ jsx17("th", { scope: "col", className: num(i), children: c.label }, i)) }) }),
-    /* @__PURE__ */ jsx17("tbody", { children: rows.map((r, j) => /* @__PURE__ */ jsxs14("tr", { className: r.kind && `al-table__row--${r.kind}`, children: [
-      /* @__PURE__ */ jsx17("th", { scope: "row", children: r.head }),
-      r.cells.map((c, i) => /* @__PURE__ */ jsx17("td", { className: num(i + 1), children: c }, i))
+  return /* @__PURE__ */ jsx18("div", { className: "al-table-wrap", role: "region", "aria-label": label, tabIndex: 0, children: /* @__PURE__ */ jsxs15("table", { className: cx("al-table", compact && "al-table--compact", interactive && "al-table--interactive", className), children: [
+    caption && /* @__PURE__ */ jsx18("caption", { children: caption }),
+    /* @__PURE__ */ jsx18("thead", { children: /* @__PURE__ */ jsx18("tr", { children: columns.map((c, i) => /* @__PURE__ */ jsx18("th", { scope: "col", className: num(i), children: c.label }, i)) }) }),
+    /* @__PURE__ */ jsx18("tbody", { children: rows.map((r, j) => /* @__PURE__ */ jsxs15("tr", { className: r.kind && `al-table__row--${r.kind}`, children: [
+      /* @__PURE__ */ jsx18("th", { scope: "row", children: r.head }),
+      r.cells.map((c, i) => /* @__PURE__ */ jsx18("td", { className: num(i + 1), children: c }, i))
     ] }, r.key ?? j)) })
   ] }) });
 }
 
 // react/src/badge.tsx
-import { jsx as jsx18, jsxs as jsxs15 } from "react/jsx-runtime";
+import { jsx as jsx19, jsxs as jsxs16 } from "react/jsx-runtime";
 function Badge({ tone = "neutral", count, tint, className, ...rest }) {
-  return /* @__PURE__ */ jsx18("span", { className: cx("al-badge", tone !== "neutral" && `al-badge--${tone}`, count && "al-badge--count", className), "data-tint": tint, ...rest });
+  return /* @__PURE__ */ jsx19("span", { className: cx("al-badge", tone !== "neutral" && `al-badge--${tone}`, count && "al-badge--count", className), "data-tint": tint, ...rest });
 }
 function Tag({ children, color, tint, onRemove, className }) {
   const { labels } = useArabesque();
-  return /* @__PURE__ */ jsxs15("span", { className: cx("al-tag", className), "data-tint": tint, style: color ? { "--al-tag-color": color } : void 0, children: [
+  return /* @__PURE__ */ jsxs16("span", { className: cx("al-tag", className), "data-tint": tint, style: color ? { "--al-tag-color": color } : void 0, children: [
     children,
-    onRemove && /* @__PURE__ */ jsx18("button", { type: "button", className: "al-tag__remove", "aria-label": fill(labels.removeTag, { name: children }), onClick: onRemove, children: /* @__PURE__ */ jsx18(Icon, { name: "close", size: "sm" }) })
+    onRemove && /* @__PURE__ */ jsx19("button", { type: "button", className: "al-tag__remove", "aria-label": fill(labels.removeTag, { name: children }), onClick: onRemove, children: /* @__PURE__ */ jsx19(Icon, { name: "close", size: "sm" }) })
   ] });
 }
 
 // react/src/notice.tsx
-import { jsx as jsx19, jsxs as jsxs16 } from "react/jsx-runtime";
-function Notice({ kind = "info", title, actions, className, children, ...rest }) {
-  return /* @__PURE__ */ jsxs16("div", { className: cx("al-notice", kind !== "info" && `al-notice--${kind}`, className), role: kind === "danger" ? "alert" : "status", ...rest, children: [
-    /* @__PURE__ */ jsx19(Icon, { name: kind }),
-    /* @__PURE__ */ jsxs16("div", { className: "al-notice__body", children: [
-      title && /* @__PURE__ */ jsx19("p", { className: "al-notice__title", children: title }),
-      typeof children === "string" ? /* @__PURE__ */ jsx19("p", { children }) : children,
-      actions && /* @__PURE__ */ jsx19("div", { className: "al-notice__actions", children: actions })
-    ] })
+import { jsx as jsx20, jsxs as jsxs17 } from "react/jsx-runtime";
+var WORD = { info: "noticeInfo", success: "noticeSuccess", warning: "noticeWarning", danger: "noticeDanger" };
+function Notice({ kind = "info", title, actions, onDismiss, className, children, ...rest }) {
+  const { labels } = useArabesque();
+  const heading = title === void 0 ? labels[WORD[kind]] : title;
+  return /* @__PURE__ */ jsxs17("div", { className: cx("al-notice", kind !== "info" && `al-notice--${kind}`, className), role: kind === "danger" ? "alert" : "status", ...rest, children: [
+    /* @__PURE__ */ jsx20(Icon, { name: kind }),
+    /* @__PURE__ */ jsxs17("div", { className: "al-notice__body", children: [
+      heading != null && /* @__PURE__ */ jsx20("p", { className: "al-notice__title", children: heading }),
+      typeof children === "string" ? /* @__PURE__ */ jsx20("p", { children }) : children,
+      actions && /* @__PURE__ */ jsx20("div", { className: "al-notice__actions", children: actions })
+    ] }),
+    onDismiss && /* @__PURE__ */ jsx20("button", { type: "button", className: "al-button al-button--icon al-button--quiet al-notice__dismiss", "aria-label": labels.dismiss, "data-al-tip": labels.dismiss, onClick: onDismiss, children: /* @__PURE__ */ jsx20(Icon, { name: "close" }) })
   ] });
 }
 function SideEffect({ className, children, ...rest }) {
-  return /* @__PURE__ */ jsxs16("p", { className: cx("al-side-effect", className), ...rest, children: [
-    /* @__PURE__ */ jsx19(Icon, { name: "info", size: "sm" }),
-    /* @__PURE__ */ jsx19("span", { children })
+  return /* @__PURE__ */ jsxs17("p", { className: cx("al-side-effect", className), ...rest, children: [
+    /* @__PURE__ */ jsx20(Icon, { name: "info", size: "sm" }),
+    /* @__PURE__ */ jsx20("span", { children })
   ] });
 }
 
@@ -570,22 +618,22 @@ function useToast() {
 }
 
 // react/src/dialog.tsx
-import { useEffect as useEffect5, useRef as useRef3 } from "react";
+import { useEffect as useEffect6, useRef as useRef4 } from "react";
 import { openDialog } from "../../js/dialog.js";
-import { jsx as jsx20, jsxs as jsxs17 } from "react/jsx-runtime";
+import { jsx as jsx21, jsxs as jsxs18 } from "react/jsx-runtime";
 function Dialog({ open, onClose, title, children, actions, guardChanges, returnFocusTo, size, id, className, onSubmit }) {
   const { labels } = useArabesque();
-  const ref = useRef3(null);
+  const ref = useRef4(null);
   const dialogId = useStableId(id, "dialog");
-  const close = useRef3(onClose);
+  const close = useRef4(onClose);
   close.current = onClose;
-  useEffect5(() => {
+  useEffect6(() => {
     const d = ref.current;
     if (!d) return;
     if (open && !d.open) openDialog(d, { opener: returnFocusTo?.current ?? document.activeElement });
     else if (!open && d.open) d.close();
   }, [open]);
-  useEffect5(() => {
+  useEffect6(() => {
     const d = ref.current;
     if (!d) return;
     const closed = () => queueMicrotask(() => {
@@ -594,34 +642,34 @@ function Dialog({ open, onClose, title, children, actions, guardChanges, returnF
     d.addEventListener("close", closed);
     return () => d.removeEventListener("close", closed);
   }, []);
-  return /* @__PURE__ */ jsx20("dialog", { ref, className: cx("al-dialog", size && `al-dialog--${size}`, className), id: dialogId, "aria-labelledby": `${dialogId}-title`, children: /* @__PURE__ */ jsxs17("form", { method: "dialog", onSubmit: (e) => {
+  return /* @__PURE__ */ jsx21("dialog", { ref, className: cx("al-dialog", size && `al-dialog--${size}`, className), id: dialogId, "aria-labelledby": `${dialogId}-title`, children: /* @__PURE__ */ jsxs18("form", { method: "dialog", onSubmit: (e) => {
     const submitter = e.nativeEvent.submitter;
     if (onSubmit?.(submitter?.value ?? "", e.currentTarget) === false) e.preventDefault();
   }, children: [
-    /* @__PURE__ */ jsx20("h2", { className: "al-dialog__title", id: `${dialogId}-title`, children: title }),
-    /* @__PURE__ */ jsx20("div", { className: "al-dialog__body", children }),
-    guardChanges && /* @__PURE__ */ jsxs17("div", { className: "al-dialog__discard", hidden: true, role: "alert", children: [
-      /* @__PURE__ */ jsx20("p", { children: labels.discardQuestion }),
-      /* @__PURE__ */ jsx20("button", { type: "button", className: "al-button al-button--sm", "data-al-keep": "", children: labels.keepEditing }),
-      /* @__PURE__ */ jsx20("button", { type: "button", className: "al-button al-button--sm al-button--danger", "data-al-discard": "", children: labels.discardChanges })
+    /* @__PURE__ */ jsx21("h2", { className: "al-dialog__title", id: `${dialogId}-title`, children: title }),
+    /* @__PURE__ */ jsx21("div", { className: "al-dialog__body", children }),
+    guardChanges && /* @__PURE__ */ jsxs18("div", { className: "al-dialog__discard", hidden: true, role: "alert", children: [
+      /* @__PURE__ */ jsx21("p", { children: labels.discardQuestion }),
+      /* @__PURE__ */ jsx21("button", { type: "button", className: "al-button al-button--sm", "data-al-keep": "", children: labels.keepEditing }),
+      /* @__PURE__ */ jsx21("button", { type: "button", className: "al-button al-button--sm al-button--danger", "data-al-discard": "", children: labels.discardChanges })
     ] }),
-    /* @__PURE__ */ jsx20("div", { className: "al-dialog__actions", children: actions })
+    /* @__PURE__ */ jsx21("div", { className: "al-dialog__actions", children: actions })
   ] }) });
 }
 
 // react/src/menu.tsx
-import { useEffect as useEffect6, useRef as useRef4 } from "react";
+import { useEffect as useEffect7, useRef as useRef5 } from "react";
 import { initMenus } from "../../js/menu.js";
-import { Fragment as Fragment8, jsx as jsx21, jsxs as jsxs18 } from "react/jsx-runtime";
+import { Fragment as Fragment8, jsx as jsx22, jsxs as jsxs19 } from "react/jsx-runtime";
 function Menu({ label, icon, menuLabel, items, id, className }) {
-  const ref = useRef4(null);
+  const ref = useRef5(null);
   const menuId = useStableId(id, "menu");
-  useEffect6(() => {
+  useEffect7(() => {
     if (ref.current) initMenus(ref.current);
   }, []);
   useTooltips(!!icon);
-  return /* @__PURE__ */ jsxs18("div", { ref, className, style: { display: "contents" }, children: [
-    /* @__PURE__ */ jsx21(
+  return /* @__PURE__ */ jsxs19("div", { ref, className, style: { display: "contents" }, children: [
+    /* @__PURE__ */ jsx22(
       "button",
       {
         type: "button",
@@ -631,18 +679,18 @@ function Menu({ label, icon, menuLabel, items, id, className }) {
         popoverTarget: menuId,
         "aria-label": icon ? label : void 0,
         "data-al-tip": icon ? label : void 0,
-        children: icon ? /* @__PURE__ */ jsx21(Icon, { name: icon }) : /* @__PURE__ */ jsxs18(Fragment8, { children: [
+        children: icon ? /* @__PURE__ */ jsx22(Icon, { name: icon }) : /* @__PURE__ */ jsxs19(Fragment8, { children: [
           label,
           " ",
-          /* @__PURE__ */ jsx21(Icon, { name: "chevron", size: "sm" })
+          /* @__PURE__ */ jsx22(Icon, { name: "chevron", size: "sm" })
         ] })
       }
     ),
-    /* @__PURE__ */ jsx21("div", { className: "al-menu", id: menuId, popover: "auto", role: "menu", "aria-label": menuLabel ?? label, children: items.map((it, i) => {
-      if ("separator" in it) return /* @__PURE__ */ jsx21("hr", { className: "al-menu__separator" }, i);
-      if ("group" in it) return /* @__PURE__ */ jsx21("p", { className: "al-menu__label", role: "presentation", children: it.group }, i);
+    /* @__PURE__ */ jsx22("div", { className: "al-menu", id: menuId, popover: "auto", role: "menu", "aria-label": menuLabel ?? label, children: items.map((it, i) => {
+      if ("separator" in it) return /* @__PURE__ */ jsx22("hr", { className: "al-menu__separator" }, i);
+      if ("group" in it) return /* @__PURE__ */ jsx22("p", { className: "al-menu__label", role: "presentation", children: it.group }, i);
       const radio = it.checked !== void 0;
-      return /* @__PURE__ */ jsx21(
+      return /* @__PURE__ */ jsx22(
         "button",
         {
           type: "button",
@@ -660,117 +708,123 @@ function Menu({ label, icon, menuLabel, items, id, className }) {
 }
 
 // react/src/empty-state.tsx
-import { jsx as jsx22, jsxs as jsxs19 } from "react/jsx-runtime";
+import { jsx as jsx23, jsxs as jsxs20 } from "react/jsx-runtime";
 function EmptyState({ title, text, action, className, ...rest }) {
-  return /* @__PURE__ */ jsxs19("div", { className: cx("al-empty", className), ...rest, children: [
-    /* @__PURE__ */ jsx22("p", { className: "al-empty__title", children: title }),
-    text && /* @__PURE__ */ jsx22("p", { className: "al-empty__text", children: text }),
+  return /* @__PURE__ */ jsxs20("div", { className: cx("al-empty", className), ...rest, children: [
+    /* @__PURE__ */ jsx23("p", { className: "al-empty__title", children: title }),
+    text && /* @__PURE__ */ jsx23("p", { className: "al-empty__text", children: text }),
     action
   ] });
 }
 
 // react/src/progress.tsx
-import { jsx as jsx23 } from "react/jsx-runtime";
-function Spinner({ className }) {
-  return /* @__PURE__ */ jsx23("span", { className: cx("al-spinner", className), "aria-hidden": "true" });
+import { jsx as jsx24, jsxs as jsxs21 } from "react/jsx-runtime";
+function Spinner({ label, className }) {
+  const { labels } = useArabesque();
+  const star = /* @__PURE__ */ jsx24("span", { className: cx("al-spinner", className), "aria-hidden": "true" });
+  if (!label) return star;
+  return /* @__PURE__ */ jsxs21("span", { role: "status", children: [
+    star,
+    /* @__PURE__ */ jsx24("span", { className: "al-visually-hidden", children: label === true ? labels.loading : label })
+  ] });
 }
 function Skeleton({ width, className }) {
-  return /* @__PURE__ */ jsx23("span", { className: cx("al-skeleton", className), style: width != null ? { inlineSize: width } : void 0 });
+  return /* @__PURE__ */ jsx24("span", { className: cx("al-skeleton", className), style: width != null ? { inlineSize: width } : void 0 });
 }
 function Progress({ value, max = 100, className, ...rest }) {
-  return /* @__PURE__ */ jsx23("progress", { className: cx("al-progress", className), value, max, ...rest });
+  return /* @__PURE__ */ jsx24("progress", { className: cx("al-progress", className), value, max, ...rest });
 }
 
 // react/src/save-state.tsx
-import { Fragment as Fragment9, jsx as jsx24, jsxs as jsxs20 } from "react/jsx-runtime";
+import { Fragment as Fragment9, jsx as jsx25, jsxs as jsxs22 } from "react/jsx-runtime";
 function SaveState({ state, onRetry, children, className }) {
   const { labels } = useArabesque();
-  return /* @__PURE__ */ jsxs20("span", { className: cx("al-save-state", className), role: "status", "data-state": state, children: [
+  return /* @__PURE__ */ jsxs22("span", { className: cx("al-save-state", className), role: "status", "data-state": state, children: [
     children ?? labels[state],
-    state === "failed" && onRetry && /* @__PURE__ */ jsxs20(Fragment9, { children: [
+    state === "failed" && onRetry && /* @__PURE__ */ jsxs22(Fragment9, { children: [
       " ",
-      /* @__PURE__ */ jsx24("button", { type: "button", className: "al-button al-button--quiet al-button--sm", onClick: onRetry, children: labels.retry })
+      /* @__PURE__ */ jsx25("button", { type: "button", className: "al-button al-button--quiet al-button--sm", onClick: onRetry, children: labels.retry })
     ] })
   ] });
 }
 function RollbackNote({ children, onRetry, className }) {
   const { labels } = useArabesque();
-  return /* @__PURE__ */ jsxs20("p", { className: cx("al-rollback-note", className), role: "alert", children: [
-    /* @__PURE__ */ jsx24(Icon, { name: "danger", size: "sm" }),
-    /* @__PURE__ */ jsx24("span", { children }),
-    onRetry && /* @__PURE__ */ jsx24("button", { type: "button", className: "al-button al-button--sm", onClick: onRetry, children: labels.retry })
+  return /* @__PURE__ */ jsxs22("p", { className: cx("al-rollback-note", className), role: "alert", children: [
+    /* @__PURE__ */ jsx25(Icon, { name: "danger", size: "sm" }),
+    /* @__PURE__ */ jsx25("span", { children }),
+    onRetry && /* @__PURE__ */ jsx25("button", { type: "button", className: "al-button al-button--sm", onClick: onRetry, children: labels.retry })
   ] });
 }
 function Stale({ stale, className, ...rest }) {
-  return /* @__PURE__ */ jsx24("div", { className: cx(stale && "al-stale", className), ...rest });
+  return /* @__PURE__ */ jsx25("div", { className: cx(stale && "al-stale", className), ...rest });
 }
 function StaleNote({ hidden, children, className }) {
   const { labels } = useArabesque();
-  return /* @__PURE__ */ jsxs20("p", { className: cx("al-stale-note", className), hidden, children: [
-    /* @__PURE__ */ jsx24(Spinner, {}),
+  return /* @__PURE__ */ jsxs22("p", { className: cx("al-stale-note", className), hidden, children: [
+    /* @__PURE__ */ jsx25(Spinner, {}),
     children ?? labels.workingOut
   ] });
 }
 
 // react/src/bulk-bar.tsx
 import { formatNumber as formatNumber2 } from "../../js/format.js";
-import { jsx as jsx25, jsxs as jsxs21 } from "react/jsx-runtime";
+import { jsx as jsx26, jsxs as jsxs23 } from "react/jsx-runtime";
 function BulkBar({ count, actions, onClear, className }) {
   const { labels, lang, numerals } = useArabesque();
   if (count < 1) return null;
   const text = fill(labels.selected, { n: formatNumber2(count, { lang, numerals }) });
-  return /* @__PURE__ */ jsxs21("div", { className: cx("al-bulk-bar", className), role: "region", "aria-label": text, children: [
-    /* @__PURE__ */ jsx25("span", { className: "al-bulk-bar__count", children: text }),
+  return /* @__PURE__ */ jsxs23("div", { className: cx("al-bulk-bar", className), role: "region", "aria-label": text, children: [
+    /* @__PURE__ */ jsx26("span", { className: "al-bulk-bar__count", children: text }),
     actions,
-    /* @__PURE__ */ jsx25("button", { type: "button", className: "al-button al-button--sm al-button--quiet", onClick: onClear, children: labels.clearSelection })
+    /* @__PURE__ */ jsx26("button", { type: "button", className: "al-button al-button--sm al-button--quiet", onClick: onClear, children: labels.clearSelection })
   ] });
 }
 
 // react/src/kbd.tsx
-import { Fragment as Fragment10, useEffect as useEffect7, useRef as useRef5 } from "react";
+import { Fragment as Fragment10, useEffect as useEffect8, useRef as useRef6 } from "react";
 import { renderModifierKeys } from "../../js/keys.js";
-import { jsx as jsx26, jsxs as jsxs22 } from "react/jsx-runtime";
+import { jsx as jsx27, jsxs as jsxs24 } from "react/jsx-runtime";
 function Kbd({ className, ...rest }) {
-  return /* @__PURE__ */ jsx26("kbd", { className: cx("al-kbd", className), ...rest });
+  return /* @__PURE__ */ jsx27("kbd", { className: cx("al-kbd", className), ...rest });
 }
 function Shortcuts({ shortcuts, titles, className }) {
-  const ref = useRef5(null);
-  useEffect7(() => {
+  const ref = useRef6(null);
+  useEffect8(() => {
     if (ref.current) renderModifierKeys(ref.current, titles ? { titles } : void 0);
   });
-  return /* @__PURE__ */ jsx26("dl", { ref, className: cx("al-shortcuts", className), children: shortcuts.map((s, i) => /* @__PURE__ */ jsxs22(Fragment10, { children: [
-    /* @__PURE__ */ jsx26("dt", { children: s.keys.map((k, j) => k === "mod" ? /* @__PURE__ */ jsx26(Kbd, { "data-al-mod": "", children: "Ctrl" }, j) : /* @__PURE__ */ jsx26(Kbd, { children: k }, j)) }),
-    /* @__PURE__ */ jsx26("dd", { children: s.does })
+  return /* @__PURE__ */ jsx27("dl", { ref, className: cx("al-shortcuts", className), children: shortcuts.map((s, i) => /* @__PURE__ */ jsxs24(Fragment10, { children: [
+    /* @__PURE__ */ jsx27("dt", { children: s.keys.map((k, j) => k === "mod" ? /* @__PURE__ */ jsx27(Kbd, { "data-al-mod": "", children: "Ctrl" }, j) : /* @__PURE__ */ jsx27(Kbd, { children: k }, j)) }),
+    /* @__PURE__ */ jsx27("dd", { children: s.does })
   ] }, i)) });
 }
 
 // react/src/chart.tsx
-import { useEffect as useEffect8, useRef as useRef6 } from "react";
+import { useEffect as useEffect9, useRef as useRef7 } from "react";
 import { initChartKeys } from "../../js/chart.js";
-import { jsx as jsx27, jsxs as jsxs23 } from "react/jsx-runtime";
-var iso = (s) => `\u2066${s}\u2069`;
+import { jsx as jsx28, jsxs as jsxs25 } from "react/jsx-runtime";
+var iso = (s) => `⁦${s}⁩`;
 function useChartKeys() {
-  const ref = useRef6(null);
+  const ref = useRef7(null);
   useTooltips();
-  useEffect8(() => {
+  useEffect9(() => {
     if (ref.current) initChartKeys(ref.current);
   });
   return ref;
 }
-var Mark2 = ({ className, series, value, what, style }) => /* @__PURE__ */ jsx27("span", { className, "data-series": series, style, role: "img", "aria-label": `${value} ${what}`, "data-al-tip": `${value}|${what}` });
-var Key = ({ items, children }) => /* @__PURE__ */ jsxs23("div", { className: "al-key", children: [
-  items.map((it, i) => /* @__PURE__ */ jsxs23("span", { className: "al-key__item", children: [
-    /* @__PURE__ */ jsx27("span", { className: "al-swatch", "data-series": it.series }),
+var Mark2 = ({ className, series, value, what, style }) => /* @__PURE__ */ jsx28("span", { className, "data-series": series, style, role: "img", "aria-label": `${value} ${what}`, "data-al-tip": `${value}|${what}` });
+var Key = ({ items, children }) => /* @__PURE__ */ jsxs25("div", { className: "al-key", children: [
+  items.map((it, i) => /* @__PURE__ */ jsxs25("span", { className: "al-key__item", children: [
+    /* @__PURE__ */ jsx28("span", { className: "al-swatch", "data-series": it.series }),
     it.name,
     it.after
   ] }, i)),
   children
 ] });
 function ChartFigure({ title, summary, children, className }) {
-  return /* @__PURE__ */ jsxs23("figure", { className: cx("al-card al-stack al-stack--tight", className), children: [
-    /* @__PURE__ */ jsxs23("figcaption", { className: "al-stack al-stack--tight", children: [
-      /* @__PURE__ */ jsx27("span", { className: "al-chart__title", children: title }),
-      summary && /* @__PURE__ */ jsx27("span", { className: "al-chart__summary", children: summary })
+  return /* @__PURE__ */ jsxs25("figure", { className: cx("al-card al-stack al-stack--tight", className), children: [
+    /* @__PURE__ */ jsxs25("figcaption", { className: "al-stack al-stack--tight", children: [
+      /* @__PURE__ */ jsx28("span", { className: "al-chart__title", children: title }),
+      summary && /* @__PURE__ */ jsx28("span", { className: "al-chart__summary", children: summary })
     ] }),
     children
   ] });
@@ -778,15 +832,15 @@ function ChartFigure({ title, summary, children, className }) {
 function ColumnChart({ categories, series, max, grid = [], target, format, formatAxis = format }) {
   const plot = useChartKeys();
   const pc = (v) => `${100 * v / max}%`;
-  return /* @__PURE__ */ jsxs23("div", { className: "al-chart", children: [
-    /* @__PURE__ */ jsxs23("div", { className: "al-chart__plot", ref: plot, children: [
-      grid.map((v) => /* @__PURE__ */ jsx27("span", { className: "al-chart__grid", style: { insetBlockEnd: pc(v) }, "aria-hidden": "true", children: /* @__PURE__ */ jsx27("span", { children: iso(formatAxis(v)) }) }, v)),
-      /* @__PURE__ */ jsx27("div", { className: "al-chart__slots", children: categories.map((c, i) => /* @__PURE__ */ jsx27("div", { className: "al-chart__slot", children: series.map((s) => /* @__PURE__ */ jsx27(Mark2, { className: "al-chart__bar", series: s.series, value: iso(format(s.values[i] ?? 0)), what: `${s.name}, ${c}`, style: { blockSize: pc(s.values[i] ?? 0) } }, s.name)) }, c)) }),
-      target && /* @__PURE__ */ jsx27("span", { className: "al-chart__target", style: { insetBlockEnd: pc(target.value) }, role: "img", "aria-label": `${iso(format(target.value))} ${target.name}`, "data-al-tip": `${iso(format(target.value))}|${target.name}` })
+  return /* @__PURE__ */ jsxs25("div", { className: "al-chart", children: [
+    /* @__PURE__ */ jsxs25("div", { className: "al-chart__plot", ref: plot, children: [
+      grid.map((v) => /* @__PURE__ */ jsx28("span", { className: "al-chart__grid", style: { insetBlockEnd: pc(v) }, "aria-hidden": "true", children: /* @__PURE__ */ jsx28("span", { children: iso(formatAxis(v)) }) }, v)),
+      /* @__PURE__ */ jsx28("div", { className: "al-chart__slots", children: categories.map((c, i) => /* @__PURE__ */ jsx28("div", { className: "al-chart__slot", children: series.map((s) => /* @__PURE__ */ jsx28(Mark2, { className: "al-chart__bar", series: s.series, value: iso(format(s.values[i] ?? 0)), what: `${s.name}, ${c}`, style: { blockSize: pc(s.values[i] ?? 0) } }, s.name)) }, c)) }),
+      target && /* @__PURE__ */ jsx28("span", { className: "al-chart__target", style: { insetBlockEnd: pc(target.value) }, role: "img", "aria-label": `${iso(format(target.value))} ${target.name}`, "data-al-tip": `${iso(format(target.value))}|${target.name}` })
     ] }),
-    /* @__PURE__ */ jsx27("div", { className: "al-chart__axis", "aria-hidden": "true", children: categories.map((c) => /* @__PURE__ */ jsx27("span", { children: c }, c)) }),
-    /* @__PURE__ */ jsx27(Key, { items: series.map((s) => ({ name: s.name, series: s.series })), children: target && /* @__PURE__ */ jsxs23("span", { className: "al-key__item", children: [
-      /* @__PURE__ */ jsx27("span", { className: "al-swatch al-swatch--target" }),
+    /* @__PURE__ */ jsx28("div", { className: "al-chart__axis", "aria-hidden": "true", children: categories.map((c) => /* @__PURE__ */ jsx28("span", { children: c }, c)) }),
+    /* @__PURE__ */ jsx28(Key, { items: series.map((s) => ({ name: s.name, series: s.series })), children: target && /* @__PURE__ */ jsxs25("span", { className: "al-key__item", children: [
+      /* @__PURE__ */ jsx28("span", { className: "al-swatch al-swatch--target" }),
       `${target.name}: ${iso(format(target.value))}`
     ] }) })
   ] });
@@ -794,74 +848,74 @@ function ColumnChart({ categories, series, max, grid = [], target, format, forma
 function SplitBar({ label, parts, format, formatPercent }) {
   const track = useChartKeys();
   const total = parts.reduce((a, p) => a + p.value, 0) || 1;
-  return /* @__PURE__ */ jsxs23("div", { className: "al-split-bar", children: [
-    /* @__PURE__ */ jsx27("div", { className: "al-split-bar__track", role: "group", "aria-label": label, ref: track, children: parts.map((p) => /* @__PURE__ */ jsx27(Mark2, { className: "al-split-bar__part", series: p.series, value: `${iso(format(p.value))} \xB7 ${iso(formatPercent(p.value / total))}`, what: p.name, style: { inlineSize: `${100 * p.value / total}%` } }, p.name)) }),
-    /* @__PURE__ */ jsx27(Key, { items: parts.map((p) => ({ name: `${p.name} `, series: p.series, after: /* @__PURE__ */ jsx27("b", { children: iso(formatPercent(p.value / total)) }) })) })
+  return /* @__PURE__ */ jsxs25("div", { className: "al-split-bar", children: [
+    /* @__PURE__ */ jsx28("div", { className: "al-split-bar__track", role: "group", "aria-label": label, ref: track, children: parts.map((p) => /* @__PURE__ */ jsx28(Mark2, { className: "al-split-bar__part", series: p.series, value: `${iso(format(p.value))} · ${iso(formatPercent(p.value / total))}`, what: p.name, style: { inlineSize: `${100 * p.value / total}%` } }, p.name)) }),
+    /* @__PURE__ */ jsx28(Key, { items: parts.map((p) => ({ name: `${p.name} `, series: p.series, after: /* @__PURE__ */ jsx28("b", { children: iso(formatPercent(p.value / total)) }) })) })
   ] });
 }
 function BulletChart({ rows, target, max, format, formatDiff }) {
   const chart = useChartKeys();
-  return /* @__PURE__ */ jsxs23("div", { className: "al-bullet", ref: chart, children: [
+  return /* @__PURE__ */ jsxs25("div", { className: "al-bullet", ref: chart, children: [
     rows.map((r) => {
       const diff = r.value - target.value;
-      return /* @__PURE__ */ jsxs23("div", { className: "al-bullet__row", children: [
-        /* @__PURE__ */ jsx27("span", { className: "al-bullet__label", children: r.name }),
-        /* @__PURE__ */ jsxs23("span", { className: "al-bullet__track", children: [
-          /* @__PURE__ */ jsx27(Mark2, { className: "al-bullet__bar", series: r.series, value: iso(format(r.value)), what: r.name, style: { inlineSize: `${100 * r.value / max}%` } }),
-          /* @__PURE__ */ jsx27("span", { className: "al-bullet__target", style: { insetInlineStart: `${100 * target.value / max}%` } })
+      return /* @__PURE__ */ jsxs25("div", { className: "al-bullet__row", children: [
+        /* @__PURE__ */ jsx28("span", { className: "al-bullet__label", children: r.name }),
+        /* @__PURE__ */ jsxs25("span", { className: "al-bullet__track", children: [
+          /* @__PURE__ */ jsx28(Mark2, { className: "al-bullet__bar", series: r.series, value: iso(format(r.value)), what: r.name, style: { inlineSize: `${100 * r.value / max}%` } }),
+          /* @__PURE__ */ jsx28("span", { className: "al-bullet__target", style: { insetInlineStart: `${100 * target.value / max}%` } })
         ] }),
-        /* @__PURE__ */ jsxs23("span", { className: "al-bullet__value", children: [
-          /* @__PURE__ */ jsx27("b", { children: iso(format(r.value)) }),
+        /* @__PURE__ */ jsxs25("span", { className: "al-bullet__value", children: [
+          /* @__PURE__ */ jsx28("b", { children: iso(format(r.value)) }),
           " ",
-          /* @__PURE__ */ jsx27("span", { className: diff >= 0 ? "al-bullet__diff--more" : "al-bullet__diff--less", children: formatDiff(diff) })
+          /* @__PURE__ */ jsx28("span", { className: diff >= 0 ? "al-bullet__diff--more" : "al-bullet__diff--less", children: formatDiff(diff) })
         ] })
       ] }, r.name);
     }),
-    /* @__PURE__ */ jsx27("div", { className: "al-key", children: /* @__PURE__ */ jsxs23("span", { className: "al-key__item", children: [
-      /* @__PURE__ */ jsx27("span", { className: "al-swatch al-swatch--target" }),
+    /* @__PURE__ */ jsx28("div", { className: "al-key", children: /* @__PURE__ */ jsxs25("span", { className: "al-key__item", children: [
+      /* @__PURE__ */ jsx28("span", { className: "al-swatch al-swatch--target" }),
       `${target.name}: ${iso(format(target.value))}`
     ] }) })
   ] });
 }
 
 // react/src/pattern.tsx
-import { useEffect as useEffect9, useRef as useRef7 } from "react";
+import { useEffect as useEffect10, useRef as useRef8 } from "react";
 import { drawHero, drawPattern } from "../../js/pattern.js";
-import { jsx as jsx28, jsxs as jsxs24 } from "react/jsx-runtime";
-function Pattern({ full, className, children, ...rest }) {
-  const art = useRef7(null);
-  useEffect9(() => {
+import { jsx as jsx29, jsxs as jsxs26 } from "react/jsx-runtime";
+function Pattern({ full, quiet, className, children, ...rest }) {
+  const art = useRef8(null);
+  useEffect10(() => {
     if (art.current) drawPattern(art.current);
   }, []);
-  return /* @__PURE__ */ jsxs24("section", { className: cx("al-pattern", full && "al-pattern--full", className), ...rest, children: [
-    /* @__PURE__ */ jsx28("div", { className: "al-pattern__art", "aria-hidden": "true", ref: art }),
+  return /* @__PURE__ */ jsxs26("section", { className: cx("al-pattern", full && "al-pattern--full", quiet && "al-pattern--quiet", className), ...rest, children: [
+    /* @__PURE__ */ jsx29("div", { className: "al-pattern__art", "aria-hidden": "true", ref: art }),
     children
   ] });
 }
 function Hero({ animate = true, className, children, ...rest }) {
   const { lang } = useArabesque();
-  const art = useRef7(null);
-  const drawn = useRef7(false);
-  useEffect9(() => {
+  const art = useRef8(null);
+  const drawn = useRef8(false);
+  useEffect10(() => {
     if (!art.current) return;
     drawHero(art.current, { animate: animate && !drawn.current });
     drawn.current = true;
   }, [lang, animate]);
-  return /* @__PURE__ */ jsxs24("section", { className: cx("al-pattern al-pattern--hero", className), ...rest, children: [
-    /* @__PURE__ */ jsx28("div", { className: "al-pattern__art", "aria-hidden": "true", "data-pattern-hero": "", ref: art }),
+  return /* @__PURE__ */ jsxs26("section", { className: cx("al-pattern al-pattern--hero", className), ...rest, children: [
+    /* @__PURE__ */ jsx29("div", { className: "al-pattern__art", "aria-hidden": "true", "data-pattern-hero": "", ref: art }),
     children
   ] });
 }
 function HeroCaption({ children, className }) {
   const { labels } = useArabesque();
-  return /* @__PURE__ */ jsx28("p", { className: cx("al-pattern__caption", className), "data-pattern-caption": "", children: children ?? labels.heroCaption });
+  return /* @__PURE__ */ jsx29("p", { className: cx("al-pattern__caption", className), "data-pattern-caption": "", children: children ?? labels.heroCaption });
 }
 
 // react/src/construction.tsx
-import { useEffect as useEffect10, useRef as useRef8 } from "react";
+import { useEffect as useEffect11, useRef as useRef9 } from "react";
 import { formatNumber as formatNumber3 } from "../../js/format.js";
 import { initConstruction } from "../../js/pattern.js";
-import { jsx as jsx29, jsxs as jsxs25 } from "react/jsx-runtime";
+import { jsx as jsx30, jsxs as jsxs27 } from "react/jsx-runtime";
 var STEPS = {
   en: [
     { alt: "Octagons and squares tiling a square.", title: "Tile the plane with simple shapes.", aside: "In software: modules." },
@@ -869,103 +923,103 @@ var STEPS = {
     { alt: "Only the stars remain: the pattern.", title: "Remove the scaffolding. The pattern holds.", aside: "In software: the system." }
   ],
   ar: [
-    { alt: "\u0645\u062B\u0645\u0646\u0627\u062A \u0648\u0645\u0631\u0628\u0639\u0627\u062A \u062A\u0628\u0644\u0651\u0637 \u0645\u0631\u0628\u0639\u064B\u0627.", title: "\u063A\u0637\u0650\u0651 \u0627\u0644\u0645\u0633\u062A\u0648\u0649 \u0628\u0623\u0634\u0643\u0627\u0644 \u0628\u0633\u064A\u0637\u0629.", aside: "\u0641\u064A \u0627\u0644\u0628\u0631\u0645\u062C\u064A\u0627\u062A: \u0627\u0644\u0648\u062D\u062F\u0627\u062A." },
-    { alt: "\u0627\u0644\u062A\u0628\u0644\u064A\u0637 \u0646\u0641\u0633\u0647\u060C \u0648\u0645\u0646 \u0645\u0646\u062A\u0635\u0641 \u0643\u0644 \u0636\u0644\u0639 \u062E\u0637\u0627\u0646 \u0628\u0632\u0627\u0648\u064A\u0629 \u0627\u0644\u062A\u0644\u0627\u0645\u0633\u061B \u0648\u062D\u064A\u062B \u064A\u0644\u062A\u0642\u064A\u0627\u0646 \u062A\u062A\u0643\u0648\u0651\u0646 \u0627\u0644\u0646\u062C\u0648\u0645.", title: "\u0645\u0646 \u0645\u0646\u062A\u0635\u0641 \u0643\u0644 \u0636\u0644\u0639\u060C \u0627\u0631\u0633\u0645 \u062E\u0637\u064A\u0646 \u0628\u0632\u0627\u0648\u064A\u0629 \u062B\u0627\u0628\u062A\u0629.", aside: "\u0641\u064A \u0627\u0644\u0628\u0631\u0645\u062C\u064A\u0627\u062A: \u0627\u0644\u0648\u0627\u062C\u0647\u0627\u062A." },
-    { alt: "\u0644\u0627 \u064A\u0628\u0642\u0649 \u0625\u0644\u0627 \u0627\u0644\u0646\u062C\u0648\u0645: \u0627\u0644\u0646\u0645\u0637.", title: "\u0623\u0632\u0650\u0644 \u0627\u0644\u0633\u0642\u0627\u0644\u0629. \u064A\u0628\u0642\u0649 \u0627\u0644\u0646\u0645\u0637 \u0642\u0627\u0626\u0645\u064B\u0627.", aside: "\u0641\u064A \u0627\u0644\u0628\u0631\u0645\u062C\u064A\u0627\u062A: \u0627\u0644\u0646\u0638\u0627\u0645." }
+    { alt: "مثمنات ومربعات تبلّط مربعًا.", title: "غطِّ المستوى بأشكال بسيطة.", aside: "في البرمجيات: الوحدات." },
+    { alt: "التبليط نفسه، ومن منتصف كل ضلع خطان بزاوية التلامس؛ وحيث يلتقيان تتكوّن النجوم.", title: "من منتصف كل ضلع، ارسم خطين بزاوية ثابتة.", aside: "في البرمجيات: الواجهات." },
+    { alt: "لا يبقى إلا النجوم: النمط.", title: "أزِل السقالة. يبقى النمط قائمًا.", aside: "في البرمجيات: النظام." }
   ]
 };
 function ConstructionFigure({ adjustable, steps, className, id }) {
   const { lang, numerals, labels } = useArabesque();
-  const ref = useRef8(null);
+  const ref = useRef9(null);
   const angleId = useStableId(id, "construction-angle");
   const list = steps ?? STEPS[/^ar\b/i.test(lang) ? "ar" : "en"];
-  useEffect10(() => {
+  useEffect11(() => {
     if (ref.current?.parentNode) initConstruction(ref.current.parentNode);
   }, []);
-  return /* @__PURE__ */ jsxs25("figure", { ref, className: cx("al-construction", className), "data-construction": "", children: [
-    /* @__PURE__ */ jsx29("ol", { className: "al-construction__steps", children: list.map((s, i) => /* @__PURE__ */ jsxs25("li", { children: [
-      /* @__PURE__ */ jsx29("div", { className: "al-construction__art", "data-construction-step": i + 1, role: "img", "aria-label": s.alt }),
-      /* @__PURE__ */ jsxs25("p", { className: "al-construction__title", children: [
-        /* @__PURE__ */ jsx29("span", { className: "al-construction__num", children: /* @__PURE__ */ jsx29("bdi", { children: formatNumber3(i + 1, { lang, numerals }) }) }),
+  return /* @__PURE__ */ jsxs27("figure", { ref, className: cx("al-construction", className), "data-construction": "", children: [
+    /* @__PURE__ */ jsx30("ol", { className: "al-construction__steps", children: list.map((s, i) => /* @__PURE__ */ jsxs27("li", { children: [
+      /* @__PURE__ */ jsx30("div", { className: "al-construction__art", "data-construction-step": i + 1, role: "img", "aria-label": s.alt }),
+      /* @__PURE__ */ jsxs27("p", { className: "al-construction__title", children: [
+        /* @__PURE__ */ jsx30("span", { className: "al-construction__num", children: /* @__PURE__ */ jsx30("bdi", { children: formatNumber3(i + 1, { lang, numerals }) }) }),
         " ",
         s.title
       ] }),
-      s.aside && /* @__PURE__ */ jsx29("p", { className: "al-construction__aside", children: s.aside })
+      s.aside && /* @__PURE__ */ jsx30("p", { className: "al-construction__aside", children: s.aside })
     ] }, i)) }),
-    adjustable && /* @__PURE__ */ jsxs25("div", { className: "al-construction__control", children: [
-      /* @__PURE__ */ jsx29("label", { className: "al-label", htmlFor: angleId, children: labels.contactAngle }),
-      /* @__PURE__ */ jsx29("input", { type: "range", id: angleId, min: "45", max: "78.75", step: "0.5", defaultValue: "67.5", "data-construction-angle": "" }),
-      /* @__PURE__ */ jsx29("output", { htmlFor: angleId, "data-construction-value": "", children: "67.5\xB0" })
+    adjustable && /* @__PURE__ */ jsxs27("div", { className: "al-construction__control", children: [
+      /* @__PURE__ */ jsx30("label", { className: "al-label", htmlFor: angleId, children: labels.contactAngle }),
+      /* @__PURE__ */ jsx30("input", { type: "range", id: angleId, min: "45", max: "78.75", step: "0.5", defaultValue: "67.5", "data-construction-angle": "" }),
+      /* @__PURE__ */ jsx30("output", { htmlFor: angleId, "data-construction-value": "", children: "67.5°" })
     ] })
   ] });
 }
 
 // react/src/breadcrumbs.tsx
-import { jsx as jsx30 } from "react/jsx-runtime";
+import { jsx as jsx31 } from "react/jsx-runtime";
 function Breadcrumbs({ items, className }) {
   const { labels } = useArabesque();
-  return /* @__PURE__ */ jsx30("nav", { className: cx("al-breadcrumbs", className), "aria-label": labels.breadcrumb, children: /* @__PURE__ */ jsx30("ol", { children: items.map((it, i) => {
+  return /* @__PURE__ */ jsx31("nav", { className: cx("al-breadcrumbs", className), "aria-label": labels.breadcrumb, children: /* @__PURE__ */ jsx31("ol", { children: items.map((it, i) => {
     const current = i === items.length - 1 ? "page" : void 0;
-    return /* @__PURE__ */ jsx30("li", { children: it.href ? /* @__PURE__ */ jsx30("a", { href: it.href, "aria-current": current, children: it.label }) : /* @__PURE__ */ jsx30("span", { "aria-current": current, children: it.label }) }, i);
+    return /* @__PURE__ */ jsx31("li", { children: it.href ? /* @__PURE__ */ jsx31("a", { href: it.href, "aria-current": current, children: it.label }) : /* @__PURE__ */ jsx31("span", { "aria-current": current, children: it.label }) }, i);
   }) }) });
 }
 function BackLink({ children, className, ...rest }) {
   const { labels } = useArabesque();
-  return /* @__PURE__ */ jsx30("a", { className: cx("al-back-link", className), ...rest, children: children ?? labels.back });
+  return /* @__PURE__ */ jsx31("a", { className: cx("al-back-link", className), ...rest, children: children ?? labels.back });
 }
 
 // react/src/forms.tsx
-import { useEffect as useEffect11, useRef as useRef9 } from "react";
+import { useEffect as useEffect12, useRef as useRef10 } from "react";
 import { initSearch } from "../../js/search.js";
-import { jsx as jsx31, jsxs as jsxs26 } from "react/jsx-runtime";
-function ErrorSummary({ errors, title, id, className }) {
+import { jsx as jsx32, jsxs as jsxs28 } from "react/jsx-runtime";
+function ErrorSummary({ errors, title, autoFocus = true, id, className }) {
   const { labels } = useArabesque();
   const base = useStableId(id, "error-summary");
-  const ref = useRef9(null);
-  useEffect11(() => {
-    if (errors.length) ref.current?.focus();
-  }, [errors.length]);
+  const ref = useRef10(null);
+  useEffect12(() => {
+    if (autoFocus && errors.length) ref.current?.focus();
+  }, [autoFocus, errors.length]);
   if (!errors.length) return null;
-  return /* @__PURE__ */ jsxs26("div", { ref, className: cx("al-error-summary", className), tabIndex: -1, role: "alert", "aria-labelledby": `${base}-title`, children: [
-    /* @__PURE__ */ jsxs26("h2", { className: "al-error-summary__title", id: `${base}-title`, children: [
-      /* @__PURE__ */ jsx31(Icon, { name: "danger" }),
+  return /* @__PURE__ */ jsxs28("div", { ref, className: cx("al-error-summary", className), tabIndex: -1, role: "alert", "aria-labelledby": `${base}-title`, children: [
+    /* @__PURE__ */ jsxs28("h2", { className: "al-error-summary__title", id: `${base}-title`, children: [
+      /* @__PURE__ */ jsx32(Icon, { name: "danger" }),
       title ?? labels.errorTitle
     ] }),
-    /* @__PURE__ */ jsx31("ul", { className: "al-error-summary__list", children: errors.map((e) => /* @__PURE__ */ jsx31("li", { children: /* @__PURE__ */ jsx31("a", { href: e.href, children: e.message }) }, e.href)) })
+    /* @__PURE__ */ jsx32("ul", { className: "al-error-summary__list", children: errors.map((e) => /* @__PURE__ */ jsx32("li", { children: /* @__PURE__ */ jsx32("a", { href: e.href, children: e.message }) }, e.href)) })
   ] });
 }
 function Search({ label, id, className, onChange, ...rest }) {
   const { labels } = useArabesque();
   const inputId = useStableId(id, "search");
-  const box = useRef9(null);
-  const clear = useRef9(null);
-  useEffect11(() => {
+  const box = useRef10(null);
+  const clear = useRef10(null);
+  useEffect12(() => {
     if (box.current?.parentElement) initSearch(box.current.parentElement);
   }, []);
   const sync = (value) => {
     if (clear.current) clear.current.hidden = !value;
   };
-  useEffect11(() => {
+  useEffect12(() => {
     sync(String(rest.value ?? rest.defaultValue ?? ""));
   });
-  return /* @__PURE__ */ jsxs26("form", { role: "search", className, onSubmit: (e) => e.preventDefault(), children: [
-    /* @__PURE__ */ jsx31("label", { className: "al-label", htmlFor: inputId, children: label }),
-    /* @__PURE__ */ jsxs26("div", { className: "al-search", ref: box, children: [
-      /* @__PURE__ */ jsx31(Icon, { name: "search" }),
-      /* @__PURE__ */ jsx31("input", { className: "al-input", id: inputId, type: "search", autoComplete: "off", ...rest, onInput: (e) => sync(e.currentTarget.value), onChange }),
-      /* @__PURE__ */ jsx31("button", { type: "button", className: "al-search__clear", "aria-label": labels.clearSearch, hidden: true, ref: clear, children: /* @__PURE__ */ jsx31(Icon, { name: "close", size: "sm" }) })
+  return /* @__PURE__ */ jsxs28("form", { role: "search", className, onSubmit: (e) => e.preventDefault(), children: [
+    /* @__PURE__ */ jsx32("label", { className: "al-label", htmlFor: inputId, children: label }),
+    /* @__PURE__ */ jsxs28("div", { className: "al-search", ref: box, children: [
+      /* @__PURE__ */ jsx32(Icon, { name: "search" }),
+      /* @__PURE__ */ jsx32("input", { className: "al-input", id: inputId, type: "search", autoComplete: "off", ...rest, onInput: (e) => sync(e.currentTarget.value), onChange }),
+      /* @__PURE__ */ jsx32("button", { type: "button", className: "al-search__clear", "aria-label": labels.clearSearch, hidden: true, ref: clear, children: /* @__PURE__ */ jsx32(Icon, { name: "close", size: "sm" }) })
     ] })
   ] });
 }
 function SummaryList({ rows, className }) {
   const { labels } = useArabesque();
   const anyActions = rows.some((r) => r.change);
-  return /* @__PURE__ */ jsx31("dl", { className: cx("al-summary-list", className), children: rows.map((r, i) => /* @__PURE__ */ jsxs26("div", { className: cx("al-summary-list__row", anyActions && !r.change && "al-summary-list__row--no-actions"), children: [
-    /* @__PURE__ */ jsx31("dt", { className: "al-summary-list__key", children: r.key }),
-    /* @__PURE__ */ jsx31("dd", { className: "al-summary-list__value", children: r.value }),
-    r.change && /* @__PURE__ */ jsx31("dd", { className: "al-summary-list__actions", children: /* @__PURE__ */ jsxs26("a", { href: r.change.href, onClick: r.change.onClick, children: [
+  return /* @__PURE__ */ jsx32("dl", { className: cx("al-summary-list", className), children: rows.map((r, i) => /* @__PURE__ */ jsxs28("div", { className: cx("al-summary-list__row", anyActions && !r.change && "al-summary-list__row--no-actions"), children: [
+    /* @__PURE__ */ jsx32("dt", { className: "al-summary-list__key", children: r.key }),
+    /* @__PURE__ */ jsx32("dd", { className: "al-summary-list__value", children: r.value }),
+    r.change && /* @__PURE__ */ jsx32("dd", { className: "al-summary-list__actions", children: /* @__PURE__ */ jsxs28("a", { href: r.change.href, onClick: r.change.onClick, children: [
       labels.change,
-      /* @__PURE__ */ jsxs26("span", { className: "al-visually-hidden", children: [
+      /* @__PURE__ */ jsxs28("span", { className: "al-visually-hidden", children: [
         " ",
         r.change.what
       ] })
@@ -973,30 +1027,30 @@ function SummaryList({ rows, className }) {
   ] }, i)) });
 }
 function Confirmation({ title, children, autoFocus = true, className, ...rest }) {
-  const ref = useRef9(null);
-  useEffect11(() => {
+  const ref = useRef10(null);
+  useEffect12(() => {
     if (autoFocus) ref.current?.focus();
   }, [autoFocus]);
-  return /* @__PURE__ */ jsxs26("div", { ref, className: cx("al-confirmation", className), tabIndex: -1, ...rest, children: [
-    /* @__PURE__ */ jsx31("h2", { className: "al-confirmation__title", children: title }),
-    children && /* @__PURE__ */ jsx31("div", { className: "al-confirmation__body", children })
+  return /* @__PURE__ */ jsxs28("div", { ref, className: cx("al-confirmation", className), tabIndex: -1, ...rest, children: [
+    /* @__PURE__ */ jsx32("h2", { className: "al-confirmation__title", children: title }),
+    children && /* @__PURE__ */ jsx32("div", { className: "al-confirmation__body", children })
   ] });
 }
 
 // react/src/character-count.tsx
-import { useEffect as useEffect12, useRef as useRef10 } from "react";
+import { useEffect as useEffect13, useRef as useRef11 } from "react";
 import { initCharacterCounts } from "../../js/count.js";
 import { formatNumber as formatNumber4 } from "../../js/format.js";
-import { jsx as jsx32 } from "react/jsx-runtime";
+import { jsx as jsx33 } from "react/jsx-runtime";
 function CharacterCount({ max, className, ...rest }) {
   const settings = useArabesque();
-  const live = useRef10(settings);
+  const live = useRef11(settings);
   live.current = settings;
   const field = useField(rest);
-  const ref = useRef10(null);
-  const redraw = useRef10(() => {
+  const ref = useRef11(null);
+  const redraw = useRef11(() => {
   });
-  useEffect12(() => {
+  useEffect13(() => {
     const parent = ref.current?.parentElement;
     if (!parent) return;
     const n = (v) => formatNumber4(v, { lang: live.current.lang, numerals: live.current.numerals });
@@ -1009,26 +1063,26 @@ function CharacterCount({ max, className, ...rest }) {
       limit: (m) => fill(live.current.labels.countLimit, { n: n(m) })
     });
   }, []);
-  useEffect12(() => {
+  useEffect13(() => {
     redraw.current();
   }, [settings.lang, settings.numerals, settings.labels]);
-  return /* @__PURE__ */ jsx32("textarea", { ref, className: cx("al-textarea", className), "data-al-maxlength": max, ...rest, ...field });
+  return /* @__PURE__ */ jsx33("textarea", { ref, className: cx("al-textarea", className), "data-al-maxlength": max, ...rest, ...field });
 }
 
 // react/src/date-input.tsx
-import { jsx as jsx33, jsxs as jsxs27 } from "react/jsx-runtime";
+import { jsx as jsx34, jsxs as jsxs29 } from "react/jsx-runtime";
 function DateInput({ legend, hint, id, birthday, defaultValue = {}, className }) {
   const { labels } = useArabesque();
   const base = useStableId(id, "date");
   const hintId = hint ? `${base}-hint` : void 0;
-  const part = (key, label) => /* @__PURE__ */ jsxs27("div", { className: cx("al-field", key === "year" && "al-date-input__year"), children: [
-    /* @__PURE__ */ jsx33("label", { className: "al-label", htmlFor: `${base}-${key}`, children: label }),
-    /* @__PURE__ */ jsx33("input", { className: "al-input", id: `${base}-${key}`, name: `${base}-${key}`, inputMode: "numeric", autoComplete: birthday ? `bday-${key}` : void 0, defaultValue: defaultValue[key] })
+  const part = (key, label) => /* @__PURE__ */ jsxs29("div", { className: cx("al-field", key === "year" && "al-date-input__year"), children: [
+    /* @__PURE__ */ jsx34("label", { className: "al-label", htmlFor: `${base}-${key}`, children: label }),
+    /* @__PURE__ */ jsx34("input", { className: "al-input", id: `${base}-${key}`, name: `${base}-${key}`, inputMode: "numeric", autoComplete: birthday ? `bday-${key}` : void 0, defaultValue: defaultValue[key] })
   ] });
-  return /* @__PURE__ */ jsxs27("fieldset", { className: cx("al-fieldset", className), role: "group", "aria-describedby": hintId, children: [
-    /* @__PURE__ */ jsx33("legend", { children: legend }),
-    hint && /* @__PURE__ */ jsx33("span", { className: "al-hint", id: hintId, children: hint }),
-    /* @__PURE__ */ jsxs27("div", { className: "al-date-input", children: [
+  return /* @__PURE__ */ jsxs29("fieldset", { className: cx("al-fieldset", className), role: "group", "aria-describedby": hintId, children: [
+    /* @__PURE__ */ jsx34("legend", { children: legend }),
+    hint && /* @__PURE__ */ jsx34("span", { className: "al-hint", id: hintId, children: hint }),
+    /* @__PURE__ */ jsxs29("div", { className: "al-date-input", children: [
       part("day", labels.day),
       part("month", labels.month),
       part("year", labels.year)
@@ -1037,18 +1091,18 @@ function DateInput({ legend, hint, id, birthday, defaultValue = {}, className })
 }
 
 // react/src/date-picker.tsx
-import { useEffect as useEffect13, useRef as useRef11 } from "react";
+import { useEffect as useEffect14, useRef as useRef12 } from "react";
 import { initDatePickers } from "../../js/datepicker.js";
-import { jsx as jsx34, jsxs as jsxs28 } from "react/jsx-runtime";
+import { jsx as jsx35, jsxs as jsxs30 } from "react/jsx-runtime";
 function DatePicker({ name, defaultValue, min, max, onChange, ...field }) {
   const settings = useArabesque();
-  const live = useRef11(settings);
+  const live = useRef12(settings);
   live.current = settings;
-  const changed = useRef11(onChange);
+  const changed = useRef12(onChange);
   changed.current = onChange;
-  const wrap = useRef11(null);
-  const picker = useRef11(null);
-  useEffect13(() => {
+  const wrap = useRef12(null);
+  const picker = useRef12(null);
+  useEffect14(() => {
     const el = wrap.current;
     if (!el) return;
     const [p] = initDatePickers(el, {
@@ -1065,49 +1119,66 @@ function DatePicker({ name, defaultValue, min, max, onChange, ...field }) {
       picker.current = null;
     };
   }, []);
-  useEffect13(() => {
+  useEffect14(() => {
     picker.current?.refresh();
   }, [settings.lang, settings.numerals]);
-  return /* @__PURE__ */ jsx34(Field, { ...field, children: /* @__PURE__ */ jsxs28("div", { className: "al-date-picker", ref: wrap, children: [
-    /* @__PURE__ */ jsx34(DateInputControl, { name, defaultValue, min, max }),
-    /* @__PURE__ */ jsx34("button", { type: "button", className: "al-button al-button--icon al-date-picker__toggle", "aria-label": settings.labels.chooseDate, children: /* @__PURE__ */ jsx34(Icon, { name: "calendar" }) })
+  return /* @__PURE__ */ jsx35(Field, { ...field, children: /* @__PURE__ */ jsxs30("div", { className: "al-date-picker", ref: wrap, children: [
+    /* @__PURE__ */ jsx35(DateInputControl, { name, defaultValue, min, max }),
+    /* @__PURE__ */ jsx35("button", { type: "button", className: "al-button al-button--icon al-date-picker__toggle", "aria-label": settings.labels.chooseDate, children: /* @__PURE__ */ jsx35(Icon, { name: "calendar" }) })
   ] }) });
 }
 function DateInputControl({ name, defaultValue, min, max }) {
   const field = useField();
-  return /* @__PURE__ */ jsx34("input", { className: "al-input", name, defaultValue, "data-min": min, "data-max": max, "data-al-date-picker": "", autoComplete: "off", ...field });
+  return /* @__PURE__ */ jsx35("input", { className: "al-input", name, defaultValue, "data-min": min, "data-max": max, "data-al-date-picker": "", autoComplete: "off", ...field });
 }
 function DateExample({ date }) {
-  return /* @__PURE__ */ jsx34("span", { "data-al-date-example": date, children: date });
+  return /* @__PURE__ */ jsx35("span", { "data-al-date-example": date, children: date });
 }
 
 // react/src/phase-banner.tsx
-import { jsx as jsx35, jsxs as jsxs29 } from "react/jsx-runtime";
+import { jsx as jsx36, jsxs as jsxs31 } from "react/jsx-runtime";
 function PhaseBanner({ phase, children, className }) {
-  return /* @__PURE__ */ jsxs29("div", { className: cx("al-phase-banner", className), children: [
+  return /* @__PURE__ */ jsxs31("div", { className: cx("al-phase-banner", className), children: [
     phase,
-    /* @__PURE__ */ jsx35("p", { className: "al-phase-banner__text", children })
+    /* @__PURE__ */ jsx36("p", { className: "al-phase-banner__text", children })
   ] });
 }
 
 // react/src/task-list.tsx
-import { jsx as jsx36, jsxs as jsxs30 } from "react/jsx-runtime";
+import { jsx as jsx37, jsxs as jsxs32 } from "react/jsx-runtime";
 function TaskList({ tasks, className }) {
-  return /* @__PURE__ */ jsx36("ul", { className: cx("al-task-list", className), children: tasks.map((t, i) => /* @__PURE__ */ jsxs30("li", { className: "al-task-list__item", children: [
-    /* @__PURE__ */ jsx36("span", { className: "al-task-list__name", children: t.href ? /* @__PURE__ */ jsx36("a", { href: t.href, children: t.name }) : t.name }),
-    t.hint && /* @__PURE__ */ jsx36("span", { className: "al-task-list__hint", children: t.hint }),
-    /* @__PURE__ */ jsx36(Badge, { tone: t.tone, className: "al-task-list__status", children: t.status })
+  return /* @__PURE__ */ jsx37("ul", { className: cx("al-task-list", className), children: tasks.map((t, i) => /* @__PURE__ */ jsxs32("li", { className: "al-task-list__item", children: [
+    /* @__PURE__ */ jsx37("span", { className: "al-task-list__name", children: t.href ? /* @__PURE__ */ jsx37("a", { href: t.href, children: t.name }) : t.name }),
+    t.hint && /* @__PURE__ */ jsx37("span", { className: "al-task-list__hint", children: t.hint }),
+    /* @__PURE__ */ jsx37(Badge, { tone: t.tone, className: "al-task-list__status", children: t.status })
   ] }, i)) });
 }
 
 // react/src/tint.tsx
-import { jsx as jsx37 } from "react/jsx-runtime";
+import { jsx as jsx38 } from "react/jsx-runtime";
 var tints = ["teal", "green", "yellow", "orange", "pink", "purple", "blue", "cyan"];
 function Highlight({ tint = "teal", className, ...rest }) {
-  return /* @__PURE__ */ jsx37("mark", { className: cx("al-highlight", className), "data-tint": tint, ...rest });
+  return /* @__PURE__ */ jsx38("mark", { className: cx("al-highlight", className), "data-tint": tint, ...rest });
 }
 function Avatar({ tint = "teal", large, className, ...rest }) {
-  return /* @__PURE__ */ jsx37("span", { className: cx("al-avatar", large && "al-avatar--lg", className), "data-tint": tint, "aria-hidden": "true", ...rest });
+  return /* @__PURE__ */ jsx38("span", { className: cx("al-avatar", large && "al-avatar--lg", className), "data-tint": tint, "aria-hidden": "true", ...rest });
+}
+
+// react/src/link.tsx
+import { Fragment as Fragment11, jsx as jsx39, jsxs as jsxs33 } from "react/jsx-runtime";
+function TextLink({ arrow, external, muted, className, children, ...rest }) {
+  const { labels } = useArabesque();
+  return /* @__PURE__ */ jsxs33("a", { className: cx("al-link", arrow && "al-link--arrow", muted && "al-link--muted", className), ...external ? { target: "_blank", rel: "noopener" } : {}, ...rest, children: [
+    children,
+    arrow && /* @__PURE__ */ jsx39(Icon, { name: "arrow" }),
+    external && /* @__PURE__ */ jsxs33(Fragment11, { children: [
+      /* @__PURE__ */ jsx39(Icon, { name: "external" }),
+      /* @__PURE__ */ jsxs33("span", { className: "al-visually-hidden", children: [
+        " ",
+        labels.newTab
+      ] })
+    ] })
+  ] });
 }
 export {
   Affix,
@@ -1149,6 +1220,7 @@ export {
   Icon,
   Input,
   Kbd,
+  LanguageLink,
   Lockup,
   MARK_PATHS,
   Mark,
@@ -1162,6 +1234,7 @@ export {
   Progress,
   Radio,
   RollbackNote,
+  STAR_PATH,
   SaveState,
   Search,
   Section,
@@ -1181,6 +1254,7 @@ export {
   Stack,
   Stale,
   StaleNote,
+  Star,
   Stat,
   Steps,
   SummaryList,
@@ -1189,6 +1263,7 @@ export {
   Tabs,
   Tag,
   TaskList,
+  TextLink,
   Textarea,
   ThemeToggle,
   VisuallyHidden,
@@ -1198,6 +1273,7 @@ export {
   englishLabels,
   fill,
   iconNames,
+  languageNames,
   tints,
   toast,
   useArabesque,

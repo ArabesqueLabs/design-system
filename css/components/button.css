@@ -97,15 +97,7 @@
    second click, but not Enter or Space: the handler must ignore presses
    while aria-busy="true" (check it first, and return). */
 .al-button[aria-busy="true"] { cursor: progress; pointer-events: none; }
-.al-button[aria-busy="true"]::after {
-  content: "";
-  inline-size: 0.9em;
-  block-size: 0.9em;
-  border: 2px solid currentColor;
-  border-inline-end-color: transparent;
-  border-radius: 50%;
-  animation: al-spin 0.8s linear infinite;
-}
+/* Its spinner (the star) is drawn by css/components/progress.css. */
 
 /* Bigger targets for fingers. */
 @media (pointer: coarse) {

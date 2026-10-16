@@ -3,11 +3,13 @@
 // translates through the showcase's catalogue (showcase-ar.js) and this
 // folder's own (ar.ts). The build fails on a sentence with no Arabic.
 
-import { useId, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { onShortcut, setShortcutsEnabled, shortcutsEnabled } from "../../js/keys.js";
+import { ColourDemo, MotionDemo, SpaceDemo, TintsDemo, TypeDemo } from "./foundations.js";
 import { formatMoney, formatNumber, formatPercent } from "../../js/format.js";
 import {
   Affix, AffixText, Avatar, BackLink, Badge, Breadcrumbs, BulkBar, BulletChart, Button, Card, CharacterCount, ChartFigure, Checkbox,
-  Choices, ColumnChart, Confirmation, ConstructionFigure, DateExample, DateInput, DatePicker, Dialog, Disclosure, EmptyState, ErrorSummary,
+  Choices, ColumnChart, Confirmation, LanguageLink, Section, Star, TextLink, iconNames, ConstructionFigure, DateExample, DateInput, DatePicker, Dialog, Disclosure, EmptyState, ErrorSummary,
   Field, Fieldset, Footer, Grid, Hero, HeroCaption, Highlight, Icon, Input, Lockup, Mark, Menu, Notice, PageHead, Panel, Pattern, PhaseBanner,
   Progress, Radio, RollbackNote, SaveState, Search, Segmented, Select, Shell, Shortcuts, SideEffect, SiteHeader, Skeleton, Spinner, SplitBar,
   Stack, Cluster, Stat, Steps, StaleNote, Stale, SummaryList, Switch, Table, Tabs, Tag, TaskList, useArabesque, useToast, type SaveStatus, type Tint,
@@ -136,6 +138,20 @@ function CheckboxesDemo({ t }: DemoProps) {
   );
 }
 
+function SelectAllDemo({ t }: DemoProps) {
+  const items = ["Email", "Text message", "Post"];
+  const [on, setOn] = useState<string[]>(["Email"]);
+  const all = on.length === items.length;
+  return (
+    <Fieldset legend={t("How should we contact you?")}>
+      <Choices>
+        <Checkbox label={t("All of them")} checked={all} indeterminate={on.length > 0 && !all} onChange={() => setOn(all ? [] : items)} />
+        {items.map((i) => <Checkbox key={i} label={t(i)} checked={on.includes(i)} onChange={() => setOn(on.includes(i) ? on.filter((x) => x !== i) : [...on, i])} />)}
+      </Choices>
+    </Fieldset>
+  );
+}
+
 function RadiosDemo({ t }: DemoProps) {
   const name = useId();
   return (
@@ -169,7 +185,7 @@ function SegmentedDemo({ t }: DemoProps) {
 }
 
 function ErrorSummaryDemo({ t }: DemoProps) {
-  return <ErrorSummary errors={[{ href: "#", message: t("Enter your full name") }, { href: "#", message: t("Enter a reference that's 2 letters then 6 numbers, like AB123456") }]} />;
+  return <ErrorSummary autoFocus={false} errors={[{ href: "#", message: t("Enter your full name") }, { href: "#", message: t("Enter a reference that's 2 letters then 6 numbers, like AB123456") }]} />;
 }
 
 // ---- content ----------------------------------------------------------------------------------
@@ -310,7 +326,8 @@ function SidebarDemo({ t }: DemoProps) {
 function SiteHeaderDemo({ t }: DemoProps) {
   return (
     <div className="ex-flush">
-      <SiteHeader home="#" links={[{ label: t("The idea"), href: "#", current: true }, { label: t("Approach"), href: "#" }, { label: t("Contact"), href: "#" }]} />
+      <SiteHeader home="#" skipTo={false} language={useArabesque().lang === "ar" ? { href: "#", lang: "en" } : { href: "#", lang: "ar" }}
+        links={[{ label: t("The idea"), href: "#", current: true }, { label: t("Approach"), href: "#" }, { label: t("Contact"), href: "#" }]} />
     </div>
   );
 }
@@ -322,11 +339,40 @@ function FooterDemo({ t }: DemoProps) {
   );
 }
 
+function TextLinkDemo({ t }: DemoProps) {
+  return (
+    <Stack>
+      <Cluster><Button variant="primary">{t("Say hello")}</Button><TextLink arrow href="#">{t("See how we build")}</TextLink></Cluster>
+      <p><TextLink external href="https://www.w3.org/WAI/standards-guidelines/wcag/">{t("The accessibility guidelines")}</TextLink></p>
+      <p><TextLink href="mailto:hello@arabesquelabs.com"><bdi>hello@arabesquelabs.com</bdi></TextLink></p>
+      <p><TextLink muted href="#">{t("Privacy notice")}</TextLink></p>
+    </Stack>
+  );
+}
+
+function LanguageDemo() {
+  const { lang } = useArabesque();
+  // On the English page, the link to the Arabic one; and the other way.
+  return <LanguageLink href="#" lang={lang === "ar" ? "en" : "ar"} />;
+}
+
+function SectionDemo({ t }: DemoProps) {
+  return (
+    <div className="ex-sections">
+      <Section heading={t("The name is the method")} lede={t("Four stages, repeated as many times as it takes to get something right.")}>
+        <p className="al-muted al-measure">{t("Settings most people never need.")}</p>
+      </Section>
+      <Section heading={t("How we build")} />
+    </div>
+  );
+}
+
 // ---- feedback ---------------------------------------------------------------------------------
 
 function NoticeDemo({ t }: DemoProps) {
   return (
     <Stack>
+      <DismissibleNotice t={t} />
       <Notice title={t("Planned maintenance")}>{t("On Sunday, from 2am to 4am, saving may be slow.")}</Notice>
       <Notice kind="success" title={t("Changes saved")}>{t("Everyone with access can see them now.")}</Notice>
       <Notice kind="warning" title={t("Check your details")} actions={<Button size="sm">{t("Review details")}</Button>}>{t("Some of your details may be out of date.")}</Notice>
@@ -334,6 +380,11 @@ function NoticeDemo({ t }: DemoProps) {
       <SideEffect>{t("Changing this also updates")} <strong>{t("2 related items")}</strong>.</SideEffect>
     </Stack>
   );
+}
+
+function DismissibleNotice({ t }: DemoProps) {
+  const [shown, setShown] = useState(true);
+  return shown ? <Notice kind="success" onDismiss={() => setShown(false)}>{t("Your changes are saved.")}</Notice> : <Button size="sm" onClick={() => setShown(true)}>{t("Show the notice again")}</Button>;
 }
 
 function PhaseBannerDemo({ t }: DemoProps) {
@@ -397,7 +448,7 @@ function MenuDemo({ t }: DemoProps) {
 function TooltipDemo({ t }: DemoProps) {
   return (
     <Cluster>
-      <Button icon="external" label={t("Copy link")} data-al-tip={t("Copy link|to this page")} />
+      <Button icon="copy" label={t("Copy link")} data-al-tip={t("Copy link|to this page")} />
       <Button icon="settings" label={t("Settings")} />
     </Cluster>
   );
@@ -414,6 +465,7 @@ function ProgressDemo({ t }: DemoProps) {
       <span className="al-visually-hidden">{t("Loading items")}</span>
       <Skeleton width="60%" /><Skeleton width="90%" /><Skeleton width="75%" />
       <p className="al-muted"><Spinner /> {t("Loading items")}</p>
+      <Cluster className="ex-spinners"><Spinner /><span style={{ fontSize: "1.5rem" }}><Spinner /></span><span style={{ fontSize: "2.5rem", color: "var(--al-color-accent)" }}><Spinner label /></span></Cluster>
       <label className="al-label" htmlFor={id}>{t("Uploading, 60%")}</label>
       <Progress id={id} value={60} />
     </Stack>
@@ -513,15 +565,36 @@ function BulkBarDemo({ t }: DemoProps) {
   ) : <Button size="sm" onClick={() => setCount(3)}>{t("Select {n} items").replace("{n}", n(3))}</Button>;
 }
 
+// The shortcuts work on the page, once, however many times the demo shows.
+let shortcutsOn = 0;
+
 function KeyboardDemo({ t }: DemoProps) {
+  const say = useToast();
+  const [single, setSingle] = useState(true);
+  const live = useRef({ t, say });
+  live.current = { t, say };
+  useEffect(() => {
+    setSingle(shortcutsEnabled());
+    if (shortcutsOn++) return () => { shortcutsOn--; };
+    const off = [
+      onShortcut("n", () => live.current.say(live.current.t("New item (an example: nothing is added)"))),
+      onShortcut("/", () => document.querySelector<HTMLInputElement>('input[type="search"]')?.focus()),
+      onShortcut("mod+k", () => live.current.say(live.current.t("Command menu (an example: there isn't one here)"))),
+      onShortcut("?", () => { const s = document.querySelector<HTMLInputElement>("[data-shortcuts-switch]"); s?.scrollIntoView({ block: "center" }); s?.focus(); }),
+    ];
+    return () => { shortcutsOn--; off.forEach((f) => f()); };
+  }, []);
   return (
-    <Shortcuts titles={{ apple: t("Command"), other: t("Control") }} shortcuts={[
-      { keys: ["N"], does: t("New item") },
-      { keys: ["/"], does: t("Search") },
-      { keys: ["mod", "K"], does: t("Open the command menu") },
-      { keys: ["mod", "Z"], does: t("Undo") },
-      { keys: ["?"], does: t("Show the shortcuts") },
-    ]} />
+    <Stack>
+      <Shortcuts titles={{ apple: t("Command"), other: t("Control") }} shortcuts={[
+        { keys: ["N"], does: t("New item") },
+        { keys: ["/"], does: t("Search") },
+        { keys: ["mod", "K"], does: t("Open the command menu") },
+        { keys: ["mod", "Z"], does: t("Undo") },
+        { keys: ["?"], does: t("Show the shortcuts") },
+      ]} />
+      <Switch label={t("Single-key shortcuts")} checked={single} data-shortcuts-switch="" onChange={(e) => { setSingle(e.target.checked); setShortcutsEnabled(e.target.checked); }} />
+    </Stack>
   );
 }
 
@@ -574,13 +647,20 @@ function LockupDemo({ t }: DemoProps) {
     <Stack>
       <Lockup />
       <Lockup product={t("Product name")} />
+      <Lockup stacked />
+      <Cluster className="ex-marks"><Star style={{ fontSize: "calc(16px / 1.5)" }} /><Star style={{ fontSize: "calc(24px / 1.5)" }} /></Cluster>
       <Cluster className="ex-marks">{[16, 32, 64].map((px) => <Mark key={px} style={{ fontSize: `calc(${px}px / 1.5)` }} />)}</Cluster>
     </Stack>
   );
 }
 
 function PatternDemo() {
-  return <Pattern full className="al-card ex-pattern" aria-hidden="true" />;
+  return (
+    <Stack>
+      <Pattern full className="al-card ex-pattern" aria-hidden="true" />
+      <Pattern quiet className="al-card ex-pattern ex-pattern--small" aria-hidden="true" />
+    </Stack>
+  );
 }
 
 function HeroDemo({ t }: DemoProps) {
@@ -601,7 +681,7 @@ function ConstructionDemo() {
 function IconDemo() {
   return (
     <ul className="ex-icons">
-      {(["check", "close", "chevron", "arrow", "plus", "minus", "info", "success", "warning", "danger", "undo", "retry", "more", "search", "external", "edit", "trash", "menu", "sidebar", "theme", "calendar", "settings", "board", "file"] as const).map((n) => (
+      {iconNames.map((n) => (
         <li key={n}><Icon name={n} /><span lang="en">{n}</span></li>
       ))}
     </ul>
@@ -677,14 +757,22 @@ function FlowDemo({ t }: DemoProps) {
 const d = (id: string, title: string, group: string, lead: string, spec: string, Demo: Demo["Demo"]): Demo => ({ id, title, group, lead, spec: `docs/components/${spec}.md`, Demo });
 
 export const demos: Demo[] = [
+  { id: "colour", title: "Colour", group: "Foundations", lead: "Roles, not hues: each name says what the colour is for. Every pair the system relies on is measured at build time.", spec: "docs/foundations/colour.md", Demo: ColourDemo },
+  d("tints", "Tints", "Foundations", "Eight bright tints for identity and emphasis: tags, highlights, avatars. Each ink is readable on its ground.", "tint", TintsDemo),
+  { id: "type", title: "Type", group: "Foundations", lead: "Jost for the interface and headings, Newsreader for reading. Arabic falls through to IBM Plex Sans Arabic, Kufam and Amiri: a little larger, more line height, no letter-spacing.", spec: "docs/foundations/typography.md", Demo: TypeDemo },
+  { id: "space", title: "Space and shape", group: "Foundations", lead: "A 4px step for everything spatial. Corners are crisp (2px); depth comes from borders and surface steps, never shadows.", spec: "docs/foundations/space-and-shape.md", Demo: SpaceDemo },
+  { id: "motion", title: "Motion", group: "Foundations", lead: "Quick, and only in answer to something done: 150ms for feedback, 250ms for disclosure and themes. With reduced motion, things change at once.", spec: "docs/foundations/motion.md", Demo: MotionDemo },
+  { id: "icons", title: "Icons", group: "Foundations", lead: "Line icons on a 24-unit grid. Those that point along the reading direction mirror in right-to-left.", spec: "docs/foundations/iconography.md", Demo: IconDemo },
   d("button", "Button", "Actions", "Does something. One primary per view; the label names the action and its object.", "button", ButtonDemo),
-  d("breadcrumbs", "Back link and breadcrumbs", "Actions", "A way back, before the page's title: a back link for the previous step, breadcrumbs for where a page sits.", "breadcrumbs", BreadcrumbsDemo),
+  d("text-link", "Text link", "Actions", "A link that stands on its own: underlined in the accent, with an arrow to a next step, or an icon to another site.", "link", TextLinkDemo),
+  d("back-link", "Back link and breadcrumbs", "Actions", "A way back, before the page's title: a back link for the previous step, breadcrumbs for where a page sits.", "breadcrumbs", BreadcrumbsDemo),
   d("text-input", "Text input", "Forms", "A visible label, an optional hint, the field; optional fields say so.", "field", TextInputDemo),
   d("select", "Select and combobox", "Forms", "A select for a fixed list; a combobox (a datalist) where people may also type their own.", "field", SelectDemo),
-  d("character-count", "Textarea and character count", "Forms", "For longer answers. With a limit, it says what's left in words, and lets people type past it.", "character-count", CharacterCountDemo),
+  d("textarea", "Textarea and character count", "Forms", "For longer answers. With a limit, it says what's left in words, and lets people type past it.", "character-count", CharacterCountDemo),
   d("date-input", "Date input", "Forms", "Three fields for dates people know. For a date near today, use the date picker.", "date-input", DateInputDemo),
   d("date-picker", "Date picker", "Forms", "A date near today, typed or chosen from a calendar in the page's language: in Arabic, Arabic month and day names, the week from Saturday, the chosen digits, and a grid that runs from the right.", "date-picker", DatePickerDemo),
   d("search", "Search", "Forms", "A field with its icon, and Clear once there's text. Escape clears it too.", "search", SearchDemo),
+  d("select-all", "Select all", "Forms", "A checkbox for all of a group, mixed while some are chosen and some aren't.", "choice", SelectAllDemo),
   d("checkboxes", "Checkboxes", "Forms", "Independent options, in a fieldset with a legend; the whole row is the target.", "choice", CheckboxesDemo),
   d("radios", "Radios", "Forms", "One of several, with a sensible default where there is one.", "choice", RadiosDemo),
   d("switch", "Switch", "Forms", "A setting that applies the moment it's flipped: no Save.", "choice", SwitchDemo),
@@ -697,10 +785,12 @@ export const demos: Demo[] = [
   d("badge", "Badge", "Content", "A short status beside something, in words. Sentence case, never capitals.", "badge", BadgeDemo),
   d("tag", "Tag, highlight and avatar", "Content", "Colour for identity and emphasis, in eight bright tints; never for status.", "tint", TintDemo),
   d("task-list", "Task list", "Content", "The parts of a longer job, each with its status in words; done in any order.", "task-list", TaskListDemo),
+  d("section", "Section", "Content", "A band of the page: a hairline from the one before, its heading and lede.", "page-head", SectionDemo),
   d("steps", "Steps", "Content", "A numbered sequence: the stages of how something is done. Only for real sequences.", "steps", StepsDemo),
   d("page-head", "Page head and tabs", "Navigation", "The page's title, what applies to the whole page, then its views.", "page-head", PageHeadDemo),
   d("sidebar", "Sidebar", "Navigation", "An app's sections, collapsible to icons; a bar along the top on small screens.", "sidebar", SidebarDemo),
   d("site-header", "Site header", "Navigation", "A website's top bar: the lockup, the sections, and the language and theme controls. Under the md breakpoint the sections fold into a menu.", "site-header", SiteHeaderDemo),
+  d("language-link", "Language link", "Navigation", "The same page in the other language, named in that language. Never a flag.", "language-switch", LanguageDemo),
   d("footer", "Footer", "Navigation", "Who made it, where to go next, and the legal line; quiet, and the same on every page.", "footer", FooterDemo),
   d("notice", "Notice and side-effect note", "Feedback", "A message in the page, in four kinds, each with an icon and a title. A side-effect note says what else will change, before it does.", "notice", NoticeDemo),
   d("phase-banner", "Phase banner", "Feedback", "Under the header: the product, or part of it, is new or changing, and feedback is welcome.", "phase-banner", PhaseBannerDemo),
@@ -722,7 +812,6 @@ export const demos: Demo[] = [
   d("pattern", "Pattern", "Brand", "The 4.8.8 tessellation of the mark's tile, contact angle 67.5°, drawn by rule: as texture behind a band, or across a hero with its focal tile (as at the top of this page).", "pattern", PatternDemo),
   d("hero", "Hero", "Brand", "One quiet line across the section, and one focal tile in the accent, with its caption. It draws itself in once.", "pattern", HeroDemo),
   d("construction", "Construction figure", "Brand", "How the pattern is made, in three steps, each read as software.", "construction", ConstructionDemo),
-  d("icons", "Icons", "Brand", "Line icons on a 24-unit grid. Those that point along the reading direction mirror in right-to-left.", "icon", IconDemo),
   { id: "ask-check-confirm", title: "Ask, check, confirm", group: "Patterns", lead: "For anything sent, or hard to take back: ask; check errors on submit, with an error summary; let people check their answers; then confirm, with what happens next. Try submitting it empty.", spec: "docs/patterns.md", Demo: FlowDemo },
 ];
 

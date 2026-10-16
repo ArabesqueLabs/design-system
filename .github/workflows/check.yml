@@ -23,11 +23,11 @@ jobs:
         with:
           node-version: 22
       - run: npm ci
-      - name: Build, and fail if dist/, the contrast report, the examples or the template weren't rebuilt
+      - name: Build, and fail if dist/, the contrast report, the examples, the template or the document pages weren't rebuilt
         run: |
           node scripts/build.mjs
           node scripts/build-react.mjs
-          git diff --exit-code -- dist docs/contrast.md examples templates
+          git diff --exit-code -- dist docs examples templates index.html README.html ar/README.html CHANGELOG.html
       - name: Released versions (v/) are never changed, only added
         run: |
           base="${{ github.event.pull_request.base.sha || github.event.before }}"

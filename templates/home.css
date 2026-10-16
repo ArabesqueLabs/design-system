@@ -13,8 +13,6 @@
 .tp-steps { margin-block-start: var(--al-space-16); }
 .tp-email { margin: var(--al-space-4) 0 0; font-family: var(--al-font-display); font-size: var(--al-text-2xl); overflow-wrap: anywhere; }
 .tp-tagline { margin: 0; }
-.tp-lang { display: inline-flex; align-items: center; min-block-size: var(--al-size-target-min); padding-inline: var(--al-space-2); color: var(--al-color-text-muted); text-decoration: none; }
-.tp-lang:hover { color: var(--al-color-text); }
 @media (max-width: 52rem) {
   .tp-two { grid-template-columns: minmax(0, 1fr); }
   .tp-hero__body { padding-block-start: var(--al-space-8); }

@@ -30,7 +30,21 @@ export function Wordmark({ className }: { className?: string }) {
   return <span className={cx("al-wordmark", className)} lang={ar ? "ar" : "en"}>{ar ? "معامل آرابيسك" : "Arabesque Labs"}</span>;
 }
 
+/** The star at the mark's centre (assets/brand/star.svg). */
+export const STAR_PATH = MARK_PATHS[1]!;
+
+/** The mark's star alone, solid: for 16–24px, where the frame would clog. */
+export function Star({ title, className, ...rest }: ComponentPropsWithoutRef<"svg"> & { title?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" className={cx("al-mark", className)} role={title ? "img" : undefined} aria-hidden={title ? undefined : true} aria-label={title} focusable="false" {...rest}>
+      <path d={STAR_PATH} fill="currentColor" />
+    </svg>
+  );
+}
+
 export interface LockupProps extends ComponentPropsWithoutRef<"a"> {
+  /** The mark over the wordmark: for a splash or print. */
+  stacked?: boolean;
   /** A product's name after the wordmark ("hunt", "Design system"). */
   product?: ReactNode;
   /** In place of the wordmark: the company's legal name in a footer, say. */
@@ -38,7 +52,7 @@ export interface LockupProps extends ComponentPropsWithoutRef<"a"> {
 }
 
 /** The mark beside the wordmark: a link with an href, otherwise just the lockup. */
-export function Lockup({ product, name, href, className, ...rest }: LockupProps) {
+export function Lockup({ product, name, stacked, href, className, ...rest }: LockupProps) {
   const inner = (
     <>
       <Mark />
@@ -46,5 +60,6 @@ export function Lockup({ product, name, href, className, ...rest }: LockupProps)
       {product && <span className="al-lockup__product">{product}</span>}
     </>
   );
-  return href ? <a className={cx("al-lockup", className)} href={href} {...rest}>{inner}</a> : <span className={cx("al-lockup", className)}>{inner}</span>;
+  const classes = cx("al-lockup", stacked && "al-lockup--stacked", className);
+  return href ? <a className={classes} href={href} {...rest}>{inner}</a> : <span className={classes}>{inner}</span>;
 }

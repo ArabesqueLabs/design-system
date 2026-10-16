@@ -2,7 +2,7 @@
 
 import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 import { useArabesque } from "./settings.js";
-import { cx } from "./util.js";
+import { cx, useStableId } from "./util.js";
 
 type Box<T extends ElementType> = { as?: T } & Omit<ComponentPropsWithoutRef<T>, "as">;
 
@@ -12,10 +12,28 @@ export function Page<T extends ElementType = "div">({ as, className, ...rest }: 
   return <C className={cx("al-page", className)} {...rest} />;
 }
 
-/** A band of the page, with the section spacing. */
-export function Section<T extends ElementType = "section">({ as, className, ...rest }: Box<T>) {
-  const C = as ?? "section";
-  return <C className={cx("al-section", className)} {...rest} />;
+export interface SectionProps extends Omit<ComponentPropsWithoutRef<"section">, "title"> {
+  /** Its heading (an h2), which names the section as a landmark. Give it an id to link to. */
+  heading?: ReactNode;
+  lede?: ReactNode;
+}
+
+/**
+ * A band of the page: the section spacing, a hairline from the one before,
+ * and, with a heading, its heading and lede inside the page's measure.
+ */
+export function Section({ heading, lede, id, className, children, ...rest }: SectionProps) {
+  const headingId = useStableId(id ? `${id}-h` : undefined, "section");
+  if (heading == null) return <section className={cx("al-section", className)} id={id} {...rest}>{children}</section>;
+  return (
+    <section className={cx("al-section", className)} id={id} aria-labelledby={headingId} {...rest}>
+      <div className="al-page al-stack">
+        <h2 className="al-section__title" id={headingId}>{heading}</h2>
+        {lede && <p className="al-lede al-section__lede">{lede}</p>}
+        {children}
+      </div>
+    </section>
+  );
 }
 
 /** Children one under another, evenly spaced. */

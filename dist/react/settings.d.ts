@@ -23,6 +23,12 @@ export interface Labels {
     discardChanges: string;
     optional: string;
     change: string;
+    loading: string;
+    newTab: string;
+    noticeInfo: string;
+    noticeSuccess: string;
+    noticeWarning: string;
+    noticeDanger: string;
     errorPrefix: string;
     errorTitle: string;
     day: string;
@@ -70,6 +76,12 @@ export interface ArabesqueProviderProps {
 }
 /** The page's language, digits and sprite, for every component inside it. */
 export declare function ArabesqueProvider({ lang, numerals, sprite, labels, children }: ArabesqueProviderProps): import("react").JSX.Element;
-export declare const useArabesque: () => Settings;
+/**
+ * The page's settings: from the nearest <ArabesqueProvider>, or else from
+ * <html lang>. On the server there's no <html> to read, so a page rendered
+ * there in Arabic needs the provider (or it renders in English, and React
+ * finds a mismatch in the browser).
+ */
+export declare function useArabesque(): Settings;
 /** A label with its placeholders filled: fill("{n} selected", { n: "3" }). */
 export declare const fill: (label: string, values: Record<string, string>) => string;

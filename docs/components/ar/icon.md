@@ -16,6 +16,8 @@
 
 الافتراضي (18px)، و`--sm` (16px)، و`--lg` (24px). و`.al-mirror` للأيقونات الاتجاهية.
 
+المجموعة: arrow، board، calendar، check، chevron، chevron-down، close، copy، danger، edit، external، file، info، language، mail، menu، minus، more، plus، retry، search، settings، sidebar، success، theme، trash، undo، warning. و`copy` للنسخ (رابط، أو رقم مرجعي)؛ و`mail` لعنوان بريد إلكتروني أو لإرسال رسالة؛ و`language` بجانب رابط اللغة، حيث لا تكفي الكلمة وحدها؛ و`chevron-down` لما يُفتح إلى الأسفل (قائمة اختيار، أو عنصر قابل للطي).
+
 ## الحالات
 
 تأخذ لون نصها.

@@ -5,6 +5,8 @@
 //   dist/tailwind-theme.css  a Tailwind v4 @theme mapping onto them
 //   dist/tokens.json         every token, flat, resolved, per mode (for JS)
 //   dist/arabesque.css       tokens + css/ in cascade layers, one file to link
+//   dist/brand/, patterns/   the mark, star and favicon in fixed inks, and pattern tiles,
+//                            for where the live ones can't go
 //   docs/contrast.md         every colour pair the system relies on, measured
 //
 // It fails (exit 1) if a pair falls below its WCAG minimum, if the CSS sets a
@@ -272,11 +274,50 @@ listed.
 ${rows.join("\n")}
 `);
 
+// ---- brand files and pattern tiles -------------------------------------------------------
+
+// For where the live mark and pattern can't go (email, slides, documents, a
+// favicon): fixed colours, from the tokens, as hex, which every tool reads.
+const hex = (v, mode) => {
+  const { rgb, a } = parse(v);
+  const h = `#${rgb.map((x) => Math.round(enc(x) * 255).toString(16).padStart(2, "0")).join("")}`;
+  return { h, a: Math.round(a * 100) / 100 };
+};
+const inkLight = hex(color("text")).h;
+const inkDark = hex(color("text", "dark")).h;
+const inked = (svg, ink) => svg.replace(/currentColor/g, ink);
+const mark = read("assets/brand/mark.svg");
+const star = read("assets/brand/star.svg");
+write("dist/brand/mark-ink.svg", `${inked(mark, inkLight)}\n`);
+write("dist/brand/mark-reversed.svg", `${inked(mark, inkDark)}\n`);
+write("dist/brand/star-ink.svg", `${inked(star, inkLight)}\n`);
+write("dist/brand/star-reversed.svg", `${inked(star, inkDark)}\n`);
+// The favicon: the star, ink on light, reversed on dark, by the system's setting.
+const starPath = star.match(/<path d="([^"]+)"/)[1];
+write("dist/brand/favicon.svg", `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><style>path{fill:${inkLight}}@media (prefers-color-scheme:dark){path{fill:${inkDark}}}</style><path d="${starPath}"/></svg>\n`);
+
+// One repeat of the pattern, seamless, at the texture's size and stroke.
+const { tile } = await import("../js/pattern.js");
+const px = (name) => parseFloat(byPath.get(`semantic.pattern.${name}`)?.value ?? NaN);
+const { d, period } = tile(px("side"), px("contact-angle"));
+const tileSvg = (token, mode) => {
+  const { h, a } = hex(color(token, mode), mode);
+  const p = Math.round(period * 100) / 100;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${p}" height="${p}" viewBox="0 0 ${p} ${p}"><path d="${d}" fill="none" stroke="${h}" stroke-opacity="${a}" stroke-width="${px("stroke")}"/></svg>\n`;
+};
+write("dist/patterns/tile.svg", tileSvg("pattern-line"));
+write("dist/patterns/tile-dark.svg", tileSvg("pattern-line", "dark"));
+write("dist/patterns/tile-quiet.svg", tileSvg("pattern-quiet"));
+write("dist/patterns/tile-quiet-dark.svg", tileSvg("pattern-quiet", "dark"));
+
 // ---- size --------------------------------------------------------------------------------
 
 // What a site downloads, compressed. Over budget fails the build: raise the
 // budget on purpose, in the same change that explains why.
-const BUDGET = 24 * 1024;
+// 26 KB from 0.4: the star spinner, the text and language links, the quiet
+// pattern and the hero's fade took 24 KB to 23.4. One file for every site is
+// worth more than splitting off charts or the date picker to stay under it.
+const BUDGET = 26 * 1024;
 const gz = gzipSync(bundle, { level: 9 }).length;
 const kb = (n) => `${(n / 1024).toFixed(1)} KB`;
 const overBudget = gz > BUDGET;

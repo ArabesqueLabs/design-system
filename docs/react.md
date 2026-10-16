@@ -35,7 +35,9 @@ export function App() {
 ```
 
 `ArabesqueProvider` says, once, what every component needs to know about the
-page:
+page. Without one, the components take the language of `<html lang>` in the
+browser; on the server there's no `<html>` to read, so a page rendered there
+in Arabic needs the provider.
 
 | Setting | What | Default |
 |---|---|---|
@@ -56,19 +58,20 @@ One module per spec, named after it:
 | Module | Components | Spec |
 |---|---|---|
 | `button` | `Button` (`variant`, `size`, `icon`, `iconEnd`, `label`, `busy`; an `<a>` with `href`) | [Button](components/button.md) |
+| `link`, `language` | `TextLink` (`arrow`, `external`, `muted`), `LanguageLink` | [Text link](components/link.md), [Language link](components/language-switch.md) |
 | `field` | `Field`, `Input`, `Select`, `Textarea`, `Affix`, `AffixText`, `Fieldset`, `ErrorMessage`, `Hint` | [Field](components/field.md) |
-| `choice` | `Checkbox`, `Radio`, `Switch`, `Choices` | [Checkbox, radio and switch](components/choice.md) |
+| `choice` | `Checkbox` (`indeterminate`), `Radio`, `Switch`, `Choices` | [Checkbox, radio and switch](components/choice.md) |
 | `segmented` | `Segmented` (radios), `SegmentedButtons` (pressed buttons) | [Segmented control](components/segmented.md) |
 | `character-count`, `date-input`, `date-picker` | `CharacterCount`, `DateInput`, `DatePicker`, `DateExample` | [Character count](components/character-count.md), [Date input](components/date-input.md), [Date picker](components/date-picker.md) |
 | `forms` | `ErrorSummary`, `Search`, `SummaryList`, `Confirmation` | [Error summary](components/error-summary.md), [Search](components/search.md), [Summary list](components/summary-list.md), [Confirmation](components/confirmation.md) |
 | `disclosure`, `card`, `table`, `steps`, `task-list` | `Disclosure`, `Card`, `Panel`, `Stat`, `Table`, `Steps`, `TaskList` | [Disclosure](components/disclosure.md), [Card](components/card.md), [Table](components/table.md), [Steps](components/steps.md), [Task list](components/task-list.md) |
 | `badge`, `tint` | `Badge`, `Tag`, `Highlight`, `Avatar` | [Badge and tag](components/badge.md), [Tints](components/tint.md) |
-| `page-head`, `nav`, `site-header`, `sidebar`, `footer`, `breadcrumbs` | `PageHead`, `Tabs`, `SectionNav`, `SiteHeader`, `ThemeToggle`, `Shell`, `Footer`, `Breadcrumbs`, `BackLink` | [Page head](components/page-head.md), [Tabs](components/nav.md), [Site header](components/site-header.md), [Sidebar](components/sidebar.md), [Footer](components/footer.md), [Breadcrumbs](components/breadcrumbs.md) |
-| `notice`, `phase-banner`, `toast`, `dialog`, `menu`, `tooltip` | `Notice`, `SideEffect`, `PhaseBanner`, `useToast`, `Dialog`, `Menu`, `useTooltips` | [Notice](components/notice.md), [Phase banner](components/phase-banner.md), [Toast](components/toast.md), [Dialog](components/dialog.md), [Menu](components/menu.md), [Tooltip](components/tooltip.md) |
-| `empty-state`, `progress`, `save-state`, `bulk-bar`, `kbd` | `EmptyState`, `Spinner`, `Skeleton`, `Progress`, `SaveState`, `RollbackNote`, `Stale`, `StaleNote`, `BulkBar`, `Kbd`, `Shortcuts` | [Empty state](components/empty-state.md), [Loading](components/progress.md), [Pending changes](components/save-state.md), [Bulk bar](components/bulk-bar.md), [Keys](components/kbd.md) |
+| `page-head`, `nav`, `site-header`, `sidebar`, `footer`, `breadcrumbs` | `PageHead`, `Tabs`, `SectionNav`, `SiteHeader` (`language`, `sticky`, `skipTo`), `ThemeToggle`, `Shell`, `Footer`, `Breadcrumbs`, `BackLink` | [Page head](components/page-head.md), [Tabs](components/nav.md), [Site header](components/site-header.md), [Sidebar](components/sidebar.md), [Footer](components/footer.md), [Breadcrumbs](components/breadcrumbs.md) |
+| `notice`, `phase-banner`, `toast`, `dialog`, `menu`, `tooltip` | `Notice` (`onDismiss`; its kind's word as the title by default), `SideEffect`, `PhaseBanner`, `useToast`, `Dialog`, `Menu`, `useTooltips` | [Notice](components/notice.md), [Phase banner](components/phase-banner.md), [Toast](components/toast.md), [Dialog](components/dialog.md), [Menu](components/menu.md), [Tooltip](components/tooltip.md) |
+| `empty-state`, `progress`, `save-state`, `bulk-bar`, `kbd` | `EmptyState`, `Spinner` (the star; `label` when nothing beside it says what's happening), `Skeleton`, `Progress`, `SaveState`, `RollbackNote`, `Stale`, `StaleNote`, `BulkBar`, `Kbd`, `Shortcuts` | [Empty state](components/empty-state.md), [Loading](components/progress.md), [Pending changes](components/save-state.md), [Bulk bar](components/bulk-bar.md), [Keys](components/kbd.md) |
 | `chart` | `ChartFigure`, `ColumnChart`, `SplitBar`, `BulletChart` | [Charts](components/chart.md) |
-| `brand`, `pattern`, `construction`, `icon` | `Mark`, `Wordmark`, `Lockup`, `Pattern`, `Hero`, `HeroCaption`, `ConstructionFigure`, `Icon` | [Brand](components/brand.md), [Pattern](components/pattern.md), [Construction figure](components/construction.md), [Icon](components/icon.md) |
-| `layout` | `Page`, `Section`, `Stack`, `Cluster`, `Grid`, `Split`, `VisuallyHidden`, `SkipLink` | [Layout](foundations/layout.md) |
+| `brand`, `pattern`, `construction`, `icon` | `Mark`, `Star`, `Wordmark`, `Lockup` (`stacked`, `product`), `Pattern` (`full`, `quiet`), `Hero`, `HeroCaption`, `ConstructionFigure`, `Icon` | [Brand](components/brand.md), [Pattern](components/pattern.md), [Construction figure](components/construction.md), [Icon](components/icon.md) |
+| `layout` | `Page`, `Section` (`heading`, `lede`), `Stack`, `Cluster`, `Grid`, `Split`, `VisuallyHidden`, `SkipLink` | [Layout](foundations/layout.md) |
 
 Every prop is typed (`dist/react/*.d.ts`), with what it's for.
 

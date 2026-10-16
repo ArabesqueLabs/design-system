@@ -51,6 +51,7 @@
   --color-tint-cyan-ink: var(--al-color-tint-cyan-ink);
   --color-pattern-line: var(--al-color-pattern-line);
   --color-pattern-scaffold: var(--al-color-pattern-scaffold);
+  --color-pattern-quiet: var(--al-color-pattern-quiet);
   --color-pattern-focal: var(--al-color-pattern-focal);
   --color-pattern-focal-fill: var(--al-color-pattern-focal-fill);
   --font-sans: var(--al-font-sans);

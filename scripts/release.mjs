@@ -3,7 +3,8 @@
 //
 //   - moves the changelog's Unreleased entries under the version, dated today
 //   - sets the version in package.json
-//   - builds, and copies dist/, fonts/ and js/ to v/<version>/, which is then never
+//   - builds (the CSS, and the React layer, examples and document pages), and copies dist/, fonts/ and js/ to v/<version>/
+//     (the font files once per set, in v/_fonts/<hash>/: scripts/release-fonts.mjs), which is then never
 //     changed: sites link https://design.arabesquelabs.com/v/<version>/dist/arabesque.css
 //     and upgrade when they choose (_headers caches it for a year)
 //
@@ -13,6 +14,7 @@ import { readFileSync, writeFileSync, existsSync, cpSync, readdirSync } from "no
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
+import { releaseFonts } from "./release-fonts.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const at = (p) => join(root, p);
@@ -40,16 +42,19 @@ writeFileSync(at("CHANGELOG.md"), log.replace("## [Unreleased]\n", `## [Unreleas
 writeFileSync(at("package.json"), readFileSync(at("package.json"), "utf8").replace(/("version":\s*)"[^"]*"/, `$1"${version}"`));
 
 execFileSync(process.execPath, [at("scripts/build.mjs")], { stdio: "inherit" });
+// The React layer, the examples and the documents' pages (the changelog's among them; needs npm install).
+execFileSync(process.execPath, [at("scripts/build-react.mjs")], { stdio: "inherit" });
 
 // dist/, fonts/ and js/ side by side, as in the repo, so the helpers' relative URLs
 // (validate.js finds ../dist/icons.svg) still resolve.
 cpSync(at("dist"), at(`v/${version}/dist`), { recursive: true });
 cpSync(at("js"), at(`v/${version}/js`), { recursive: true });
-cpSync(at("fonts"), at(`v/${version}/fonts`), { recursive: true });
+// The font files once per set of faces, shared by the releases that have them (scripts/release-fonts.mjs).
+const fontSet = releaseFonts(root, version);
 
 const files = readdirSync(at(`v/${version}`), { recursive: true }).length;
 console.log(`
-v/${version}/: ${files} files. Then:
+v/${version}/: ${files} files; its fonts in v/${fontSet}/. Then:
   npm run check
   commit, with the message "Release ${version}"
   git tag v${version} && git push --tags

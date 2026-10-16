@@ -4,7 +4,7 @@
 
 الإشعار رسالة داخل الصفحة، بأربعة أنواع. وملاحظة الأثر الجانبي تقول ما الذي سيغيّره الإجراء أيضًا، قبل تنفيذه.
 
-**CSS:** [`css/components/notice.css`](../../../css/components/notice.css). **الأصناف:** `.al-icon`، `.al-notice`، `.al-notice--danger`، `.al-notice--success`، `.al-notice--warning`، `.al-notice__actions`، `.al-notice__body`، `.al-notice__title`، `.al-side-effect`.
+**CSS:** [`css/components/notice.css`](../../../css/components/notice.css). **الأصناف:** `.al-icon`، `.al-notice`، `.al-notice--danger`، `.al-notice--success`، `.al-notice--warning`، `.al-notice__actions`، `.al-notice__body`، `.al-notice__dismiss`، `.al-notice__title`، `.al-side-effect`.
 
 ## البنية
 
@@ -16,6 +16,13 @@
     <p>0T taxes all of your pay. These figures would give 507T.</p>
     <div class="al-notice__actions"><button type="button" class="al-button al-button--sm">Use 507T</button></div>
   </div>
+</div>
+
+<!-- dismissible: an icon button, last -->
+<div class="al-notice al-notice--success" role="status">
+  <svg class="al-icon" aria-hidden="true">…success…</svg>
+  <div class="al-notice__body"><p class="al-notice__title">Done</p><p>Your changes are saved.</p></div>
+  <button type="button" class="al-button al-button--icon al-button--quiet al-notice__dismiss" aria-label="Dismiss">…close…</button>
 </div>
 
 <p class="al-side-effect"><svg class="al-icon al-icon--sm" aria-hidden="true">…info…</svg>
@@ -33,7 +40,9 @@
 
 ## الحالات
 
-ثابت؛ وقد يحمل إجراءات.
+ثابت؛ وقد يحمل إجراءات. والإشعار الذي يمكن للمرء أن ينتهي منه قد يُغلق (`.al-notice__dismiss`، زر أيقونة هادئ اسمه «إغلاق»)؛ ولا يختفي من تلقاء نفسه أبدًا.
+
+وإن لم يكن للإشعار عنوان خاص، فعنوانه كلمة نوعه: ملاحظة، تم، تنبيه، خطأ (بالإنجليزية: Note، Done، Warning، Error).
 
 ## لوحة المفاتيح
 
@@ -57,6 +66,7 @@
 
 - استخدام لون الخطر لغير الأخطاء.
 - رصّ أكثر من إشعارين فوق بعضهما؛ بل ادمجهما.
+- جعل الخطأ قابلًا للإغلاق قبل أن يُصلَح.
 
 ## الرموز
 

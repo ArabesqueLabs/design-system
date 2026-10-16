@@ -16,12 +16,13 @@ file. The optional JavaScript helpers have no dependencies either.
 |---|---|
 | `tokens/tokens.json` | The single source of truth (W3C Design Tokens format): primitives, semantic roles, component tokens; dark and Arabic modes |
 | `scripts/build.mjs` | Builds `dist/` and `docs/contrast.md` from the tokens |
-| `scripts/build-react.mjs` | Builds `dist/react/`, the examples and the homepage template from `react/`, `examples/src/` and `templates/react/` |
+| `scripts/build-react.mjs` | Builds `dist/react/`, the examples and the homepage template from `react/`, `examples/src/` and `templates/react/`; and a page beside each document (`README.html`, `docs/…/*.html`) |
 | `dist/arabesque.css` | Everything in one file, in cascade layers: tokens, base, layout, components, utilities |
 | `dist/tokens.css` | The tokens alone, as `--al-*` custom properties, light and dark |
 | `dist/tailwind-theme.css` | A Tailwind v4 `@theme` mapping onto the same variables |
 | `dist/tokens.json` | Resolved token values per mode, for other tools |
 | `dist/icons.svg` | The icon sprite |
+| `dist/brand/`, `dist/patterns/` | The mark, star and favicon in fixed inks, and pattern tiles, for email, slides and documents |
 | `dist/react/` | The React components, with their types ([`docs/react.md`](docs/react.md)) |
 | `css/` | The sources: `base.css`, `layout.css`, `utilities.css`, `components/*.css` |
 | `react/src/` | The React components' sources: one module per spec, writing the same markup and using the helpers |
@@ -29,7 +30,7 @@ file. The optional JavaScript helpers have no dependencies either.
 | `tests/`, `scripts/check-page.mjs` | Unit tests and the system's own rules; the showcase checked in a real browser |
 | `icons/`, `assets/brand/` | Icon sources; the mark, star and wordmark from the logo pack |
 | `docs/` | Foundations, interaction, accessibility, RTL, adoption, component specs, the audit, the contrast report |
-| `index.html` | The showcase |
+| `index.html` | The showcase: every demo on one page, generated from `examples/src/` |
 | `examples/` | Every component working, in React, a page each, in English and Arabic ([`examples/index.html`](examples/index.html)) |
 | `templates/` | Whole pages to start a site from: the studio homepage, in English and Arabic, in HTML and in React ([`templates/README.md`](templates/README.md)) |
 
@@ -41,7 +42,7 @@ the React components, their examples and the homepage template need
 
 ```sh
 node scripts/build.mjs        # dist/: the CSS, tokens and sprite, and docs/contrast.md
-npm run build:react           # dist/react/, examples/, templates/home.html (type-checked)
+npm run build:react           # dist/react/, examples/, templates/home.html, the documents' pages
 npm run build                 # both
 ```
 
@@ -67,7 +68,7 @@ node scripts/check-page.mjs   # in Chrome: the helpers on their own page
 All three run on every push and pull request (`.github/workflows/check.yml`).
 The build also fails if a component sets a colour on a background the
 contrast check doesn't measure, or if `arabesque.css` grows past its size
-budget (24 KB gzipped). Before a release, run the
+budget (26 KB gzipped). Before a release, run the
 [screen reader checks](docs/screen-readers.md) by hand.
 
 ## See the showcase
@@ -79,7 +80,11 @@ npm run serve        # then open http://127.0.0.1:4900/
 ```
 
 Switch theme and language at the top; in Arabic, choose Western or
-Arabic-Indic digits. All three are remembered.
+Arabic-Indic digits. All three are remembered. The showcase is built from the
+same demos as the example pages (`examples/src/showcase.tsx`): `index.html`
+is generated, so change the demos, not it. Every document, this one
+included, is also a page of its own: `README.html`, `docs/react.html` and so
+on, in English and, where there's a translation, Arabic.
 
 The same components in React, a page each, are at
 `http://127.0.0.1:4900/examples/`: each in English, then in Arabic, right to
@@ -196,7 +201,9 @@ changelog's **Unreleased** section (`scripts/next-version.mjs`):
 It cuts that release on the `release/next` branch with
 `npm run release -- <version>`, which moves the Unreleased entries under the
 version, dated, sets `version` in `package.json`, builds, and copies `dist/`,
-`fonts/` and `js/` to `v/<version>/`. Then it opens a **Release x.y.z** PR, or
+`fonts/` and `js/` to `v/<version>/`; the font files themselves go once into
+`v/_fonts/<hash>/`, shared by every release with the same faces, and the
+release's `fonts/fonts.css` points there. Then it opens a **Release x.y.z** PR, or
 updates the open one. To choose a different version, label the PR
 `release:major`, `release:minor` or `release:patch`; it takes effect on the
 next push to `main` (or run the workflow by hand).

@@ -314,6 +314,14 @@ await p.run(`document.querySelector(".ex-example [data-site-menu-toggle]").click
 check("examples: the site header's menu opens under md", await p.run(`(() => { const b = document.querySelector(".ex-example [data-site-menu-toggle]"); return b.getAttribute("aria-expanded") === "true" && !document.getElementById(b.getAttribute("aria-controls")).hidden; })()`));
 await p.send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 900, deviceScaleFactor: 1, mobile: false });
 
+await ex("sidebar.html");
+await p.send("Emulation.setDeviceMetricsOverride", { width: 400, height: 800, deviceScaleFactor: 1, mobile: true });
+check("examples: the sidebar's sections are behind its menu button under md", await p.run(`(() => { const s = document.querySelector(".ex-example .al-sidebar"); return getComputedStyle(s.querySelector(".al-sidebar__menu")).display === "none" && s.querySelector(".al-sidebar__here")?.textContent === "Home"; })()`));
+await p.run(`document.querySelector(".ex-example [data-sidebar-menu-toggle]").click()`);
+check("examples: the sidebar's menu opens, and Escape closes it", await p.run(`getComputedStyle(document.querySelector(".ex-example .al-sidebar__menu")).display === "flex"`) && (await p.key("Escape"), await p.run(`(() => { const b = document.querySelector(".ex-example [data-sidebar-menu-toggle]"); return b.getAttribute("aria-expanded") === "false" && document.activeElement === b; })()`)));
+await p.send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 900, deviceScaleFactor: 1, mobile: false });
+check("examples: above md, the sidebar's sections show with the menu closed", await p.run(`getComputedStyle(document.querySelector(".ex-example .al-sidebar__nav")).display === "flex" && getComputedStyle(document.querySelector(".ex-example .al-sidebar__bar")).display === "none"`));
+
 await ex("textarea.html");
 check("examples: the character count, in Arabic", await p.run(`(() => { const t = document.querySelector('[lang="ar"] textarea'); return /حرف/.test(t.parentElement.querySelector(".al-character-count__message")?.textContent ?? ""); })()`));
 

@@ -30,7 +30,7 @@
 | `dist/react/` | مكوّنات React، مع أنواعها ([`docs/react.md`](../docs/react.md)، بالإنجليزية) |
 | `css/` | المصادر: `base.css`، و`layout.css`، و`utilities.css`، و`components/*.css` |
 | `react/src/` | مصادر مكوّنات React: وحدة لكل مواصفة، تكتب الترميز نفسه وتستخدم المساعدات |
-| `js/` | مساعدات اختيارية، لكل منها أنواعه (`.d.ts`): `theme`، `toast`، `dialog`، `menu`، `tabs`، `tooltip`، `position`، `validate`، `count`، `search`، `keys`، `format`، `chart`، `datepicker`، `pattern`، `site-header` |
+| `js/` | مساعدات اختيارية، لكل منها أنواعه (`.d.ts`): `theme`، `toast`، `dialog`، `menu`، `tabs`، `tooltip`، `position`، `validate`، `count`، `search`، `keys`، `format`، `chart`، `datepicker`، `pattern`، `site-header`، `sidebar` |
 | `tests/`، `scripts/check-page.mjs` | اختبارات الوحدات وقواعد النظام نفسه؛ وصفحة العرض مفحوصة في متصفح حقيقي |
 | `icons/`، `assets/brand/` | مصادر الأيقونات؛ والعلامة والنجمة والشعار النصي من حزمة الشعار |
 | `docs/` | الأسس، والتفاعل، وإتاحة الوصول، والكتابة من اليمين إلى اليسار، والتبنّي، ومواصفات المكوّنات، والتدقيق، وتقرير التباين |

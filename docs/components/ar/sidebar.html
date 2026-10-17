@@ -16,41 +16,56 @@
 <blockquote>
 <p>ترجمة لـ<a href="../sidebar.html">المواصفات بالإنجليزية</a>. إن اختلفت الترجمة عن الأصل، فالإنجليزية هي المرجع.</p>
 </blockquote>
-<p>أقسام التطبيق في عمود يمكن طيّه إلى أيقونات؛ وشريط قابل للتمرير في الأعلى تحت نقطة التوقف <code>md</code>. يُستخدم داخل <code>.al-shell</code> (<a href="../../foundations/layout.html">التخطيط</a>، بالإنجليزية).</p>
-<p><strong>CSS:</strong> <a href="../../../css/components/sidebar.css"><code>css/components/sidebar.css</code></a>. <strong>الأصناف:</strong> <code>.al-icon</code>، <code>.al-sidebar</code>، <code>.al-sidebar__collapse</code>، <code>.al-sidebar__foot</code>، <code>.al-sidebar__label</code>، <code>.al-sidebar__link</code>، <code>.al-sidebar__nav</code>.</p>
+<p>أقسام التطبيق في عمود يمكن طيّه إلى أيقونات. وتحت نقطة التوقف <code>md</code> يصير شريطًا في الأعلى، فيه اسم القسم الحالي وزر القائمة؛ وتنزل الأقسام والأسفل تحته، كما تفعل قائمة <a href="site-header.html">ترويسة الموقع</a>. يُستخدم داخل <code>.al-shell</code> (<a href="../../foundations/layout.html">التخطيط</a>، بالإنجليزية).</p>
+<p><strong>CSS:</strong> <a href="../../../css/components/sidebar.css"><code>css/components/sidebar.css</code></a>. <strong>JS:</strong> <a href="../../../js/sidebar.js"><code>js/sidebar.js</code></a> (<code>initSidebars()</code>). <strong>الأصناف:</strong> <code>.al-icon</code>، <code>.al-sidebar</code>، <code>.al-sidebar__bar</code>، <code>.al-sidebar__here</code>، <code>.al-sidebar__toggle</code>، <code>.al-sidebar__menu</code>، <code>.al-sidebar__collapse</code>، <code>.al-sidebar__foot</code>، <code>.al-sidebar__label</code>، <code>.al-sidebar__link</code>، <code>.al-sidebar__nav</code>.</p>
 <h2 id="البنية">البنية</h2>
 <pre tabindex="0"><code class="language-html">&lt;div class=&quot;al-shell&quot; data-sidebar=&quot;&quot;&gt;
   &lt;aside class=&quot;al-sidebar&quot;&gt;
-    &lt;nav class=&quot;al-sidebar__nav&quot; aria-label=&quot;Sections&quot;&gt;
-      &lt;a class=&quot;al-sidebar__link&quot; href=&quot;/board&quot; aria-current=&quot;page&quot;&gt;&lt;svg class=&quot;al-icon&quot; aria-hidden=&quot;true&quot;&gt;…&lt;/svg&gt;&lt;span class=&quot;al-sidebar__label&quot;&gt;Tracking board&lt;/span&gt;&lt;/a&gt;
-    &lt;/nav&gt;
-    &lt;div class=&quot;al-sidebar__foot&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;al-sidebar__link al-sidebar__collapse&quot; aria-expanded=&quot;true&quot;&gt;
-        &lt;svg class=&quot;al-icon al-mirror&quot; aria-hidden=&quot;true&quot;&gt;…sidebar…&lt;/svg&gt;&lt;span class=&quot;al-sidebar__label&quot;&gt;Collapse sidebar&lt;/span&gt;&lt;/button&gt;
+    &lt;div class=&quot;al-sidebar__bar&quot;&gt;
+      &lt;span class=&quot;al-sidebar__here&quot;&gt;Tracking board&lt;/span&gt;
+      &lt;button type=&quot;button&quot; class=&quot;al-button al-button--icon al-button--quiet al-sidebar__toggle&quot; data-sidebar-menu-toggle aria-controls=&quot;sidebar-menu&quot; aria-expanded=&quot;false&quot; aria-label=&quot;Menu&quot;&gt;
+        &lt;svg class=&quot;al-icon al-sidebar__open&quot; aria-hidden=&quot;true&quot;&gt;…menu…&lt;/svg&gt;&lt;svg class=&quot;al-icon al-sidebar__close&quot; aria-hidden=&quot;true&quot;&gt;…close…&lt;/svg&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;al-sidebar__menu&quot; id=&quot;sidebar-menu&quot;&gt;
+      &lt;nav class=&quot;al-sidebar__nav&quot; aria-label=&quot;Sections&quot;&gt;
+        &lt;a class=&quot;al-sidebar__link&quot; href=&quot;/board&quot; aria-current=&quot;page&quot;&gt;&lt;svg class=&quot;al-icon&quot; aria-hidden=&quot;true&quot;&gt;…&lt;/svg&gt;&lt;span class=&quot;al-sidebar__label&quot;&gt;Tracking board&lt;/span&gt;&lt;/a&gt;
+      &lt;/nav&gt;
+      &lt;div class=&quot;al-sidebar__foot&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;al-sidebar__link al-sidebar__collapse&quot; aria-expanded=&quot;true&quot;&gt;
+          &lt;svg class=&quot;al-icon al-mirror&quot; aria-hidden=&quot;true&quot;&gt;…sidebar…&lt;/svg&gt;&lt;span class=&quot;al-sidebar__label&quot;&gt;Collapse sidebar&lt;/span&gt;&lt;/button&gt;
+      &lt;/div&gt;
     &lt;/div&gt;
   &lt;/aside&gt;
   &lt;main&gt;…&lt;/main&gt;
-&lt;/div&gt;</code></pre>
+&lt;/div&gt;
+&lt;script type=&quot;module&quot;&gt;
+  import { initSidebars } from &quot;./js/sidebar.js&quot;;
+  initSidebars();
+&lt;/script&gt;</code></pre>
+<p>لا يظهر الشريط إلا تحت <code>md</code>؛ وفوقها يتنحّى <code>.al-sidebar__menu</code> (<code>display: contents</code>)، فيبقى التنقل والأسفل في العمود كما كانا. وضع اسم القسم الحالي في <code>.al-sidebar__here</code>، ليعرف من يستخدم الهاتف أين هو دون أن يفتح القائمة.</p>
 <h2 id="الأنواع-والأحجام">الأنواع والأحجام</h2>
-<p>الكامل (224px) والمطويّ (<code>data-sidebar=&quot;collapsed&quot;</code> على الغلاف، 60px). واحفظ اختيار كل شخص.</p>
+<p>الكامل (224px) والمطويّ (<code>data-sidebar=&quot;collapsed&quot;</code> على الغلاف، 60px). واحفظ اختيار كل شخص. وتحت <code>md</code> شكل واحد: تُظهر القائمة كل الأسماء، مطويًّا كان أم لا، ويُخفى زر الطيّ.</p>
 <h2 id="الحالات">الحالات</h2>
 <p>التمرير: لون النص، وسطح فاتح. الحالي: السطح، ووزن متوسط، وحافة وأيقونة بلون التمييز. التركيز: إطار التركيز في النظام.</p>
+<p>وتحت <code>md</code>، مغلقًا: الشريط وحده. مفتوحًا: الأقسام، كلٌّ في صف أعلى ليسهل لمسه، ثم الأسفل تحت خطه؛ وتصير أيقونة زر القائمة علامة إغلاق. والقائمة الطويلة تُمرَّر، ويبقى الشريط في أعلاها.</p>
 <h2 id="لوحة-المفاتيح">لوحة المفاتيح</h2>
-<p>Tab بين الروابط؛ وزر الطيّ يقلب بالمفتاح Enter أو المسافة.</p>
+<p>Tab بين الروابط؛ وزر الطيّ يقلب بالمفتاح Enter أو المسافة. وتحت <code>md</code> يفتح زر القائمة القائمة ويغلقها بالمفتاح Enter أو المسافة؛ وEscape يغلقها ويعيد التركيز إلى الزر؛ واختيار رابط يغلقها.</p>
 <h2 id="aria">ARIA</h2>
-<p>عنصر <code>nav</code> مسمّى؛ و<code>aria-current=&quot;page&quot;</code>. وعند الطيّ، تُخفى التسميات بصريًا لكنها تبقى مقروءة؛ وأضف تلميح أدوات (<code>title</code> أو <code>data-al-tip</code>) بالاسم. ولزر الطيّ <code>aria-expanded</code> وتسمية تقول ما الذي سيفعله.</p>
+<p>عنصر <code>nav</code> مسمّى؛ و<code>aria-current=&quot;page&quot;</code>. وعند الطيّ، تُخفى التسميات بصريًا لكنها تبقى مقروءة؛ وأضف تلميح أدوات (<code>title</code> أو <code>data-al-tip</code>) بالاسم. ولزر الطيّ <code>aria-expanded</code> وتسمية تقول ما الذي سيفعله. ولزر القائمة <code>aria-expanded</code> و<code>aria-controls</code>؛ ويبقى اسمه «القائمة»، وتقول حالته إن كانت مفتوحة.</p>
 <h2 id="من-اليمين-إلى-اليسار">من اليمين إلى اليسار</h2>
 <p>على اليمين في العربية، وحافته وعلامة العنصر الحالي في جهة البداية؛ وتنعكس أيقونة الطيّ.</p>
 <h2 id="افعل">افعل</h2>
 <ul>
 <li>اقتصر على سبعة أقسام أو أقل، والإعدادات في الأسفل.</li>
+<li>حمّل <code>js/sidebar.js</code>: فبدونه تبقى القائمة مغلقة على الهاتف.</li>
 </ul>
 <h2 id="لا-تفعل">لا تفعل</h2>
 <ul>
 <li>إخفاء اسم قسم دون تلميح أدوات.</li>
 </ul>
 <h2 id="الرموز">الرموز</h2>
-<p><code>--al-border-hairline</code>، <code>--al-color-accent</code>، <code>--al-color-line</code>، <code>--al-color-surface</code>، <code>--al-color-surface-sunk</code>، <code>--al-color-text</code>، <code>--al-color-text-muted</code>، <code>--al-radius-sm</code>، <code>--al-size-control-sm</code>، <code>--al-space-0-5</code>، <code>--al-space-1</code>، <code>--al-space-2</code>، <code>--al-space-3</code>، <code>--al-space-5</code>، <code>--al-space-6</code>، <code>--al-weight-medium</code>، <code>--al-z-sticky</code></p>
+<p><code>--al-border-hairline</code>، <code>--al-color-accent</code>، <code>--al-color-line</code>، <code>--al-color-surface</code>، <code>--al-color-surface-sunk</code>، <code>--al-color-text</code>، <code>--al-color-text-muted</code>، <code>--al-radius-sm</code>، <code>--al-size-control-md</code>، <code>--al-size-control-sm</code>، <code>--al-space-0-5</code>، <code>--al-space-1</code>، <code>--al-space-2</code>، <code>--al-space-3</code>، <code>--al-space-5</code>، <code>--al-space-6</code>، <code>--al-weight-medium</code>، <code>--al-z-sticky</code></p>
 </article><p class="dp-source"><a class="al-link al-link--muted" target="_blank" rel="noopener" href="https://github.com/ArabesqueLabs/design-system/blob/main/docs/components/ar/sidebar.md">اعرض هذه الصفحة على GitHub<svg class="al-icon al-mirror" aria-hidden="true" focusable="false"><use href="../../../dist/icons.svg#al-icon-external"></use></svg><span class="al-visually-hidden"> (يُفتح في تبويب جديد)</span></a></p></main></div><div class="al-page"><footer class="al-footer"><span class="al-lockup"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="al-mark" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="miter"><path d="M9.37 -9.37L5.49 0L9.37 9.37L0 5.49L-9.37 9.37L-5.49 0L-9.37 -9.37L0 -5.49Z M73.37 -9.37L69.49 0L73.37 9.37L64 5.49L54.63 9.37L58.51 0L54.63 -9.37L64 -5.49Z M9.37 54.63L5.49 64L9.37 73.37L0 69.49L-9.37 73.37L-5.49 64L-9.37 54.63L0 58.51Z M73.37 54.63L69.49 64L73.37 73.37L64 69.49L54.63 73.37L58.51 64L54.63 54.63L64 58.51Z"></path><path d="M64 32L48 38.63L54.63 54.63L38.63 48L32 64L25.37 48L9.37 54.63L16 38.63L0 32L16 25.37L9.37 9.37L25.37 16L32 0L38.63 16L54.63 9.37L48 25.37Z"></path><rect x="1.6" y="1.6" width="60.8" height="60.8"></rect></g></svg><span lang="en" dir="ltr">Arabesque Labs Ltd.</span></span></footer></div>
 <script type="module">
   import { initSiteHeaders } from "../../../js/site-header.js";

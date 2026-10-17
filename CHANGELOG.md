@@ -6,6 +6,26 @@ All notable changes to the design system. The format follows
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-10-17
+
+### Fixed
+
+- **Sidebar** ([spec](docs/components/sidebar.md), React `Shell`): on a
+  phone its links scrolled sideways in a row, so sections past the edge of
+  the screen, the current one among them, were out of sight. Under md it's
+  now a bar with the current section's name and a menu button; the sections
+  and the foot drop below it, one per row, as the site header's menu does.
+  New classes: `.al-sidebar__bar`, `.al-sidebar__here`,
+  `.al-sidebar__toggle`, `.al-sidebar__menu` (which wraps the nav and the
+  foot), and a `menuId` on `Shell`. `js/sidebar.js` (`initSidebars()`)
+  wires the menu button, and `js/nav-menu.js` (`wireNavMenu()`) is the menu
+  button the sidebar and the site header now share. Upgrading HTML by hand:
+  add the bar, wrap the nav and the foot in the menu, and load
+  `js/sidebar.js`; without it, the menu stays closed on a phone.
+- The showcase's introduction says the system is built by Arabesque Labs to
+  set the standard for its products, in one plain sentence, without the
+  highlights.
+
 ## [0.5.0] - 2026-10-17
 
 ### Added

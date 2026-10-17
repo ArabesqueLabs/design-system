@@ -901,7 +901,7 @@ export const demos: Demo[] = [
   d("section", "Section", "Content", "A band of the page: a hairline from the one before, its heading and lede.", "page-head", SectionDemo),
   d("steps", "Steps", "Content", "A numbered sequence: the stages of how something is done. Only for real sequences.", "steps", StepsDemo),
   d("page-head", "Page head and tabs", "Navigation", "The page's title, what applies to the whole page, then its views.", "page-head", PageHeadDemo),
-  d("sidebar", "Sidebar", "Navigation", "An app's sections, collapsible to icons; a bar along the top on small screens.", "sidebar", SidebarDemo),
+  d("sidebar", "Sidebar", "Navigation", "An app's sections, collapsible to icons; on a phone, behind a menu button.", "sidebar", SidebarDemo),
   d("site-header", "Site header", "Navigation", "A website's top bar: the lockup, the sections, and the language and theme controls. Under the md breakpoint the sections fold into a menu.", "site-header", SiteHeaderDemo),
   d("on-this-page", "On this page", "Navigation", "A page's sections beside it, with the one being read marked as it scrolls.", "toc", OnThisPageDemo),
   d("language-link", "Language link", "Navigation", "The same page in the other language, named in that language. Never a flag.", "language-switch", LanguageDemo),

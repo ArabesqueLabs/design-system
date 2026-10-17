@@ -14,6 +14,7 @@ body { margin: 0; }
 .ex-frame { padding: var(--al-space-5); border: var(--al-border-hairline) dashed var(--al-color-line-strong); border-radius: var(--al-radius-sm); }
 .ex-shell { min-block-size: 0; border: var(--al-border-hairline) solid var(--al-color-line); border-radius: var(--al-radius-sm); overflow: hidden; }
 .ex-shell .al-sidebar { position: static; block-size: auto; min-block-size: 16rem; }
+@media (max-width: 52rem) { .ex-shell .al-sidebar { min-block-size: 0; } }
 .ex-shell__main { padding: var(--al-space-5); }
 .ex-flush .al-site-header { position: static; }
 .ex-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--al-space-2); }

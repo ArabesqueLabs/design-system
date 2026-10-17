@@ -589,11 +589,18 @@ function ThemeToggle({ className }) {
 }
 
 // react/src/sidebar.tsx
-import { useState as useState2 } from "react";
+import { useEffect as useEffect6, useRef as useRef4, useState as useState2 } from "react";
+import { initSidebars } from "../../js/sidebar.js";
 import { jsx as jsx15, jsxs as jsxs12 } from "react/jsx-runtime";
-function Shell({ label, links, footLinks = [], defaultCollapsed = false, onCollapsedChange, children, className }) {
+function Shell({ label, links, footLinks = [], defaultCollapsed = false, onCollapsedChange, menuId, children, className }) {
   const { labels } = useArabesque();
   const [collapsed, setCollapsed] = useState2(defaultCollapsed);
+  const ref = useRef4(null);
+  const menu = useStableId(menuId, "sidebar-menu");
+  useEffect6(() => {
+    if (ref.current) initSidebars(ref.current);
+  }, []);
+  const here = [...links, ...footLinks].find((l) => l.current)?.label;
   const link = (l) => /* @__PURE__ */ jsxs12("a", { className: "al-sidebar__link", href: l.href, "aria-current": l.current ? "page" : void 0, title: collapsed ? l.label : void 0, children: [
     /* @__PURE__ */ jsx15(Icon, { name: l.icon }),
     /* @__PURE__ */ jsx15("span", { className: "al-sidebar__label", children: l.label })
@@ -603,13 +610,22 @@ function Shell({ label, links, footLinks = [], defaultCollapsed = false, onColla
     onCollapsedChange?.(!collapsed);
   };
   return /* @__PURE__ */ jsxs12("div", { className: cx("al-shell", className), "data-sidebar": collapsed ? "collapsed" : "", children: [
-    /* @__PURE__ */ jsxs12("aside", { className: "al-sidebar", children: [
-      /* @__PURE__ */ jsx15("nav", { className: "al-sidebar__nav", "aria-label": label ?? labels.sections, children: links.map(link) }),
-      /* @__PURE__ */ jsxs12("div", { className: "al-sidebar__foot", children: [
-        footLinks.map(link),
-        /* @__PURE__ */ jsxs12("button", { type: "button", className: "al-sidebar__link al-sidebar__collapse", "aria-expanded": !collapsed, onClick: toggle, children: [
-          /* @__PURE__ */ jsx15(Icon, { name: "sidebar" }),
-          /* @__PURE__ */ jsx15("span", { className: "al-sidebar__label", children: collapsed ? labels.expandSidebar : labels.collapseSidebar })
+    /* @__PURE__ */ jsxs12("aside", { ref, className: "al-sidebar", children: [
+      /* @__PURE__ */ jsxs12("div", { className: "al-sidebar__bar", children: [
+        here && /* @__PURE__ */ jsx15("span", { className: "al-sidebar__here", children: here }),
+        /* @__PURE__ */ jsxs12("button", { type: "button", className: "al-button al-button--icon al-button--quiet al-sidebar__toggle", "data-sidebar-menu-toggle": "", "aria-controls": menu, "aria-expanded": "false", "aria-label": labels.menu, children: [
+          /* @__PURE__ */ jsx15(Icon, { name: "menu", className: "al-sidebar__open" }),
+          /* @__PURE__ */ jsx15(Icon, { name: "close", className: "al-sidebar__close" })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs12("div", { className: "al-sidebar__menu", id: menu, children: [
+        /* @__PURE__ */ jsx15("nav", { className: "al-sidebar__nav", "aria-label": label ?? labels.sections, children: links.map(link) }),
+        /* @__PURE__ */ jsxs12("div", { className: "al-sidebar__foot", children: [
+          footLinks.map(link),
+          /* @__PURE__ */ jsxs12("button", { type: "button", className: "al-sidebar__link al-sidebar__collapse", "aria-expanded": !collapsed, onClick: toggle, children: [
+            /* @__PURE__ */ jsx15(Icon, { name: "sidebar" }),
+            /* @__PURE__ */ jsx15("span", { className: "al-sidebar__label", children: collapsed ? labels.expandSidebar : labels.collapseSidebar })
+          ] })
         ] })
       ] })
     ] }),
@@ -700,22 +716,22 @@ function useToast() {
 }
 
 // react/src/dialog.tsx
-import { useEffect as useEffect6, useRef as useRef4 } from "react";
+import { useEffect as useEffect7, useRef as useRef5 } from "react";
 import { openDialog } from "../../js/dialog.js";
 import { jsx as jsx21, jsxs as jsxs18 } from "react/jsx-runtime";
 function Dialog({ open, onClose, title, children, actions, guardChanges, returnFocusTo, size, id, className, onSubmit }) {
   const { labels } = useArabesque();
-  const ref = useRef4(null);
+  const ref = useRef5(null);
   const dialogId = useStableId(id, "dialog");
-  const close = useRef4(onClose);
+  const close = useRef5(onClose);
   close.current = onClose;
-  useEffect6(() => {
+  useEffect7(() => {
     const d = ref.current;
     if (!d) return;
     if (open && !d.open) openDialog(d, { opener: returnFocusTo?.current ?? document.activeElement });
     else if (!open && d.open) d.close();
   }, [open]);
-  useEffect6(() => {
+  useEffect7(() => {
     const d = ref.current;
     if (!d) return;
     const closed = () => queueMicrotask(() => {
@@ -740,13 +756,13 @@ function Dialog({ open, onClose, title, children, actions, guardChanges, returnF
 }
 
 // react/src/menu.tsx
-import { useEffect as useEffect7, useRef as useRef5 } from "react";
+import { useEffect as useEffect8, useRef as useRef6 } from "react";
 import { initMenus } from "../../js/menu.js";
 import { Fragment as Fragment10, jsx as jsx22, jsxs as jsxs19 } from "react/jsx-runtime";
 function Menu({ label, icon, menuLabel, items, id, className }) {
-  const ref = useRef5(null);
+  const ref = useRef6(null);
   const menuId = useStableId(id, "menu");
-  useEffect7(() => {
+  useEffect8(() => {
     if (ref.current) initMenus(ref.current);
   }, []);
   useTooltips(!!icon);
@@ -867,15 +883,15 @@ function BulkBar({ count, actions, onClear, className }) {
 }
 
 // react/src/kbd.tsx
-import { Fragment as Fragment12, useEffect as useEffect8, useRef as useRef6 } from "react";
+import { Fragment as Fragment12, useEffect as useEffect9, useRef as useRef7 } from "react";
 import { renderModifierKeys } from "../../js/keys.js";
 import { jsx as jsx27, jsxs as jsxs24 } from "react/jsx-runtime";
 function Kbd({ className, ...rest }) {
   return /* @__PURE__ */ jsx27("kbd", { className: cx("al-kbd", className), ...rest });
 }
 function Shortcuts({ shortcuts, titles, className }) {
-  const ref = useRef6(null);
-  useEffect8(() => {
+  const ref = useRef7(null);
+  useEffect9(() => {
     if (ref.current) renderModifierKeys(ref.current, titles ? { titles } : void 0);
   });
   return /* @__PURE__ */ jsx27("dl", { ref, className: cx("al-shortcuts", className), children: shortcuts.map((s, i) => /* @__PURE__ */ jsxs24(Fragment12, { children: [
@@ -885,7 +901,7 @@ function Shortcuts({ shortcuts, titles, className }) {
 }
 
 // react/src/code.tsx
-import { Fragment as Fragment13, useEffect as useEffect9, useRef as useRef7 } from "react";
+import { Fragment as Fragment13, useEffect as useEffect10, useRef as useRef8 } from "react";
 import { initCopy } from "../../js/copy.js";
 import { highlights, tokenize } from "../../js/highlight.js";
 import { initTabs as initTabs2 } from "../../js/tabs.js";
@@ -921,9 +937,9 @@ function CopyButton() {
   ] });
 }
 function CodeBlock({ code = "", mark, language, samples, label, caption, copy = true, id, className }) {
-  const ref = useRef7(null);
+  const ref = useRef8(null);
   const base = useStableId(id, "code");
-  useEffect9(() => {
+  useEffect10(() => {
     if (!ref.current) return;
     initTabs2(ref.current);
     initCopy(ref.current);
@@ -940,8 +956,8 @@ function CodeBlock({ code = "", mark, language, samples, label, caption, copy = 
   ] });
 }
 function Command({ children, prompt = true, className }) {
-  const ref = useRef7(null);
-  useEffect9(() => {
+  const ref = useRef8(null);
+  useEffect10(() => {
     if (ref.current) initCopy(ref.current);
   }, []);
   return /* @__PURE__ */ jsxs25("div", { ref, className: cx("al-command", prompt && "al-command--prompt", className), children: [
@@ -961,12 +977,12 @@ function LogoWordmark({ className, ...rest }) {
 }
 
 // react/src/pattern.tsx
-import { useEffect as useEffect10, useRef as useRef8 } from "react";
+import { useEffect as useEffect11, useRef as useRef9 } from "react";
 import { drawHero, drawPattern } from "../../js/pattern.js";
 import { jsx as jsx30, jsxs as jsxs26 } from "react/jsx-runtime";
 function Pattern({ full, quiet, className, children, ...rest }) {
-  const art = useRef8(null);
-  useEffect10(() => {
+  const art = useRef9(null);
+  useEffect11(() => {
     if (art.current) drawPattern(art.current);
   }, []);
   return /* @__PURE__ */ jsxs26("section", { className: cx("al-pattern", full && "al-pattern--full", quiet && "al-pattern--quiet", className), ...rest, children: [
@@ -976,9 +992,9 @@ function Pattern({ full, quiet, className, children, ...rest }) {
 }
 function Hero({ animate = true, className, children, ...rest }) {
   const { lang } = useArabesque();
-  const art = useRef8(null);
-  const drawn = useRef8(false);
-  useEffect10(() => {
+  const art = useRef9(null);
+  const drawn = useRef9(false);
+  useEffect11(() => {
     if (!art.current) return;
     drawHero(art.current, { animate: animate && !drawn.current });
     drawn.current = true;
@@ -1006,13 +1022,13 @@ function CallToAction({ heading, lede, actions, pattern = true, id, className, .
 }
 
 // react/src/toc.tsx
-import { useEffect as useEffect11, useRef as useRef9 } from "react";
+import { useEffect as useEffect12, useRef as useRef10 } from "react";
 import { initToc } from "../../js/toc.js";
 import { jsx as jsx32, jsxs as jsxs28 } from "react/jsx-runtime";
 function OnThisPage({ links, title, className }) {
   const { labels } = useArabesque();
-  const ref = useRef9(null);
-  useEffect11(() => {
+  const ref = useRef10(null);
+  useEffect12(() => {
     if (ref.current) initToc(ref.current.parentNode ?? document);
   }, []);
   return /* @__PURE__ */ jsxs28("nav", { ref, className: cx("al-toc", className), "aria-label": labels.onThisPage, children: [
@@ -1022,14 +1038,14 @@ function OnThisPage({ links, title, className }) {
 }
 
 // react/src/chart.tsx
-import { useEffect as useEffect12, useRef as useRef10 } from "react";
+import { useEffect as useEffect13, useRef as useRef11 } from "react";
 import { initChartKeys } from "../../js/chart.js";
 import { jsx as jsx33, jsxs as jsxs29 } from "react/jsx-runtime";
 var iso = (s) => `⁦${s}⁩`;
 function useChartKeys() {
-  const ref = useRef10(null);
+  const ref = useRef11(null);
   useTooltips();
-  useEffect12(() => {
+  useEffect13(() => {
     if (ref.current) initChartKeys(ref.current);
   });
   return ref;
@@ -1102,7 +1118,7 @@ function BulletChart({ rows, target, max, format, formatDiff }) {
 }
 
 // react/src/construction.tsx
-import { useEffect as useEffect13, useRef as useRef11 } from "react";
+import { useEffect as useEffect14, useRef as useRef12 } from "react";
 import { formatNumber as formatNumber3 } from "../../js/format.js";
 import { initConstruction } from "../../js/pattern.js";
 import { jsx as jsx34, jsxs as jsxs30 } from "react/jsx-runtime";
@@ -1120,10 +1136,10 @@ var STEPS = {
 };
 function ConstructionFigure({ adjustable, steps, className, id }) {
   const { lang, numerals, labels } = useArabesque();
-  const ref = useRef11(null);
+  const ref = useRef12(null);
   const angleId = useStableId(id, "construction-angle");
   const list = steps ?? STEPS[/^ar\b/i.test(lang) ? "ar" : "en"];
-  useEffect13(() => {
+  useEffect14(() => {
     if (ref.current?.parentNode) initConstruction(ref.current.parentNode);
   }, []);
   return /* @__PURE__ */ jsxs30("figure", { ref, className: cx("al-construction", className), "data-construction": "", children: [
@@ -1159,14 +1175,14 @@ function BackLink({ children, className, ...rest }) {
 }
 
 // react/src/forms.tsx
-import { useEffect as useEffect14, useRef as useRef12 } from "react";
+import { useEffect as useEffect15, useRef as useRef13 } from "react";
 import { initSearch } from "../../js/search.js";
 import { jsx as jsx36, jsxs as jsxs31 } from "react/jsx-runtime";
 function ErrorSummary({ errors, title, autoFocus = true, id, className }) {
   const { labels } = useArabesque();
   const base = useStableId(id, "error-summary");
-  const ref = useRef12(null);
-  useEffect14(() => {
+  const ref = useRef13(null);
+  useEffect15(() => {
     if (autoFocus && errors.length) ref.current?.focus();
   }, [autoFocus, errors.length]);
   if (!errors.length) return null;
@@ -1181,15 +1197,15 @@ function ErrorSummary({ errors, title, autoFocus = true, id, className }) {
 function Search({ label, id, className, onChange, ...rest }) {
   const { labels } = useArabesque();
   const inputId = useStableId(id, "search");
-  const box = useRef12(null);
-  const clear = useRef12(null);
-  useEffect14(() => {
+  const box = useRef13(null);
+  const clear = useRef13(null);
+  useEffect15(() => {
     if (box.current?.parentElement) initSearch(box.current.parentElement);
   }, []);
   const sync = (value) => {
     if (clear.current) clear.current.hidden = !value;
   };
-  useEffect14(() => {
+  useEffect15(() => {
     sync(String(rest.value ?? rest.defaultValue ?? ""));
   });
   return /* @__PURE__ */ jsxs31("form", { role: "search", className, onSubmit: (e) => e.preventDefault(), children: [
@@ -1217,8 +1233,8 @@ function SummaryList({ rows, className }) {
   ] }, i)) });
 }
 function Confirmation({ title, children, autoFocus = true, className, ...rest }) {
-  const ref = useRef12(null);
-  useEffect14(() => {
+  const ref = useRef13(null);
+  useEffect15(() => {
     if (autoFocus) ref.current?.focus();
   }, [autoFocus]);
   return /* @__PURE__ */ jsxs31("div", { ref, className: cx("al-confirmation", className), tabIndex: -1, ...rest, children: [
@@ -1228,19 +1244,19 @@ function Confirmation({ title, children, autoFocus = true, className, ...rest })
 }
 
 // react/src/character-count.tsx
-import { useEffect as useEffect15, useRef as useRef13 } from "react";
+import { useEffect as useEffect16, useRef as useRef14 } from "react";
 import { initCharacterCounts } from "../../js/count.js";
 import { formatNumber as formatNumber4 } from "../../js/format.js";
 import { jsx as jsx37 } from "react/jsx-runtime";
 function CharacterCount({ max, className, ...rest }) {
   const settings = useArabesque();
-  const live = useRef13(settings);
+  const live = useRef14(settings);
   live.current = settings;
   const field = useField(rest);
-  const ref = useRef13(null);
-  const redraw = useRef13(() => {
+  const ref = useRef14(null);
+  const redraw = useRef14(() => {
   });
-  useEffect15(() => {
+  useEffect16(() => {
     const parent = ref.current?.parentElement;
     if (!parent) return;
     const n = (v) => formatNumber4(v, { lang: live.current.lang, numerals: live.current.numerals });
@@ -1253,7 +1269,7 @@ function CharacterCount({ max, className, ...rest }) {
       limit: (m) => fill(live.current.labels.countLimit, { n: n(m) })
     });
   }, []);
-  useEffect15(() => {
+  useEffect16(() => {
     redraw.current();
   }, [settings.lang, settings.numerals, settings.labels]);
   return /* @__PURE__ */ jsx37("textarea", { ref, className: cx("al-textarea", className), "data-al-maxlength": max, ...rest, ...field });
@@ -1281,18 +1297,18 @@ function DateInput({ legend, hint, id, birthday, defaultValue = {}, className })
 }
 
 // react/src/date-picker.tsx
-import { useEffect as useEffect16, useRef as useRef14 } from "react";
+import { useEffect as useEffect17, useRef as useRef15 } from "react";
 import { initDatePickers } from "../../js/datepicker.js";
 import { jsx as jsx39, jsxs as jsxs33 } from "react/jsx-runtime";
 function DatePicker({ name, defaultValue, min, max, onChange, ...field }) {
   const settings = useArabesque();
-  const live = useRef14(settings);
+  const live = useRef15(settings);
   live.current = settings;
-  const changed = useRef14(onChange);
+  const changed = useRef15(onChange);
   changed.current = onChange;
-  const wrap = useRef14(null);
-  const picker = useRef14(null);
-  useEffect16(() => {
+  const wrap = useRef15(null);
+  const picker = useRef15(null);
+  useEffect17(() => {
     const el = wrap.current;
     if (!el) return;
     const [p] = initDatePickers(el, {
@@ -1309,7 +1325,7 @@ function DatePicker({ name, defaultValue, min, max, onChange, ...field }) {
       picker.current = null;
     };
   }, []);
-  useEffect16(() => {
+  useEffect17(() => {
     picker.current?.refresh();
   }, [settings.lang, settings.numerals]);
   return /* @__PURE__ */ jsx39(Field, { ...field, children: /* @__PURE__ */ jsxs33("div", { className: "al-date-picker", ref: wrap, children: [
@@ -1326,7 +1342,7 @@ function DateExample({ date }) {
 }
 
 // react/src/phase-banner.tsx
-import { useEffect as useEffect17, useRef as useRef15 } from "react";
+import { useEffect as useEffect18, useRef as useRef16 } from "react";
 import { initAnnouncements } from "../../js/announcement.js";
 import { jsx as jsx40, jsxs as jsxs34 } from "react/jsx-runtime";
 function PhaseBanner({ phase, children, className }) {
@@ -1337,8 +1353,8 @@ function PhaseBanner({ phase, children, className }) {
 }
 function Announcement({ id, children, className }) {
   const { labels } = useArabesque();
-  const ref = useRef15(null);
-  useEffect17(() => {
+  const ref = useRef16(null);
+  useEffect18(() => {
     if (ref.current) initAnnouncements(ref.current.parentNode ?? document);
   }, []);
   return /* @__PURE__ */ jsxs34("div", { ref, className: cx("al-announcement", className), "data-announcement": id, role: "region", "aria-label": labels.announcement, children: [

@@ -31,6 +31,34 @@
 .al-tab__count { font-size: var(--al-text-xs); color: var(--al-color-text-muted); font-variant-numeric: tabular-nums; }
 .al-tabpanel { padding-block-start: var(--al-space-5); }
 
+/* Feature tabs: a column of tabs, each a name and a line about it, beside
+   the panel the chosen one shows (a sample, a picture of it working). Up
+   and down arrows move (aria-orientation="vertical"). Under md the column
+   sits above the panel. */
+.al-feature-tabs { display: grid; grid-template-columns: minmax(14rem, 1fr) minmax(0, 2fr); gap: var(--al-space-8); align-items: start; }
+.al-feature-tabs__list { display: flex; flex-direction: column; gap: var(--al-space-1); }
+.al-feature-tab {
+  display: grid;
+  gap: var(--al-space-1);
+  padding: var(--al-space-3) var(--al-space-4);
+  border: 0;
+  border-inline-start: 2px solid var(--al-color-line);
+  background: none;
+  color: var(--al-color-text-muted);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.al-feature-tab__name { font-weight: var(--al-weight-medium); }
+.al-feature-tab__about { font-size: var(--al-text-sm); }
+.al-feature-tab:hover { color: var(--al-color-text); }
+.al-feature-tab[aria-selected="true"] { border-inline-start-color: var(--al-color-accent); background: var(--al-color-surface-sunk); }
+.al-feature-tab[aria-selected="true"] .al-feature-tab__name { color: var(--al-color-text); }
+.al-feature-tab:focus-visible { outline: var(--al-border-focus) solid var(--al-color-focus); outline-offset: -2px; }
+.al-feature-tabs__panel { min-inline-size: 0; }
+@media (max-width: 52rem) { .al-feature-tabs { grid-template-columns: minmax(0, 1fr); gap: var(--al-space-5); } }
+
 @media (forced-colors: active) {
   .al-tab[aria-current="page"]::after, .al-tab[aria-selected="true"]::after { background: Highlight; forced-color-adjust: none; }
+  .al-feature-tab[aria-selected="true"] { border-inline-start-color: Highlight; }
 }

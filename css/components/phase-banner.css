@@ -12,3 +12,25 @@
   font-size: var(--al-text-sm);
 }
 .al-phase-banner__text { color: var(--al-color-text-muted); }
+
+/* Announcement: above everything, one line of news and its link, on the
+   inverse ground, with a way to dismiss it that's remembered
+   (js/announcement.js). One at a time, and never for anything urgent. */
+.al-announcement {
+  display: grid;
+  grid-template-columns: var(--al-size-target-min) minmax(0, 1fr) var(--al-size-target-min);
+  align-items: center;
+  gap: var(--al-space-2);
+  padding: var(--al-space-1) var(--al-space-2);
+  background: var(--al-color-inverse);
+  color: var(--al-color-on-inverse);
+  font-size: var(--al-text-sm);
+}
+.al-announcement[hidden] { display: none; }
+.al-announcement__text { grid-column: 2; margin: 0; text-align: center; }
+.al-announcement a { color: inherit; text-decoration-color: currentColor; }
+.al-announcement a:hover { color: inherit; text-decoration-thickness: 2px; }
+.al-announcement :focus-visible { outline: var(--al-border-focus) solid var(--al-color-focus-on-inverse); outline-offset: 2px; }
+.al-announcement__dismiss { grid-column: 3; justify-self: end; color: inherit; }
+.al-announcement__dismiss:hover { color: inherit; background: none; opacity: 0.8; }
+@media (forced-colors: active) { .al-announcement { border-block-end: 1px solid CanvasText; } }

@@ -1,7 +1,8 @@
 import { type ReactNode } from "react";
 import { type IconName } from "./icon.js";
 export type MenuEntry = {
-    label: ReactNode;
+    label: ReactNode; /** A line about what it does, under its name. */
+    description?: ReactNode;
     onSelect?: () => void;
     danger?: boolean;
     disabled?: boolean; /** One of several (menuitemradio): checked or not. */

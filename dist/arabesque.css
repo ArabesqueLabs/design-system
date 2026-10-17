@@ -85,6 +85,13 @@
   --al-color-tint-blue-ink: #1E40AF;
   --al-color-tint-cyan-bg: #CFFAFE;
   --al-color-tint-cyan-ink: #155E75;
+  --al-color-syntax-keyword: #7E22CE;
+  --al-color-syntax-string: #166534;
+  --al-color-syntax-number: #9A3412;
+  --al-color-syntax-comment: #5B6474;
+  --al-color-syntax-function: #1D4ED8;
+  --al-color-syntax-tag: #0F766E;
+  --al-color-syntax-attribute: #9D174D;
   --al-color-pattern-line: oklch(24.5% 0.028 265 / 0.26);
   --al-color-pattern-scaffold: oklch(24.5% 0.028 265 / 0.12);
   --al-color-pattern-quiet: oklch(24.5% 0.028 265 / 0.14);
@@ -221,6 +228,13 @@
     --al-color-tint-blue-ink: #93C5FD;
     --al-color-tint-cyan-bg: oklch(75% 0.13 215 / 0.18);
     --al-color-tint-cyan-ink: #67E8F9;
+    --al-color-syntax-keyword: #D8B4FE;
+    --al-color-syntax-string: #86EFAC;
+    --al-color-syntax-number: #FDBA74;
+    --al-color-syntax-comment: #A3ABB8;
+    --al-color-syntax-function: #93C5FD;
+    --al-color-syntax-tag: #5EEAD4;
+    --al-color-syntax-attribute: #F9A8D4;
     --al-color-pattern-line: oklch(100% 0 0 / 0.2);
     --al-color-pattern-scaffold: oklch(100% 0 0 / 0.1);
     --al-color-pattern-quiet: oklch(100% 0 0 / 0.1);
@@ -275,6 +289,13 @@
   --al-color-tint-blue-ink: #93C5FD;
   --al-color-tint-cyan-bg: oklch(75% 0.13 215 / 0.18);
   --al-color-tint-cyan-ink: #67E8F9;
+  --al-color-syntax-keyword: #D8B4FE;
+  --al-color-syntax-string: #86EFAC;
+  --al-color-syntax-number: #FDBA74;
+  --al-color-syntax-comment: #A3ABB8;
+  --al-color-syntax-function: #93C5FD;
+  --al-color-syntax-tag: #5EEAD4;
+  --al-color-syntax-attribute: #F9A8D4;
   --al-color-pattern-line: oklch(100% 0 0 / 0.2);
   --al-color-pattern-scaffold: oklch(100% 0 0 / 0.1);
   --al-color-pattern-quiet: oklch(100% 0 0 / 0.1);
@@ -479,6 +500,12 @@ button, [role="button"] { cursor: pointer; }
 .al-section + .al-section { border-block-start: var(--al-border-hairline) solid var(--al-color-line); }
 .al-section__title { margin: 0; max-inline-size: 20ch; font-family: var(--al-font-display); font-size: var(--al-text-3xl); font-weight: var(--al-weight-regular); line-height: var(--al-leading-heading); letter-spacing: var(--al-tracking-tight); }
 .al-section__lede { margin: 0; }
+/* Eyebrow: a few words above a heading that say which part of the page
+   this is, in the accent; a number before them counts the parts. Sentence
+   case, never capitals. With its heading, in an <hgroup>. */
+.al-section__head { display: flex; flex-direction: column; gap: var(--al-space-3); margin: 0; }
+.al-eyebrow { display: flex; align-items: baseline; gap: var(--al-space-2); margin: 0; font-size: var(--al-text-sm); font-weight: var(--al-weight-medium); letter-spacing: var(--al-tracking-wide); color: var(--al-color-accent); }
+.al-eyebrow__index { font-family: var(--al-font-mono); font-variant-numeric: tabular-nums; color: var(--al-color-text-muted); }
 
 /* Stack: children one under another, evenly spaced (--al-stack-gap). */
 .al-stack { display: flex; flex-direction: column; gap: var(--al-stack-gap, var(--al-space-4)); }
@@ -794,7 +821,8 @@ button, [role="button"] { cursor: pointer; }
 /* css/components/card.css */
 /* Card: a bordered surface that groups one thing. Panel: a section of a
    page marked by a rule above, not a box (most groupings need only this).
-   Stat: a figure with its label and a note. No shadows: borders and
+   Stat: a figure with its label and a note; stats, a row of them, large,
+   with a hairline before each and no boxes. No shadows: borders and
    surface steps carry depth. */
 .al-card {
   display: flex;
@@ -821,7 +849,22 @@ button, [role="button"] { cursor: pointer; }
 .al-stat__value { font-family: var(--al-font-display); font-size: var(--al-text-2xl); line-height: var(--al-leading-tight); font-variant-numeric: tabular-nums; }
 .al-stat__note { font-size: var(--al-text-sm); color: var(--al-color-text-muted); }
 
-@media (forced-colors: active) { .al-card, .al-stat { border-color: CanvasText; } }
+.al-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr)); gap: var(--al-space-6); }
+.al-stats .al-stat { gap: var(--al-space-2); padding: 0; padding-inline-start: var(--al-space-5); border: 0; border-inline-start: var(--al-border-hairline) solid var(--al-color-line-strong); border-radius: 0; background: none; }
+.al-stats .al-stat__value { font-size: var(--al-text-3xl); }
+
+/* Quote: what someone said, in their words, then who they are. The
+   quotation marks are the language's own (open-quote, close-quote). */
+.al-quote { display: flex; flex-direction: column; justify-content: space-between; gap: var(--al-space-5); margin: 0; padding: var(--al-space-5); border: var(--al-border-hairline) solid var(--al-color-line); border-radius: var(--al-radius-sm); background: var(--al-color-surface); min-inline-size: 0; }
+.al-quote blockquote { display: flex; flex-direction: column; gap: var(--al-space-3); margin: 0; font-family: var(--al-font-serif); font-size: var(--al-text-md); line-height: var(--al-leading-prose); }
+.al-quote blockquote > p { margin: 0; }
+.al-quote blockquote > p:first-child::before { content: open-quote; }
+.al-quote blockquote > p:last-child::after { content: close-quote; }
+.al-quote__by { display: flex; align-items: center; gap: var(--al-space-3); font-size: var(--al-text-sm); }
+.al-quote__name { display: block; font-weight: var(--al-weight-medium); }
+.al-quote__role { display: block; color: var(--al-color-text-muted); }
+
+@media (forced-colors: active) { .al-card, .al-stat, .al-stats .al-stat, .al-quote { border-color: CanvasText; } }
 
 }
 
@@ -977,6 +1020,81 @@ button, [role="button"] { cursor: pointer; }
 }
 
 @layer al.components {
+/* css/components/code.css */
+/* Code: a sample to read or copy, in a box of its own that scrolls, always
+   left to right (code reads that way in either language). A bar above names
+   it, or offers it in several languages (tabs, js/tabs.js), and copies it
+   (js/copy.js). Lines can be marked: the ones the reader should look at.
+   Syntax colour (js/highlight.js) says what kind of word each is, the
+   same in every sample; comments are italic too, so it isn't colour alone.
+   A command: one line to paste into a terminal, with its copy button. */
+.al-code { min-inline-size: 0; border: var(--al-border-hairline) solid var(--al-color-line); border-radius: var(--al-radius-sm); background: var(--al-color-surface-sunk); }
+.al-code__bar { display: flex; align-items: center; gap: var(--al-space-3); min-block-size: var(--al-size-control-md); padding-inline: var(--al-space-4) var(--al-space-1); border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
+.al-code__caption { font-family: var(--al-font-mono); font-size: var(--al-text-xs); color: var(--al-color-text-muted); overflow-wrap: anywhere; }
+.al-code__tabs { display: flex; gap: var(--al-space-1); margin-inline-start: calc(-1 * var(--al-space-2)); }
+.al-code__tab { padding: var(--al-space-1) var(--al-space-2); border: var(--al-border-hairline) solid transparent; border-radius: var(--al-radius-sm); background: none; color: var(--al-color-text-muted); font: inherit; font-size: var(--al-text-sm); cursor: pointer; }
+.al-code__tab:hover { color: var(--al-color-text); }
+.al-code__tab[aria-selected="true"] { border-color: var(--al-color-line); background: var(--al-color-surface); color: var(--al-color-text); }
+.al-code__tab:focus-visible, .al-code__pre:focus-visible { outline: var(--al-border-focus) solid var(--al-color-focus); outline-offset: -2px; }
+.al-code__copy { margin-inline-start: auto; }
+.al-code__copy[data-copied] .al-code__copy-idle, .al-code__copy:not([data-copied]) .al-code__copy-done { display: none; }
+.al-code__copy[data-copied] .al-code__copy-done { color: var(--al-color-success); }
+.al-code__pre {
+  margin: 0;
+  padding: var(--al-space-4);
+  overflow-x: auto;
+  direction: ltr;
+  text-align: start;
+  font-family: var(--al-font-mono);
+  font-size: var(--al-text-sm);
+  line-height: 1.7;
+  tab-size: 2;
+}
+.al-code__pre code { font: inherit; }
+.al-code__line { display: inline-block; box-sizing: content-box; min-inline-size: 100%; min-block-size: 1lh; }
+/* A marked line runs the box's width, with an accent bar at its start. */
+.al-code__line--mark {
+  margin-inline: calc(-1 * var(--al-space-4));
+  padding-inline: calc(var(--al-space-4) - 2px) var(--al-space-4);
+  border-inline-start: 2px solid var(--al-color-accent);
+  background: var(--al-color-accent-wash);
+  color: inherit;
+}
+
+.al-syntax-keyword { color: var(--al-color-syntax-keyword); }
+.al-syntax-string { color: var(--al-color-syntax-string); }
+.al-syntax-number { color: var(--al-color-syntax-number); }
+.al-syntax-comment { color: var(--al-color-syntax-comment); font-style: italic; }
+.al-syntax-function { color: var(--al-color-syntax-function); }
+.al-syntax-tag { color: var(--al-color-syntax-tag); }
+.al-syntax-attribute { color: var(--al-color-syntax-attribute); }
+
+.al-command {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--al-space-2);
+  max-inline-size: 100%;
+  min-block-size: var(--al-size-control-md);
+  padding-inline: var(--al-space-4) var(--al-space-1);
+  border: var(--al-border-hairline) solid var(--al-color-line-strong);
+  border-radius: var(--al-radius-sm);
+  background: var(--al-color-surface-sunk);
+}
+.al-command code { min-inline-size: 0; overflow-x: auto; direction: ltr; white-space: nowrap; font-family: var(--al-font-mono); font-size: var(--al-text-sm); }
+/* The prompt is shown, never copied or read out. */
+.al-command--prompt code::before { content: "$"; content: "$" / ""; margin-inline-end: 1ch; color: var(--al-color-text-muted); user-select: none; }
+.al-command .al-code__copy { margin-inline-start: 0; }
+
+@media (forced-colors: active) {
+  .al-code, .al-command { border-color: CanvasText; }
+  .al-code__tab[aria-selected="true"] { border-color: Highlight; }
+  .al-code__line--mark { border-inline-start-color: Highlight; }
+  .al-code [class*="al-syntax-"] { color: CanvasText; }
+}
+
+}
+
+@layer al.components {
 /* css/components/confirmation.css */
 /* Confirmation (from GOV.UK): the end of a flow that sends or creates
    something: a clear title saying it's done, the reference people may
@@ -1023,6 +1141,28 @@ button, [role="button"] { cursor: pointer; }
   .al-construction__scaffold, .al-construction__strands { stroke: CanvasText; }
   .al-construction__rays { stroke: Highlight; }
 }
+
+}
+
+@layer al.components {
+/* css/components/cta.css */
+/* Call to action: the page's last word. One line, then what to do: the
+   primary action, a quieter one, and perhaps the command that starts it.
+   Centred, on the sunk surface; with the pattern, quiet, behind it (in an
+   .al-pattern--quiet). One per page, at its end. */
+.al-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--al-space-5);
+  padding: var(--al-space-section) var(--al-space-4);
+  border-block-start: var(--al-border-hairline) solid var(--al-color-line);
+  background: var(--al-color-surface-sunk);
+  text-align: center;
+}
+.al-cta__title { margin: 0; max-inline-size: 20ch; font-family: var(--al-font-display); font-size: var(--al-text-3xl); font-weight: var(--al-weight-regular); line-height: var(--al-leading-heading); letter-spacing: var(--al-tracking-tight); text-wrap: balance; }
+.al-cta__lede { margin: 0; }
+.al-cta__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--al-space-3); }
 
 }
 
@@ -1213,6 +1353,8 @@ button, [role="button"] { cursor: pointer; }
 }
 .al-disclosure__body { padding-block: var(--al-space-2) var(--al-space-4); display: flex; flex-direction: column; gap: var(--al-space-3); }
 .al-disclosure:hover > summary { color: var(--al-color-accent); }
+/* A group (questions and answers): a hairline under the last one too. */
+.al-disclosure-group > .al-disclosure:last-child { border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
 .al-disclosure:hover > summary .al-disclosure__value { color: var(--al-color-text-muted); }
 
 }
@@ -1469,6 +1611,28 @@ button, [role="button"] { cursor: pointer; }
 }
 
 @layer al.components {
+/* css/components/logos.css */
+/* Logo wall: who uses it, as a list of their marks in one colour
+   (currentColor for SVG; images in grey), as many to a row as fit. Still:
+   never a scrolling marquee. A wordmark in type stands in for a logo file. */
+.al-logos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(9rem, 100%), 1fr));
+  gap: var(--al-space-6) var(--al-space-8);
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--al-color-text-muted);
+}
+.al-logos > li { display: flex; align-items: center; justify-content: center; min-block-size: 3rem; }
+.al-logos :is(img, svg:not(.al-icon)) { max-inline-size: 100%; max-block-size: 2rem; inline-size: auto; }
+.al-logos img { filter: grayscale(1); }
+.al-logos__wordmark { display: inline-flex; align-items: center; gap: 0.4em; font-family: var(--al-font-display); font-size: var(--al-text-lg); font-weight: var(--al-weight-medium); letter-spacing: var(--al-tracking-tight); white-space: nowrap; }
+
+}
+
+@layer al.components {
 /* css/components/menu.css */
 /* Menu: actions on one thing, behind a button ("More", "Move to…"), in a
    native popover. Arrow keys move between items, Escape closes and returns
@@ -1502,6 +1666,9 @@ button, [role="button"] { cursor: pointer; }
 .al-menu__item:focus-visible { box-shadow: inset 0 0 0 var(--al-border-focus) var(--al-color-focus); }
 .al-menu__item[aria-checked="true"]::after { content: "✓"; margin-inline-start: auto; color: var(--al-color-accent); }
 .al-menu__item--danger { color: var(--al-color-danger); }
+/* With a line about what it does, under its name. */
+.al-menu__item--described { flex-direction: column; align-items: flex-start; gap: 0; padding-block: var(--al-space-2); }
+.al-menu__description { font-size: var(--al-text-xs); color: var(--al-color-text-muted); }
 .al-menu__separator { block-size: 1px; margin-block: var(--al-space-1); background: var(--al-color-line); border: 0; }
 .al-menu__label { padding: var(--al-space-1-5) var(--al-space-3) var(--al-space-1); font-size: var(--al-text-xs); color: var(--al-color-text-muted); }
 @media (forced-colors: active) {
@@ -1546,8 +1713,36 @@ button, [role="button"] { cursor: pointer; }
 .al-tab__count { font-size: var(--al-text-xs); color: var(--al-color-text-muted); font-variant-numeric: tabular-nums; }
 .al-tabpanel { padding-block-start: var(--al-space-5); }
 
+/* Feature tabs: a column of tabs, each a name and a line about it, beside
+   the panel the chosen one shows (a sample, a picture of it working). Up
+   and down arrows move (aria-orientation="vertical"). Under md the column
+   sits above the panel. */
+.al-feature-tabs { display: grid; grid-template-columns: minmax(14rem, 1fr) minmax(0, 2fr); gap: var(--al-space-8); align-items: start; }
+.al-feature-tabs__list { display: flex; flex-direction: column; gap: var(--al-space-1); }
+.al-feature-tab {
+  display: grid;
+  gap: var(--al-space-1);
+  padding: var(--al-space-3) var(--al-space-4);
+  border: 0;
+  border-inline-start: 2px solid var(--al-color-line);
+  background: none;
+  color: var(--al-color-text-muted);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.al-feature-tab__name { font-weight: var(--al-weight-medium); }
+.al-feature-tab__about { font-size: var(--al-text-sm); }
+.al-feature-tab:hover { color: var(--al-color-text); }
+.al-feature-tab[aria-selected="true"] { border-inline-start-color: var(--al-color-accent); background: var(--al-color-surface-sunk); }
+.al-feature-tab[aria-selected="true"] .al-feature-tab__name { color: var(--al-color-text); }
+.al-feature-tab:focus-visible { outline: var(--al-border-focus) solid var(--al-color-focus); outline-offset: -2px; }
+.al-feature-tabs__panel { min-inline-size: 0; }
+@media (max-width: 52rem) { .al-feature-tabs { grid-template-columns: minmax(0, 1fr); gap: var(--al-space-5); } }
+
 @media (forced-colors: active) {
   .al-tab[aria-current="page"]::after, .al-tab[aria-selected="true"]::after { background: Highlight; forced-color-adjust: none; }
+  .al-feature-tab[aria-selected="true"] { border-inline-start-color: Highlight; }
 }
 
 }
@@ -1716,6 +1911,28 @@ button, [role="button"] { cursor: pointer; }
   font-size: var(--al-text-sm);
 }
 .al-phase-banner__text { color: var(--al-color-text-muted); }
+
+/* Announcement: above everything, one line of news and its link, on the
+   inverse ground, with a way to dismiss it that's remembered
+   (js/announcement.js). One at a time, and never for anything urgent. */
+.al-announcement {
+  display: grid;
+  grid-template-columns: var(--al-size-target-min) minmax(0, 1fr) var(--al-size-target-min);
+  align-items: center;
+  gap: var(--al-space-2);
+  padding: var(--al-space-1) var(--al-space-2);
+  background: var(--al-color-inverse);
+  color: var(--al-color-on-inverse);
+  font-size: var(--al-text-sm);
+}
+.al-announcement[hidden] { display: none; }
+.al-announcement__text { grid-column: 2; margin: 0; text-align: center; }
+.al-announcement a { color: inherit; text-decoration-color: currentColor; }
+.al-announcement a:hover { color: inherit; text-decoration-thickness: 2px; }
+.al-announcement :focus-visible { outline: var(--al-border-focus) solid var(--al-color-focus-on-inverse); outline-offset: 2px; }
+.al-announcement__dismiss { grid-column: 3; justify-self: end; color: inherit; }
+.al-announcement__dismiss:hover { color: inherit; background: none; opacity: 0.8; }
+@media (forced-colors: active) { .al-announcement { border-block-end: 1px solid CanvasText; } }
 
 }
 
@@ -1966,14 +2183,16 @@ button.al-sidebar__link { inline-size: 100%; border-block: 0; border-inline-end:
 /* css/components/site-header.css */
 /* Site header: the website's top bar. The lockup, the sections, the
    language and theme controls; under the md breakpoint the sections fold
-   into a menu (js/site-header.js), which drops below the bar. */
+   into a menu (js/site-header.js), which drops below the bar. The language
+   link and any other tools fold into it too, so the bar keeps only the
+   lockup, the theme button and the menu button. */
 /* It folds by its own width (a container query), so it works in a sidebar
    or a narrow preview as well as across a page. --sticky keeps it at the
    top while the page scrolls. */
 .al-site-header { position: relative; container: al-site-header / inline-size; }
 .al-site-header--sticky { position: sticky; inset-block-start: 0; z-index: var(--al-z-sticky); background: var(--al-color-bg); border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
 .al-site-header__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--al-space-6); min-block-size: 5rem; }
-.al-site-header__lockup { color: var(--al-color-text); text-decoration: none; }
+.al-site-header__lockup { min-inline-size: 0; color: var(--al-color-text); text-decoration: none; }
 .al-site-header__end { display: flex; align-items: center; gap: var(--al-space-4) var(--al-space-8); }
 .al-site-header__nav ul, .al-site-header__menu ul { list-style: none; margin: 0; padding: 0; }
 .al-site-header__nav ul { display: flex; gap: var(--al-space-8); }
@@ -1982,17 +2201,30 @@ button.al-sidebar__link { inline-size: 100%; border-block: 0; border-inline-end:
 /* The current page: underlined in the accent. */
 .al-site-header__nav a[aria-current], .al-site-header__menu a[aria-current] { text-decoration: underline; text-decoration-color: var(--al-color-accent); text-decoration-thickness: 2px; text-underline-offset: 0.45em; }
 .al-site-header__tools { display: flex; align-items: center; gap: var(--al-space-2); }
+.al-site-header__extras { display: flex; align-items: center; gap: var(--al-space-4); margin-inline-end: var(--al-space-2); }
 .al-site-header__toggle { display: none; }
+/* The page's one action (Sign up, Say hello): it stays in the bar at every width. */
+.al-site-header__action { display: flex; }
+/* The menu button shows a cross while the menu is open. */
+.al-site-header__toggle[aria-expanded="true"] .al-site-header__open, .al-site-header__toggle:not([aria-expanded="true"]) .al-site-header__close { display: none; }
 .al-site-header__menu { padding-block: var(--al-space-2) var(--al-space-6); border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
-.al-site-header__menu a { display: block; padding-block: var(--al-space-4); font-size: var(--al-text-lg); color: var(--al-color-text); text-decoration: none; border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
-.al-site-header__menu a:hover { color: var(--al-color-accent); }
+.al-site-header__menu li a { display: block; padding-block: var(--al-space-4); font-size: var(--al-text-lg); color: var(--al-color-text); text-decoration: none; border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
+.al-site-header__menu li a:hover { color: var(--al-color-accent); }
+/* Under the links: the language link and the other tools from the bar. */
+.al-site-header__menu-tools { display: flex; flex-wrap: wrap; align-items: center; gap: var(--al-space-3) var(--al-space-6); padding-block-start: var(--al-space-5); }
 .al-site-header__menu[hidden] { display: none; }
 @container al-site-header (max-width: 52rem) {
-  .al-site-header__nav { display: none; }
+  .al-site-header__nav, .al-site-header__extras { display: none; }
   .al-site-header__toggle { display: inline-flex; }
   .al-site-header__bar { min-block-size: 4rem; }
 }
 @container al-site-header (min-width: 52.0625rem) { .al-site-header__menu { display: none; } }
+/* On a phone, the lockup keeps the name only. */
+@container al-site-header (max-width: 30rem) { .al-site-header__lockup .al-lockup__product { display: none; } }
+/* With an action, narrower still: the mark alone, its name kept for screen readers. */
+@container al-site-header (max-width: 28rem) {
+  .al-site-header:has(.al-site-header__action) .al-site-header__lockup .al-wordmark { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
 
 /* The theme toggle's half-filled disc turns over in dark. */
 [data-theme-toggle] .al-icon { transition: rotate var(--al-duration-base) var(--al-ease-standard); }
@@ -2222,6 +2454,21 @@ a.al-highlight { text-decoration-color: currentColor; text-underline-offset: 0.2
 .al-toast[data-leaving] { opacity: 0; transition: opacity var(--al-duration-base) var(--al-ease-exit); }
 @keyframes al-toast-in { from { opacity: 0; transform: translateY(0.5rem); } }
 @media (forced-colors: active) { .al-toast { border: 1px solid CanvasText; } }
+
+}
+
+@layer al.components {
+/* css/components/toc.css */
+/* On this page: the page's sections, beside it, the one being read marked
+   (js/toc.js). Sticky beside the content; above it, and not sticky, under md. */
+.al-toc { position: sticky; inset-block-start: var(--al-space-6); font-size: var(--al-text-sm); }
+.al-toc__title { margin: 0 0 var(--al-space-3); font-weight: var(--al-weight-medium); color: var(--al-color-text-muted); }
+.al-toc ul { display: grid; margin: 0; padding: 0; list-style: none; }
+.al-toc a { display: block; padding: var(--al-space-1) 0 var(--al-space-1) var(--al-space-3); border-inline-start: 2px solid var(--al-color-line); color: var(--al-color-text-muted); text-decoration: none; }
+.al-toc a:hover { color: var(--al-color-text); }
+.al-toc a[aria-current] { border-inline-start-color: var(--al-color-accent); color: var(--al-color-text); }
+@media (max-width: 52rem) { .al-toc { position: static; } }
+@media (forced-colors: active) { .al-toc a[aria-current] { border-inline-start-color: Highlight; } }
 
 }
 

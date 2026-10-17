@@ -11,7 +11,7 @@ Every spec is also in Arabic, in [`ar/`](ar/README.md); the showcase links to th
 | [Checkbox, radio and switch](choice.md) | Native checkboxes and radios in the accent colour, and a switch for settings that take effect at once. |
 | [Segmented control](segmented.md) | One of two to five short options, all visible at once. |
 | [Disclosure](disclosure.md) | A native `<details>` for what's secondary, optionally showing what's chosen inside it while closed (the fold with a summary value). |
-| [Card, panel and stat](card.md) | Containers. |
+| [Card, panel, stats and quote](card.md) | Containers, the figures a page leads with, and what someone said. |
 | [Page head](page-head.md) | The page's title, and on the trailing side what applies to the whole page: its settings, views and primary action. |
 | [Tabs and section nav](nav.md) | Tabs between views of one thing, and section navigation between pages; they look the same, and differ in markup. |
 | [Site header](site-header.md) | A website's top bar: the lockup, the sections, language and theme; a menu under md. |
@@ -32,6 +32,10 @@ Every spec is also in Arabic, in [`ar/`](ar/README.md); the showcase links to th
 | [Pending changes: save state, changed field, rollback, stale](save-state.md) | Whether a change is kept, what's changed but not saved, an optimistic change that failed and was put back, and a result that no longer matches its inputs. |
 | [Bulk action bar](bulk-bar.md) | Once things are selected: how many, what can be done to all of them, and a way to clear. |
 | [Keyboard keys and shortcuts](kbd.md) | Keys, and the list of shortcuts that `?` opens. |
+| [Logo wall](logos.md) | Who uses it: their marks in one colour, as many to a row as fit. |
+| [Call to action](cta.md) | The page's last word: one line, then what to do. |
+| [On this page](toc.md) | A page's sections beside it, the one being read marked as it scrolls. |
+| [Code and command](code.md) | Code to read or copy, always left to right, with the lines that matter marked; a command, one line to paste. |
 | [Charts](chart.md) | Columns, a split bar and a bullet chart, in plain HTML and CSS. |
 | [Brand: mark, wordmark, lockup](brand.md) | The mark (one tile of the pattern, in a square frame) beside the wordmark. |
 | [Pattern](pattern.md) | The tessellation of the mark's tile: as texture behind a band, or across a hero with its focal tile, drawn in on load. |

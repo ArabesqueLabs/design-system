@@ -2,6 +2,41 @@
 
 How components combine for common jobs. Each is shown working in `index.html`.
 
+## A product's page
+
+The parts of a page that says what something is and why to use it, in order.
+Take only those you have something true to put in.
+
+1. **An announcement**, if there's news ([phase banner](components/phase-banner.md)), dismissible.
+2. **The site header** with the page's one action, which stays in the bar on a
+   phone ([site header](components/site-header.md)).
+3. **The hero**: a plain claim, a lede, two actions, and the real thing, not a
+   picture of a feeling: a code sample ([code](components/code.md)) or the
+   product itself.
+4. **Who uses it** ([logo wall](components/logos.md)) and **the figures**
+   ([stats](components/card.md)), each said with what it counts.
+5. **What it does**: [feature tabs](components/nav.md), each a name, a line,
+   and a sample of it working.
+6. **What people say** ([quotes](components/card.md)), with their permission.
+7. **Questions and answers** (below).
+8. **A call to action** ([call to action](components/cta.md)), once, at the end.
+
+Each band is a [section](foundations/layout.md) with an eyebrow and a heading
+written as a claim ([writing](foundations/writing.md)). A long document has
+[on this page](components/toc.md) beside it instead.
+
+## Questions and answers
+
+The questions people ask before they start, answered on the page.
+
+- One [disclosure](components/disclosure.md) per question, in a
+  `.al-disclosure-group`, under a heading ("Questions"). The summary is the
+  question as people would ask it; the answer is a short paragraph, with a
+  link to the page that says more.
+- Order them by how often they're asked. Six to ten; past that, a help page.
+- Keep the answer in the page (`<details>`), so find-in-page and search
+  engines reach it.
+
 ## Ask, check, confirm
 
 For anything sent, or hard to take back.

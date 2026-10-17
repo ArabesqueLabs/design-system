@@ -1,0 +1,70 @@
+/* Code: a sample to read or copy, in a box of its own that scrolls, always
+   left to right (code reads that way in either language). A bar above names
+   it, or offers it in several languages (tabs, js/tabs.js), and copies it
+   (js/copy.js). Lines can be marked: the ones the reader should look at.
+   Syntax colour (js/highlight.js) says what kind of word each is, the
+   same in every sample; comments are italic too, so it isn't colour alone.
+   A command: one line to paste into a terminal, with its copy button. */
+.al-code { min-inline-size: 0; border: var(--al-border-hairline) solid var(--al-color-line); border-radius: var(--al-radius-sm); background: var(--al-color-surface-sunk); }
+.al-code__bar { display: flex; align-items: center; gap: var(--al-space-3); min-block-size: var(--al-size-control-md); padding-inline: var(--al-space-4) var(--al-space-1); border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
+.al-code__caption { font-family: var(--al-font-mono); font-size: var(--al-text-xs); color: var(--al-color-text-muted); overflow-wrap: anywhere; }
+.al-code__tabs { display: flex; gap: var(--al-space-1); margin-inline-start: calc(-1 * var(--al-space-2)); }
+.al-code__tab { padding: var(--al-space-1) var(--al-space-2); border: var(--al-border-hairline) solid transparent; border-radius: var(--al-radius-sm); background: none; color: var(--al-color-text-muted); font: inherit; font-size: var(--al-text-sm); cursor: pointer; }
+.al-code__tab:hover { color: var(--al-color-text); }
+.al-code__tab[aria-selected="true"] { border-color: var(--al-color-line); background: var(--al-color-surface); color: var(--al-color-text); }
+.al-code__tab:focus-visible, .al-code__pre:focus-visible { outline: var(--al-border-focus) solid var(--al-color-focus); outline-offset: -2px; }
+.al-code__copy { margin-inline-start: auto; }
+.al-code__copy[data-copied] .al-code__copy-idle, .al-code__copy:not([data-copied]) .al-code__copy-done { display: none; }
+.al-code__copy[data-copied] .al-code__copy-done { color: var(--al-color-success); }
+.al-code__pre {
+  margin: 0;
+  padding: var(--al-space-4);
+  overflow-x: auto;
+  direction: ltr;
+  text-align: start;
+  font-family: var(--al-font-mono);
+  font-size: var(--al-text-sm);
+  line-height: 1.7;
+  tab-size: 2;
+}
+.al-code__pre code { font: inherit; }
+.al-code__line { display: inline-block; box-sizing: content-box; min-inline-size: 100%; min-block-size: 1lh; }
+/* A marked line runs the box's width, with an accent bar at its start. */
+.al-code__line--mark {
+  margin-inline: calc(-1 * var(--al-space-4));
+  padding-inline: calc(var(--al-space-4) - 2px) var(--al-space-4);
+  border-inline-start: 2px solid var(--al-color-accent);
+  background: var(--al-color-accent-wash);
+  color: inherit;
+}
+
+.al-syntax-keyword { color: var(--al-color-syntax-keyword); }
+.al-syntax-string { color: var(--al-color-syntax-string); }
+.al-syntax-number { color: var(--al-color-syntax-number); }
+.al-syntax-comment { color: var(--al-color-syntax-comment); font-style: italic; }
+.al-syntax-function { color: var(--al-color-syntax-function); }
+.al-syntax-tag { color: var(--al-color-syntax-tag); }
+.al-syntax-attribute { color: var(--al-color-syntax-attribute); }
+
+.al-command {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--al-space-2);
+  max-inline-size: 100%;
+  min-block-size: var(--al-size-control-md);
+  padding-inline: var(--al-space-4) var(--al-space-1);
+  border: var(--al-border-hairline) solid var(--al-color-line-strong);
+  border-radius: var(--al-radius-sm);
+  background: var(--al-color-surface-sunk);
+}
+.al-command code { min-inline-size: 0; overflow-x: auto; direction: ltr; white-space: nowrap; font-family: var(--al-font-mono); font-size: var(--al-text-sm); }
+/* The prompt is shown, never copied or read out. */
+.al-command--prompt code::before { content: "$"; content: "$" / ""; margin-inline-end: 1ch; color: var(--al-color-text-muted); user-select: none; }
+.al-command .al-code__copy { margin-inline-start: 0; }
+
+@media (forced-colors: active) {
+  .al-code, .al-command { border-color: CanvasText; }
+  .al-code__tab[aria-selected="true"] { border-color: Highlight; }
+  .al-code__line--mark { border-inline-start-color: Highlight; }
+  .al-code [class*="al-syntax-"] { color: CanvasText; }
+}

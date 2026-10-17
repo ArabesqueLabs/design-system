@@ -4,7 +4,7 @@
 
 عنصر `<details>` أصلي لما هو ثانوي، يعرض اختياريًا ما اختير بداخله وهو مطويّ (الطيّة مع قيمة ملخصة).
 
-**CSS:** [`css/components/disclosure.css`](../../../css/components/disclosure.css). **الأصناف:** `.al-disclosure`، `.al-disclosure__body`، `.al-disclosure__value`.
+**CSS:** [`css/components/disclosure.css`](../../../css/components/disclosure.css). **الأصناف:** `.al-disclosure`، `.al-disclosure__body`، `.al-disclosure__value`، `.al-disclosure-group`.
 
 ## البنية
 
@@ -17,7 +17,7 @@
 
 ## الأنواع والأحجام
 
-بسيط (دون قيمة) ومع `__value`. ضع عدة عناصر فوق بعضها دون فراغ: كل منها يرسم خطًا فوقه.
+بسيط (دون قيمة) ومع `__value`. ضع عدة عناصر فوق بعضها دون فراغ: كل منها يرسم خطًا فوقه. وفي `.al-disclosure-group` (وفي React `DisclosureGroup`) يرسم آخرها خطًا تحته أيضًا: لـ[الأسئلة والأجوبة](../../patterns.md#questions-and-answers).
 
 ## الحالات
 

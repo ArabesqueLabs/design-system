@@ -18,4 +18,19 @@ export interface StatProps extends ComponentPropsWithoutRef<"div"> {
     value: ReactNode;
     note?: ReactNode;
 }
+export interface QuoteProps extends Omit<ComponentPropsWithoutRef<"figure">, "children" | "role"> {
+    /** What they said: one paragraph, or several <p>s. The language's own quotation marks go around it. */
+    children: ReactNode;
+    name: ReactNode;
+    /** Their role, and where. */
+    role?: ReactNode;
+    /** Their picture or initials: an <Avatar>, or an <img alt="">. */
+    avatar?: ReactNode;
+    /** Above the quote: what it's about, as an eyebrow. */
+    eyebrow?: ReactNode;
+}
+/** What someone said, in their words, then who they are. */
+export declare function Quote({ children, name, role, avatar, eyebrow, className, ...rest }: QuoteProps): import("react").JSX.Element;
+/** Stats side by side, large, a hairline before each: the figures a page leads with. */
+export declare function Stats({ className, ...rest }: ComponentPropsWithoutRef<"div">): import("react").JSX.Element;
 export declare function Stat({ label, value, note, className, ...rest }: StatProps): import("react").JSX.Element;

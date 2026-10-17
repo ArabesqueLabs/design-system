@@ -14,6 +14,12 @@
 .al-section + .al-section { border-block-start: var(--al-border-hairline) solid var(--al-color-line); }
 .al-section__title { margin: 0; max-inline-size: 20ch; font-family: var(--al-font-display); font-size: var(--al-text-3xl); font-weight: var(--al-weight-regular); line-height: var(--al-leading-heading); letter-spacing: var(--al-tracking-tight); }
 .al-section__lede { margin: 0; }
+/* Eyebrow: a few words above a heading that say which part of the page
+   this is, in the accent; a number before them counts the parts. Sentence
+   case, never capitals. With its heading, in an <hgroup>. */
+.al-section__head { display: flex; flex-direction: column; gap: var(--al-space-3); margin: 0; }
+.al-eyebrow { display: flex; align-items: baseline; gap: var(--al-space-2); margin: 0; font-size: var(--al-text-sm); font-weight: var(--al-weight-medium); letter-spacing: var(--al-tracking-wide); color: var(--al-color-accent); }
+.al-eyebrow__index { font-family: var(--al-font-mono); font-variant-numeric: tabular-nums; color: var(--al-color-text-muted); }
 
 /* Stack: children one under another, evenly spaced (--al-stack-gap). */
 .al-stack { display: flex; flex-direction: column; gap: var(--al-stack-gap, var(--al-space-4)); }

@@ -1,0 +1,17 @@
+/* Logo wall: who uses it, as a list of their marks in one colour
+   (currentColor for SVG; images in grey), as many to a row as fit. Still:
+   never a scrolling marquee. A wordmark in type stands in for a logo file. */
+.al-logos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(9rem, 100%), 1fr));
+  gap: var(--al-space-6) var(--al-space-8);
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--al-color-text-muted);
+}
+.al-logos > li { display: flex; align-items: center; justify-content: center; min-block-size: 3rem; }
+.al-logos :is(img, svg:not(.al-icon)) { max-inline-size: 100%; max-block-size: 2rem; inline-size: auto; }
+.al-logos img { filter: grayscale(1); }
+.al-logos__wordmark { display: inline-flex; align-items: center; gap: 0.4em; font-family: var(--al-font-display); font-size: var(--al-text-lg); font-weight: var(--al-weight-medium); letter-spacing: var(--al-tracking-tight); white-space: nowrap; }

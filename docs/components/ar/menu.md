@@ -4,7 +4,7 @@
 
 إجراءات على شيء واحد، خلف زر («المزيد»، «نقل إلى…»)، في نافذة منبثقة أصلية. والملف `js/menu.js` (`initMenus()`) ينفّذ نمط زر القائمة في ARIA APG.
 
-**CSS:** [`css/components/menu.css`](../../../css/components/menu.css). **الأصناف:** `.al-menu`، `.al-menu__item`، `.al-menu__item--danger`، `.al-menu__label`، `.al-menu__separator`.
+**CSS:** [`css/components/menu.css`](../../../css/components/menu.css). **الأصناف:** `.al-menu`، `.al-menu__item`، `.al-menu__item--danger`، `.al-menu__item--described`، `.al-menu__description`، `.al-menu__label`، `.al-menu__separator`.
 
 ## البنية
 
@@ -20,7 +20,7 @@
 
 ## الأنواع والأحجام
 
-العناصر، و`menuitemradio`/`menuitemcheckbox` مع `aria-checked` (علامة صح في النهاية)، وتسميات المجموعات (`__label`)، والفواصل، وعناصر الخطر (في الآخر).
+العناصر، و`menuitemradio`/`menuitemcheckbox` مع `aria-checked` (علامة صح في النهاية)، وتسميات المجموعات (`__label`)، والفواصل، وعناصر الخطر (في الآخر). وعنصر تحت اسمه سطر عمّا يفعله (`--described` و`__description`، مربوط به بـ`aria-describedby`)، لإجراء لا تتضح عاقبته من اسمه («أرشفة: يُخفى من القوائم، ويبقى البحث يجده»).
 
 ## الحالات
 

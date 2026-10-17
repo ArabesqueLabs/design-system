@@ -4,7 +4,7 @@
 
 علامات تبويب بين طرق عرض شيء واحد، وتنقل أقسام بين الصفحات؛ يتشابهان في الشكل ويختلفان في الترميز.
 
-**CSS:** [`css/components/nav.css`](../../../css/components/nav.css). **الأصناف:** `.al-tab`، `.al-tab__count`، `.al-tabpanel`، `.al-tabs`.
+**CSS:** [`css/components/nav.css`](../../../css/components/nav.css). **الأصناف:** `.al-tab`، `.al-tab__count`، `.al-tabpanel`، `.al-tabs`، `.al-feature-tabs`، `.al-feature-tabs__list`، `.al-feature-tabs__panel`، `.al-feature-tab`، `.al-feature-tab__name`، `.al-feature-tab__about`.
 
 ## البنية
 
@@ -28,13 +28,28 @@
 
 مع الأعداد (`__count`). وتتمرر أفقيًا حين تكثر فلا تتسع.
 
+**تبويبات الميزات** (`.al-feature-tabs`؛ وفي React `FeatureTabs`): عمود من التبويبات، لكلٍّ اسم وسطر عنه، بجانب اللوح الذي يعرضه المختار منها: عيّنة شيفرة، أو صورة له وهو يعمل، أو بضعة أرقام. لقسم «ما يفعله» في صفحة منتج، من ثلاثة إلى ستة. وقائمة التبويبات `aria-orientation="vertical"`؛ وللتبويب المختار شريط بلون التمييز في بدايته والسطح الغائر. وتحت md يقع العمود فوق اللوح.
+
+```html
+<div class="al-feature-tabs">
+  <div class="al-feature-tabs__list" role="tablist" aria-label="ما يفعله" aria-orientation="vertical">
+    <button class="al-feature-tab" role="tab" id="f1" aria-controls="fp1" aria-selected="true" aria-labelledby="f1-name" aria-describedby="f1-about">
+      <span class="al-feature-tab__name" id="f1-name">من اليمين إلى اليسار</span>
+      <span class="al-feature-tab__about" id="f1-about">الخصائص المنطقية تنعكس مع الصفحة.</span>
+    </button>
+    …
+  </div>
+  <div class="al-feature-tabs__panel" role="tabpanel" id="fp1" aria-labelledby="f1-name">…</div>
+</div>
+```
+
 ## الحالات
 
 التمرير: لون النص. الحالية/المحددة: لون النص وخط سفلي بعرض 2px بلون التمييز. التركيز: إطار التركيز في النظام.
 
 ## لوحة المفاتيح
 
-تنقل الأقسام: Tab. علامات التبويب: Tab يدخل إلى العلامة المحددة؛ والسهمان الأيسر والأيمن (معكوسان في الكتابة من اليمين إلى اليسار) يتنقلان ويحددان؛ وHome وEnd يقفزان.
+تنقل الأقسام: Tab. علامات التبويب: Tab يدخل إلى العلامة المحددة؛ والسهمان الأيسر والأيمن (معكوسان في الكتابة من اليمين إلى اليسار) يتنقلان ويحددان؛ وHome وEnd يقفزان. تبويبات الميزات: السهمان العلوي والسفلي يتنقلان ويحددان.
 
 ## ARIA
 
@@ -47,6 +62,7 @@
 ## افعل
 
 - استخدم علامات التبويب لطرق عرض الشيء نفسه؛ والروابط لصفحات مختلفة.
+- أعطِ كل تبويب ميزة سطرًا يقول ما يفعله للناس، لا ما اسمه.
 
 ## لا تفعل
 
@@ -55,4 +71,4 @@
 
 ## الرموز
 
-`--al-border-hairline`، `--al-color-accent`، `--al-color-line`، `--al-color-text`، `--al-color-text-muted`، `--al-size-control-md`، `--al-space-1`، `--al-space-1-5`، `--al-space-2`، `--al-space-3`، `--al-space-5`، `--al-text-xs`، `--al-weight-medium`
+`--al-border-focus`، `--al-border-hairline`، `--al-color-accent`، `--al-color-focus`، `--al-color-line`، `--al-color-surface-sunk`، `--al-color-text`، `--al-color-text-muted`، `--al-size-control-md`، `--al-space-1`، `--al-space-1-5`، `--al-space-2`، `--al-space-3`، `--al-space-4`، `--al-space-5`، `--al-space-8`، `--al-text-sm`، `--al-text-xs`، `--al-weight-medium`

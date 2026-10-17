@@ -45,6 +45,11 @@ var englishLabels = {
   workingOut: "Working out again…",
   contactAngle: "Contact angle",
   heroCaption: "This tile is our mark. Everything around it follows from the same rule.",
+  announcement: "Announcement",
+  onThisPage: "On this page",
+  copy: "Copy",
+  copied: "Copied",
+  copyFailed: "Couldn't copy. The text is selected, so you can copy it yourself.",
   removeTag: "Remove tag {name}",
   selected: "{n} selected",
   countLeftOne: "You have {n} character remaining",
@@ -95,6 +100,11 @@ var arabicLabels = {
   workingOut: "جارٍ الحساب من جديد…",
   contactAngle: "زاوية التلامس",
   heroCaption: "هذه البلاطة هي علامتنا. كل ما حولها ينبع من القاعدة نفسها.",
+  announcement: "إعلان",
+  onThisPage: "في هذه الصفحة",
+  copy: "انسخ",
+  copied: "نُسخ",
+  copyFailed: "تعذّر النسخ. النص محدّد لتنسخه بنفسك.",
   removeTag: "أزل وسم {name}",
   selected: "{n} محدّدة",
   countLeftOne: "تبقّى لك حرف واحد",
@@ -166,19 +176,31 @@ function Button(props) {
 }
 
 // react/src/layout.tsx
-import { jsx as jsx4, jsxs as jsxs2 } from "react/jsx-runtime";
+import { Fragment as Fragment2, jsx as jsx4, jsxs as jsxs2 } from "react/jsx-runtime";
 function Page({ as, className, ...rest }) {
   const C = as ?? "div";
   return /* @__PURE__ */ jsx4(C, { className: cx("al-page", className), ...rest });
 }
-function Section({ heading, lede, id, className, children, ...rest }) {
+function Section({ heading, lede, eyebrow, index, id, className, children, ...rest }) {
   const headingId = useStableId(id ? `${id}-h` : void 0, "section");
   if (heading == null) return /* @__PURE__ */ jsx4("section", { className: cx("al-section", className), id, ...rest, children });
   return /* @__PURE__ */ jsx4("section", { className: cx("al-section", className), id, "aria-labelledby": headingId, ...rest, children: /* @__PURE__ */ jsxs2("div", { className: "al-page al-stack", children: [
-    /* @__PURE__ */ jsx4("h2", { className: "al-section__title", id: headingId, children: heading }),
+    eyebrow != null ? /* @__PURE__ */ jsxs2("hgroup", { className: "al-section__head", children: [
+      /* @__PURE__ */ jsx4(Eyebrow, { index, children: eyebrow }),
+      /* @__PURE__ */ jsx4("h2", { className: "al-section__title", id: headingId, children: heading })
+    ] }) : /* @__PURE__ */ jsx4("h2", { className: "al-section__title", id: headingId, children: heading }),
     lede && /* @__PURE__ */ jsx4("p", { className: "al-lede al-section__lede", children: lede }),
     children
   ] }) });
+}
+function Eyebrow({ index, className, children, ...rest }) {
+  return /* @__PURE__ */ jsxs2("p", { className: cx("al-eyebrow", className), ...rest, children: [
+    index != null && /* @__PURE__ */ jsxs2(Fragment2, { children: [
+      /* @__PURE__ */ jsx4("span", { className: "al-eyebrow__index", children: index }),
+      " "
+    ] }),
+    children
+  ] });
 }
 function Stack({ as, gap, className, ...rest }) {
   const C = as ?? "div";
@@ -209,7 +231,7 @@ function Bdi({ children }) {
 
 // react/src/field.tsx
 import { createContext as createContext2, useContext as useContext2 } from "react";
-import { Fragment as Fragment2, jsx as jsx5, jsxs as jsxs3 } from "react/jsx-runtime";
+import { Fragment as Fragment3, jsx as jsx5, jsxs as jsxs3 } from "react/jsx-runtime";
 var FieldCtx = createContext2(null);
 function useField(own = {}) {
   const f = useContext2(FieldCtx);
@@ -228,7 +250,7 @@ function Field({ label, id, hint, error, optional, labelNote, changed, className
   return /* @__PURE__ */ jsxs3("div", { className: cx("al-field", className), "data-changed": changed ? "" : void 0, ...rest, children: [
     /* @__PURE__ */ jsxs3("label", { className: "al-label", htmlFor: controlId, children: [
       label,
-      note && /* @__PURE__ */ jsxs3(Fragment2, { children: [
+      note && /* @__PURE__ */ jsxs3(Fragment3, { children: [
         " ",
         /* @__PURE__ */ jsx5("span", { className: "al-label__optional", children: note })
       ] })
@@ -280,7 +302,7 @@ function Hint({ className, ...rest }) {
 
 // react/src/choice.tsx
 import { useEffect as useEffect3, useRef } from "react";
-import { Fragment as Fragment3, jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
+import { Fragment as Fragment4, jsx as jsx6, jsxs as jsxs4 } from "react/jsx-runtime";
 function Choice({ label, hint, type, role, indeterminate, className, ...rest }) {
   const ref = useRef(null);
   useEffect3(() => {
@@ -291,7 +313,7 @@ function Choice({ label, hint, type, role, indeterminate, className, ...rest }) 
     " ",
     /* @__PURE__ */ jsxs4("span", { className: "al-choice__text", children: [
       label,
-      hint && /* @__PURE__ */ jsxs4(Fragment3, { children: [
+      hint && /* @__PURE__ */ jsxs4(Fragment4, { children: [
         " ",
         /* @__PURE__ */ jsx6("span", { className: "al-choice__hint", children: hint })
       ] })
@@ -328,12 +350,15 @@ function SegmentedButtons({ options, value, label, onChange, fill: fill2, classN
 }
 
 // react/src/disclosure.tsx
-import { Fragment as Fragment4, jsx as jsx8, jsxs as jsxs6 } from "react/jsx-runtime";
+import { Fragment as Fragment5, jsx as jsx8, jsxs as jsxs6 } from "react/jsx-runtime";
+function DisclosureGroup({ className, ...rest }) {
+  return /* @__PURE__ */ jsx8("div", { className: cx("al-disclosure-group", className), ...rest });
+}
 function Disclosure({ summary, value, className, children, ...rest }) {
   return /* @__PURE__ */ jsxs6("details", { className: cx("al-disclosure", className), ...rest, children: [
     /* @__PURE__ */ jsxs6("summary", { children: [
       summary,
-      value != null && /* @__PURE__ */ jsxs6(Fragment4, { children: [
+      value != null && /* @__PURE__ */ jsxs6(Fragment5, { children: [
         " ",
         /* @__PURE__ */ jsx8("span", { className: "al-disclosure__value", children: value })
       ] })
@@ -358,6 +383,23 @@ function Panel({ as, className, ...rest }) {
   const C = as ?? "section";
   return /* @__PURE__ */ jsx9(C, { className: cx("al-panel", className), ...rest });
 }
+function Quote({ children, name, role, avatar, eyebrow, className, ...rest }) {
+  const said = typeof children === "string" ? /* @__PURE__ */ jsx9("p", { children }) : children;
+  return /* @__PURE__ */ jsxs7("figure", { className: cx("al-quote", className), ...rest, children: [
+    eyebrow && /* @__PURE__ */ jsx9("p", { className: "al-eyebrow", children: eyebrow }),
+    /* @__PURE__ */ jsx9("blockquote", { children: said }),
+    /* @__PURE__ */ jsxs7("figcaption", { className: "al-quote__by", children: [
+      avatar,
+      /* @__PURE__ */ jsxs7("span", { children: [
+        /* @__PURE__ */ jsx9("span", { className: "al-quote__name", children: name }),
+        role && /* @__PURE__ */ jsx9("span", { className: "al-quote__role", children: role })
+      ] })
+    ] })
+  ] });
+}
+function Stats({ className, ...rest }) {
+  return /* @__PURE__ */ jsx9("div", { className: cx("al-stats", className), ...rest });
+}
 function Stat({ label, value, note, className, ...rest }) {
   return /* @__PURE__ */ jsxs7("div", { className: cx("al-stat", className), ...rest, children: [
     /* @__PURE__ */ jsx9("span", { className: "al-stat__label", children: label }),
@@ -367,11 +409,11 @@ function Stat({ label, value, note, className, ...rest }) {
 }
 
 // react/src/page-head.tsx
-import { Fragment as Fragment5, jsx as jsx10, jsxs as jsxs8 } from "react/jsx-runtime";
+import { Fragment as Fragment6, jsx as jsx10, jsxs as jsxs8 } from "react/jsx-runtime";
 function PageHead({ title, badge, end, lede, className, children, ...rest }) {
   return /* @__PURE__ */ jsxs8("div", { className: cx("al-page-head", className), ...rest, children: [
     /* @__PURE__ */ jsx10("h1", { children: title }),
-    badge && /* @__PURE__ */ jsxs8(Fragment5, { children: [
+    badge && /* @__PURE__ */ jsxs8(Fragment6, { children: [
       " ",
       badge
     ] }),
@@ -384,7 +426,7 @@ function PageHead({ title, badge, end, lede, className, children, ...rest }) {
 // react/src/nav.tsx
 import { useEffect as useEffect4, useRef as useRef2 } from "react";
 import { initTabs } from "../../js/tabs.js";
-import { Fragment as Fragment6, jsx as jsx11, jsxs as jsxs9 } from "react/jsx-runtime";
+import { Fragment as Fragment7, jsx as jsx11, jsxs as jsxs9 } from "react/jsx-runtime";
 function Tabs({ label, tabs, defaultTab, id, className }) {
   const ref = useRef2(null);
   const base = useStableId(id, "tabs");
@@ -395,7 +437,7 @@ function Tabs({ label, tabs, defaultTab, id, className }) {
   return /* @__PURE__ */ jsxs9("div", { ref, className, children: [
     /* @__PURE__ */ jsx11("div", { className: "al-tabs", role: "tablist", "aria-label": label, children: tabs.map((t) => /* @__PURE__ */ jsxs9("button", { type: "button", className: "al-tab", role: "tab", id: `${base}-${t.id}-tab`, "aria-controls": `${base}-${t.id}`, "aria-selected": t.id === first, tabIndex: t.id === first ? 0 : -1, children: [
       t.label,
-      t.count != null && /* @__PURE__ */ jsxs9(Fragment6, { children: [
+      t.count != null && /* @__PURE__ */ jsxs9(Fragment7, { children: [
         " ",
         /* @__PURE__ */ jsx11("span", { className: "al-tab__count", children: t.count })
       ] })
@@ -403,10 +445,40 @@ function Tabs({ label, tabs, defaultTab, id, className }) {
     tabs.map((t) => /* @__PURE__ */ jsx11("div", { className: "al-tabpanel", role: "tabpanel", id: `${base}-${t.id}`, "aria-labelledby": `${base}-${t.id}-tab`, hidden: t.id !== first, tabIndex: 0, children: t.content }, t.id))
   ] });
 }
+function FeatureTabs({ label, tabs, defaultTab, id, className }) {
+  const ref = useRef2(null);
+  const base = useStableId(id, "features");
+  const first = defaultTab ?? tabs[0]?.id;
+  useEffect4(() => {
+    if (ref.current) initTabs(ref.current);
+  }, []);
+  return /* @__PURE__ */ jsxs9("div", { ref, className: cx("al-feature-tabs", className), children: [
+    /* @__PURE__ */ jsx11("div", { className: "al-feature-tabs__list", role: "tablist", "aria-label": label, "aria-orientation": "vertical", children: tabs.map((t) => /* @__PURE__ */ jsxs9(
+      "button",
+      {
+        type: "button",
+        className: "al-feature-tab",
+        role: "tab",
+        id: `${base}-${t.id}-tab`,
+        "aria-controls": `${base}-${t.id}`,
+        "aria-selected": t.id === first,
+        tabIndex: t.id === first ? 0 : -1,
+        "aria-labelledby": `${base}-${t.id}-name`,
+        "aria-describedby": t.description ? `${base}-${t.id}-about` : void 0,
+        children: [
+          /* @__PURE__ */ jsx11("span", { className: "al-feature-tab__name", id: `${base}-${t.id}-name`, children: t.label }),
+          t.description && /* @__PURE__ */ jsx11("span", { className: "al-feature-tab__about", id: `${base}-${t.id}-about`, children: t.description })
+        ]
+      },
+      t.id
+    )) }),
+    tabs.map((t) => /* @__PURE__ */ jsx11("div", { className: "al-feature-tabs__panel", role: "tabpanel", id: `${base}-${t.id}`, "aria-labelledby": `${base}-${t.id}-name`, hidden: t.id !== first, children: t.content }, t.id))
+  ] });
+}
 function SectionNav({ label, links, className }) {
   return /* @__PURE__ */ jsx11("nav", { "aria-label": label, className, children: /* @__PURE__ */ jsx11("div", { className: "al-tabs", children: links.map((l) => /* @__PURE__ */ jsxs9("a", { className: "al-tab", href: l.href, "aria-current": l.current ? "page" : void 0, children: [
     l.label,
-    l.count != null && /* @__PURE__ */ jsxs9(Fragment6, { children: [
+    l.count != null && /* @__PURE__ */ jsxs9(Fragment7, { children: [
       " ",
       /* @__PURE__ */ jsx11("span", { className: "al-tab__count", children: l.count })
     ] })
@@ -414,7 +486,7 @@ function SectionNav({ label, links, className }) {
 }
 
 // react/src/brand.tsx
-import { Fragment as Fragment7, jsx as jsx12, jsxs as jsxs10 } from "react/jsx-runtime";
+import { Fragment as Fragment8, jsx as jsx12, jsxs as jsxs10 } from "react/jsx-runtime";
 var MARK_PATHS = [
   "M9.37 -9.37L5.49 0L9.37 9.37L0 5.49L-9.37 9.37L-5.49 0L-9.37 -9.37L0 -5.49Z M73.37 -9.37L69.49 0L73.37 9.37L64 5.49L54.63 9.37L58.51 0L54.63 -9.37L64 -5.49Z M9.37 54.63L5.49 64L9.37 73.37L0 69.49L-9.37 73.37L-5.49 64L-9.37 54.63L0 58.51Z M73.37 54.63L69.49 64L73.37 73.37L64 69.49L54.63 73.37L58.51 64L54.63 54.63L64 58.51Z",
   "M64 32L48 38.63L54.63 54.63L38.63 48L32 64L25.37 48L9.37 54.63L16 38.63L0 32L16 25.37L9.37 9.37L25.37 16L32 0L38.63 16L54.63 9.37L48 25.37Z"
@@ -435,7 +507,7 @@ function Star({ title, className, ...rest }) {
   return /* @__PURE__ */ jsx12("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 64 64", className: cx("al-mark", className), role: title ? "img" : void 0, "aria-hidden": title ? void 0 : true, "aria-label": title, focusable: "false", ...rest, children: /* @__PURE__ */ jsx12("path", { d: STAR_PATH, fill: "currentColor" }) });
 }
 function Lockup({ product, name, stacked, href, className, ...rest }) {
-  const inner = /* @__PURE__ */ jsxs10(Fragment7, { children: [
+  const inner = /* @__PURE__ */ jsxs10(Fragment8, { children: [
     /* @__PURE__ */ jsx12(Mark, {}),
     name ?? /* @__PURE__ */ jsx12(Wordmark, {}),
     product && /* @__PURE__ */ jsx12("span", { className: "al-lockup__product", children: product })
@@ -457,15 +529,19 @@ function LanguageLink({ href, lang, label, className }) {
 }
 
 // react/src/site-header.tsx
-import { jsx as jsx14, jsxs as jsxs11 } from "react/jsx-runtime";
+import { Fragment as Fragment9, jsx as jsx14, jsxs as jsxs11 } from "react/jsx-runtime";
 var LinkList = ({ links }) => /* @__PURE__ */ jsx14("ul", { children: links.map((l) => /* @__PURE__ */ jsx14("li", { children: /* @__PURE__ */ jsx14("a", { href: l.href, "aria-current": l.current ? "page" : void 0, children: l.label }) }, l.href)) });
-function SiteHeader({ home = "/", lockup, links, language, tools, sticky, skipTo = "#main", themeToggle = true, menuId, className }) {
+function SiteHeader({ home = "/", lockup, links, language, tools, action, sticky, skipTo = "#main", themeToggle = true, menuId, className }) {
   const { labels } = useArabesque();
   const ref = useRef3(null);
   const menu = useStableId(menuId, "site-menu");
   useEffect5(() => {
     if (ref.current) initSiteHeaders(ref.current.parentNode ?? document);
   }, []);
+  const extras = (language || tools) && /* @__PURE__ */ jsxs11(Fragment9, { children: [
+    language && /* @__PURE__ */ jsx14(LanguageLink, { ...language }),
+    tools
+  ] });
   return /* @__PURE__ */ jsxs11("header", { ref, className: cx("al-site-header", sticky && "al-site-header--sticky", className), children: [
     skipTo !== false && /* @__PURE__ */ jsx14(SkipLink, { href: skipTo }),
     /* @__PURE__ */ jsxs11("div", { className: "al-page al-site-header__bar", children: [
@@ -473,14 +549,20 @@ function SiteHeader({ home = "/", lockup, links, language, tools, sticky, skipTo
       /* @__PURE__ */ jsxs11("div", { className: "al-site-header__end", children: [
         /* @__PURE__ */ jsx14("nav", { className: "al-site-header__nav", "aria-label": labels.sections, children: /* @__PURE__ */ jsx14(LinkList, { links }) }),
         /* @__PURE__ */ jsxs11("div", { className: "al-site-header__tools", children: [
-          language && /* @__PURE__ */ jsx14(LanguageLink, { ...language }),
-          tools,
+          extras && /* @__PURE__ */ jsx14("div", { className: "al-site-header__extras", children: extras }),
+          action && /* @__PURE__ */ jsx14("div", { className: "al-site-header__action", children: action }),
           themeToggle && /* @__PURE__ */ jsx14(ThemeToggle, {}),
-          /* @__PURE__ */ jsx14("button", { type: "button", className: "al-button al-button--icon al-button--quiet al-site-header__toggle", "data-site-menu-toggle": "", "aria-controls": menu, "aria-expanded": "false", "aria-label": labels.menu, children: /* @__PURE__ */ jsx14(Icon, { name: "menu" }) })
+          /* @__PURE__ */ jsxs11("button", { type: "button", className: "al-button al-button--icon al-button--quiet al-site-header__toggle", "data-site-menu-toggle": "", "aria-controls": menu, "aria-expanded": "false", "aria-label": labels.menu, children: [
+            /* @__PURE__ */ jsx14(Icon, { name: "menu", className: "al-site-header__open" }),
+            /* @__PURE__ */ jsx14(Icon, { name: "close", className: "al-site-header__close" })
+          ] })
         ] })
       ] })
     ] }),
-    /* @__PURE__ */ jsx14("nav", { className: "al-page al-site-header__menu", id: menu, "aria-label": labels.sections, hidden: true, children: /* @__PURE__ */ jsx14(LinkList, { links }) })
+    /* @__PURE__ */ jsxs11("nav", { className: "al-page al-site-header__menu", id: menu, "aria-label": labels.sections, hidden: true, children: [
+      /* @__PURE__ */ jsx14(LinkList, { links }),
+      extras && /* @__PURE__ */ jsx14("div", { className: "al-site-header__menu-tools", children: extras })
+    ] })
   ] });
 }
 function ThemeToggle({ className }) {
@@ -660,7 +742,7 @@ function Dialog({ open, onClose, title, children, actions, guardChanges, returnF
 // react/src/menu.tsx
 import { useEffect as useEffect7, useRef as useRef5 } from "react";
 import { initMenus } from "../../js/menu.js";
-import { Fragment as Fragment8, jsx as jsx22, jsxs as jsxs19 } from "react/jsx-runtime";
+import { Fragment as Fragment10, jsx as jsx22, jsxs as jsxs19 } from "react/jsx-runtime";
 function Menu({ label, icon, menuLabel, items, id, className }) {
   const ref = useRef5(null);
   const menuId = useStableId(id, "menu");
@@ -679,7 +761,7 @@ function Menu({ label, icon, menuLabel, items, id, className }) {
         popoverTarget: menuId,
         "aria-label": icon ? label : void 0,
         "data-al-tip": icon ? label : void 0,
-        children: icon ? /* @__PURE__ */ jsx22(Icon, { name: icon }) : /* @__PURE__ */ jsxs19(Fragment8, { children: [
+        children: icon ? /* @__PURE__ */ jsx22(Icon, { name: icon }) : /* @__PURE__ */ jsxs19(Fragment10, { children: [
           label,
           " ",
           /* @__PURE__ */ jsx22(Icon, { name: "chevron", size: "sm" })
@@ -690,16 +772,20 @@ function Menu({ label, icon, menuLabel, items, id, className }) {
       if ("separator" in it) return /* @__PURE__ */ jsx22("hr", { className: "al-menu__separator" }, i);
       if ("group" in it) return /* @__PURE__ */ jsx22("p", { className: "al-menu__label", role: "presentation", children: it.group }, i);
       const radio = it.checked !== void 0;
-      return /* @__PURE__ */ jsx22(
+      return /* @__PURE__ */ jsxs19(
         "button",
         {
           type: "button",
-          className: cx("al-menu__item", it.danger && "al-menu__item--danger"),
+          className: cx("al-menu__item", it.danger && "al-menu__item--danger", !!it.description && "al-menu__item--described"),
           role: radio ? "menuitemradio" : "menuitem",
           "aria-checked": radio ? it.checked : void 0,
           "aria-disabled": it.disabled || void 0,
           onClick: it.disabled ? void 0 : it.onSelect,
-          children: it.label
+          "aria-describedby": it.description ? `${menuId}-${i}-about` : void 0,
+          children: [
+            it.label,
+            it.description && /* @__PURE__ */ jsx22("span", { className: "al-menu__description", id: `${menuId}-${i}-about`, children: it.description })
+          ]
         },
         i
       );
@@ -736,12 +822,12 @@ function Progress({ value, max = 100, className, ...rest }) {
 }
 
 // react/src/save-state.tsx
-import { Fragment as Fragment9, jsx as jsx25, jsxs as jsxs22 } from "react/jsx-runtime";
+import { Fragment as Fragment11, jsx as jsx25, jsxs as jsxs22 } from "react/jsx-runtime";
 function SaveState({ state, onRetry, children, className }) {
   const { labels } = useArabesque();
   return /* @__PURE__ */ jsxs22("span", { className: cx("al-save-state", className), role: "status", "data-state": state, children: [
     children ?? labels[state],
-    state === "failed" && onRetry && /* @__PURE__ */ jsxs22(Fragment9, { children: [
+    state === "failed" && onRetry && /* @__PURE__ */ jsxs22(Fragment11, { children: [
       " ",
       /* @__PURE__ */ jsx25("button", { type: "button", className: "al-button al-button--quiet al-button--sm", onClick: onRetry, children: labels.retry })
     ] })
@@ -781,7 +867,7 @@ function BulkBar({ count, actions, onClear, className }) {
 }
 
 // react/src/kbd.tsx
-import { Fragment as Fragment10, useEffect as useEffect8, useRef as useRef6 } from "react";
+import { Fragment as Fragment12, useEffect as useEffect8, useRef as useRef6 } from "react";
 import { renderModifierKeys } from "../../js/keys.js";
 import { jsx as jsx27, jsxs as jsxs24 } from "react/jsx-runtime";
 function Kbd({ className, ...rest }) {
@@ -792,103 +878,99 @@ function Shortcuts({ shortcuts, titles, className }) {
   useEffect8(() => {
     if (ref.current) renderModifierKeys(ref.current, titles ? { titles } : void 0);
   });
-  return /* @__PURE__ */ jsx27("dl", { ref, className: cx("al-shortcuts", className), children: shortcuts.map((s, i) => /* @__PURE__ */ jsxs24(Fragment10, { children: [
+  return /* @__PURE__ */ jsx27("dl", { ref, className: cx("al-shortcuts", className), children: shortcuts.map((s, i) => /* @__PURE__ */ jsxs24(Fragment12, { children: [
     /* @__PURE__ */ jsx27("dt", { children: s.keys.map((k, j) => k === "mod" ? /* @__PURE__ */ jsx27(Kbd, { "data-al-mod": "", children: "Ctrl" }, j) : /* @__PURE__ */ jsx27(Kbd, { children: k }, j)) }),
     /* @__PURE__ */ jsx27("dd", { children: s.does })
   ] }, i)) });
 }
 
-// react/src/chart.tsx
-import { useEffect as useEffect9, useRef as useRef7 } from "react";
-import { initChartKeys } from "../../js/chart.js";
+// react/src/code.tsx
+import { Fragment as Fragment13, useEffect as useEffect9, useRef as useRef7 } from "react";
+import { initCopy } from "../../js/copy.js";
+import { highlights, tokenize } from "../../js/highlight.js";
+import { initTabs as initTabs2 } from "../../js/tabs.js";
 import { jsx as jsx28, jsxs as jsxs25 } from "react/jsx-runtime";
-var iso = (s) => `⁦${s}⁩`;
-function useChartKeys() {
+function toLines(code, language) {
+  const text = code.replace(/\n$/, "");
+  const runs = language && highlights(language) ? tokenize(text, language) : [["", text]];
+  const lines = [[]];
+  for (const [kind, run] of runs) {
+    run.split("\n").forEach((part, j) => {
+      if (j) lines.push([]);
+      if (part) lines[lines.length - 1].push([kind, part]);
+    });
+  }
+  return lines;
+}
+function Lines({ code, mark, language }) {
+  const lines = toLines(code, language);
+  return /* @__PURE__ */ jsx28("pre", { className: "al-code__pre", dir: "ltr", tabIndex: 0, children: /* @__PURE__ */ jsx28("code", { className: language ? `language-${language}` : void 0, children: lines.map((line, i) => {
+    const Line = mark?.includes(i + 1) ? "mark" : "span";
+    return /* @__PURE__ */ jsxs25(Fragment13, { children: [
+      /* @__PURE__ */ jsx28(Line, { className: cx("al-code__line", Line === "mark" && "al-code__line--mark"), children: line.map(([kind, run], j) => kind ? /* @__PURE__ */ jsx28("span", { className: `al-syntax-${kind}`, children: run }, j) : run) }),
+      i < lines.length - 1 && "\n"
+    ] }, i);
+  }) }) });
+}
+function CopyButton() {
+  const { labels } = useArabesque();
+  return /* @__PURE__ */ jsxs25("button", { type: "button", className: "al-button al-button--quiet al-button--sm al-code__copy", "data-copy": "", "data-label-copy": labels.copy, "data-label-copied": labels.copied, "data-label-failed": labels.copyFailed, children: [
+    /* @__PURE__ */ jsx28(Icon, { name: "copy", className: "al-code__copy-idle" }),
+    /* @__PURE__ */ jsx28(Icon, { name: "check", className: "al-code__copy-done" }),
+    /* @__PURE__ */ jsx28("span", { "data-copy-label": "", children: labels.copy })
+  ] });
+}
+function CodeBlock({ code = "", mark, language, samples, label, caption, copy = true, id, className }) {
   const ref = useRef7(null);
-  useTooltips();
+  const base = useStableId(id, "code");
   useEffect9(() => {
-    if (ref.current) initChartKeys(ref.current);
-  });
-  return ref;
-}
-var Mark2 = ({ className, series, value, what, style }) => /* @__PURE__ */ jsx28("span", { className, "data-series": series, style, role: "img", "aria-label": `${value} ${what}`, "data-al-tip": `${value}|${what}` });
-var Key = ({ items, children }) => /* @__PURE__ */ jsxs25("div", { className: "al-key", children: [
-  items.map((it, i) => /* @__PURE__ */ jsxs25("span", { className: "al-key__item", children: [
-    /* @__PURE__ */ jsx28("span", { className: "al-swatch", "data-series": it.series }),
-    it.name,
-    it.after
-  ] }, i)),
-  children
-] });
-function ChartFigure({ title, summary, children, className }) {
-  return /* @__PURE__ */ jsxs25("figure", { className: cx("al-card al-stack al-stack--tight", className), children: [
-    /* @__PURE__ */ jsxs25("figcaption", { className: "al-stack al-stack--tight", children: [
-      /* @__PURE__ */ jsx28("span", { className: "al-chart__title", children: title }),
-      summary && /* @__PURE__ */ jsx28("span", { className: "al-chart__summary", children: summary })
+    if (!ref.current) return;
+    initTabs2(ref.current);
+    initCopy(ref.current);
+  }, []);
+  const first = samples?.[0]?.id;
+  return /* @__PURE__ */ jsxs25("div", { ref, className: cx("al-code", className), id, children: [
+    (caption || samples || copy) && /* @__PURE__ */ jsxs25("div", { className: "al-code__bar", children: [
+      caption && /* @__PURE__ */ jsx28("span", { className: "al-code__caption", children: caption }),
+      samples && /* @__PURE__ */ jsx28("div", { className: "al-code__tabs", role: "tablist", "aria-label": label, children: samples.map((s) => /* @__PURE__ */ jsx28("button", { type: "button", className: "al-code__tab", role: "tab", id: `${base}-${s.id}-tab`, "aria-controls": `${base}-${s.id}`, "aria-selected": s.id === first, tabIndex: s.id === first ? 0 : -1, children: s.label }, s.id)) }),
+      copy && /* @__PURE__ */ jsx28(CopyButton, {})
     ] }),
-    children
+    samples ? samples.map((s) => /* @__PURE__ */ jsx28("div", { role: "tabpanel", id: `${base}-${s.id}`, "aria-labelledby": `${base}-${s.id}-tab`, hidden: s.id !== first, children: /* @__PURE__ */ jsx28(Lines, { code: s.code, mark: s.mark, language: s.language }) }, s.id)) : /* @__PURE__ */ jsx28(Lines, { code, mark, language }),
+    copy && /* @__PURE__ */ jsx28("span", { className: "al-visually-hidden", role: "status", "data-copy-status": "" })
   ] });
 }
-function ColumnChart({ categories, series, max, grid = [], target, format, formatAxis = format }) {
-  const plot = useChartKeys();
-  const pc = (v) => `${100 * v / max}%`;
-  return /* @__PURE__ */ jsxs25("div", { className: "al-chart", children: [
-    /* @__PURE__ */ jsxs25("div", { className: "al-chart__plot", ref: plot, children: [
-      grid.map((v) => /* @__PURE__ */ jsx28("span", { className: "al-chart__grid", style: { insetBlockEnd: pc(v) }, "aria-hidden": "true", children: /* @__PURE__ */ jsx28("span", { children: iso(formatAxis(v)) }) }, v)),
-      /* @__PURE__ */ jsx28("div", { className: "al-chart__slots", children: categories.map((c, i) => /* @__PURE__ */ jsx28("div", { className: "al-chart__slot", children: series.map((s) => /* @__PURE__ */ jsx28(Mark2, { className: "al-chart__bar", series: s.series, value: iso(format(s.values[i] ?? 0)), what: `${s.name}, ${c}`, style: { blockSize: pc(s.values[i] ?? 0) } }, s.name)) }, c)) }),
-      target && /* @__PURE__ */ jsx28("span", { className: "al-chart__target", style: { insetBlockEnd: pc(target.value) }, role: "img", "aria-label": `${iso(format(target.value))} ${target.name}`, "data-al-tip": `${iso(format(target.value))}|${target.name}` })
-    ] }),
-    /* @__PURE__ */ jsx28("div", { className: "al-chart__axis", "aria-hidden": "true", children: categories.map((c) => /* @__PURE__ */ jsx28("span", { children: c }, c)) }),
-    /* @__PURE__ */ jsx28(Key, { items: series.map((s) => ({ name: s.name, series: s.series })), children: target && /* @__PURE__ */ jsxs25("span", { className: "al-key__item", children: [
-      /* @__PURE__ */ jsx28("span", { className: "al-swatch al-swatch--target" }),
-      `${target.name}: ${iso(format(target.value))}`
-    ] }) })
+function Command({ children, prompt = true, className }) {
+  const ref = useRef7(null);
+  useEffect9(() => {
+    if (ref.current) initCopy(ref.current);
+  }, []);
+  return /* @__PURE__ */ jsxs25("div", { ref, className: cx("al-command", prompt && "al-command--prompt", className), children: [
+    /* @__PURE__ */ jsx28("code", { dir: "ltr", children }),
+    /* @__PURE__ */ jsx28(CopyButton, {}),
+    /* @__PURE__ */ jsx28("span", { className: "al-visually-hidden", role: "status", "data-copy-status": "" })
   ] });
 }
-function SplitBar({ label, parts, format, formatPercent }) {
-  const track = useChartKeys();
-  const total = parts.reduce((a, p) => a + p.value, 0) || 1;
-  return /* @__PURE__ */ jsxs25("div", { className: "al-split-bar", children: [
-    /* @__PURE__ */ jsx28("div", { className: "al-split-bar__track", role: "group", "aria-label": label, ref: track, children: parts.map((p) => /* @__PURE__ */ jsx28(Mark2, { className: "al-split-bar__part", series: p.series, value: `${iso(format(p.value))} · ${iso(formatPercent(p.value / total))}`, what: p.name, style: { inlineSize: `${100 * p.value / total}%` } }, p.name)) }),
-    /* @__PURE__ */ jsx28(Key, { items: parts.map((p) => ({ name: `${p.name} `, series: p.series, after: /* @__PURE__ */ jsx28("b", { children: iso(formatPercent(p.value / total)) }) })) })
-  ] });
+
+// react/src/logos.tsx
+import { jsx as jsx29 } from "react/jsx-runtime";
+function Logos({ label, logos, className, ...rest }) {
+  return /* @__PURE__ */ jsx29("ul", { className: cx("al-logos", className), "aria-label": label, ...rest, children: logos.map((logo, i) => /* @__PURE__ */ jsx29("li", { children: logo }, i)) });
 }
-function BulletChart({ rows, target, max, format, formatDiff }) {
-  const chart = useChartKeys();
-  return /* @__PURE__ */ jsxs25("div", { className: "al-bullet", ref: chart, children: [
-    rows.map((r) => {
-      const diff = r.value - target.value;
-      return /* @__PURE__ */ jsxs25("div", { className: "al-bullet__row", children: [
-        /* @__PURE__ */ jsx28("span", { className: "al-bullet__label", children: r.name }),
-        /* @__PURE__ */ jsxs25("span", { className: "al-bullet__track", children: [
-          /* @__PURE__ */ jsx28(Mark2, { className: "al-bullet__bar", series: r.series, value: iso(format(r.value)), what: r.name, style: { inlineSize: `${100 * r.value / max}%` } }),
-          /* @__PURE__ */ jsx28("span", { className: "al-bullet__target", style: { insetInlineStart: `${100 * target.value / max}%` } })
-        ] }),
-        /* @__PURE__ */ jsxs25("span", { className: "al-bullet__value", children: [
-          /* @__PURE__ */ jsx28("b", { children: iso(format(r.value)) }),
-          " ",
-          /* @__PURE__ */ jsx28("span", { className: diff >= 0 ? "al-bullet__diff--more" : "al-bullet__diff--less", children: formatDiff(diff) })
-        ] })
-      ] }, r.name);
-    }),
-    /* @__PURE__ */ jsx28("div", { className: "al-key", children: /* @__PURE__ */ jsxs25("span", { className: "al-key__item", children: [
-      /* @__PURE__ */ jsx28("span", { className: "al-swatch al-swatch--target" }),
-      `${target.name}: ${iso(format(target.value))}`
-    ] }) })
-  ] });
+function LogoWordmark({ className, ...rest }) {
+  return /* @__PURE__ */ jsx29("span", { className: cx("al-logos__wordmark", className), ...rest });
 }
 
 // react/src/pattern.tsx
 import { useEffect as useEffect10, useRef as useRef8 } from "react";
 import { drawHero, drawPattern } from "../../js/pattern.js";
-import { jsx as jsx29, jsxs as jsxs26 } from "react/jsx-runtime";
+import { jsx as jsx30, jsxs as jsxs26 } from "react/jsx-runtime";
 function Pattern({ full, quiet, className, children, ...rest }) {
   const art = useRef8(null);
   useEffect10(() => {
     if (art.current) drawPattern(art.current);
   }, []);
   return /* @__PURE__ */ jsxs26("section", { className: cx("al-pattern", full && "al-pattern--full", quiet && "al-pattern--quiet", className), ...rest, children: [
-    /* @__PURE__ */ jsx29("div", { className: "al-pattern__art", "aria-hidden": "true", ref: art }),
+    /* @__PURE__ */ jsx30("div", { className: "al-pattern__art", "aria-hidden": "true", ref: art }),
     children
   ] });
 }
@@ -902,20 +984,128 @@ function Hero({ animate = true, className, children, ...rest }) {
     drawn.current = true;
   }, [lang, animate]);
   return /* @__PURE__ */ jsxs26("section", { className: cx("al-pattern al-pattern--hero", className), ...rest, children: [
-    /* @__PURE__ */ jsx29("div", { className: "al-pattern__art", "aria-hidden": "true", "data-pattern-hero": "", ref: art }),
+    /* @__PURE__ */ jsx30("div", { className: "al-pattern__art", "aria-hidden": "true", "data-pattern-hero": "", ref: art }),
     children
   ] });
 }
 function HeroCaption({ children, className }) {
   const { labels } = useArabesque();
-  return /* @__PURE__ */ jsx29("p", { className: cx("al-pattern__caption", className), "data-pattern-caption": "", children: children ?? labels.heroCaption });
+  return /* @__PURE__ */ jsx30("p", { className: cx("al-pattern__caption", className), "data-pattern-caption": "", children: children ?? labels.heroCaption });
+}
+
+// react/src/cta.tsx
+import { Fragment as Fragment14, jsx as jsx31, jsxs as jsxs27 } from "react/jsx-runtime";
+function CallToAction({ heading, lede, actions, pattern = true, id, className, ...rest }) {
+  const headingId = useStableId(id ? `${id}-h` : void 0, "cta");
+  const body = /* @__PURE__ */ jsxs27(Fragment14, { children: [
+    /* @__PURE__ */ jsx31("h2", { className: "al-cta__title", id: headingId, children: heading }),
+    lede && /* @__PURE__ */ jsx31("p", { className: "al-lede al-cta__lede", children: lede }),
+    /* @__PURE__ */ jsx31("div", { className: "al-cta__actions", children: actions })
+  ] });
+  return pattern ? /* @__PURE__ */ jsx31(Pattern, { quiet: true, className: cx("al-cta", className), id, "aria-labelledby": headingId, ...rest, children: body }) : /* @__PURE__ */ jsx31("section", { className: cx("al-cta", className), id, "aria-labelledby": headingId, ...rest, children: body });
+}
+
+// react/src/toc.tsx
+import { useEffect as useEffect11, useRef as useRef9 } from "react";
+import { initToc } from "../../js/toc.js";
+import { jsx as jsx32, jsxs as jsxs28 } from "react/jsx-runtime";
+function OnThisPage({ links, title, className }) {
+  const { labels } = useArabesque();
+  const ref = useRef9(null);
+  useEffect11(() => {
+    if (ref.current) initToc(ref.current.parentNode ?? document);
+  }, []);
+  return /* @__PURE__ */ jsxs28("nav", { ref, className: cx("al-toc", className), "aria-label": labels.onThisPage, children: [
+    /* @__PURE__ */ jsx32("p", { className: "al-toc__title", "aria-hidden": "true", children: title ?? labels.onThisPage }),
+    /* @__PURE__ */ jsx32("ul", { children: links.map((l) => /* @__PURE__ */ jsx32("li", { children: /* @__PURE__ */ jsx32("a", { href: l.href, children: l.label }) }, l.href)) })
+  ] });
+}
+
+// react/src/chart.tsx
+import { useEffect as useEffect12, useRef as useRef10 } from "react";
+import { initChartKeys } from "../../js/chart.js";
+import { jsx as jsx33, jsxs as jsxs29 } from "react/jsx-runtime";
+var iso = (s) => `⁦${s}⁩`;
+function useChartKeys() {
+  const ref = useRef10(null);
+  useTooltips();
+  useEffect12(() => {
+    if (ref.current) initChartKeys(ref.current);
+  });
+  return ref;
+}
+var Mark2 = ({ className, series, value, what, style }) => /* @__PURE__ */ jsx33("span", { className, "data-series": series, style, role: "img", "aria-label": `${value} ${what}`, "data-al-tip": `${value}|${what}` });
+var Key = ({ items, children }) => /* @__PURE__ */ jsxs29("div", { className: "al-key", children: [
+  items.map((it, i) => /* @__PURE__ */ jsxs29("span", { className: "al-key__item", children: [
+    /* @__PURE__ */ jsx33("span", { className: "al-swatch", "data-series": it.series }),
+    it.name,
+    it.after
+  ] }, i)),
+  children
+] });
+function ChartFigure({ title, summary, children, className }) {
+  return /* @__PURE__ */ jsxs29("figure", { className: cx("al-card al-stack al-stack--tight", className), children: [
+    /* @__PURE__ */ jsxs29("figcaption", { className: "al-stack al-stack--tight", children: [
+      /* @__PURE__ */ jsx33("span", { className: "al-chart__title", children: title }),
+      summary && /* @__PURE__ */ jsx33("span", { className: "al-chart__summary", children: summary })
+    ] }),
+    children
+  ] });
+}
+function ColumnChart({ categories, series, max, grid = [], target, format, formatAxis = format }) {
+  const plot = useChartKeys();
+  const pc = (v) => `${100 * v / max}%`;
+  return /* @__PURE__ */ jsxs29("div", { className: "al-chart", children: [
+    /* @__PURE__ */ jsxs29("div", { className: "al-chart__plot", ref: plot, children: [
+      grid.map((v) => /* @__PURE__ */ jsx33("span", { className: "al-chart__grid", style: { insetBlockEnd: pc(v) }, "aria-hidden": "true", children: /* @__PURE__ */ jsx33("span", { children: iso(formatAxis(v)) }) }, v)),
+      /* @__PURE__ */ jsx33("div", { className: "al-chart__slots", children: categories.map((c, i) => /* @__PURE__ */ jsx33("div", { className: "al-chart__slot", children: series.map((s) => /* @__PURE__ */ jsx33(Mark2, { className: "al-chart__bar", series: s.series, value: iso(format(s.values[i] ?? 0)), what: `${s.name}, ${c}`, style: { blockSize: pc(s.values[i] ?? 0) } }, s.name)) }, c)) }),
+      target && /* @__PURE__ */ jsx33("span", { className: "al-chart__target", style: { insetBlockEnd: pc(target.value) }, role: "img", "aria-label": `${iso(format(target.value))} ${target.name}`, "data-al-tip": `${iso(format(target.value))}|${target.name}` })
+    ] }),
+    /* @__PURE__ */ jsx33("div", { className: "al-chart__axis", "aria-hidden": "true", children: categories.map((c) => /* @__PURE__ */ jsx33("span", { children: c }, c)) }),
+    /* @__PURE__ */ jsx33(Key, { items: series.map((s) => ({ name: s.name, series: s.series })), children: target && /* @__PURE__ */ jsxs29("span", { className: "al-key__item", children: [
+      /* @__PURE__ */ jsx33("span", { className: "al-swatch al-swatch--target" }),
+      `${target.name}: ${iso(format(target.value))}`
+    ] }) })
+  ] });
+}
+function SplitBar({ label, parts, format, formatPercent }) {
+  const track = useChartKeys();
+  const total = parts.reduce((a, p) => a + p.value, 0) || 1;
+  return /* @__PURE__ */ jsxs29("div", { className: "al-split-bar", children: [
+    /* @__PURE__ */ jsx33("div", { className: "al-split-bar__track", role: "group", "aria-label": label, ref: track, children: parts.map((p) => /* @__PURE__ */ jsx33(Mark2, { className: "al-split-bar__part", series: p.series, value: `${iso(format(p.value))} · ${iso(formatPercent(p.value / total))}`, what: p.name, style: { inlineSize: `${100 * p.value / total}%` } }, p.name)) }),
+    /* @__PURE__ */ jsx33(Key, { items: parts.map((p) => ({ name: `${p.name} `, series: p.series, after: /* @__PURE__ */ jsx33("b", { children: iso(formatPercent(p.value / total)) }) })) })
+  ] });
+}
+function BulletChart({ rows, target, max, format, formatDiff }) {
+  const chart = useChartKeys();
+  return /* @__PURE__ */ jsxs29("div", { className: "al-bullet", ref: chart, children: [
+    rows.map((r) => {
+      const diff = r.value - target.value;
+      return /* @__PURE__ */ jsxs29("div", { className: "al-bullet__row", children: [
+        /* @__PURE__ */ jsx33("span", { className: "al-bullet__label", children: r.name }),
+        /* @__PURE__ */ jsxs29("span", { className: "al-bullet__track", children: [
+          /* @__PURE__ */ jsx33(Mark2, { className: "al-bullet__bar", series: r.series, value: iso(format(r.value)), what: r.name, style: { inlineSize: `${100 * r.value / max}%` } }),
+          /* @__PURE__ */ jsx33("span", { className: "al-bullet__target", style: { insetInlineStart: `${100 * target.value / max}%` } })
+        ] }),
+        /* @__PURE__ */ jsxs29("span", { className: "al-bullet__value", children: [
+          /* @__PURE__ */ jsx33("b", { children: iso(format(r.value)) }),
+          " ",
+          /* @__PURE__ */ jsx33("span", { className: diff >= 0 ? "al-bullet__diff--more" : "al-bullet__diff--less", children: formatDiff(diff) })
+        ] })
+      ] }, r.name);
+    }),
+    /* @__PURE__ */ jsx33("div", { className: "al-key", children: /* @__PURE__ */ jsxs29("span", { className: "al-key__item", children: [
+      /* @__PURE__ */ jsx33("span", { className: "al-swatch al-swatch--target" }),
+      `${target.name}: ${iso(format(target.value))}`
+    ] }) })
+  ] });
 }
 
 // react/src/construction.tsx
-import { useEffect as useEffect11, useRef as useRef9 } from "react";
+import { useEffect as useEffect13, useRef as useRef11 } from "react";
 import { formatNumber as formatNumber3 } from "../../js/format.js";
 import { initConstruction } from "../../js/pattern.js";
-import { jsx as jsx30, jsxs as jsxs27 } from "react/jsx-runtime";
+import { jsx as jsx34, jsxs as jsxs30 } from "react/jsx-runtime";
 var STEPS = {
   en: [
     { alt: "Octagons and squares tiling a square.", title: "Tile the plane with simple shapes.", aside: "In software: modules." },
@@ -930,96 +1120,96 @@ var STEPS = {
 };
 function ConstructionFigure({ adjustable, steps, className, id }) {
   const { lang, numerals, labels } = useArabesque();
-  const ref = useRef9(null);
+  const ref = useRef11(null);
   const angleId = useStableId(id, "construction-angle");
   const list = steps ?? STEPS[/^ar\b/i.test(lang) ? "ar" : "en"];
-  useEffect11(() => {
+  useEffect13(() => {
     if (ref.current?.parentNode) initConstruction(ref.current.parentNode);
   }, []);
-  return /* @__PURE__ */ jsxs27("figure", { ref, className: cx("al-construction", className), "data-construction": "", children: [
-    /* @__PURE__ */ jsx30("ol", { className: "al-construction__steps", children: list.map((s, i) => /* @__PURE__ */ jsxs27("li", { children: [
-      /* @__PURE__ */ jsx30("div", { className: "al-construction__art", "data-construction-step": i + 1, role: "img", "aria-label": s.alt }),
-      /* @__PURE__ */ jsxs27("p", { className: "al-construction__title", children: [
-        /* @__PURE__ */ jsx30("span", { className: "al-construction__num", children: /* @__PURE__ */ jsx30("bdi", { children: formatNumber3(i + 1, { lang, numerals }) }) }),
+  return /* @__PURE__ */ jsxs30("figure", { ref, className: cx("al-construction", className), "data-construction": "", children: [
+    /* @__PURE__ */ jsx34("ol", { className: "al-construction__steps", children: list.map((s, i) => /* @__PURE__ */ jsxs30("li", { children: [
+      /* @__PURE__ */ jsx34("div", { className: "al-construction__art", "data-construction-step": i + 1, role: "img", "aria-label": s.alt }),
+      /* @__PURE__ */ jsxs30("p", { className: "al-construction__title", children: [
+        /* @__PURE__ */ jsx34("span", { className: "al-construction__num", children: /* @__PURE__ */ jsx34("bdi", { children: formatNumber3(i + 1, { lang, numerals }) }) }),
         " ",
         s.title
       ] }),
-      s.aside && /* @__PURE__ */ jsx30("p", { className: "al-construction__aside", children: s.aside })
+      s.aside && /* @__PURE__ */ jsx34("p", { className: "al-construction__aside", children: s.aside })
     ] }, i)) }),
-    adjustable && /* @__PURE__ */ jsxs27("div", { className: "al-construction__control", children: [
-      /* @__PURE__ */ jsx30("label", { className: "al-label", htmlFor: angleId, children: labels.contactAngle }),
-      /* @__PURE__ */ jsx30("input", { type: "range", id: angleId, min: "45", max: "78.75", step: "0.5", defaultValue: "67.5", "data-construction-angle": "" }),
-      /* @__PURE__ */ jsx30("output", { htmlFor: angleId, "data-construction-value": "", children: "67.5°" })
+    adjustable && /* @__PURE__ */ jsxs30("div", { className: "al-construction__control", children: [
+      /* @__PURE__ */ jsx34("label", { className: "al-label", htmlFor: angleId, children: labels.contactAngle }),
+      /* @__PURE__ */ jsx34("input", { type: "range", id: angleId, min: "45", max: "78.75", step: "0.5", defaultValue: "67.5", "data-construction-angle": "" }),
+      /* @__PURE__ */ jsx34("output", { htmlFor: angleId, "data-construction-value": "", children: "67.5°" })
     ] })
   ] });
 }
 
 // react/src/breadcrumbs.tsx
-import { jsx as jsx31 } from "react/jsx-runtime";
+import { jsx as jsx35 } from "react/jsx-runtime";
 function Breadcrumbs({ items, className }) {
   const { labels } = useArabesque();
-  return /* @__PURE__ */ jsx31("nav", { className: cx("al-breadcrumbs", className), "aria-label": labels.breadcrumb, children: /* @__PURE__ */ jsx31("ol", { children: items.map((it, i) => {
+  return /* @__PURE__ */ jsx35("nav", { className: cx("al-breadcrumbs", className), "aria-label": labels.breadcrumb, children: /* @__PURE__ */ jsx35("ol", { children: items.map((it, i) => {
     const current = i === items.length - 1 ? "page" : void 0;
-    return /* @__PURE__ */ jsx31("li", { children: it.href ? /* @__PURE__ */ jsx31("a", { href: it.href, "aria-current": current, children: it.label }) : /* @__PURE__ */ jsx31("span", { "aria-current": current, children: it.label }) }, i);
+    return /* @__PURE__ */ jsx35("li", { children: it.href ? /* @__PURE__ */ jsx35("a", { href: it.href, "aria-current": current, children: it.label }) : /* @__PURE__ */ jsx35("span", { "aria-current": current, children: it.label }) }, i);
   }) }) });
 }
 function BackLink({ children, className, ...rest }) {
   const { labels } = useArabesque();
-  return /* @__PURE__ */ jsx31("a", { className: cx("al-back-link", className), ...rest, children: children ?? labels.back });
+  return /* @__PURE__ */ jsx35("a", { className: cx("al-back-link", className), ...rest, children: children ?? labels.back });
 }
 
 // react/src/forms.tsx
-import { useEffect as useEffect12, useRef as useRef10 } from "react";
+import { useEffect as useEffect14, useRef as useRef12 } from "react";
 import { initSearch } from "../../js/search.js";
-import { jsx as jsx32, jsxs as jsxs28 } from "react/jsx-runtime";
+import { jsx as jsx36, jsxs as jsxs31 } from "react/jsx-runtime";
 function ErrorSummary({ errors, title, autoFocus = true, id, className }) {
   const { labels } = useArabesque();
   const base = useStableId(id, "error-summary");
-  const ref = useRef10(null);
-  useEffect12(() => {
+  const ref = useRef12(null);
+  useEffect14(() => {
     if (autoFocus && errors.length) ref.current?.focus();
   }, [autoFocus, errors.length]);
   if (!errors.length) return null;
-  return /* @__PURE__ */ jsxs28("div", { ref, className: cx("al-error-summary", className), tabIndex: -1, role: "alert", "aria-labelledby": `${base}-title`, children: [
-    /* @__PURE__ */ jsxs28("h2", { className: "al-error-summary__title", id: `${base}-title`, children: [
-      /* @__PURE__ */ jsx32(Icon, { name: "danger" }),
+  return /* @__PURE__ */ jsxs31("div", { ref, className: cx("al-error-summary", className), tabIndex: -1, role: "alert", "aria-labelledby": `${base}-title`, children: [
+    /* @__PURE__ */ jsxs31("h2", { className: "al-error-summary__title", id: `${base}-title`, children: [
+      /* @__PURE__ */ jsx36(Icon, { name: "danger" }),
       title ?? labels.errorTitle
     ] }),
-    /* @__PURE__ */ jsx32("ul", { className: "al-error-summary__list", children: errors.map((e) => /* @__PURE__ */ jsx32("li", { children: /* @__PURE__ */ jsx32("a", { href: e.href, children: e.message }) }, e.href)) })
+    /* @__PURE__ */ jsx36("ul", { className: "al-error-summary__list", children: errors.map((e) => /* @__PURE__ */ jsx36("li", { children: /* @__PURE__ */ jsx36("a", { href: e.href, children: e.message }) }, e.href)) })
   ] });
 }
 function Search({ label, id, className, onChange, ...rest }) {
   const { labels } = useArabesque();
   const inputId = useStableId(id, "search");
-  const box = useRef10(null);
-  const clear = useRef10(null);
-  useEffect12(() => {
+  const box = useRef12(null);
+  const clear = useRef12(null);
+  useEffect14(() => {
     if (box.current?.parentElement) initSearch(box.current.parentElement);
   }, []);
   const sync = (value) => {
     if (clear.current) clear.current.hidden = !value;
   };
-  useEffect12(() => {
+  useEffect14(() => {
     sync(String(rest.value ?? rest.defaultValue ?? ""));
   });
-  return /* @__PURE__ */ jsxs28("form", { role: "search", className, onSubmit: (e) => e.preventDefault(), children: [
-    /* @__PURE__ */ jsx32("label", { className: "al-label", htmlFor: inputId, children: label }),
-    /* @__PURE__ */ jsxs28("div", { className: "al-search", ref: box, children: [
-      /* @__PURE__ */ jsx32(Icon, { name: "search" }),
-      /* @__PURE__ */ jsx32("input", { className: "al-input", id: inputId, type: "search", autoComplete: "off", ...rest, onInput: (e) => sync(e.currentTarget.value), onChange }),
-      /* @__PURE__ */ jsx32("button", { type: "button", className: "al-search__clear", "aria-label": labels.clearSearch, hidden: true, ref: clear, children: /* @__PURE__ */ jsx32(Icon, { name: "close", size: "sm" }) })
+  return /* @__PURE__ */ jsxs31("form", { role: "search", className, onSubmit: (e) => e.preventDefault(), children: [
+    /* @__PURE__ */ jsx36("label", { className: "al-label", htmlFor: inputId, children: label }),
+    /* @__PURE__ */ jsxs31("div", { className: "al-search", ref: box, children: [
+      /* @__PURE__ */ jsx36(Icon, { name: "search" }),
+      /* @__PURE__ */ jsx36("input", { className: "al-input", id: inputId, type: "search", autoComplete: "off", ...rest, onInput: (e) => sync(e.currentTarget.value), onChange }),
+      /* @__PURE__ */ jsx36("button", { type: "button", className: "al-search__clear", "aria-label": labels.clearSearch, hidden: true, ref: clear, children: /* @__PURE__ */ jsx36(Icon, { name: "close", size: "sm" }) })
     ] })
   ] });
 }
 function SummaryList({ rows, className }) {
   const { labels } = useArabesque();
   const anyActions = rows.some((r) => r.change);
-  return /* @__PURE__ */ jsx32("dl", { className: cx("al-summary-list", className), children: rows.map((r, i) => /* @__PURE__ */ jsxs28("div", { className: cx("al-summary-list__row", anyActions && !r.change && "al-summary-list__row--no-actions"), children: [
-    /* @__PURE__ */ jsx32("dt", { className: "al-summary-list__key", children: r.key }),
-    /* @__PURE__ */ jsx32("dd", { className: "al-summary-list__value", children: r.value }),
-    r.change && /* @__PURE__ */ jsx32("dd", { className: "al-summary-list__actions", children: /* @__PURE__ */ jsxs28("a", { href: r.change.href, onClick: r.change.onClick, children: [
+  return /* @__PURE__ */ jsx36("dl", { className: cx("al-summary-list", className), children: rows.map((r, i) => /* @__PURE__ */ jsxs31("div", { className: cx("al-summary-list__row", anyActions && !r.change && "al-summary-list__row--no-actions"), children: [
+    /* @__PURE__ */ jsx36("dt", { className: "al-summary-list__key", children: r.key }),
+    /* @__PURE__ */ jsx36("dd", { className: "al-summary-list__value", children: r.value }),
+    r.change && /* @__PURE__ */ jsx36("dd", { className: "al-summary-list__actions", children: /* @__PURE__ */ jsxs31("a", { href: r.change.href, onClick: r.change.onClick, children: [
       labels.change,
-      /* @__PURE__ */ jsxs28("span", { className: "al-visually-hidden", children: [
+      /* @__PURE__ */ jsxs31("span", { className: "al-visually-hidden", children: [
         " ",
         r.change.what
       ] })
@@ -1027,30 +1217,30 @@ function SummaryList({ rows, className }) {
   ] }, i)) });
 }
 function Confirmation({ title, children, autoFocus = true, className, ...rest }) {
-  const ref = useRef10(null);
-  useEffect12(() => {
+  const ref = useRef12(null);
+  useEffect14(() => {
     if (autoFocus) ref.current?.focus();
   }, [autoFocus]);
-  return /* @__PURE__ */ jsxs28("div", { ref, className: cx("al-confirmation", className), tabIndex: -1, ...rest, children: [
-    /* @__PURE__ */ jsx32("h2", { className: "al-confirmation__title", children: title }),
-    children && /* @__PURE__ */ jsx32("div", { className: "al-confirmation__body", children })
+  return /* @__PURE__ */ jsxs31("div", { ref, className: cx("al-confirmation", className), tabIndex: -1, ...rest, children: [
+    /* @__PURE__ */ jsx36("h2", { className: "al-confirmation__title", children: title }),
+    children && /* @__PURE__ */ jsx36("div", { className: "al-confirmation__body", children })
   ] });
 }
 
 // react/src/character-count.tsx
-import { useEffect as useEffect13, useRef as useRef11 } from "react";
+import { useEffect as useEffect15, useRef as useRef13 } from "react";
 import { initCharacterCounts } from "../../js/count.js";
 import { formatNumber as formatNumber4 } from "../../js/format.js";
-import { jsx as jsx33 } from "react/jsx-runtime";
+import { jsx as jsx37 } from "react/jsx-runtime";
 function CharacterCount({ max, className, ...rest }) {
   const settings = useArabesque();
-  const live = useRef11(settings);
+  const live = useRef13(settings);
   live.current = settings;
   const field = useField(rest);
-  const ref = useRef11(null);
-  const redraw = useRef11(() => {
+  const ref = useRef13(null);
+  const redraw = useRef13(() => {
   });
-  useEffect13(() => {
+  useEffect15(() => {
     const parent = ref.current?.parentElement;
     if (!parent) return;
     const n = (v) => formatNumber4(v, { lang: live.current.lang, numerals: live.current.numerals });
@@ -1063,26 +1253,26 @@ function CharacterCount({ max, className, ...rest }) {
       limit: (m) => fill(live.current.labels.countLimit, { n: n(m) })
     });
   }, []);
-  useEffect13(() => {
+  useEffect15(() => {
     redraw.current();
   }, [settings.lang, settings.numerals, settings.labels]);
-  return /* @__PURE__ */ jsx33("textarea", { ref, className: cx("al-textarea", className), "data-al-maxlength": max, ...rest, ...field });
+  return /* @__PURE__ */ jsx37("textarea", { ref, className: cx("al-textarea", className), "data-al-maxlength": max, ...rest, ...field });
 }
 
 // react/src/date-input.tsx
-import { jsx as jsx34, jsxs as jsxs29 } from "react/jsx-runtime";
+import { jsx as jsx38, jsxs as jsxs32 } from "react/jsx-runtime";
 function DateInput({ legend, hint, id, birthday, defaultValue = {}, className }) {
   const { labels } = useArabesque();
   const base = useStableId(id, "date");
   const hintId = hint ? `${base}-hint` : void 0;
-  const part = (key, label) => /* @__PURE__ */ jsxs29("div", { className: cx("al-field", key === "year" && "al-date-input__year"), children: [
-    /* @__PURE__ */ jsx34("label", { className: "al-label", htmlFor: `${base}-${key}`, children: label }),
-    /* @__PURE__ */ jsx34("input", { className: "al-input", id: `${base}-${key}`, name: `${base}-${key}`, inputMode: "numeric", autoComplete: birthday ? `bday-${key}` : void 0, defaultValue: defaultValue[key] })
+  const part = (key, label) => /* @__PURE__ */ jsxs32("div", { className: cx("al-field", key === "year" && "al-date-input__year"), children: [
+    /* @__PURE__ */ jsx38("label", { className: "al-label", htmlFor: `${base}-${key}`, children: label }),
+    /* @__PURE__ */ jsx38("input", { className: "al-input", id: `${base}-${key}`, name: `${base}-${key}`, inputMode: "numeric", autoComplete: birthday ? `bday-${key}` : void 0, defaultValue: defaultValue[key] })
   ] });
-  return /* @__PURE__ */ jsxs29("fieldset", { className: cx("al-fieldset", className), role: "group", "aria-describedby": hintId, children: [
-    /* @__PURE__ */ jsx34("legend", { children: legend }),
-    hint && /* @__PURE__ */ jsx34("span", { className: "al-hint", id: hintId, children: hint }),
-    /* @__PURE__ */ jsxs29("div", { className: "al-date-input", children: [
+  return /* @__PURE__ */ jsxs32("fieldset", { className: cx("al-fieldset", className), role: "group", "aria-describedby": hintId, children: [
+    /* @__PURE__ */ jsx38("legend", { children: legend }),
+    hint && /* @__PURE__ */ jsx38("span", { className: "al-hint", id: hintId, children: hint }),
+    /* @__PURE__ */ jsxs32("div", { className: "al-date-input", children: [
       part("day", labels.day),
       part("month", labels.month),
       part("year", labels.year)
@@ -1091,18 +1281,18 @@ function DateInput({ legend, hint, id, birthday, defaultValue = {}, className })
 }
 
 // react/src/date-picker.tsx
-import { useEffect as useEffect14, useRef as useRef12 } from "react";
+import { useEffect as useEffect16, useRef as useRef14 } from "react";
 import { initDatePickers } from "../../js/datepicker.js";
-import { jsx as jsx35, jsxs as jsxs30 } from "react/jsx-runtime";
+import { jsx as jsx39, jsxs as jsxs33 } from "react/jsx-runtime";
 function DatePicker({ name, defaultValue, min, max, onChange, ...field }) {
   const settings = useArabesque();
-  const live = useRef12(settings);
+  const live = useRef14(settings);
   live.current = settings;
-  const changed = useRef12(onChange);
+  const changed = useRef14(onChange);
   changed.current = onChange;
-  const wrap = useRef12(null);
-  const picker = useRef12(null);
-  useEffect14(() => {
+  const wrap = useRef14(null);
+  const picker = useRef14(null);
+  useEffect16(() => {
     const el = wrap.current;
     if (!el) return;
     const [p] = initDatePickers(el, {
@@ -1119,61 +1309,74 @@ function DatePicker({ name, defaultValue, min, max, onChange, ...field }) {
       picker.current = null;
     };
   }, []);
-  useEffect14(() => {
+  useEffect16(() => {
     picker.current?.refresh();
   }, [settings.lang, settings.numerals]);
-  return /* @__PURE__ */ jsx35(Field, { ...field, children: /* @__PURE__ */ jsxs30("div", { className: "al-date-picker", ref: wrap, children: [
-    /* @__PURE__ */ jsx35(DateInputControl, { name, defaultValue, min, max }),
-    /* @__PURE__ */ jsx35("button", { type: "button", className: "al-button al-button--icon al-date-picker__toggle", "aria-label": settings.labels.chooseDate, children: /* @__PURE__ */ jsx35(Icon, { name: "calendar" }) })
+  return /* @__PURE__ */ jsx39(Field, { ...field, children: /* @__PURE__ */ jsxs33("div", { className: "al-date-picker", ref: wrap, children: [
+    /* @__PURE__ */ jsx39(DateInputControl, { name, defaultValue, min, max }),
+    /* @__PURE__ */ jsx39("button", { type: "button", className: "al-button al-button--icon al-date-picker__toggle", "aria-label": settings.labels.chooseDate, children: /* @__PURE__ */ jsx39(Icon, { name: "calendar" }) })
   ] }) });
 }
 function DateInputControl({ name, defaultValue, min, max }) {
   const field = useField();
-  return /* @__PURE__ */ jsx35("input", { className: "al-input", name, defaultValue, "data-min": min, "data-max": max, "data-al-date-picker": "", autoComplete: "off", ...field });
+  return /* @__PURE__ */ jsx39("input", { className: "al-input", name, defaultValue, "data-min": min, "data-max": max, "data-al-date-picker": "", autoComplete: "off", ...field });
 }
 function DateExample({ date }) {
-  return /* @__PURE__ */ jsx35("span", { "data-al-date-example": date, children: date });
+  return /* @__PURE__ */ jsx39("span", { "data-al-date-example": date, children: date });
 }
 
 // react/src/phase-banner.tsx
-import { jsx as jsx36, jsxs as jsxs31 } from "react/jsx-runtime";
+import { useEffect as useEffect17, useRef as useRef15 } from "react";
+import { initAnnouncements } from "../../js/announcement.js";
+import { jsx as jsx40, jsxs as jsxs34 } from "react/jsx-runtime";
 function PhaseBanner({ phase, children, className }) {
-  return /* @__PURE__ */ jsxs31("div", { className: cx("al-phase-banner", className), children: [
+  return /* @__PURE__ */ jsxs34("div", { className: cx("al-phase-banner", className), children: [
     phase,
-    /* @__PURE__ */ jsx36("p", { className: "al-phase-banner__text", children })
+    /* @__PURE__ */ jsx40("p", { className: "al-phase-banner__text", children })
+  ] });
+}
+function Announcement({ id, children, className }) {
+  const { labels } = useArabesque();
+  const ref = useRef15(null);
+  useEffect17(() => {
+    if (ref.current) initAnnouncements(ref.current.parentNode ?? document);
+  }, []);
+  return /* @__PURE__ */ jsxs34("div", { ref, className: cx("al-announcement", className), "data-announcement": id, role: "region", "aria-label": labels.announcement, children: [
+    /* @__PURE__ */ jsx40("p", { className: "al-announcement__text", children }),
+    /* @__PURE__ */ jsx40("button", { type: "button", className: "al-button al-button--icon al-button--quiet al-button--sm al-announcement__dismiss", "data-dismiss": "", "aria-label": labels.dismiss, children: /* @__PURE__ */ jsx40(Icon, { name: "close" }) })
   ] });
 }
 
 // react/src/task-list.tsx
-import { jsx as jsx37, jsxs as jsxs32 } from "react/jsx-runtime";
+import { jsx as jsx41, jsxs as jsxs35 } from "react/jsx-runtime";
 function TaskList({ tasks, className }) {
-  return /* @__PURE__ */ jsx37("ul", { className: cx("al-task-list", className), children: tasks.map((t, i) => /* @__PURE__ */ jsxs32("li", { className: "al-task-list__item", children: [
-    /* @__PURE__ */ jsx37("span", { className: "al-task-list__name", children: t.href ? /* @__PURE__ */ jsx37("a", { href: t.href, children: t.name }) : t.name }),
-    t.hint && /* @__PURE__ */ jsx37("span", { className: "al-task-list__hint", children: t.hint }),
-    /* @__PURE__ */ jsx37(Badge, { tone: t.tone, className: "al-task-list__status", children: t.status })
+  return /* @__PURE__ */ jsx41("ul", { className: cx("al-task-list", className), children: tasks.map((t, i) => /* @__PURE__ */ jsxs35("li", { className: "al-task-list__item", children: [
+    /* @__PURE__ */ jsx41("span", { className: "al-task-list__name", children: t.href ? /* @__PURE__ */ jsx41("a", { href: t.href, children: t.name }) : t.name }),
+    t.hint && /* @__PURE__ */ jsx41("span", { className: "al-task-list__hint", children: t.hint }),
+    /* @__PURE__ */ jsx41(Badge, { tone: t.tone, className: "al-task-list__status", children: t.status })
   ] }, i)) });
 }
 
 // react/src/tint.tsx
-import { jsx as jsx38 } from "react/jsx-runtime";
+import { jsx as jsx42 } from "react/jsx-runtime";
 var tints = ["teal", "green", "yellow", "orange", "pink", "purple", "blue", "cyan"];
 function Highlight({ tint = "teal", className, ...rest }) {
-  return /* @__PURE__ */ jsx38("mark", { className: cx("al-highlight", className), "data-tint": tint, ...rest });
+  return /* @__PURE__ */ jsx42("mark", { className: cx("al-highlight", className), "data-tint": tint, ...rest });
 }
 function Avatar({ tint = "teal", large, className, ...rest }) {
-  return /* @__PURE__ */ jsx38("span", { className: cx("al-avatar", large && "al-avatar--lg", className), "data-tint": tint, "aria-hidden": "true", ...rest });
+  return /* @__PURE__ */ jsx42("span", { className: cx("al-avatar", large && "al-avatar--lg", className), "data-tint": tint, "aria-hidden": "true", ...rest });
 }
 
 // react/src/link.tsx
-import { Fragment as Fragment11, jsx as jsx39, jsxs as jsxs33 } from "react/jsx-runtime";
+import { Fragment as Fragment15, jsx as jsx43, jsxs as jsxs36 } from "react/jsx-runtime";
 function TextLink({ arrow, external, muted, className, children, ...rest }) {
   const { labels } = useArabesque();
-  return /* @__PURE__ */ jsxs33("a", { className: cx("al-link", arrow && "al-link--arrow", muted && "al-link--muted", className), ...external ? { target: "_blank", rel: "noopener" } : {}, ...rest, children: [
+  return /* @__PURE__ */ jsxs36("a", { className: cx("al-link", arrow && "al-link--arrow", muted && "al-link--muted", className), ...external ? { target: "_blank", rel: "noopener" } : {}, ...rest, children: [
     children,
-    arrow && /* @__PURE__ */ jsx39(Icon, { name: "arrow" }),
-    external && /* @__PURE__ */ jsxs33(Fragment11, { children: [
-      /* @__PURE__ */ jsx39(Icon, { name: "external" }),
-      /* @__PURE__ */ jsxs33("span", { className: "al-visually-hidden", children: [
+    arrow && /* @__PURE__ */ jsx43(Icon, { name: "arrow" }),
+    external && /* @__PURE__ */ jsxs36(Fragment15, { children: [
+      /* @__PURE__ */ jsx43(Icon, { name: "external" }),
+      /* @__PURE__ */ jsxs36("span", { className: "al-visually-hidden", children: [
         " ",
         labels.newTab
       ] })
@@ -1183,6 +1386,7 @@ function TextLink({ arrow, external, muted, className, children, ...rest }) {
 export {
   Affix,
   AffixText,
+  Announcement,
   ArabesqueProvider,
   Avatar,
   BackLink,
@@ -1192,13 +1396,16 @@ export {
   BulkBar,
   BulletChart,
   Button,
+  CallToAction,
   Card,
   CharacterCount,
   ChartFigure,
   Checkbox,
   Choices,
   Cluster,
+  CodeBlock,
   ColumnChart,
+  Command,
   Confirmation,
   ConstructionFigure,
   DateExample,
@@ -1206,9 +1413,12 @@ export {
   DatePicker,
   Dialog,
   Disclosure,
+  DisclosureGroup,
   EmptyState,
   ErrorMessage,
   ErrorSummary,
+  Eyebrow,
+  FeatureTabs,
   Field,
   Fieldset,
   Footer,
@@ -1222,16 +1432,20 @@ export {
   Kbd,
   LanguageLink,
   Lockup,
+  LogoWordmark,
+  Logos,
   MARK_PATHS,
   Mark,
   Menu,
   Notice,
+  OnThisPage,
   Page,
   PageHead,
   Panel,
   Pattern,
   PhaseBanner,
   Progress,
+  Quote,
   Radio,
   RollbackNote,
   STAR_PATH,
@@ -1256,6 +1470,7 @@ export {
   StaleNote,
   Star,
   Stat,
+  Stats,
   Steps,
   SummaryList,
   Switch,

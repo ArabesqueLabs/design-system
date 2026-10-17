@@ -3,7 +3,7 @@
 
 import { useEffect, useRef, type ReactNode } from "react";
 import { initTabs } from "../../js/tabs.js";
-import { useStableId } from "./util.js";
+import { cx, useStableId } from "./util.js";
 
 export interface TabItem {
   id: string;
@@ -40,6 +40,39 @@ export function Tabs({ label, tabs, defaultTab, id, className }: TabsProps) {
       </div>
       {tabs.map((t) => (
         <div key={t.id} className="al-tabpanel" role="tabpanel" id={`${base}-${t.id}`} aria-labelledby={`${base}-${t.id}-tab`} hidden={t.id !== first} tabIndex={0}>{t.content}</div>
+      ))}
+    </div>
+  );
+}
+
+export interface FeatureTab {
+  id: string;
+  /** Its name ("Durable steps"). */
+  label: ReactNode;
+  /** A line about it, under the name. */
+  description?: ReactNode;
+  content: ReactNode;
+}
+
+/** A column of tabs, each a name and a line, beside the panel the chosen one shows; up and down arrows move. */
+export function FeatureTabs({ label, tabs, defaultTab, id, className }: { label: string; tabs: FeatureTab[]; defaultTab?: string; id?: string; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const base = useStableId(id, "features");
+  const first = defaultTab ?? tabs[0]?.id;
+  useEffect(() => { if (ref.current) initTabs(ref.current); }, []);
+  return (
+    <div ref={ref} className={cx("al-feature-tabs", className)}>
+      <div className="al-feature-tabs__list" role="tablist" aria-label={label} aria-orientation="vertical">
+        {tabs.map((t) => (
+          <button key={t.id} type="button" className="al-feature-tab" role="tab" id={`${base}-${t.id}-tab`} aria-controls={`${base}-${t.id}`} aria-selected={t.id === first} tabIndex={t.id === first ? 0 : -1}
+            aria-labelledby={`${base}-${t.id}-name`} aria-describedby={t.description ? `${base}-${t.id}-about` : undefined}>
+            <span className="al-feature-tab__name" id={`${base}-${t.id}-name`}>{t.label}</span>
+            {t.description && <span className="al-feature-tab__about" id={`${base}-${t.id}-about`}>{t.description}</span>}
+          </button>
+        ))}
+      </div>
+      {tabs.map((t) => (
+        <div key={t.id} className="al-feature-tabs__panel" role="tabpanel" id={`${base}-${t.id}`} aria-labelledby={`${base}-${t.id}-name`} hidden={t.id !== first}>{t.content}</div>
       ))}
     </div>
   );

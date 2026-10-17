@@ -50,6 +50,11 @@ export interface Labels {
   workingOut: string;
   contactAngle: string;
   heroCaption: string;
+  announcement: string;
+  onThisPage: string;
+  copy: string;
+  copied: string;
+  copyFailed: string;
   /** "{name}" is the tag's text. */
   removeTag: string;
   /** "{n}" is the count, in the page's digits. */
@@ -104,6 +109,11 @@ export const englishLabels: Labels = {
   workingOut: "Working out again…",
   contactAngle: "Contact angle",
   heroCaption: "This tile is our mark. Everything around it follows from the same rule.",
+  announcement: "Announcement",
+  onThisPage: "On this page",
+  copy: "Copy",
+  copied: "Copied",
+  copyFailed: "Couldn't copy. The text is selected, so you can copy it yourself.",
   removeTag: "Remove tag {name}",
   selected: "{n} selected",
   countLeftOne: "You have {n} character remaining",
@@ -156,6 +166,11 @@ export const arabicLabels: Labels = {
   workingOut: "جارٍ الحساب من جديد…",
   contactAngle: "زاوية التلامس",
   heroCaption: "هذه البلاطة هي علامتنا. كل ما حولها ينبع من القاعدة نفسها.",
+  announcement: "إعلان",
+  onThisPage: "في هذه الصفحة",
+  copy: "انسخ",
+  copied: "نُسخ",
+  copyFailed: "تعذّر النسخ. النص محدّد لتنسخه بنفسك.",
   removeTag: "أزل وسم {name}",
   selected: "{n} محدّدة",
   countLeftOne: "تبقّى لك حرف واحد",

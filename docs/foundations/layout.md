@@ -7,6 +7,7 @@ logical properties, so they mirror with `dir` without extra rules.
 |---|---|
 | `.al-page` | The content column: centred, capped at `--al-size-page`, with the fluid gutter |
 | `.al-section` | A website section: fluid space above and below; a hairline between two |
+| `.al-eyebrow` | A few words above a section's heading, in the accent, saying which part this is; `.al-eyebrow__index` numbers it ("01"). With the heading in an `<hgroup class="al-section__head">`. Sentence case, never capitals |
 | `.al-stack` | Children one under another, spaced by `--al-stack-gap` (`--tight`, `--loose`) |
 | `.al-cluster` | Children in a wrapping row (`--end`, `--between`) |
 | `.al-grid` | As many columns of at least `--al-grid-min` (16rem) as fit |

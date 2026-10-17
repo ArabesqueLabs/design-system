@@ -7,7 +7,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { Numerals } from "../../js/format.js";
 import {
-  ArabesqueProvider, Badge, Button, Cluster, Footer, Hero, HeroCaption, Highlight, Lockup, PhaseBanner, SegmentedButtons, SkipLink, TextLink, ThemeToggle,
+  ArabesqueProvider, Badge, Button, Cluster, Footer, Hero, HeroCaption, Highlight, Lockup, PhaseBanner, SegmentedButtons, SiteHeader, TextLink,
 } from "../../react/src/index.js";
 import { REPO } from "./repo.js";
 import { translator } from "./app.js";
@@ -49,27 +49,22 @@ export function Showcase({ initial = { lang: "en", numerals: "latn" } }: { initi
 
   return (
     <ArabesqueProvider lang={lang} numerals={numerals} sprite="dist/icons.svg">
-      <SkipLink />
-      <header className="sc-top">
-        <div className="al-page sc-top__inner">
-          <Lockup href="#main" product={t("Design system")} />
-          <Cluster className="sc-top__controls">
-            {lang === "ar" && (
-              <SegmentedButtons label={t("Numerals")} value={numerals} onChange={(v) => { setNumerals(v); store(KEYS.numerals, v); }}
-                options={[{ value: "latn", label: <bdi>123</bdi> }, { value: "arab", label: <bdi>١٢٣</bdi>, ariaLabel: t("Arabic-Indic numerals") }]} />
-            )}
-            <SegmentedButtons label={t("Language")} value={lang} onChange={(v) => { setLang(v); store(KEYS.lang, v); }}
-              options={[{ value: "en", label: "English", lang: "en" }, { value: "ar", label: "العربية", lang: "ar" }]} />
-            <TextLink muted external href={REPO}><span lang="en">GitHub</span></TextLink>
-            <ThemeToggle />
-          </Cluster>
-        </div>
-        <div className="al-page">
-          <PhaseBanner phase={<Badge tone="warning">{t("Experimental")}</Badge>}>
-            {t("This design system is new, and is actively being evolved.")} <a href={docPage("CHANGELOG.md", lang)}>{t("Check the changelog")}</a>.
-          </PhaseBanner>
-        </div>
-      </header>
+      <SiteHeader sticky className="sc-top" menuId="site-menu" lockup={<Lockup className="al-site-header__lockup" href="#main" product={t("Design system")} />}
+        links={[{ label: t("Showcase"), href: "index.html", current: true }, { label: t("Examples"), href: "examples/index.html" }, { label: t("Using it"), href: docPage("README.md", lang) }]}
+        tools={<>
+          {lang === "ar" && (
+            <SegmentedButtons label={t("Numerals")} value={numerals} onChange={(v) => { setNumerals(v); store(KEYS.numerals, v); }}
+              options={[{ value: "latn", label: <bdi>123</bdi> }, { value: "arab", label: <bdi>١٢٣</bdi>, ariaLabel: t("Arabic-Indic numerals") }]} />
+          )}
+          <SegmentedButtons label={t("Language")} value={lang} onChange={(v) => { setLang(v); store(KEYS.lang, v); }}
+            options={[{ value: "en", label: "English", lang: "en" }, { value: "ar", label: "العربية", lang: "ar" }]} />
+          <TextLink muted external href={REPO}><span lang="en">GitHub</span></TextLink>
+        </>} />
+      <div className="al-page">
+        <PhaseBanner phase={<Badge tone="warning">{t("Experimental")}</Badge>}>
+          {t("This design system is new, and is actively being evolved.")} <a href={docPage("CHANGELOG.md", lang)}>{t("Check the changelog")}</a>.
+        </PhaseBanner>
+      </div>
 
       <main id="main" tabIndex={-1}>
         <Hero className="sc-hero">

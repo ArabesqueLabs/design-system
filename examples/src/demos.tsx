@@ -5,14 +5,15 @@
 
 import { useEffect, useId, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { onShortcut, setShortcutsEnabled, shortcutsEnabled } from "../../js/keys.js";
+import { forgetDismissal } from "../../js/announcement.js";
 import { ColourDemo, MotionDemo, SpaceDemo, TintsDemo, TypeDemo } from "./foundations.js";
 import { formatMoney, formatNumber, formatPercent } from "../../js/format.js";
 import {
-  Affix, AffixText, Avatar, BackLink, Badge, Breadcrumbs, BulkBar, BulletChart, Button, Card, CharacterCount, ChartFigure, Checkbox,
+  Affix, AffixText, Announcement, Avatar, BackLink, Badge, CallToAction, CodeBlock, Command, DisclosureGroup, FeatureTabs, LogoWordmark, Logos, OnThisPage, Quote, Stats, Breadcrumbs, BulkBar, BulletChart, Button, Card, CharacterCount, ChartFigure, Checkbox,
   Choices, ColumnChart, Confirmation, LanguageLink, Section, Star, TextLink, iconNames, ConstructionFigure, DateExample, DateInput, DatePicker, Dialog, Disclosure, EmptyState, ErrorSummary,
   Field, Fieldset, Footer, Grid, Hero, HeroCaption, Highlight, Icon, Input, Lockup, Mark, Menu, Notice, PageHead, Panel, Pattern, PhaseBanner,
   Progress, Radio, RollbackNote, SaveState, Search, Segmented, Select, Shell, Shortcuts, SideEffect, SiteHeader, Skeleton, Spinner, SplitBar,
-  Stack, Cluster, Stat, Steps, StaleNote, Stale, SummaryList, Switch, Table, Tabs, Tag, TaskList, useArabesque, useToast, type SaveStatus, type Tint,
+  Stack, Cluster, Stat, Steps, StaleNote, Stale, SummaryList, Switch, Table, Tabs, Tag, TaskList, useArabesque, useToast, type IconName, type SaveStatus, type Tint,
 } from "../../react/src/index.js";
 
 export type T = (english: string) => string;
@@ -211,6 +212,11 @@ function CardDemo({ t }: DemoProps) {
       </Card>
       <Stat label={t("Figure, this month")} value={n(12480)} note={<>{t("last month:")} <bdi>{n(11902)}</bdi></>} />
       <Panel><h2>{t("Panel title")}</h2><p className="al-muted">{t("A rule above a group: most groupings need no box.")}</p></Panel>
+      <Stats style={{ gridColumn: "1 / -1" }}>
+        <Stat label={t("Components")} value={n(42)} />
+        <Stat label={t("Tokens")} value={n(164)} />
+        <Stat label={t("Contrast pairs measured")} value={n(112)} note={t("none failing")} />
+      </Stats>
     </Grid>
   );
 }
@@ -327,7 +333,8 @@ function SiteHeaderDemo({ t }: DemoProps) {
   return (
     <div className="ex-flush">
       <SiteHeader home="#" skipTo={false} language={useArabesque().lang === "ar" ? { href: "#", lang: "en" } : { href: "#", lang: "ar" }}
-        links={[{ label: t("The idea"), href: "#", current: true }, { label: t("Approach"), href: "#" }, { label: t("Contact"), href: "#" }]} />
+        links={[{ label: t("The idea"), href: "#", current: true }, { label: t("Approach"), href: "#" }, { label: t("Contact"), href: "#" }]}
+        action={<Button size="sm" variant="primary" href="#">{t("Say hello")}</Button>} />
     </div>
   );
 }
@@ -357,13 +364,105 @@ function LanguageDemo() {
 }
 
 function SectionDemo({ t }: DemoProps) {
+  const { n } = useDigits();
   return (
     <div className="ex-sections">
-      <Section heading={t("The name is the method")} lede={t("Four stages, repeated as many times as it takes to get something right.")}>
+      <Section eyebrow={t("Who we are")} index={n(1).padStart(2, n(0))} heading={t("The name is the method")} lede={t("Four stages, repeated as many times as it takes to get something right.")}>
         <p className="al-muted al-measure">{t("Settings most people never need.")}</p>
       </Section>
-      <Section heading={t("How we build")} />
+      <Section heading={<>{t("How we build.")} <span className="al-muted">{t("Small parts, one rule, repeated with care.")}</span></>} />
     </div>
+  );
+}
+
+function FeatureTabsDemo({ t }: DemoProps) {
+  const { n } = useDigits();
+  return (
+    <FeatureTabs label={t("What it does for you")} tabs={[
+      { id: "rtl", label: t("Right to left"), description: t("Logical properties mirror with the page."), content: <CodeBlock language="css" code={".al-toc a {\n  padding-inline-start: var(--al-space-3);\n  border-inline-start: 2px solid var(--al-color-line);\n}"} mark={[2, 3]} /> },
+      { id: "contrast", label: t("Contrast, measured"), description: t("Every pair, in both themes, at every build."), content: <Stats><Stat label={t("Contrast pairs measured")} value={n(154)} note={t("none failing")} /><Stat label={t("Themes")} value={n(2)} /></Stats> },
+      { id: "keys", label: t("The keyboard"), description: t("Everything works without a mouse."), content: <p className="al-lede">{t("Tab reaches every control; arrow keys move within tabs, menus and dates; Escape closes what opened.")}</p> },
+    ]} />
+  );
+}
+
+function LogosDemo({ t }: DemoProps) {
+  const names: [string, IconName][] = [["Organisation A", "board"], ["Organisation B", "calendar"], ["Organisation C", "file"], ["Organisation D", "search"], ["Organisation E", "settings"], ["Organisation F", "mail"]];
+  return <Logos label={t("Who builds with it")} logos={names.map(([name, icon]) => <LogoWordmark key={name}><Icon name={icon} />{t(name)}</LogoWordmark>)} />;
+}
+
+function QuoteDemo({ t }: DemoProps) {
+  return (
+    <Grid>
+      <Quote eyebrow={t("What it's about")} name={t("Their name")} role={t("Their role, at their organisation")} avatar={<Avatar tint="pink" />}>
+        {t("What they said, in their own words: trimmed, never reworded, and shown with their permission.")}
+      </Quote>
+      <Quote name={t("Another name")} role={t("Their role")} avatar={<Avatar tint="blue" />}>
+        {t("A second person's words, beside the first.")}
+      </Quote>
+    </Grid>
+  );
+}
+
+function FaqDemo({ t }: DemoProps) {
+  return (
+    <DisclosureGroup>
+      <Disclosure summary={t("Does it work in Arabic?")}><p>{t("Yes: every component is written for right to left as well as left to right, and every spec is in Arabic too.")} <a href="../docs/rtl.html">{t("How right to left works")}</a></p></Disclosure>
+      <Disclosure summary={t("Do I need React?")}><p>{t("No. The CSS and the small helpers in js/ work on any page; the React components write the same markup.")}</p></Disclosure>
+      <Disclosure summary={t("How is contrast checked?")}><p>{t("The build measures every colour pair the system relies on, in both themes, and fails if any falls short.")}</p></Disclosure>
+    </DisclosureGroup>
+  );
+}
+
+function CtaDemo({ t }: DemoProps) {
+  return (
+    <CallToAction heading={t("Your next page, built from the same tile.")} lede={t("Start from the template, or take only the parts you need.")}
+      actions={<>
+        <Button variant="primary" href="../templates/home.html">{t("Open the template")}</Button>
+        <Button href="../README.html">{t("Read how to use it")}</Button>
+        <Command>npm run build</Command>
+      </>} />
+  );
+}
+
+function OnThisPageDemo({ t }: DemoProps) {
+  const base = `toc-${useId().replace(/\W/g, "")}`;
+  const parts = [t("The idea"), t("Approach"), t("Contact")];
+  return (
+    <div className="ex-toc">
+      <OnThisPage links={parts.map((p, i) => ({ href: `#${base}-${i}`, label: p }))} />
+      <div className="al-stack">
+        {parts.map((p, i) => <section key={p} aria-labelledby={`${base}-${i}`}><h3 id={`${base}-${i}`}>{p}</h3><p className="al-muted">{t("Scroll the page: the link to the part you're reading is marked.")}</p></section>)}
+      </div>
+    </div>
+  );
+}
+
+const HTML_SAMPLE = `<link rel="stylesheet" href="dist/arabesque.css">
+<header class="al-site-header">…</header>
+<script type="module">
+  import { initSiteHeaders } from "./js/site-header.js";
+  initSiteHeaders();
+</script>`;
+
+const REACT_SAMPLE = `import { ArabesqueProvider, SiteHeader } from "@arabesquelabs/design-system/react";
+
+export const Top = () => (
+  <ArabesqueProvider lang="ar" sprite="/dist/icons.svg">
+    <SiteHeader links={links} />
+  </ArabesqueProvider>
+);`;
+
+function CodeDemo({ t }: DemoProps) {
+  return (
+    <Stack>
+      <CodeBlock label={t("Written as")} samples={[
+        { id: "html", label: "HTML", code: HTML_SAMPLE, mark: [4, 5], language: "html" },
+        { id: "react", label: "React", code: REACT_SAMPLE, mark: [4, 5], language: "tsx" },
+      ]} />
+      <CodeBlock caption="css/components/code.css" code={".al-code__pre {\n  direction: ltr;\n  text-align: start;\n}"} mark={[2]} language="css" />
+      <div><Command>npm run build</Command></div>
+    </Stack>
   );
 }
 
@@ -388,7 +487,15 @@ function DismissibleNotice({ t }: DemoProps) {
 }
 
 function PhaseBannerDemo({ t }: DemoProps) {
-  return <PhaseBanner phase={<Badge tone="warning">{t("Beta")}</Badge>}>{t("This is a new service.")} <a href="#">{t("Tell us what you think")}</a>.</PhaseBanner>;
+  const [shown, setShown] = useState(0);
+  const id = `demo-${useArabesque().lang}`;
+  return (
+    <Stack>
+      <Announcement key={shown} id={id}>{t("Code blocks now have syntax colour.")} <a href="#">{t("See what's new")}</a></Announcement>
+      <PhaseBanner phase={<Badge tone="warning">{t("Beta")}</Badge>}>{t("This is a new service.")} <a href="#">{t("Tell us what you think")}</a>.</PhaseBanner>
+      <div><Button size="sm" variant="quiet" onClick={() => { forgetDismissal(id); setShown((n) => n + 1); }}>{t("Show the announcement again")}</Button></div>
+    </Stack>
+  );
 }
 
 function ToastDemo({ t }: DemoProps) {
@@ -439,6 +546,7 @@ function MenuDemo({ t }: DemoProps) {
       { label: t("Duplicate"), onSelect: did("Duplicate") },
       { label: t("Rename"), onSelect: did("Rename") },
       { label: t("Move to…"), onSelect: did("Move to…") },
+      { label: t("Archive"), description: t("Hidden from lists; still found by search."), onSelect: did("Archive") },
       { separator: true },
       { label: t("Delete"), danger: true, onSelect: did("Delete") },
     ]} />
@@ -780,6 +888,11 @@ export const demos: Demo[] = [
   d("error-summary", "Error summary", "Forms", "When a form is submitted with errors: every error, at the top, each a link to its field. It takes focus, and the page title starts with “Error:”.", "error-summary", ErrorSummaryDemo),
   d("disclosure", "Disclosure", "Content", "What's secondary, folded away, with the value inside shown beside its name.", "disclosure", DisclosureDemo),
   d("card", "Card, panel and stat", "Content", "A card holds one thing people act on; a panel is a rule above a group; a stat is a figure with its label.", "card", CardDemo),
+  d("code", "Code and command", "Content", "Code to read or copy, left to right in either language, with the lines that matter marked. A command is one line to paste.", "code", CodeDemo),
+  d("feature-tabs", "Feature tabs", "Content", "A column of tabs, each a name and a line about it, beside what the chosen one shows.", "nav", FeatureTabsDemo),
+  d("logos", "Logo wall", "Content", "Who uses it, as their marks in one colour, as many to a row as fit. Never a scrolling marquee.", "logos", LogosDemo),
+  d("quote", "Quote", "Content", "What someone said, in their words, then who they are.", "card", QuoteDemo),
+  d("cta", "Call to action", "Content", "The page's last word: one line, then what to do.", "cta", CtaDemo),
   d("summary-list", "Summary list", "Content", "Facts about one thing, each with its own action: for checking answers, and for any record.", "summary-list", SummaryListDemo),
   d("table", "Table", "Content", "For comparing values: numbers line up, the total stands out, asides recede. Wide tables scroll in their own region.", "table", TableDemo),
   d("badge", "Badge", "Content", "A short status beside something, in words. Sentence case, never capitals.", "badge", BadgeDemo),
@@ -790,6 +903,7 @@ export const demos: Demo[] = [
   d("page-head", "Page head and tabs", "Navigation", "The page's title, what applies to the whole page, then its views.", "page-head", PageHeadDemo),
   d("sidebar", "Sidebar", "Navigation", "An app's sections, collapsible to icons; a bar along the top on small screens.", "sidebar", SidebarDemo),
   d("site-header", "Site header", "Navigation", "A website's top bar: the lockup, the sections, and the language and theme controls. Under the md breakpoint the sections fold into a menu.", "site-header", SiteHeaderDemo),
+  d("on-this-page", "On this page", "Navigation", "A page's sections beside it, with the one being read marked as it scrolls.", "toc", OnThisPageDemo),
   d("language-link", "Language link", "Navigation", "The same page in the other language, named in that language. Never a flag.", "language-switch", LanguageDemo),
   d("footer", "Footer", "Navigation", "Who made it, where to go next, and the legal line; quiet, and the same on every page.", "footer", FooterDemo),
   d("notice", "Notice and side-effect note", "Feedback", "A message in the page, in four kinds, each with an icon and a title. A side-effect note says what else will change, before it does.", "notice", NoticeDemo),
@@ -812,6 +926,7 @@ export const demos: Demo[] = [
   d("pattern", "Pattern", "Brand", "The 4.8.8 tessellation of the mark's tile, contact angle 67.5°, drawn by rule: as texture behind a band, or across a hero with its focal tile (as at the top of this page).", "pattern", PatternDemo),
   d("hero", "Hero", "Brand", "One quiet line across the section, and one focal tile in the accent, with its caption. It draws itself in once.", "pattern", HeroDemo),
   d("construction", "Construction figure", "Brand", "How the pattern is made, in three steps, each read as software.", "construction", ConstructionDemo),
+  { id: "faq", title: "Questions and answers", group: "Patterns", lead: "The questions people ask before they start, each folded under its question, each answer short, with a link for more.", spec: "docs/patterns.md", Demo: FaqDemo },
   { id: "ask-check-confirm", title: "Ask, check, confirm", group: "Patterns", lead: "For anything sent, or hard to take back: ask; check errors on submit, with an error summary; let people check their answers; then confirm, with what happens next. Try submitting it empty.", spec: "docs/patterns.md", Demo: FlowDemo },
 ];
 

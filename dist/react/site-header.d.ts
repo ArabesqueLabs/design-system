@@ -16,8 +16,10 @@ export interface SiteHeaderProps {
         lang: string;
         label?: string;
     };
-    /** Before the theme toggle: anything else. */
+    /** Before the theme toggle: anything else. Folds into the menu under md. */
     tools?: ReactNode;
+    /** The page's one action ("Sign up"), as a small button: it stays in the bar at every width. */
+    action?: ReactNode;
     /** Stays at the top of the window while the page scrolls. */
     sticky?: boolean;
     /** Its skip link's target, first in the header; false for none (when the page has its own). Default "#main". */
@@ -28,7 +30,7 @@ export interface SiteHeaderProps {
     menuId?: string;
     className?: string;
 }
-export declare function SiteHeader({ home, lockup, links, language, tools, sticky, skipTo, themeToggle, menuId, className }: SiteHeaderProps): import("react").JSX.Element;
+export declare function SiteHeader({ home, lockup, links, language, tools, action, sticky, skipTo, themeToggle, menuId, className }: SiteHeaderProps): import("react").JSX.Element;
 /**
  * Light or dark (js/theme.js): named for what it switches to. On a page
  * without React, wire it with the same data-label-* (see templates/home.html).

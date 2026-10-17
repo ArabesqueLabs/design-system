@@ -1,6 +1,7 @@
 // Tabs (ARIA APG, automatic activation): role="tablist" with role="tab"
 // buttons (aria-controls) and role="tabpanel"s. Arrow keys move along the
-// reading direction (reversed in right-to-left), Home and End jump.
+// reading direction (reversed in right-to-left), or up and down in a
+// vertical list (aria-orientation="vertical"); Home and End jump.
 export function initTabs(root = document) {
   for (const list of root.querySelectorAll('[role="tablist"]')) {
     if (list.dataset.alTabs) continue;
@@ -20,7 +21,8 @@ export function initTabs(root = document) {
       const rtl = getComputedStyle(list).direction === "rtl";
       const i = tabs.indexOf(document.activeElement);
       if (i < 0) return;
-      const step = { ArrowRight: rtl ? -1 : 1, ArrowLeft: rtl ? 1 : -1 }[e.key];
+      const vertical = list.getAttribute("aria-orientation") === "vertical";
+      const step = vertical ? { ArrowDown: 1, ArrowUp: -1 }[e.key] : { ArrowRight: rtl ? -1 : 1, ArrowLeft: rtl ? 1 : -1 }[e.key];
       let next = null;
       if (step) next = tabs[(i + step + tabs.length) % tabs.length];
       else if (e.key === "Home") next = tabs[0];

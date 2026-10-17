@@ -1,0 +1,17 @@
+/* Call to action: the page's last word. One line, then what to do: the
+   primary action, a quieter one, and perhaps the command that starts it.
+   Centred, on the sunk surface; with the pattern, quiet, behind it (in an
+   .al-pattern--quiet). One per page, at its end. */
+.al-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--al-space-5);
+  padding: var(--al-space-section) var(--al-space-4);
+  border-block-start: var(--al-border-hairline) solid var(--al-color-line);
+  background: var(--al-color-surface-sunk);
+  text-align: center;
+}
+.al-cta__title { margin: 0; max-inline-size: 20ch; font-family: var(--al-font-display); font-size: var(--al-text-3xl); font-weight: var(--al-weight-regular); line-height: var(--al-leading-heading); letter-spacing: var(--al-tracking-tight); text-wrap: balance; }
+.al-cta__lede { margin: 0; }
+.al-cta__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--al-space-3); }

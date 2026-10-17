@@ -1,13 +1,15 @@
 /* Site header: the website's top bar. The lockup, the sections, the
    language and theme controls; under the md breakpoint the sections fold
-   into a menu (js/site-header.js), which drops below the bar. */
+   into a menu (js/site-header.js), which drops below the bar. The language
+   link and any other tools fold into it too, so the bar keeps only the
+   lockup, the theme button and the menu button. */
 /* It folds by its own width (a container query), so it works in a sidebar
    or a narrow preview as well as across a page. --sticky keeps it at the
    top while the page scrolls. */
 .al-site-header { position: relative; container: al-site-header / inline-size; }
 .al-site-header--sticky { position: sticky; inset-block-start: 0; z-index: var(--al-z-sticky); background: var(--al-color-bg); border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
 .al-site-header__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--al-space-6); min-block-size: 5rem; }
-.al-site-header__lockup { color: var(--al-color-text); text-decoration: none; }
+.al-site-header__lockup { min-inline-size: 0; color: var(--al-color-text); text-decoration: none; }
 .al-site-header__end { display: flex; align-items: center; gap: var(--al-space-4) var(--al-space-8); }
 .al-site-header__nav ul, .al-site-header__menu ul { list-style: none; margin: 0; padding: 0; }
 .al-site-header__nav ul { display: flex; gap: var(--al-space-8); }
@@ -16,17 +18,30 @@
 /* The current page: underlined in the accent. */
 .al-site-header__nav a[aria-current], .al-site-header__menu a[aria-current] { text-decoration: underline; text-decoration-color: var(--al-color-accent); text-decoration-thickness: 2px; text-underline-offset: 0.45em; }
 .al-site-header__tools { display: flex; align-items: center; gap: var(--al-space-2); }
+.al-site-header__extras { display: flex; align-items: center; gap: var(--al-space-4); margin-inline-end: var(--al-space-2); }
 .al-site-header__toggle { display: none; }
+/* The page's one action (Sign up, Say hello): it stays in the bar at every width. */
+.al-site-header__action { display: flex; }
+/* The menu button shows a cross while the menu is open. */
+.al-site-header__toggle[aria-expanded="true"] .al-site-header__open, .al-site-header__toggle:not([aria-expanded="true"]) .al-site-header__close { display: none; }
 .al-site-header__menu { padding-block: var(--al-space-2) var(--al-space-6); border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
-.al-site-header__menu a { display: block; padding-block: var(--al-space-4); font-size: var(--al-text-lg); color: var(--al-color-text); text-decoration: none; border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
-.al-site-header__menu a:hover { color: var(--al-color-accent); }
+.al-site-header__menu li a { display: block; padding-block: var(--al-space-4); font-size: var(--al-text-lg); color: var(--al-color-text); text-decoration: none; border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
+.al-site-header__menu li a:hover { color: var(--al-color-accent); }
+/* Under the links: the language link and the other tools from the bar. */
+.al-site-header__menu-tools { display: flex; flex-wrap: wrap; align-items: center; gap: var(--al-space-3) var(--al-space-6); padding-block-start: var(--al-space-5); }
 .al-site-header__menu[hidden] { display: none; }
 @container al-site-header (max-width: 52rem) {
-  .al-site-header__nav { display: none; }
+  .al-site-header__nav, .al-site-header__extras { display: none; }
   .al-site-header__toggle { display: inline-flex; }
   .al-site-header__bar { min-block-size: 4rem; }
 }
 @container al-site-header (min-width: 52.0625rem) { .al-site-header__menu { display: none; } }
+/* On a phone, the lockup keeps the name only. */
+@container al-site-header (max-width: 30rem) { .al-site-header__lockup .al-lockup__product { display: none; } }
+/* With an action, narrower still: the mark alone, its name kept for screen readers. */
+@container al-site-header (max-width: 28rem) {
+  .al-site-header:has(.al-site-header__action) .al-site-header__lockup .al-wordmark { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
 
 /* The theme toggle's half-filled disc turns over in dark. */
 [data-theme-toggle] .al-icon { transition: rotate var(--al-duration-base) var(--al-ease-standard); }

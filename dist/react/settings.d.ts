@@ -43,6 +43,11 @@ export interface Labels {
     workingOut: string;
     contactAngle: string;
     heroCaption: string;
+    announcement: string;
+    onThisPage: string;
+    copy: string;
+    copied: string;
+    copyFailed: string;
     /** "{name}" is the tag's text. */
     removeTag: string;
     /** "{n}" is the count, in the page's digits. */

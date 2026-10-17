@@ -49,6 +49,13 @@
   --color-tint-blue-ink: var(--al-color-tint-blue-ink);
   --color-tint-cyan-bg: var(--al-color-tint-cyan-bg);
   --color-tint-cyan-ink: var(--al-color-tint-cyan-ink);
+  --color-syntax-keyword: var(--al-color-syntax-keyword);
+  --color-syntax-string: var(--al-color-syntax-string);
+  --color-syntax-number: var(--al-color-syntax-number);
+  --color-syntax-comment: var(--al-color-syntax-comment);
+  --color-syntax-function: var(--al-color-syntax-function);
+  --color-syntax-tag: var(--al-color-syntax-tag);
+  --color-syntax-attribute: var(--al-color-syntax-attribute);
   --color-pattern-line: var(--al-color-pattern-line);
   --color-pattern-scaffold: var(--al-color-pattern-scaffold);
   --color-pattern-quiet: var(--al-color-pattern-quiet);

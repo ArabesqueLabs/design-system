@@ -8,7 +8,7 @@ import { useTooltips } from "./tooltip.js";
 import { cx, useStableId } from "./util.js";
 
 export type MenuEntry =
-  | { label: ReactNode; onSelect?: () => void; danger?: boolean; disabled?: boolean; /** One of several (menuitemradio): checked or not. */ checked?: boolean }
+  | { label: ReactNode; /** A line about what it does, under its name. */ description?: ReactNode; onSelect?: () => void; danger?: boolean; disabled?: boolean; /** One of several (menuitemradio): checked or not. */ checked?: boolean }
   | { separator: true }
   | { group: ReactNode };
 
@@ -41,9 +41,11 @@ export function Menu({ label, icon, menuLabel, items, id, className }: MenuProps
           if ("group" in it) return <p key={i} className="al-menu__label" role="presentation">{it.group}</p>;
           const radio = it.checked !== undefined;
           return (
-            <button key={i} type="button" className={cx("al-menu__item", it.danger && "al-menu__item--danger")} role={radio ? "menuitemradio" : "menuitem"}
-              aria-checked={radio ? it.checked : undefined} aria-disabled={it.disabled || undefined} onClick={it.disabled ? undefined : it.onSelect}>
+            <button key={i} type="button" className={cx("al-menu__item", it.danger && "al-menu__item--danger", !!it.description && "al-menu__item--described")} role={radio ? "menuitemradio" : "menuitem"}
+              aria-checked={radio ? it.checked : undefined} aria-disabled={it.disabled || undefined} onClick={it.disabled ? undefined : it.onSelect}
+              aria-describedby={it.description ? `${menuId}-${i}-about` : undefined}>
               {it.label}
+              {it.description && <span className="al-menu__description" id={`${menuId}-${i}-about`}>{it.description}</span>}
             </button>
           );
         })}

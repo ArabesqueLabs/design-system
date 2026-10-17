@@ -2,7 +2,7 @@
 // of them all, rendered in the browser by client.tsx.
 
 import AR from "../../showcase-ar.js";
-import { ArabesqueProvider, Badge, Cluster, Hero, HeroCaption, Lockup, PhaseBanner, SkipLink, TextLink, ThemeToggle } from "../../react/src/index.js";
+import { ArabesqueProvider, Badge, BackLink, Hero, HeroCaption, Lockup, PhaseBanner, SiteHeader, TextLink } from "../../react/src/index.js";
 import { REPO, onGitHub } from "./repo.js";
 import { extra } from "./ar.js";
 import { demos, groups, type Demo, type T } from "./demos.js";
@@ -23,20 +23,20 @@ export const translator = (lang: "en" | "ar", missing?: Set<string>): T => (s) =
   return ar ?? s;
 };
 
-const Top = () => (
-  <header className="al-page ex-top">
-    <a className="ex-back" href="index.html">All components</a>
-    <Cluster><TextLink muted external href={REPO}><span lang="en">GitHub</span></TextLink><ThemeToggle /></Cluster>
-  </header>
+/** The site header, as on the showcase and the docs; `gallery` on the examples' own index. */
+const Top = ({ gallery }: { gallery?: boolean }) => (
+  <SiteHeader menuId="site-menu" lockup={<Lockup className="al-site-header__lockup" href="../index.html" product="Design system" />}
+    links={[{ label: "Showcase", href: "../index.html" }, { label: "Examples", href: "index.html", current: gallery }, { label: "Using it", href: "../README.html" }]}
+    tools={<TextLink muted external href={REPO}><span lang="en">GitHub</span></TextLink>} />
 );
 
 export function ExamplePage({ demo, missing }: { demo: Demo; missing?: Set<string> }) {
   const { Demo: Shown } = demo;
   return (
     <ArabesqueProvider sprite={SPRITE}>
-      <SkipLink />
       <Top />
       <main id="main" tabIndex={-1} className="al-page ex-main">
+        <BackLink href="index.html">All components</BackLink>
         <h1 className="ex-title">{demo.title}</h1>
         <p className="al-lede">{demo.lead}</p>
         <p className="ex-spec"><a href={`../${demo.spec.replace(/\.md$/, ".html")}`}>Read the spec</a> · <a href={`../index.html#${demo.id}`}>In the showcase</a> · <TextLink external href={onGitHub("examples/src/demos.tsx")}>The demo&apos;s source</TextLink></p>
@@ -58,12 +58,8 @@ export function ExamplePage({ demo, missing }: { demo: Demo; missing?: Set<strin
 export function Gallery() {
   return (
     <ArabesqueProvider sprite={SPRITE}>
-      <SkipLink />
       <Hero className="ex-cover">
-        <header className="al-page ex-top">
-          <Lockup href="../index.html" product="Design system" />
-          <Cluster><TextLink muted external href={REPO}><span lang="en">GitHub</span></TextLink><ThemeToggle /></Cluster>
-        </header>
+        <Top gallery />
         <div className="al-page ex-cover__body">
           <h1 className="al-display ex-cover__title">Every component, working.</h1>
           <p className="al-lede ex-cover__lede">Each page runs the React components (<code>react/</code>) in English and in Arabic, right to left, in light and dark. They write the same markup as the CSS and the showcase.</p>

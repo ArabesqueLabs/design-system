@@ -2,7 +2,7 @@
 
 A native `<details>` for what's secondary, optionally showing what's chosen inside it while closed (the fold with a summary value).
 
-**CSS:** [`css/components/disclosure.css`](../../css/components/disclosure.css). **Classes:** `.al-disclosure`, `.al-disclosure__body`, `.al-disclosure__value`.
+**CSS:** [`css/components/disclosure.css`](../../css/components/disclosure.css). **Classes:** `.al-disclosure`, `.al-disclosure__body`, `.al-disclosure__value`, `.al-disclosure-group`.
 
 ## Anatomy
 
@@ -15,7 +15,7 @@ A native `<details>` for what's secondary, optionally showing what's chosen insi
 
 ## Variants and sizes
 
-Plain (no value) and with `__value`. Stack several with no gap: each draws a rule above it.
+Plain (no value) and with `__value`. Stack several with no gap: each draws a rule above it. In a `.al-disclosure-group` (React `DisclosureGroup`), the last draws one below too: for [questions and answers](../patterns.md#questions-and-answers).
 
 ## States
 

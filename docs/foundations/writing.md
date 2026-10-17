@@ -24,6 +24,19 @@ Modern Standard Arabic.
 - **No hype.** Not "revolutionary", "cutting-edge", "seamless", "next-gen";
   no exclamation marks, no emoji.
 
+## Headings
+
+- **A plain claim.** A heading says what's true, or what people get: "Code
+  reads left to right, in either language", not "Code, reimagined".
+- **A lead-in, then the rest, quieter.** For a section's heading, a short
+  claim and then the sentence that bears it out, in the muted colour:
+  `<h2>How we build. <span class="al-muted">Small parts, one rule, repeated
+  with care.</span></h2>`. Both are the heading; screen readers read it whole.
+- **An eyebrow is a few words**, in sentence case, that say which part of the
+  page this is ("Who we are"), never a second headline.
+- **A closing line says what people will have**: "Your next page, built from
+  the same tile", not "Get started today".
+
 ## Labels for actions
 
 - **Verb + object:** "Save offer", "Archive 3 processes", "Delete account and

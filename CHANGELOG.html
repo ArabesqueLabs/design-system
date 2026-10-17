@@ -12,13 +12,77 @@
   <link rel="stylesheet" href="docs/page.css">
 </head>
 <body>
-<header class="al-site-header"><a class="al-skip-link" href="#main">Skip to content</a><div class="al-page al-site-header__bar"><a class="al-lockup al-site-header__lockup" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="al-mark" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="miter"><path d="M9.37 -9.37L5.49 0L9.37 9.37L0 5.49L-9.37 9.37L-5.49 0L-9.37 -9.37L0 -5.49Z M73.37 -9.37L69.49 0L73.37 9.37L64 5.49L54.63 9.37L58.51 0L54.63 -9.37L64 -5.49Z M9.37 54.63L5.49 64L9.37 73.37L0 69.49L-9.37 73.37L-5.49 64L-9.37 54.63L0 58.51Z M73.37 54.63L69.49 64L73.37 73.37L64 69.49L54.63 73.37L58.51 64L54.63 54.63L64 58.51Z"></path><path d="M64 32L48 38.63L54.63 54.63L38.63 48L32 64L25.37 48L9.37 54.63L16 38.63L0 32L16 25.37L9.37 9.37L25.37 16L32 0L38.63 16L54.63 9.37L48 25.37Z"></path><rect x="1.6" y="1.6" width="60.8" height="60.8"></rect></g></svg><span class="al-wordmark" lang="en">Arabesque Labs</span><span class="al-lockup__product">Design system</span></a><div class="al-site-header__end"><nav class="al-site-header__nav" aria-label="Sections"><ul><li><a href="index.html">Showcase</a></li><li><a href="examples/index.html">Examples</a></li><li><a href="README.html">Using it</a></li></ul></nav><div class="al-site-header__tools"><a class="al-link al-link--muted" target="_blank" rel="noopener" href="https://github.com/ArabesqueLabs/design-system"><span lang="en">GitHub</span><svg class="al-icon al-mirror" aria-hidden="true" focusable="false"><use href="dist/icons.svg#al-icon-external"></use></svg><span class="al-visually-hidden"> (opens in a new tab)</span></a><button type="button" class="al-button al-button--icon al-button--quiet" data-theme-toggle="" data-label-dark="Switch to dark theme" data-label-light="Switch to light theme" aria-label="Switch to dark theme"><svg class="al-icon" aria-hidden="true" focusable="false"><use href="dist/icons.svg#al-icon-theme"></use></svg></button><button type="button" class="al-button al-button--icon al-button--quiet al-site-header__toggle" data-site-menu-toggle="" aria-controls="site-menu" aria-expanded="false" aria-label="Menu"><svg class="al-icon" aria-hidden="true" focusable="false"><use href="dist/icons.svg#al-icon-menu"></use></svg></button></div></div></div><nav class="al-page al-site-header__menu" id="site-menu" aria-label="Sections" hidden=""><ul><li><a href="index.html">Showcase</a></li><li><a href="examples/index.html">Examples</a></li><li><a href="README.html">Using it</a></li></ul></nav></header><div class="al-page dp-layout"><nav class="dp-toc" aria-label="On this page"><p class="dp-toc__title">On this page</p><ul><li><a href="#unreleased">[Unreleased]</a></li><li><a href="#041---2026-10-16">[0.4.1] - 2026-10-16</a></li><li><a href="#040---2026-10-16">[0.4.0] - 2026-10-16</a></li><li><a href="#030---2026-10-14">[0.3.0] - 2026-10-14</a></li><li><a href="#020---2026-10-14">[0.2.0] - 2026-10-14</a></li><li><a href="#010---2026-10-12">[0.1.0] - 2026-10-12</a></li></ul></nav><main id="main" tabindex="-1" class="dp-main"><article class="al-prose dp-doc"><h1 id="changelog">Changelog</h1>
+<header class="al-site-header"><a class="al-skip-link" href="#main">Skip to content</a><div class="al-page al-site-header__bar"><a class="al-lockup al-site-header__lockup" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="al-mark" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="miter"><path d="M9.37 -9.37L5.49 0L9.37 9.37L0 5.49L-9.37 9.37L-5.49 0L-9.37 -9.37L0 -5.49Z M73.37 -9.37L69.49 0L73.37 9.37L64 5.49L54.63 9.37L58.51 0L54.63 -9.37L64 -5.49Z M9.37 54.63L5.49 64L9.37 73.37L0 69.49L-9.37 73.37L-5.49 64L-9.37 54.63L0 58.51Z M73.37 54.63L69.49 64L73.37 73.37L64 69.49L54.63 73.37L58.51 64L54.63 54.63L64 58.51Z"></path><path d="M64 32L48 38.63L54.63 54.63L38.63 48L32 64L25.37 48L9.37 54.63L16 38.63L0 32L16 25.37L9.37 9.37L25.37 16L32 0L38.63 16L54.63 9.37L48 25.37Z"></path><rect x="1.6" y="1.6" width="60.8" height="60.8"></rect></g></svg><span class="al-wordmark" lang="en">Arabesque Labs</span><span class="al-lockup__product">Design system</span></a><div class="al-site-header__end"><nav class="al-site-header__nav" aria-label="Sections"><ul><li><a href="index.html">Showcase</a></li><li><a href="examples/index.html">Examples</a></li><li><a href="README.html">Using it</a></li></ul></nav><div class="al-site-header__tools"><div class="al-site-header__extras"><a class="al-link al-link--muted" target="_blank" rel="noopener" href="https://github.com/ArabesqueLabs/design-system"><span lang="en">GitHub</span><svg class="al-icon al-mirror" aria-hidden="true" focusable="false"><use href="dist/icons.svg#al-icon-external"></use></svg><span class="al-visually-hidden"> (opens in a new tab)</span></a></div><button type="button" class="al-button al-button--icon al-button--quiet" data-theme-toggle="" data-label-dark="Switch to dark theme" data-label-light="Switch to light theme" aria-label="Switch to dark theme"><svg class="al-icon" aria-hidden="true" focusable="false"><use href="dist/icons.svg#al-icon-theme"></use></svg></button><button type="button" class="al-button al-button--icon al-button--quiet al-site-header__toggle" data-site-menu-toggle="" aria-controls="site-menu" aria-expanded="false" aria-label="Menu"><svg class="al-icon al-site-header__open" aria-hidden="true" focusable="false"><use href="dist/icons.svg#al-icon-menu"></use></svg><svg class="al-icon al-site-header__close" aria-hidden="true" focusable="false"><use href="dist/icons.svg#al-icon-close"></use></svg></button></div></div></div><nav class="al-page al-site-header__menu" id="site-menu" aria-label="Sections" hidden=""><ul><li><a href="index.html">Showcase</a></li><li><a href="examples/index.html">Examples</a></li><li><a href="README.html">Using it</a></li></ul><div class="al-site-header__menu-tools"><a class="al-link al-link--muted" target="_blank" rel="noopener" href="https://github.com/ArabesqueLabs/design-system"><span lang="en">GitHub</span><svg class="al-icon al-mirror" aria-hidden="true" focusable="false"><use href="dist/icons.svg#al-icon-external"></use></svg><span class="al-visually-hidden"> (opens in a new tab)</span></a></div></nav></header><div class="al-page dp-layout"><nav class="al-toc dp-toc" aria-label="On this page"><p class="al-toc__title" aria-hidden="true">On this page</p><ul><li><a href="#unreleased">[Unreleased]</a></li><li><a href="#050---2026-10-17">[0.5.0] - 2026-10-17</a></li><li><a href="#041---2026-10-16">[0.4.1] - 2026-10-16</a></li><li><a href="#040---2026-10-16">[0.4.0] - 2026-10-16</a></li><li><a href="#030---2026-10-14">[0.3.0] - 2026-10-14</a></li><li><a href="#020---2026-10-14">[0.2.0] - 2026-10-14</a></li><li><a href="#010---2026-10-12">[0.1.0] - 2026-10-12</a></li></ul></nav><main id="main" tabindex="-1" class="dp-main"><article class="al-prose dp-doc"><h1 id="changelog">Changelog</h1>
 <p>All notable changes to the design system. The format follows
 <a href="https://keepachangelog.com/en/1.1.0/">Keep a Changelog</a>, and versions follow
 <a href="https://semver.org/">semantic versioning</a> as described in the README.</p>
 <h2 id="unreleased">[Unreleased]</h2>
-<h2 id="041---2026-10-16">[0.4.1] - 2026-10-16</h2>
+<h2 id="050---2026-10-17">[0.5.0] - 2026-10-17</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li><strong>Code and command</strong> (<code>.al-code</code>, <code>.al-command</code>, <code>js/copy.js</code>,
+<a href="docs/components/code.html">spec</a>; React <code>CodeBlock</code> and <code>Command</code>): code to
+read or copy, always left to right, in one language or several (tabs),
+with the lines that matter marked; and a command, one line to paste with a
+<code>$</code> that&#39;s never copied. The copy button says &quot;Copied&quot;, and a status
+region tells screen readers; if the clipboard is refused, the code is
+selected instead. New labels: <code>copy</code>, <code>copied</code>, <code>copyFailed</code>.</li>
+<li><strong>Syntax colour</strong> (<code>--al-color-syntax-*</code>, <code>.al-syntax-*</code>, <code>js/highlight.js</code>):
+seven roles (keyword, string, number, comment, function, tag, attribute),
+each measured at 4.5:1 on the code&#39;s ground, the surface and a marked line,
+in both themes; comments are italic too. <code>js/highlight.js</code> colours
+JavaScript, TypeScript and JSX, HTML, CSS, JSON and the shell, in
+<code>CodeBlock</code> (<code>language</code>) and in any <code>&lt;pre&gt;&lt;code class=&quot;language-…&quot;&gt;</code>
+(<code>highlightCode()</code>), the docs&#39; own samples included. The colour rules say
+it: in code, a colour means what kind of word it is.</li>
+<li><strong>Feature tabs</strong> (<code>.al-feature-tabs</code>, React <code>FeatureTabs</code>,
+<a href="docs/components/nav.html">spec</a>): a column of tabs, each a name and a line,
+beside what the chosen one shows; <code>js/tabs.js</code> moves with up and down in a
+vertical tab list.</li>
+<li><strong>Logo wall</strong> (<code>.al-logos</code>, React <code>Logos</code> and <code>LogoWordmark</code>,
+<a href="docs/components/logos.html">spec</a>).</li>
+<li><strong>Quote</strong> (<code>.al-quote</code>, React <code>Quote</code>, <a href="docs/components/card.html">spec</a>).</li>
+<li><strong>Call to action</strong> (<code>.al-cta</code>, React <code>CallToAction</code>,
+<a href="docs/components/cta.html">spec</a>): the page&#39;s last word, on the quiet pattern.</li>
+<li><strong>Announcement</strong> (<code>.al-announcement</code>, <code>js/announcement.js</code>, React
+<code>Announcement</code>, <a href="docs/components/phase-banner.html">spec</a>): one line of news
+above everything; dismissing it is remembered. New label: <code>announcement</code>.</li>
+<li><strong>On this page</strong> (<code>.al-toc</code>, <code>js/toc.js</code>, React <code>OnThisPage</code>,
+<a href="docs/components/toc.html">spec</a>): the sections beside a page, the one being
+read marked as it scrolls; the docs use it. New label: <code>onThisPage</code>.</li>
+<li><strong>Disclosure group</strong> (<code>.al-disclosure-group</code>, React <code>DisclosureGroup</code>), and
+the <a href="docs/patterns.html#questions-and-answers">questions and answers</a> and
+<a href="docs/patterns.html#a-products-page">product page</a> patterns.</li>
+<li><strong>Menu items with a description</strong> (<code>.al-menu__item--described</code>,
+<code>.al-menu__description</code>; <code>description</code> in React).</li>
+<li><strong>Site header action</strong> (<code>.al-site-header__action</code>; <code>action</code> in React): the
+page&#39;s one action, in the bar at every width.</li>
+<li><a href="docs/foundations/writing.html">Writing</a>: headings as plain claims, the
+lead-in heading, eyebrows and closing lines.</li>
+<li><strong>Stats</strong> (<code>.al-stats</code>, React <code>Stats</code>, <a href="docs/components/card.html">spec</a>): the
+figures a page leads with, side by side and large, a hairline before each,
+with no boxes.</li>
+<li><strong>Eyebrow</strong> (<code>.al-eyebrow</code>, <code>.al-section__head</code>, React <code>Eyebrow</code> and
+<code>Section</code>&#39;s <code>eyebrow</code> and <code>index</code>,
+<a href="docs/foundations/layout.html">layout</a>): a few words above a section&#39;s
+heading, in the accent, numbered if you like (&quot;01&quot;); sentence case.</li>
+</ul>
 <h3 id="changed">Changed</h3>
+<ul>
+<li><code>arabesque.css</code>&#39;s size budget is 27 KB gzipped (was 26), for code with
+syntax colour and a product page&#39;s parts.</li>
+<li><strong>Site header</strong> (<a href="docs/components/site-header.html">spec</a>): under md, the
+language link and the other tools fold into the menu with the sections, so
+the bar keeps the lockup, the theme button and the menu button, and the
+menu button can no longer be pushed off a phone&#39;s screen. The menu button
+shows a cross while the menu is open; under 30rem the lockup drops its
+product name. New classes: <code>.al-site-header__extras</code>,
+<code>.al-site-header__menu-tools</code>.</li>
+<li>The showcase and the examples use the site header, so on a phone their
+sections, language and GitHub links are behind a menu button.</li>
+</ul>
+<h2 id="041---2026-10-16">[0.4.1] - 2026-10-16</h2>
+<h3 id="changed-1">Changed</h3>
 <ul>
 <li>IBM Plex Sans Arabic and IBM Plex Mono are IBM&#39;s own files, from its
 releases, not Google Fonts&#39; subsets: their licence reserves the name
@@ -28,7 +92,7 @@ Mono is IBM&#39;s own subsets. <code>fonts/</code> has IBM&#39;s licences with t
 README says where each family comes from.</li>
 </ul>
 <h2 id="040---2026-10-16">[0.4.0] - 2026-10-16</h2>
-<h3 id="added">Added</h3>
+<h3 id="added-1">Added</h3>
 <ul>
 <li><strong>The hero</strong> (<code>drawHero</code> in <code>js/pattern.js</code>, <code>.al-pattern--hero</code>,
 <a href="docs/components/pattern.html">spec</a>), as on arabesquelabs.com: one quiet line
@@ -111,7 +175,7 @@ document itself on GitHub), the README and <code>package.json</code>.</li>
 <li>Writing: never invent facts, even as placeholders; no hype; Arabic written
 as Arabic. Iconography: what imagery is, and what never is.</li>
 </ul>
-<h3 id="changed-1">Changed</h3>
+<h3 id="changed-2">Changed</h3>
 <ul>
 <li><p><strong>The spinner is the mark&#39;s star</strong>: faint, with a bright segment going
 round its outline; still under reduced motion. Busy buttons and the save
@@ -152,7 +216,7 @@ arabesquelabs.com, instead of teal at 24% (white at 16%).</p>
 </li>
 </ul>
 <h2 id="030---2026-10-14">[0.3.0] - 2026-10-14</h2>
-<h3 id="added-1">Added</h3>
+<h3 id="added-2">Added</h3>
 <ul>
 <li><strong>Date picker</strong> (<code>js/datepicker.js</code>, <code>css/components/date-picker.css</code>,
 <a href="docs/components/date-picker.html">spec</a>): a field for a date near today,
@@ -172,7 +236,7 @@ relative link in either language is broken.</li>
 <li>A test that fails if anything marked &quot;kept until&quot; a version is still
 there once the package reaches it.</li>
 </ul>
-<h3 id="changed-2">Changed</h3>
+<h3 id="changed-3">Changed</h3>
 <ul>
 <li><p>Showcase: the type scale&#39;s samples are Google Fonts&#39; own sentences, from
 the Universal Declaration of Human Rights: the English one in English, the
@@ -287,7 +351,7 @@ are keyboard-focusable, and focus returns to the link that opened it.</li>
 <li><strong>Docs:</strong> the colour roles table matches the tokens (it described the old
 palette); counts and lists in the README and here are current.</li>
 </ul>
-<h3 id="added-2">Added</h3>
+<h3 id="added-3">Added</h3>
 <ul>
 <li>Tokens: <code>accent-hover</code>, <code>danger-hover</code>, <code>focus-on-inverse</code>,
 <code>pattern.side-narrow</code>; the pattern tokens are read by <code>js/pattern.js</code>.</li>
@@ -344,7 +408,7 @@ published with the site.</li>
 </ul>
 <h2 id="010---2026-10-12">[0.1.0] - 2026-10-12</h2>
 <p>The first version.</p>
-<h3 id="added-3">Added</h3>
+<h3 id="added-4">Added</h3>
 <ul>
 <li><strong>Tokens</strong> (<code>tokens/tokens.json</code>, W3C DTCG): primitives, semantic roles and
 component tokens, with dark and Arabic modes. 168 tokens (each <code>$value</code> leaf;
@@ -368,8 +432,12 @@ English and Arabic, with the pending states working.</li>
 </article><p class="dp-source"><a class="al-link al-link--muted" target="_blank" rel="noopener" href="https://github.com/ArabesqueLabs/design-system/blob/main/CHANGELOG.md">View this page on GitHub<svg class="al-icon al-mirror" aria-hidden="true" focusable="false"><use href="dist/icons.svg#al-icon-external"></use></svg><span class="al-visually-hidden"> (opens in a new tab)</span></a></p></main></div><div class="al-page"><footer class="al-footer"><span class="al-lockup"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="al-mark" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="miter"><path d="M9.37 -9.37L5.49 0L9.37 9.37L0 5.49L-9.37 9.37L-5.49 0L-9.37 -9.37L0 -5.49Z M73.37 -9.37L69.49 0L73.37 9.37L64 5.49L54.63 9.37L58.51 0L54.63 -9.37L64 -5.49Z M9.37 54.63L5.49 64L9.37 73.37L0 69.49L-9.37 73.37L-5.49 64L-9.37 54.63L0 58.51Z M73.37 54.63L69.49 64L73.37 73.37L64 69.49L54.63 73.37L58.51 64L54.63 54.63L64 58.51Z"></path><path d="M64 32L48 38.63L54.63 54.63L38.63 48L32 64L25.37 48L9.37 54.63L16 38.63L0 32L16 25.37L9.37 9.37L25.37 16L32 0L38.63 16L54.63 9.37L48 25.37Z"></path><rect x="1.6" y="1.6" width="60.8" height="60.8"></rect></g></svg><span lang="en" dir="ltr">Arabesque Labs Ltd.</span></span></footer></div>
 <script type="module">
   import { initSiteHeaders } from "./js/site-header.js";
+  import { initToc } from "./js/toc.js";
+  import { highlightCode } from "./js/highlight.js";
   import { currentTheme, setTheme } from "./js/theme.js";
   initSiteHeaders();
+  initToc();
+  highlightCode();
   const theme = document.querySelector("[data-theme-toggle]");
   const label = () => theme.setAttribute("aria-label", currentTheme() === "dark" ? theme.dataset.labelLight : theme.dataset.labelDark);
   theme.addEventListener("click", () => { setTheme(currentTheme() === "dark" ? "light" : "dark"); label(); });

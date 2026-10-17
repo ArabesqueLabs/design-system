@@ -1,0 +1,10 @@
+/* On this page: the page's sections, beside it, the one being read marked
+   (js/toc.js). Sticky beside the content; above it, and not sticky, under md. */
+.al-toc { position: sticky; inset-block-start: var(--al-space-6); font-size: var(--al-text-sm); }
+.al-toc__title { margin: 0 0 var(--al-space-3); font-weight: var(--al-weight-medium); color: var(--al-color-text-muted); }
+.al-toc ul { display: grid; margin: 0; padding: 0; list-style: none; }
+.al-toc a { display: block; padding: var(--al-space-1) 0 var(--al-space-1) var(--al-space-3); border-inline-start: 2px solid var(--al-color-line); color: var(--al-color-text-muted); text-decoration: none; }
+.al-toc a:hover { color: var(--al-color-text); }
+.al-toc a[aria-current] { border-inline-start-color: var(--al-color-accent); color: var(--al-color-text); }
+@media (max-width: 52rem) { .al-toc { position: static; } }
+@media (forced-colors: active) { .al-toc a[aria-current] { border-inline-start-color: Highlight; } }

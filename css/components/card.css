@@ -1,6 +1,7 @@
 /* Card: a bordered surface that groups one thing. Panel: a section of a
    page marked by a rule above, not a box (most groupings need only this).
-   Stat: a figure with its label and a note. No shadows: borders and
+   Stat: a figure with its label and a note; stats, a row of them, large,
+   with a hairline before each and no boxes. No shadows: borders and
    surface steps carry depth. */
 .al-card {
   display: flex;
@@ -27,4 +28,19 @@
 .al-stat__value { font-family: var(--al-font-display); font-size: var(--al-text-2xl); line-height: var(--al-leading-tight); font-variant-numeric: tabular-nums; }
 .al-stat__note { font-size: var(--al-text-sm); color: var(--al-color-text-muted); }
 
-@media (forced-colors: active) { .al-card, .al-stat { border-color: CanvasText; } }
+.al-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr)); gap: var(--al-space-6); }
+.al-stats .al-stat { gap: var(--al-space-2); padding: 0; padding-inline-start: var(--al-space-5); border: 0; border-inline-start: var(--al-border-hairline) solid var(--al-color-line-strong); border-radius: 0; background: none; }
+.al-stats .al-stat__value { font-size: var(--al-text-3xl); }
+
+/* Quote: what someone said, in their words, then who they are. The
+   quotation marks are the language's own (open-quote, close-quote). */
+.al-quote { display: flex; flex-direction: column; justify-content: space-between; gap: var(--al-space-5); margin: 0; padding: var(--al-space-5); border: var(--al-border-hairline) solid var(--al-color-line); border-radius: var(--al-radius-sm); background: var(--al-color-surface); min-inline-size: 0; }
+.al-quote blockquote { display: flex; flex-direction: column; gap: var(--al-space-3); margin: 0; font-family: var(--al-font-serif); font-size: var(--al-text-md); line-height: var(--al-leading-prose); }
+.al-quote blockquote > p { margin: 0; }
+.al-quote blockquote > p:first-child::before { content: open-quote; }
+.al-quote blockquote > p:last-child::after { content: close-quote; }
+.al-quote__by { display: flex; align-items: center; gap: var(--al-space-3); font-size: var(--al-text-sm); }
+.al-quote__name { display: block; font-weight: var(--al-weight-medium); }
+.al-quote__role { display: block; color: var(--al-color-text-muted); }
+
+@media (forced-colors: active) { .al-card, .al-stat, .al-stats .al-stat, .al-quote { border-color: CanvasText; } }

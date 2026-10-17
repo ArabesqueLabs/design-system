@@ -2,7 +2,7 @@
 
 Actions on one thing, behind a button ("More", "Move to…"), in a native popover. `js/menu.js` (`initMenus()`) implements the ARIA APG menu button.
 
-**CSS:** [`css/components/menu.css`](../../css/components/menu.css). **Classes:** `.al-menu`, `.al-menu__item`, `.al-menu__item--danger`, `.al-menu__label`, `.al-menu__separator`.
+**CSS:** [`css/components/menu.css`](../../css/components/menu.css). **Classes:** `.al-menu`, `.al-menu__item`, `.al-menu__item--danger`, `.al-menu__item--described`, `.al-menu__description`, `.al-menu__label`, `.al-menu__separator`.
 
 ## Anatomy
 
@@ -18,7 +18,7 @@ Actions on one thing, behind a button ("More", "Move to…"), in a native popove
 
 ## Variants and sizes
 
-Items, `menuitemradio`/`menuitemcheckbox` with `aria-checked` (a check at the end), group labels (`__label`), separators, danger items (last).
+Items, `menuitemradio`/`menuitemcheckbox` with `aria-checked` (a check at the end), group labels (`__label`), separators, danger items (last). An item with a line about what it does under its name (`--described`, `__description`, tied to it with `aria-describedby`), for an action whose consequence isn't plain from its name ("Archive: hidden from lists; still found by search").
 
 ## States
 

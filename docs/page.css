@@ -2,11 +2,6 @@
    Markdown): their frame only. Tokens only, logical properties only. */
 body { margin: 0; }
 .dp-layout { display: grid; grid-template-columns: 13rem minmax(0, 1fr); gap: var(--al-space-12); align-items: start; padding-block: var(--al-space-8) var(--al-space-16); }
-.dp-toc { position: sticky; inset-block-start: var(--al-space-6); font-size: var(--al-text-sm); }
-.dp-toc__title { margin: 0 0 var(--al-space-3); font-weight: var(--al-weight-medium); color: var(--al-color-text-muted); }
-.dp-toc ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--al-space-2); }
-.dp-toc a { color: var(--al-color-text-muted); text-decoration: none; }
-.dp-toc a:hover { color: var(--al-color-text); text-decoration: underline; }
 .dp-main { min-inline-size: 0; grid-column: -2; }
 .dp-doc { max-inline-size: 46rem; }
 .dp-doc :is(h1, h2, h3, h4) { font-family: var(--al-font-display); font-weight: var(--al-weight-regular); line-height: var(--al-leading-heading); letter-spacing: var(--al-tracking-tight); scroll-margin-block-start: var(--al-space-6); }
@@ -25,6 +20,5 @@ body { margin: 0; }
 .dp-source { margin-block-start: var(--al-space-12); font-size: var(--al-text-sm); }
 @media (max-width: 52rem) {
   .dp-layout { grid-template-columns: minmax(0, 1fr); gap: var(--al-space-6); }
-  .dp-toc { position: static; }
   .dp-main { grid-column: auto; }
 }

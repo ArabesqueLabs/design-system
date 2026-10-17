@@ -71,7 +71,7 @@ node scripts/check-page.mjs   # in Chrome: the helpers on their own page
 
 تعمل الثلاثة مع كل دفع وكل طلب دمج (`.github/workflows/check.yml`). ويفشل
 البناء أيضًا إن وضع مكوّن لونًا على خلفية لا يقيسها فحص التباين، أو إن تجاوز
-`arabesque.css` ميزانية حجمه (26 KB مضغوطًا). وقبل كل إصدار، نفّذ
+`arabesque.css` ميزانية حجمه (27 KB مضغوطًا). وقبل كل إصدار، نفّذ
 [فحوص قارئ الشاشة](../docs/screen-readers.md) (بالإنجليزية) يدويًا.
 
 ## مشاهدة صفحة العرض

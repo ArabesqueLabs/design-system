@@ -70,7 +70,7 @@ node scripts/check-page.mjs   # in Chrome: the helpers on their own page
 All three run on every push and pull request (`.github/workflows/check.yml`).
 The build also fails if a component sets a colour on a background the
 contrast check doesn't measure, or if `arabesque.css` grows past its size
-budget (26 KB gzipped). Before a release, run the
+budget (27 KB gzipped). Before a release, run the
 [screen reader checks](docs/screen-readers.md) by hand.
 
 ## See the showcase

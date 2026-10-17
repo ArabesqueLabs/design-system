@@ -17,6 +17,22 @@ export interface TabsProps {
 }
 /** Tabs (ARIA APG, automatic activation): arrow keys along the reading direction, Home, End. */
 export declare function Tabs({ label, tabs, defaultTab, id, className }: TabsProps): import("react").JSX.Element;
+export interface FeatureTab {
+    id: string;
+    /** Its name ("Durable steps"). */
+    label: ReactNode;
+    /** A line about it, under the name. */
+    description?: ReactNode;
+    content: ReactNode;
+}
+/** A column of tabs, each a name and a line, beside the panel the chosen one shows; up and down arrows move. */
+export declare function FeatureTabs({ label, tabs, defaultTab, id, className }: {
+    label: string;
+    tabs: FeatureTab[];
+    defaultTab?: string;
+    id?: string;
+    className?: string;
+}): import("react").JSX.Element;
 export interface NavLink {
     label: ReactNode;
     href: string;

@@ -1,8 +1,6 @@
 /* The example pages: their frame only. Everything inside an example is the
    system's own (dist/arabesque.css). Tokens only, logical properties only. */
 body { margin: 0; }
-.ex-top { display: flex; align-items: center; justify-content: space-between; gap: var(--al-space-4); padding-block: var(--al-space-4); }
-.ex-back { color: var(--al-color-text-muted); }
 .ex-main { padding-block: var(--al-space-8) var(--al-space-16); display: flex; flex-direction: column; gap: var(--al-space-6); }
 .ex-main > * { margin: 0; }
 .ex-title { font-family: var(--al-font-display); font-size: var(--al-text-3xl); font-weight: var(--al-weight-regular); letter-spacing: var(--al-tracking-tight); }
@@ -43,6 +41,10 @@ body { margin: 0; }
 .ex-pattern--small { min-block-size: 8rem; max-inline-size: 20rem; }
 .ex-spinners { align-items: center; }
 .ex-sections .al-section { padding-block: var(--al-space-8); }
+.ex-toc { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: var(--al-space-8); align-items: start; }
+.ex-toc h3 { margin: 0; font-size: var(--al-text-lg); font-weight: var(--al-weight-medium); }
+.ex-toc section { min-block-size: 12rem; }
+@media (max-width: 52rem) { .ex-toc { grid-template-columns: minmax(0, 1fr); } }
 
 /* The foundations (examples/src/foundations.tsx): swatches, the type scale, space, motion. */
 .ex-label { font-size: var(--al-text-sm); color: var(--al-color-text-muted); font-weight: var(--al-weight-medium); margin: 0; }

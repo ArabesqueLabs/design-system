@@ -16,24 +16,35 @@ export interface SectionProps extends Omit<ComponentPropsWithoutRef<"section">, 
   /** Its heading (an h2), which names the section as a landmark. Give it an id to link to. */
   heading?: ReactNode;
   lede?: ReactNode;
+  /** A few words above the heading: which part of the page this is. */
+  eyebrow?: ReactNode;
+  /** Before the eyebrow: the section's number among the page's ("01"). */
+  index?: ReactNode;
 }
 
 /**
  * A band of the page: the section spacing, a hairline from the one before,
  * and, with a heading, its heading and lede inside the page's measure.
  */
-export function Section({ heading, lede, id, className, children, ...rest }: SectionProps) {
+export function Section({ heading, lede, eyebrow, index, id, className, children, ...rest }: SectionProps) {
   const headingId = useStableId(id ? `${id}-h` : undefined, "section");
   if (heading == null) return <section className={cx("al-section", className)} id={id} {...rest}>{children}</section>;
   return (
     <section className={cx("al-section", className)} id={id} aria-labelledby={headingId} {...rest}>
       <div className="al-page al-stack">
-        <h2 className="al-section__title" id={headingId}>{heading}</h2>
+        {eyebrow != null
+          ? <hgroup className="al-section__head"><Eyebrow index={index}>{eyebrow}</Eyebrow><h2 className="al-section__title" id={headingId}>{heading}</h2></hgroup>
+          : <h2 className="al-section__title" id={headingId}>{heading}</h2>}
         {lede && <p className="al-lede al-section__lede">{lede}</p>}
         {children}
       </div>
     </section>
   );
+}
+
+/** A few words above a heading, in the accent; index numbers the part ("01"). Put it with its heading in an <hgroup>. */
+export function Eyebrow({ index, className, children, ...rest }: ComponentPropsWithoutRef<"p"> & { index?: ReactNode }) {
+  return <p className={cx("al-eyebrow", className)} {...rest}>{index != null && <><span className="al-eyebrow__index">{index}</span>{" "}</>}{children}</p>;
 }
 
 /** Children one under another, evenly spaced. */

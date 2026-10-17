@@ -37,6 +37,7 @@ The values below are the primitives each role points to, from
 | `chart-1…4` | Chart series, in this order | see below | |
 | `chart-0` | The neutral: tracks and grounds, never a series of data | cloud 87 | white 20% |
 | `tint-*-bg`, `tint-*-ink` | Tags, highlights, avatars: identity, never status | see `tint.md` | |
+| `syntax-*` | Code: keyword, string, number, comment, function, tag, attribute; each says what kind of word it is | purple, green, orange, grey, blue, teal, raspberry (inks) | their pale counterparts |
 | `pattern-line` | The tessellation's strands, in ink as on arabesquelabs.com | cloud 21 at 26% | white 20% |
 | `pattern-scaffold` | The tiling's polygons: the hero's scaffolding while it draws in, and the construction figure | cloud 21 at 12% | white 10% |
 | `pattern-focal` | The hero's focal tile | the accent | the accent |
@@ -55,6 +56,10 @@ All tokens are prefixed: `var(--al-color-surface)`.
 - **Hairlines aren't boundaries.** `line` is decoration (1.3:1), so anything a
   person has to find — an input, a checkbox, a button — is drawn in `control`
   (3:1 or better against every ground).
+- **Syntax colour means something.** In code, a colour says what kind of word
+  it is (a keyword, a string, a name), the same in every sample on every page,
+  so a reader learns it once. Only the `syntax-*` roles colour code, and each
+  is measured on the code's ground, the surface and a marked line.
 - **Colour is never the only signal.** Every status has an icon and a word
   ("Saved", "Couldn't save"); errors have an icon and text; chart series have a
   key, and their values are in a table or tooltip.

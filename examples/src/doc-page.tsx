@@ -3,7 +3,7 @@
 // footer. Rendered on the server by scripts/build-react.mjs, from the
 // Markdown; the helpers wire the header in the page.
 
-import { ArabesqueProvider, Footer, Lockup, SiteHeader, TextLink } from "../../react/src/index.js";
+import { ArabesqueProvider, Footer, Lockup, OnThisPage, SiteHeader, TextLink } from "../../react/src/index.js";
 import { REPO, onGitHub } from "./repo.js";
 
 export interface DocInput {
@@ -22,8 +22,8 @@ export interface DocInput {
 }
 
 const WORDS = {
-  en: { product: "Design system", showcase: "Showcase", examples: "Examples", docs: "Using it", onPage: "On this page", source: "View this page on GitHub", legal: "Arabesque Labs Ltd." },
-  ar: { product: "نظام التصميم", showcase: "صفحة العرض", examples: "الأمثلة", docs: "دليل الاستخدام", onPage: "في هذه الصفحة", source: "اعرض هذه الصفحة على GitHub", legal: "Arabesque Labs Ltd." },
+  en: { product: "Design system", showcase: "Showcase", examples: "Examples", docs: "Using it", source: "View this page on GitHub", legal: "Arabesque Labs Ltd." },
+  ar: { product: "نظام التصميم", showcase: "صفحة العرض", examples: "الأمثلة", docs: "دليل الاستخدام", source: "اعرض هذه الصفحة على GitHub", legal: "Arabesque Labs Ltd." },
 };
 
 export function DocPage({ d }: { d: DocInput }) {
@@ -36,12 +36,7 @@ export function DocPage({ d }: { d: DocInput }) {
         language={d.other ? { href: d.other.href, lang: d.other.lang } : undefined}
         tools={<TextLink muted external href={REPO}><span lang="en">GitHub</span></TextLink>} />
       <div className="al-page dp-layout">
-        {d.toc.length > 1 && (
-          <nav className="dp-toc" aria-label={w.onPage}>
-            <p className="dp-toc__title">{w.onPage}</p>
-            <ul>{d.toc.map((h) => <li key={h.id}><a href={`#${h.id}`}>{h.text}</a></li>)}</ul>
-          </nav>
-        )}
+        {d.toc.length > 1 && <OnThisPage className="dp-toc" links={d.toc.map((h) => ({ href: `#${h.id}`, label: h.text }))} />}
         <main id="main" tabIndex={-1} className="dp-main">
           <article className="al-prose dp-doc" dangerouslySetInnerHTML={{ __html: d.html }} />
           <p className="dp-source"><TextLink muted external href={onGitHub(d.source)}>{w.source}</TextLink></p>

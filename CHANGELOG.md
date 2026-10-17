@@ -6,6 +6,71 @@ All notable changes to the design system. The format follows
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-10-17
+
+### Added
+
+- **Code and command** (`.al-code`, `.al-command`, `js/copy.js`,
+  [spec](docs/components/code.md); React `CodeBlock` and `Command`): code to
+  read or copy, always left to right, in one language or several (tabs),
+  with the lines that matter marked; and a command, one line to paste with a
+  `$` that's never copied. The copy button says "Copied", and a status
+  region tells screen readers; if the clipboard is refused, the code is
+  selected instead. New labels: `copy`, `copied`, `copyFailed`.
+- **Syntax colour** (`--al-color-syntax-*`, `.al-syntax-*`, `js/highlight.js`):
+  seven roles (keyword, string, number, comment, function, tag, attribute),
+  each measured at 4.5:1 on the code's ground, the surface and a marked line,
+  in both themes; comments are italic too. `js/highlight.js` colours
+  JavaScript, TypeScript and JSX, HTML, CSS, JSON and the shell, in
+  `CodeBlock` (`language`) and in any `<pre><code class="language-…">`
+  (`highlightCode()`), the docs' own samples included. The colour rules say
+  it: in code, a colour means what kind of word it is.
+- **Feature tabs** (`.al-feature-tabs`, React `FeatureTabs`,
+  [spec](docs/components/nav.md)): a column of tabs, each a name and a line,
+  beside what the chosen one shows; `js/tabs.js` moves with up and down in a
+  vertical tab list.
+- **Logo wall** (`.al-logos`, React `Logos` and `LogoWordmark`,
+  [spec](docs/components/logos.md)).
+- **Quote** (`.al-quote`, React `Quote`, [spec](docs/components/card.md)).
+- **Call to action** (`.al-cta`, React `CallToAction`,
+  [spec](docs/components/cta.md)): the page's last word, on the quiet pattern.
+- **Announcement** (`.al-announcement`, `js/announcement.js`, React
+  `Announcement`, [spec](docs/components/phase-banner.md)): one line of news
+  above everything; dismissing it is remembered. New label: `announcement`.
+- **On this page** (`.al-toc`, `js/toc.js`, React `OnThisPage`,
+  [spec](docs/components/toc.md)): the sections beside a page, the one being
+  read marked as it scrolls; the docs use it. New label: `onThisPage`.
+- **Disclosure group** (`.al-disclosure-group`, React `DisclosureGroup`), and
+  the [questions and answers](docs/patterns.md#questions-and-answers) and
+  [product page](docs/patterns.md#a-products-page) patterns.
+- **Menu items with a description** (`.al-menu__item--described`,
+  `.al-menu__description`; `description` in React).
+- **Site header action** (`.al-site-header__action`; `action` in React): the
+  page's one action, in the bar at every width.
+- [Writing](docs/foundations/writing.md): headings as plain claims, the
+  lead-in heading, eyebrows and closing lines.
+- **Stats** (`.al-stats`, React `Stats`, [spec](docs/components/card.md)): the
+  figures a page leads with, side by side and large, a hairline before each,
+  with no boxes.
+- **Eyebrow** (`.al-eyebrow`, `.al-section__head`, React `Eyebrow` and
+  `Section`'s `eyebrow` and `index`,
+  [layout](docs/foundations/layout.md)): a few words above a section's
+  heading, in the accent, numbered if you like ("01"); sentence case.
+
+### Changed
+
+- `arabesque.css`'s size budget is 27 KB gzipped (was 26), for code with
+  syntax colour and a product page's parts.
+- **Site header** ([spec](docs/components/site-header.md)): under md, the
+  language link and the other tools fold into the menu with the sections, so
+  the bar keeps the lockup, the theme button and the menu button, and the
+  menu button can no longer be pushed off a phone's screen. The menu button
+  shows a cross while the menu is open; under 30rem the lockup drops its
+  product name. New classes: `.al-site-header__extras`,
+  `.al-site-header__menu-tools`.
+- The showcase and the examples use the site header, so on a phone their
+  sections, language and GitHub links are behind a menu button.
+
 ## [0.4.1] - 2026-10-16
 
 ### Changed

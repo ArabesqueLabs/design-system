@@ -276,8 +276,12 @@ for (const file of docs) {
 ${body}
 <script type="module">
   import { initSiteHeaders } from "${up || "./"}js/site-header.js";
+  import { initToc } from "${up || "./"}js/toc.js";
+  import { highlightCode } from "${up || "./"}js/highlight.js";
   import { currentTheme, setTheme } from "${up || "./"}js/theme.js";
   initSiteHeaders();
+  initToc();
+  highlightCode();
   const theme = document.querySelector("[data-theme-toggle]");
   const label = () => theme.setAttribute("aria-label", currentTheme() === "dark" ? theme.dataset.labelLight : theme.dataset.labelDark);
   theme.addEventListener("click", () => { setTheme(currentTheme() === "dark" ? "light" : "dark"); label(); });

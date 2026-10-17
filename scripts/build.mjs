@@ -221,6 +221,7 @@ const PAIRS = [
   ["focus-on-inverse", "inverse", 3],
   ...[1, 2, 3, 4].flatMap((n) => [[`chart-${n}`, "surface", 3], [`chart-${n}`, "bg", 3]]),
   ...["teal", "green", "yellow", "orange", "pink", "purple", "blue", "cyan"].map((n) => [`tint.${n}.ink`, `tint.${n}.bg`, 4.5]),
+  ...["keyword", "string", "number", "comment", "function", "tag", "attribute"].flatMap((n) => [[`syntax.${n}`, "surface-sunk", 4.5], [`syntax.${n}`, "surface", 4.5], [`syntax.${n}`, "accent-wash", 4.5]]),
 ];
 // Pairs the CSS sets in one rule (a colour and a background, both roles)
 // must be among those measured, in either order: a guard against a new
@@ -317,7 +318,10 @@ write("dist/patterns/tile-quiet-dark.svg", tileSvg("pattern-quiet", "dark"));
 // 26 KB from 0.4: the star spinner, the text and language links, the quiet
 // pattern and the hero's fade took 24 KB to 23.4. One file for every site is
 // worth more than splitting off charts or the date picker to stay under it.
-const BUDGET = 26 * 1024;
+// 27 KB from 0.5: code with syntax colour, and a product page's parts (stats,
+// eyebrow, feature tabs, logos, quotes, call to action, announcement, on
+// this page), for the same reason.
+const BUDGET = 27 * 1024;
 const gz = gzipSync(bundle, { level: 9 }).length;
 const kb = (n) => `${(n / 1024).toFixed(1)} KB`;
 const overBudget = gz > BUDGET;

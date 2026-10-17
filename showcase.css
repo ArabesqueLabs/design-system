@@ -3,11 +3,6 @@
    the system, and by examples/examples.css. The page itself is generated
    (scripts/build-react.mjs, from examples/src/showcase.tsx). */
 
-.sc-top { position: sticky; inset-block-start: 0; z-index: var(--al-z-sticky); background: var(--al-color-bg); border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
-.sc-top__inner { display: flex; flex-wrap: wrap; align-items: center; gap: var(--al-space-3) var(--al-space-6); padding-block: var(--al-space-3); }
-.sc-top__controls { margin-inline-start: auto; }
-.sc-top .al-phase-banner { border-block-end: 0; border-block-start: var(--al-border-hairline) solid var(--al-color-line); }
-
 main:focus { outline: none; }
 .sc-hero { padding-block: var(--al-space-12) var(--al-space-12); border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
 .sc-hero__title { max-inline-size: 12em; }

@@ -8,6 +8,11 @@ export interface DisclosureProps extends Omit<ComponentPropsWithoutRef<"details"
   value?: ReactNode;
 }
 
+/** Disclosures one under another (questions and answers): a hairline under the last too. */
+export function DisclosureGroup({ className, ...rest }: ComponentPropsWithoutRef<"div">) {
+  return <div className={cx("al-disclosure-group", className)} {...rest} />;
+}
+
 /** A native <details>, for what's secondary. */
 export function Disclosure({ summary, value, className, children, ...rest }: DisclosureProps) {
   return (

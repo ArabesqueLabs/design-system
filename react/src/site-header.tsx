@@ -1,5 +1,6 @@
 // A website's top bar: the lockup, the sections, language and theme; under
-// md, the sections fold into a menu (js/site-header.js).
+// md, the sections, the language link and the tools fold into a menu
+// (js/site-header.js).
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { initSiteHeaders } from "../../js/site-header.js";
@@ -25,8 +26,10 @@ export interface SiteHeaderProps {
   links: SiteHeaderLink[];
   /** The page in the other language: a language link before the theme toggle. */
   language?: { href: string; lang: string; label?: string };
-  /** Before the theme toggle: anything else. */
+  /** Before the theme toggle: anything else. Folds into the menu under md. */
   tools?: ReactNode;
+  /** The page's one action ("Sign up"), as a small button: it stays in the bar at every width. */
+  action?: ReactNode;
   /** Stays at the top of the window while the page scrolls. */
   sticky?: boolean;
   /** Its skip link's target, first in the header; false for none (when the page has its own). Default "#main". */
@@ -42,11 +45,12 @@ const LinkList = ({ links }: { links: SiteHeaderLink[] }) => (
   <ul>{links.map((l) => <li key={l.href}><a href={l.href} aria-current={l.current ? "page" : undefined}>{l.label}</a></li>)}</ul>
 );
 
-export function SiteHeader({ home = "/", lockup, links, language, tools, sticky, skipTo = "#main", themeToggle = true, menuId, className }: SiteHeaderProps) {
+export function SiteHeader({ home = "/", lockup, links, language, tools, action, sticky, skipTo = "#main", themeToggle = true, menuId, className }: SiteHeaderProps) {
   const { labels } = useArabesque();
   const ref = useRef<HTMLElement>(null);
   const menu = useStableId(menuId, "site-menu");
   useEffect(() => { if (ref.current) initSiteHeaders(ref.current.parentNode ?? document); }, []);
+  const extras = (language || tools) && <>{language && <LanguageLink {...language} />}{tools}</>;
   return (
     <header ref={ref} className={cx("al-site-header", sticky && "al-site-header--sticky", className)}>
       {skipTo !== false && <SkipLink href={skipTo} />}
@@ -55,16 +59,19 @@ export function SiteHeader({ home = "/", lockup, links, language, tools, sticky,
         <div className="al-site-header__end">
           <nav className="al-site-header__nav" aria-label={labels.sections}><LinkList links={links} /></nav>
           <div className="al-site-header__tools">
-            {language && <LanguageLink {...language} />}
-            {tools}
+            {extras && <div className="al-site-header__extras">{extras}</div>}
+            {action && <div className="al-site-header__action">{action}</div>}
             {themeToggle && <ThemeToggle />}
             <button type="button" className="al-button al-button--icon al-button--quiet al-site-header__toggle" data-site-menu-toggle="" aria-controls={menu} aria-expanded="false" aria-label={labels.menu}>
-              <Icon name="menu" />
+              <Icon name="menu" className="al-site-header__open" /><Icon name="close" className="al-site-header__close" />
             </button>
           </div>
         </div>
       </div>
-      <nav className="al-page al-site-header__menu" id={menu} aria-label={labels.sections} hidden><LinkList links={links} /></nav>
+      <nav className="al-page al-site-header__menu" id={menu} aria-label={labels.sections} hidden>
+        <LinkList links={links} />
+        {extras && <div className="al-site-header__menu-tools">{extras}</div>}
+      </nav>
     </header>
   );
 }

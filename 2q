@@ -1,0 +1,172 @@
+Release 0.5.1: the sidebar folds into a menu on phones
+
+On a phone the sidebar's links scrolled sideways in a row, so sections
+past the edge of the screen, the current one among them, were out of
+sight. Under md it's now a bar with the current section's name and a
+menu button, as the site header has; the sections and the foot drop
+below it, one per row. Details are in CHANGELOG.md under 0.5.1.
+
+## Fixed
+
+- Sidebar: under md, a bar with the current section's name and a menu
+  button (js/sidebar.js); the nav and the foot, wrapped in
+  `.al-sidebar__menu`, show only while it's open. Escape closes it and
+  returns focus; choosing a link closes it. Every name shows in the
+  menu, collapsed or not, and Collapse is hidden. New classes:
+  `.al-sidebar__bar`, `.al-sidebar__here`, `.al-sidebar__toggle`,
+  `.al-sidebar__menu`; React `Shell` gains `menuId`.
+- js/nav-menu.js (`wireNavMenu()`): the menu button's behaviour, now
+  shared by the sidebar and the site header.
+- The showcase's introduction: built by Arabesque Labs to set the
+  standard for its products, in one plain sentence, without the
+  highlights; the Arabic follows.
+- Specs (English and Arabic), the READMEs' list of helpers, and the
+  sidebar example; check-page tests the menu on a phone and the sidebar
+  above md.
+
+JJ: Change ID: ywvsxxwy
+JJ: This commit contains the following changes:
+JJ:     M CHANGELOG.html
+JJ:     M CHANGELOG.md
+JJ:     M README.html
+JJ:     M README.md
+JJ:     M ar/README.html
+JJ:     M ar/README.md
+JJ:     M css/components/sidebar.css
+JJ:     M dist/arabesque.css
+JJ:     M dist/react/index.js
+JJ:     M dist/react/sidebar.d.ts
+JJ:     M docs/components/ar/sidebar.html
+JJ:     M docs/components/ar/sidebar.md
+JJ:     M docs/components/sidebar.html
+JJ:     M docs/components/sidebar.md
+JJ:     M examples/examples.css
+JJ:     M examples/sidebar.html
+JJ:     M examples/src/demos.tsx
+JJ:     M examples/src/showcase.tsx
+JJ:     M index.html
+JJ:     A js/nav-menu.d.ts
+JJ:     A js/nav-menu.js
+JJ:     A js/sidebar.d.ts
+JJ:     A js/sidebar.js
+JJ:     M js/site-header.js
+JJ:     M package.json
+JJ:     M react/src/sidebar.tsx
+JJ:     M scripts/check-page.mjs
+JJ:     M showcase-ar.js
+JJ:     C {dist => v/0.5.1/dist}/arabesque.css
+JJ:     A v/0.5.1/dist/brand/favicon.svg
+JJ:     A v/0.5.1/dist/brand/mark-ink.svg
+JJ:     A v/0.5.1/dist/brand/mark-reversed.svg
+JJ:     A v/0.5.1/dist/brand/star-ink.svg
+JJ:     A v/0.5.1/dist/brand/star-reversed.svg
+JJ:     A v/0.5.1/dist/icons.svg
+JJ:     A v/0.5.1/dist/patterns/tile-dark.svg
+JJ:     A v/0.5.1/dist/patterns/tile-quiet-dark.svg
+JJ:     A v/0.5.1/dist/patterns/tile-quiet.svg
+JJ:     A v/0.5.1/dist/patterns/tile.svg
+JJ:     A v/0.5.1/dist/react/badge.d.ts
+JJ:     A v/0.5.1/dist/react/brand.d.ts
+JJ:     A v/0.5.1/dist/react/breadcrumbs.d.ts
+JJ:     A v/0.5.1/dist/react/bulk-bar.d.ts
+JJ:     A v/0.5.1/dist/react/button.d.ts
+JJ:     A v/0.5.1/dist/react/card.d.ts
+JJ:     A v/0.5.1/dist/react/character-count.d.ts
+JJ:     A v/0.5.1/dist/react/chart.d.ts
+JJ:     A v/0.5.1/dist/react/choice.d.ts
+JJ:     A v/0.5.1/dist/react/code.d.ts
+JJ:     A v/0.5.1/dist/react/construction.d.ts
+JJ:     A v/0.5.1/dist/react/cta.d.ts
+JJ:     A v/0.5.1/dist/react/date-input.d.ts
+JJ:     A v/0.5.1/dist/react/date-picker.d.ts
+JJ:     A v/0.5.1/dist/react/dialog.d.ts
+JJ:     A v/0.5.1/dist/react/disclosure.d.ts
+JJ:     A v/0.5.1/dist/react/empty-state.d.ts
+JJ:     A v/0.5.1/dist/react/field.d.ts
+JJ:     A v/0.5.1/dist/react/footer.d.ts
+JJ:     A v/0.5.1/dist/react/forms.d.ts
+JJ:     A v/0.5.1/dist/react/icon.d.ts
+JJ:     A v/0.5.1/dist/react/index.d.ts
+JJ:     C {dist => v/0.5.1/dist}/react/index.js
+JJ:     A v/0.5.1/dist/react/kbd.d.ts
+JJ:     A v/0.5.1/dist/react/language.d.ts
+JJ:     A v/0.5.1/dist/react/layout.d.ts
+JJ:     A v/0.5.1/dist/react/link.d.ts
+JJ:     A v/0.5.1/dist/react/logos.d.ts
+JJ:     A v/0.5.1/dist/react/menu.d.ts
+JJ:     A v/0.5.1/dist/react/nav.d.ts
+JJ:     A v/0.5.1/dist/react/notice.d.ts
+JJ:     A v/0.5.1/dist/react/page-head.d.ts
+JJ:     A v/0.5.1/dist/react/pattern.d.ts
+JJ:     A v/0.5.1/dist/react/phase-banner.d.ts
+JJ:     A v/0.5.1/dist/react/progress.d.ts
+JJ:     A v/0.5.1/dist/react/save-state.d.ts
+JJ:     A v/0.5.1/dist/react/segmented.d.ts
+JJ:     A v/0.5.1/dist/react/settings.d.ts
+JJ:     C {dist => v/0.5.1/dist}/react/sidebar.d.ts
+JJ:     A v/0.5.1/dist/react/site-header.d.ts
+JJ:     A v/0.5.1/dist/react/steps.d.ts
+JJ:     A v/0.5.1/dist/react/table.d.ts
+JJ:     A v/0.5.1/dist/react/task-list.d.ts
+JJ:     A v/0.5.1/dist/react/tint.d.ts
+JJ:     A v/0.5.1/dist/react/toast.d.ts
+JJ:     A v/0.5.1/dist/react/toc.d.ts
+JJ:     A v/0.5.1/dist/react/tooltip.d.ts
+JJ:     A v/0.5.1/dist/react/util.d.ts
+JJ:     A v/0.5.1/dist/tailwind-theme.css
+JJ:     A v/0.5.1/dist/tokens.css
+JJ:     A v/0.5.1/dist/tokens.json
+JJ:     A v/0.5.1/fonts/OFL-amiri.txt
+JJ:     A v/0.5.1/fonts/OFL-ibmplexmono.txt
+JJ:     A v/0.5.1/fonts/OFL-ibmplexsansarabic.txt
+JJ:     A v/0.5.1/fonts/OFL-jost.txt
+JJ:     A v/0.5.1/fonts/OFL-kufam.txt
+JJ:     A v/0.5.1/fonts/OFL-newsreader.txt
+JJ:     A v/0.5.1/fonts/README.md
+JJ:     A v/0.5.1/fonts/fonts.css
+JJ:     A v/0.5.1/js/announcement.d.ts
+JJ:     A v/0.5.1/js/announcement.js
+JJ:     A v/0.5.1/js/chart.d.ts
+JJ:     A v/0.5.1/js/chart.js
+JJ:     A v/0.5.1/js/copy.d.ts
+JJ:     A v/0.5.1/js/copy.js
+JJ:     A v/0.5.1/js/count.d.ts
+JJ:     A v/0.5.1/js/count.js
+JJ:     A v/0.5.1/js/datepicker.d.ts
+JJ:     A v/0.5.1/js/datepicker.js
+JJ:     A v/0.5.1/js/dialog.d.ts
+JJ:     A v/0.5.1/js/dialog.js
+JJ:     A v/0.5.1/js/format.d.ts
+JJ:     A v/0.5.1/js/format.js
+JJ:     A v/0.5.1/js/highlight.d.ts
+JJ:     A v/0.5.1/js/highlight.js
+JJ:     A v/0.5.1/js/keys.d.ts
+JJ:     A v/0.5.1/js/keys.js
+JJ:     A v/0.5.1/js/menu.d.ts
+JJ:     A v/0.5.1/js/menu.js
+JJ:     A v/0.5.1/js/nav-menu.d.ts
+JJ:     A v/0.5.1/js/nav-menu.js
+JJ:     A v/0.5.1/js/pattern.d.ts
+JJ:     A v/0.5.1/js/pattern.js
+JJ:     A v/0.5.1/js/position.d.ts
+JJ:     A v/0.5.1/js/position.js
+JJ:     A v/0.5.1/js/search.d.ts
+JJ:     A v/0.5.1/js/search.js
+JJ:     A v/0.5.1/js/sidebar.d.ts
+JJ:     A v/0.5.1/js/sidebar.js
+JJ:     A v/0.5.1/js/site-header.d.ts
+JJ:     C {js => v/0.5.1/js}/site-header.js
+JJ:     A v/0.5.1/js/tabs.d.ts
+JJ:     A v/0.5.1/js/tabs.js
+JJ:     A v/0.5.1/js/theme.d.ts
+JJ:     A v/0.5.1/js/theme.js
+JJ:     A v/0.5.1/js/toast.d.ts
+JJ:     A v/0.5.1/js/toast.js
+JJ:     A v/0.5.1/js/toc.d.ts
+JJ:     A v/0.5.1/js/toc.js
+JJ:     A v/0.5.1/js/tooltip.d.ts
+JJ:     A v/0.5.1/js/tooltip.js
+JJ:     A v/0.5.1/js/validate.d.ts
+JJ:     A v/0.5.1/js/validate.js
+JJ:
+JJ: Lines starting with "JJ:" (like this one) will be removed.

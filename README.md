@@ -28,7 +28,7 @@ The source is on GitHub: [ArabesqueLabs/design-system](https://github.com/Arabes
 | `dist/react/` | The React components, with their types ([`docs/react.md`](docs/react.md)) |
 | `css/` | The sources: `base.css`, `layout.css`, `utilities.css`, `components/*.css` |
 | `react/src/` | The React components' sources: one module per spec, writing the same markup and using the helpers |
-| `js/` | Optional helpers, each with its types (`.d.ts`): `theme`, `toast`, `dialog`, `menu`, `tabs`, `tooltip`, `position`, `validate`, `count`, `search`, `keys`, `format`, `chart`, `datepicker`, `pattern`, `site-header` |
+| `js/` | Optional helpers, each with its types (`.d.ts`): `theme`, `toast`, `dialog`, `menu`, `tabs`, `tooltip`, `position`, `validate`, `count`, `search`, `keys`, `format`, `chart`, `datepicker`, `pattern`, `site-header`, `sidebar` |
 | `tests/`, `scripts/check-page.mjs` | Unit tests and the system's own rules; the showcase checked in a real browser |
 | `icons/`, `assets/brand/` | Icon sources; the mark, star and wordmark from the logo pack |
 | `docs/` | Foundations, interaction, accessibility, RTL, adoption, component specs, the audit, the contrast report |

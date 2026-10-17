@@ -7,7 +7,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { Numerals } from "../../js/format.js";
 import {
-  ArabesqueProvider, Badge, Button, Cluster, Footer, Hero, HeroCaption, Highlight, Lockup, PhaseBanner, SegmentedButtons, SiteHeader, TextLink,
+  ArabesqueProvider, Badge, Button, Cluster, Footer, Hero, HeroCaption, Lockup, PhaseBanner, SegmentedButtons, SiteHeader, TextLink,
 } from "../../react/src/index.js";
 import { REPO } from "./repo.js";
 import { translator } from "./app.js";
@@ -71,7 +71,7 @@ export function Showcase({ initial = { lang: "en", numerals: "latn" } }: { initi
           <div className="al-page al-stack">
             <h1 className="al-display sc-hero__title">{t("One tile, a whole system.")}</h1>
             <p className="al-lede">
-              {t("The tokens, components and patterns every Arabesque Labs product is built from:")} <Highlight tint="teal">{t("accessible")}</Highlight> {t("to WCAG 2.2 AA, written for")} <Highlight tint="yellow">{t("left-to-right and right-to-left")}</Highlight> {t("alike, and designed so people get things done in")} <Highlight tint="pink">{t("the fewest steps")}</Highlight>{t(", seeing every consequence.")}
+              {t("Built by Arabesque Labs to set the standard for every product it makes: written for left-to-right and right-to-left alike, and designed so people get things done in the fewest steps, seeing every consequence.")}
             </p>
             <Cluster>
               <Button variant="primary" href="#components">{t("See the components")}</Button>

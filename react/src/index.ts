@@ -1,4 +1,4 @@
-// The Arabesque Labs design system in React: components that write the
+// Arabesque in React: components that write the
 // system's own markup (dist/arabesque.css styles it) and use its helpers
 // (js/) for behaviour. Link the CSS and fonts as for any page; then
 // <ArabesqueProvider lang sprite> near the root.

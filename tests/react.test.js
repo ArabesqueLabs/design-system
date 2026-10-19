@@ -15,7 +15,8 @@ const src = readdirSync(join(root, "react/src")).map((f) => read(`react/src/${f}
 
 test("the React mark is assets/brand/mark.svg's geometry", () => {
   const paths = (s) => [...s.matchAll(/(?:d=|")(M[\d .\-LZM]+Z)"/g)].map((m) => m[1]);
-  assert.deepEqual(paths(read("react/src/brand.tsx")), paths(read("assets/brand/mark.svg")));
+  const markPaths = read("react/src/brand.tsx").match(/MARK_PATHS = \[[^\]]+\]/)[0];
+  assert.deepEqual(paths(markPaths), paths(read("assets/brand/mark.svg")));
 });
 
 test("the React icon names are the sprite's", () => {

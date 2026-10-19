@@ -6,6 +6,42 @@ All notable changes to the design system. The format follows
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-10-19
+
+### Added
+
+- **Arabesque's mark** ([spec](docs/components/brand.md#arabesques-mark)):
+  four of the company's tiles, two by two, in the same frame
+  (`assets/brand/arabesque-mark.svg`), and its four stars, solid, for
+  16–24px (`arabesque-star.svg`). The build writes them in fixed inks to
+  `dist/brand/` (`arabesque-mark-ink.svg`, `-reversed.svg`, the stars the
+  same) with `arabesque-favicon.svg`, now the icon of the showcase, docs
+  and examples; the README shows the mark. A test checks the mark against
+  `js/pattern.js`. The company mark, star and favicon are unchanged, and the
+  homepage template keeps them. In React, `ArabesqueMark`, and `Lockup`
+  takes a `mark` in place of the company's.
+- Arabesque's own site (the showcase, docs and examples) has its own
+  header lockup: Arabesque's mark and "Arabesque · Design system"
+  («آرابيسك · نظام التصميم»). The showcase's hero is headed "Arabesque",
+  and its introduction reads "Built by Arabesque Labs to set the standard
+  for every product we make. …".
+
+### Changed
+
+- **A larger type scale** ([typography](docs/foundations/typography.md#scale)):
+  the base is 17px (was 15), and every step moves with it, about 1.13 apart:
+  `text-xs` 13px (was 12), `sm` 15 (13), `md` 19 (17), `lg` 22 (20), `xl` 26
+  (24), `2xl` 30–40 (28–36), `3xl` 36–54 (32–48), `display` 44–80 (40–76).
+  Arabic stays 1.08 times each. Token names are unchanged, so pages grow with
+  no markup change; check anything sized around a fixed width of text.
+
+- The design system is called **Arabesque**: the README (English and
+  Arabic), page titles ("Button · Arabesque"), the showcase, the package's
+  description and the generated files' headers say so. The writing guide
+  has a new section, [Names](docs/foundations/writing.md#names): Arabesque
+  for the system, Arabesque Labs for the company. Package name, repository,
+  domain, files, classes and tokens are unchanged.
+
 ## [0.5.1] - 2026-10-17
 
 ### Fixed

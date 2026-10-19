@@ -7,7 +7,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { Numerals } from "../../js/format.js";
 import {
-  ArabesqueProvider, Badge, Button, Cluster, Footer, Hero, HeroCaption, Lockup, PhaseBanner, SegmentedButtons, SiteHeader, TextLink,
+  ArabesqueMark, ArabesqueProvider, Badge, Button, Cluster, Footer, Hero, HeroCaption, Lockup, PhaseBanner, SegmentedButtons, SiteHeader, TextLink,
 } from "../../react/src/index.js";
 import { REPO } from "./repo.js";
 import { translator } from "./app.js";
@@ -44,12 +44,12 @@ export function Showcase({ initial = { lang: "en", numerals: "latn" } }: { initi
   useEffect(() => {
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-    document.title = t("Arabesque Labs design system");
+    document.title = t("Arabesque, the Arabesque Labs design system");
   }, [lang, t]);
 
   return (
     <ArabesqueProvider lang={lang} numerals={numerals} sprite="dist/icons.svg">
-      <SiteHeader sticky className="sc-top" menuId="site-menu" lockup={<Lockup className="al-site-header__lockup" href="#main" product={t("Design system")} />}
+      <SiteHeader sticky className="sc-top" menuId="site-menu" lockup={<Lockup className="al-site-header__lockup" href="#main" mark={<ArabesqueMark />} name={<span className="al-wordmark" lang={lang}>{t("Arabesque")}</span>} product={t("Design system")} />}
         links={[{ label: t("Showcase"), href: "index.html", current: true }, { label: t("Examples"), href: "examples/index.html" }, { label: t("Using it"), href: docPage("README.md", lang) }]}
         tools={<>
           {lang === "ar" && (
@@ -62,16 +62,16 @@ export function Showcase({ initial = { lang: "en", numerals: "latn" } }: { initi
         </>} />
       <div className="al-page">
         <PhaseBanner phase={<Badge tone="warning">{t("Experimental")}</Badge>}>
-          {t("This design system is new, and is actively being evolved.")} <a href={docPage("CHANGELOG.md", lang)}>{t("Check the changelog")}</a>.
+          {t("Arabesque is new, and is actively being evolved.")} <a href={docPage("CHANGELOG.md", lang)}>{t("Check the changelog")}</a>.
         </PhaseBanner>
       </div>
 
       <main id="main" tabIndex={-1}>
         <Hero className="sc-hero">
           <div className="al-page al-stack">
-            <h1 className="al-display sc-hero__title">{t("One tile, a whole system.")}</h1>
+            <h1 className="al-display sc-hero__title">{t("Arabesque")}</h1>
             <p className="al-lede">
-              {t("Built by Arabesque Labs to set the standard for every product it makes: written for left-to-right and right-to-left alike, and designed so people get things done in the fewest steps, seeing every consequence.")}
+              {t("A design system built by")} <TextLink href="https://arabesquelabs.com/">{t("Arabesque Labs")}</TextLink> {t("to set the standard for every product we make. Written for left-to-right and right-to-left alike, and designed so people get things done in the fewest steps, seeing every consequence.")}
             </p>
             <Cluster>
               <Button variant="primary" href="#components">{t("See the components")}</Button>

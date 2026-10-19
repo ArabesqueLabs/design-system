@@ -1,6 +1,9 @@
-# Arabesque Labs design system
+<picture><source media="(prefers-color-scheme: dark)" srcset="dist/brand/arabesque-mark-reversed.svg"><img src="dist/brand/arabesque-mark-ink.svg" width="56" height="56" alt=""></picture>
 
-The tokens, CSS, components and rules that Arabesque Labs builds with.
+# Arabesque
+
+Arabesque is the Arabesque Labs design system: the tokens, CSS, components
+and rules that Arabesque Labs builds with.
 **Accessible** (WCAG 2.2 AA as a floor), **bidirectional** (English and
 Arabic, left to right and right to left, from the start), and built for
 **efficient interaction**: the fewest steps, actions that say what they do,
@@ -24,13 +27,13 @@ The source is on GitHub: [ArabesqueLabs/design-system](https://github.com/Arabes
 | `dist/tailwind-theme.css` | A Tailwind v4 `@theme` mapping onto the same variables |
 | `dist/tokens.json` | Resolved token values per mode, for other tools |
 | `dist/icons.svg` | The icon sprite |
-| `dist/brand/`, `dist/patterns/` | The mark, star and favicon in fixed inks, and pattern tiles, for email, slides and documents |
+| `dist/brand/`, `dist/patterns/` | The marks (Arabesque Labs' and Arabesque's), their stars and favicons in fixed inks, and pattern tiles, for email, slides and documents |
 | `dist/react/` | The React components, with their types ([`docs/react.md`](docs/react.md)) |
 | `css/` | The sources: `base.css`, `layout.css`, `utilities.css`, `components/*.css` |
 | `react/src/` | The React components' sources: one module per spec, writing the same markup and using the helpers |
 | `js/` | Optional helpers, each with its types (`.d.ts`): `theme`, `toast`, `dialog`, `menu`, `tabs`, `tooltip`, `position`, `validate`, `count`, `search`, `keys`, `format`, `chart`, `datepicker`, `pattern`, `site-header`, `sidebar` |
 | `tests/`, `scripts/check-page.mjs` | Unit tests and the system's own rules; the showcase checked in a real browser |
-| `icons/`, `assets/brand/` | Icon sources; the mark, star and wordmark from the logo pack |
+| `icons/`, `assets/brand/` | Icon sources; the mark, star and wordmark from the logo pack, and Arabesque's mark and stars |
 | `docs/` | Foundations, interaction, accessibility, RTL, adoption, component specs, the audit, the contrast report |
 | `index.html` | The showcase: every demo on one page, generated from `examples/src/` |
 | `examples/` | Every component working, in React, a page each, in English and Arabic ([`examples/index.html`](examples/index.html)) |

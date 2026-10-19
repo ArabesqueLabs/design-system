@@ -30,6 +30,18 @@ For where the live mark can't go (email, slides, documents), the build writes fi
 
 Size with `font-size` on the lockup; the mark is 1.5em (2.5em stacked). The mark is never smaller than 16px, the lockup never narrower than 120px; below 24px, use the star.
 
+## Arabesque's mark
+
+The design system has a mark of its own: four of the company's tiles, two by two, in the same square frame (`assets/brand/arabesque-mark.svg`). Where four corners meet, a whole star appears that no single tile has. It's drawn from the same rule as the mark (the tiling at half the mark's scale), and a test checks it against `js/pattern.js`; its stroke is 2.4 units to the mark's 3.2, so four tiles in one frame don't look heavier than one.
+
+| Variant | Use |
+|---|---|
+| Arabesque's mark (`arabesque-mark.svg`; `dist/brand/arabesque-mark-ink.svg`, `-reversed.svg`) | Where Arabesque stands alone: its README, its package and repository pages, a talk |
+| Its four stars, solid, no frame (`arabesque-star.svg`; `dist/brand/arabesque-star-ink.svg`, `-reversed.svg`) | At 16–24px |
+| Its favicon (`dist/brand/arabesque-favicon.svg`) | The icon of Arabesque's own pages: the showcase, the docs, the examples |
+
+Beside it, the name is "Arabesque" (in Arabic «آرابيسك»), in the wordmark's face and tracking. Its size limits and clear space are the mark's. Arabesque's own site (the showcase, the docs, the examples) has it in its header: the mark, "Arabesque" and the product name, "Arabesque · Design system" («آرابيسك · نظام التصميم»). In React: `<Lockup mark={<ArabesqueMark />} name={…"Arabesque"…} product="Design system" />`. Arabesque Labs' own sites and products keep the company lockup.
+
 ## States
 
 One colour: the text colour (Ink on light, Pale on dark); never the accent, never a gradient.

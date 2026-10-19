@@ -65,6 +65,19 @@ Errors never blame ("You entered an invalid code") and never apologise
 emptily ("Oops!"). They say how to fix it: "A tax code is like 1257L, K475 or
 BR. Check your payslip."
 
+## Names
+
+- **The design system is Arabesque**, with a capital A and nothing around
+  it: not "the Arabesque design system", "Arabesque DS" or "the Arabesque
+  Labs design system". Where a reader may not know it, the first mention
+  says what it is ("Arabesque, the Arabesque Labs design system"); after
+  that, "Arabesque". In Arabic: «آرابيسك»
+  («آرابيسك، نظام تصميم معامل آرابيسك» the first time).
+- **The company is Arabesque Labs**, in full: never "Arabesque" alone, which
+  is the design system's name.
+- **An arabesque**, lowercase, is the kind of pattern the brand draws on, not
+  a name; prefer "the pattern" in these docs, so the two don't meet.
+
 ## Arabic
 
 - Modern Standard Arabic, in the same plain register, written as Arabic:

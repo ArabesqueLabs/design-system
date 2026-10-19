@@ -2,7 +2,7 @@
 // of them all, rendered in the browser by client.tsx.
 
 import AR from "../../showcase-ar.js";
-import { ArabesqueProvider, Badge, BackLink, Hero, HeroCaption, Lockup, PhaseBanner, SiteHeader, TextLink } from "../../react/src/index.js";
+import { ArabesqueMark, ArabesqueProvider, Badge, BackLink, Hero, HeroCaption, Lockup, PhaseBanner, SiteHeader, TextLink } from "../../react/src/index.js";
 import { REPO, onGitHub } from "./repo.js";
 import { extra } from "./ar.js";
 import { demos, groups, type Demo, type T } from "./demos.js";
@@ -25,7 +25,7 @@ export const translator = (lang: "en" | "ar", missing?: Set<string>): T => (s) =
 
 /** The site header, as on the showcase and the docs; `gallery` on the examples' own index. */
 const Top = ({ gallery }: { gallery?: boolean }) => (
-  <SiteHeader menuId="site-menu" lockup={<Lockup className="al-site-header__lockup" href="../index.html" product="Design system" />}
+  <SiteHeader menuId="site-menu" lockup={<Lockup className="al-site-header__lockup" href="../index.html" mark={<ArabesqueMark />} name={<span className="al-wordmark" lang="en">Arabesque</span>} product="Design system" />}
     links={[{ label: "Showcase", href: "../index.html" }, { label: "Examples", href: "index.html", current: gallery }, { label: "Using it", href: "../README.html" }]}
     tools={<TextLink muted external href={REPO}><span lang="en">GitHub</span></TextLink>} />
 );

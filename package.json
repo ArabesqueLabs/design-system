@@ -1,7 +1,7 @@
 {
   "name": "@arabesquelabs/design-system",
-  "version": "0.5.1",
-  "description": "The Arabesque Labs design system: tokens, CSS and components, accessible (WCAG 2.2 AA) and bidirectional (English and Arabic).",
+  "version": "0.6.0",
+  "description": "Arabesque, the Arabesque Labs design system: tokens, CSS and components, accessible (WCAG 2.2 AA) and bidirectional (English and Arabic).",
   "license": "UNLICENSED",
   "private": true,
   "repository": { "type": "git", "url": "git+https://github.com/ArabesqueLabs/design-system.git" },

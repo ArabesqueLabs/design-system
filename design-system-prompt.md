@@ -1,4 +1,4 @@
-# Prompt: the Arabesque Labs design system
+# Prompt: Arabesque, the Arabesque Labs design system
 
 Paste everything below the line into Claude Code, started in
 `~/workspace/arabesque-design-system/`.

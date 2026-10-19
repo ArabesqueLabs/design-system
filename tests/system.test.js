@@ -86,6 +86,20 @@ test("the hero's geometry is the mark's: one octagon's star at the mark's scale 
   assert.deepEqual(new Set(points(centre.star)), new Set(points(mark)));
 });
 
+test("Arabesque's mark is four of the mark's tiles: the tiling at half the mark's scale, in its frame", () => {
+  // Two by two in the same 64-unit frame, so each tile is 32 and the side is 32 / (1 + √2).
+  const { cells: all } = cells(32 / (1 + Math.SQRT2), 67.5, 16, 16, 64, 64);
+  const points = (d) => [...d.matchAll(/(-?[\d.]+) (-?[\d.]+)/g)].map((m) => `${Number(m[1]).toFixed(1)},${Number(m[2]).toFixed(1)}`);
+  const inside = all.filter((c) => c.cx > -12 && c.cx < 76 && c.cy > -12 && c.cy < 76);
+  const mark = read("assets/brand/arabesque-mark.svg").match(/<path d="([^"]+)"/)[1];
+  assert.deepEqual(new Set(points(mark)), new Set(inside.flatMap((c) => points(c.star))));
+  const small = read("assets/brand/arabesque-star.svg").match(/<path d="([^"]+)"/)[1];
+  const octagons = inside.filter((c) => c.kind === "octagon" && c.cx > 0 && c.cx < 64 && c.cy > 0 && c.cy < 64);
+  assert.equal(octagons.length, 4);
+  assert.deepEqual(new Set(points(small)), new Set(octagons.flatMap((c) => points(c.star))));  const react = read("react/src/brand.tsx").match(/ARABESQUE_MARK_PATH = "([^"]+)"/)[1];
+  assert.equal(react, mark, "the React ArabesqueMark draws the file's path");
+});
+
 test("nothing kept 'until' a version outlives it", () => {
   // A deprecation says when it goes ("kept until 0.3"). Once the package
   // reaches that version, the release must have removed it.

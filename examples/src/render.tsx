@@ -18,8 +18,8 @@ export const renderDoc = (d: DocInput): string => renderToStaticMarkup(<DocPage 
 export function render(): { pages: Page[]; templates: Page[]; showcase: string; missing: string[]; used: string[] } {
   const missing = new Set<string>();
   const pages: Page[] = [
-    { file: "examples/index.html", title: "Examples · Arabesque Labs design system", lang: "en", example: "index", body: renderToString(<Gallery />) },
-    ...demos.map((d) => ({ file: `examples/${d.id}.html`, title: `${d.title} · Arabesque Labs design system`, lang: "en", example: d.id, description: d.lead, body: renderToString(<ExamplePage demo={d} missing={missing} />) })),
+    { file: "examples/index.html", title: "Examples · Arabesque", lang: "en", example: "index", body: renderToString(<Gallery />) },
+    ...demos.map((d) => ({ file: `examples/${d.id}.html`, title: `${d.title} · Arabesque`, lang: "en", example: d.id, description: d.lead, body: renderToString(<ExamplePage demo={d} missing={missing} />) })),
   ];
   // The templates are static: no React in the page, the helpers wire it.
   const templates: Page[] = (["en", "ar"] as const).map((lang) => ({

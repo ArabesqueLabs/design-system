@@ -2,7 +2,7 @@
 // of them all, rendered in the browser by client.tsx.
 
 import AR from "../../showcase-ar.js";
-import { ArabesqueMark, ArabesqueProvider, Badge, BackLink, Hero, HeroCaption, Lockup, PhaseBanner, SiteHeader, TextLink } from "../../react/src/index.js";
+import { ArabesqueMark, ArabesqueProvider, BackToTop, Badge, BackLink, Hero, HeroCaption, Lockup, PhaseBanner, SiteHeader, TextLink } from "../../react/src/index.js";
 import { REPO, onGitHub } from "./repo.js";
 import { extra } from "./ar.js";
 import { demos, groups, type Demo, type T } from "./demos.js";
@@ -51,6 +51,7 @@ export function ExamplePage({ demo, missing }: { demo: Demo; missing?: Set<strin
           </ArabesqueProvider>
         </section>
       </main>
+      <BackToTop />
     </ArabesqueProvider>
   );
 }
@@ -72,7 +73,7 @@ export function Gallery() {
           <h2 className="ex-group__h" id="pages-h">Pages</h2>
           <ul className="ex-group__list" role="list">
             <li><a href="../templates/home.html">The studio homepage</a> <span className="al-muted">rendered from <code>templates/react/home.tsx</code>; <a href="../templates/ar/home.html" lang="ar" hrefLang="ar">بالعربية</a></span></li>
-            <li><a href="../index.html">The showcase</a> <span className="al-muted">every component on one page, in plain HTML</span></li>
+            <li><a href="../index.html">The showcase</a> <span className="al-muted">every component on one page, in plain HTML; <a href="../ar/index.html" lang="ar" hrefLang="ar">بالعربية</a></span></li>
           </ul>
         </section>
         {groups.map((g) => (
@@ -84,6 +85,7 @@ export function Gallery() {
           </section>
         ))}
       </main>
+      <BackToTop />
     </ArabesqueProvider>
   );
 }

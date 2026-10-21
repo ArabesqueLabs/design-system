@@ -89,7 +89,9 @@ async function page() {
   return { send, run, key, errors, consoleErrors, close: () => fetch(`http://127.0.0.1:${port}/json/close/${t.id}`) };
 }
 
-async function open(p, { url = SHOWCASE, theme = "light", lang = "en", ready: when } = {}) {
+async function open(p, { url, theme = "light", lang = "en", ready: when } = {}) {
+  // The showcase in each language is its own page.
+  url ??= lang === "ar" ? `${origin}/ar/index.html` : SHOWCASE;
   await p.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-color-scheme", value: theme }] });
   await p.send("Page.navigate", { url });
   const ready = when ?? `document.documentElement.dataset.ready === "yes"`;
@@ -97,9 +99,6 @@ async function open(p, { url = SHOWCASE, theme = "light", lang = "en", ready: wh
     await new Promise((r) => setTimeout(r, 100));
     if (await p.run(ready).catch(() => false)) break;
   }
-  if (url !== SHOWCASE) return;
-  // The language asked for, whatever an earlier run left stored.
-  await p.run(`(async () => { document.querySelector('.sc-top button[lang="${lang}"]').click(); for (let i = 0; i < 50 && document.documentElement.lang !== "${lang}"; i++) await new Promise((r) => setTimeout(r, 50)); await new Promise((r) => setTimeout(r, 300)); })()`);
 }
 
 async function axe(p, name) {
@@ -264,13 +263,37 @@ const specsEn = await specLinks();
 check("showcase: specs link to their pages", specsEn.date === "docs/components/date-picker.html" && specsEn.colour === "docs/foundations/colour.html" && specsEn.how === "README.html#use-it-in-a-project", JSON.stringify(specsEn));
 await open(p, { lang: "ar" });
 const specsAr = await specLinks();
-check("showcase: in Arabic, to the Arabic spec, the Arabic README, and the English where there's no translation", specsAr.date === "docs/components/ar/date-picker.html" && specsAr.colour === "docs/foundations/colour.html" && specsAr.how === "ar/README.html#استخدامه-في-مشروع", JSON.stringify(specsAr));
+check("showcase: in Arabic, to the Arabic spec, the Arabic README, and the English where there's no translation", specsAr.date === "../docs/components/ar/date-picker.html" && specsAr.colour === "../docs/foundations/colour.html" && specsAr.how === "../ar/README.html#استخدامه-في-مشروع", JSON.stringify(specsAr));
+check("showcase: in Arabic, its language link goes to the English page", await p.run(`document.querySelector('.al-site-header a.al-language')?.getAttribute("href") === "../index.html"`));
 check("showcase: in Arabic, the demos are in Arabic", await p.run(`document.querySelector("#button .al-button--primary").textContent === "حفظ التغييرات" && document.documentElement.dir === "rtl"`));
 const digits = `document.querySelector('.sc-top [role=group]:not(:has(button[lang])) button[aria-pressed="false"]')?.click()`;
 await p.run(digits);
 await wait(200);
 check("showcase: in Arabic, Arabic-Indic digits when chosen", await p.run(`/[٠-٩]/.test(document.querySelector("#steps .al-steps__num").textContent)`));
 await p.run(digits);
+
+// Back to top: hidden at the top; shown two screens down; followed, the
+// page is at the top and focus is too.
+await open(p);
+// The repository: an icon button beside the hero's actions, in a new tab, saying so; not in the header.
+check("showcase: the repository is linked from the hero, in a new tab", await p.run(`(() => { const a = document.querySelector('.sc-hero a.al-button--icon[target="_blank"]'); return !!a && a.href.startsWith("https://github.com/") && /new tab/.test(a.getAttribute("aria-label")) && !document.querySelector('.al-site-header a[href^="https://github.com/"]'); })()`));
+// The page's own is the last; the demo's, in its frame, comes first.
+const back = `[...document.querySelectorAll(".al-back-to-top")].at(-1)`;
+check("showcase: back to top is hidden at the top", await p.run(`${back}.hasAttribute("data-al-hidden") && getComputedStyle(${back}).visibility === "hidden"`));
+await p.run(`scrollTo({ top: innerHeight * 3, behavior: "instant" })`);
+await wait(500);
+check("showcase: back to top shows two screens down", await p.run(`!${back}.hasAttribute("data-al-hidden") && getComputedStyle(${back}).visibility === "visible"`));
+await p.run(`${back}.focus()`);
+await p.key("Enter");
+await wait(1500);
+check("showcase: back to top goes to the top, and takes focus there", await p.run(`scrollY < 2 && document.activeElement === document.body`), await p.run(`JSON.stringify({ y: scrollY, focus: document.activeElement?.tagName })`));
+await p.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });
+await p.run(`scrollTo({ top: innerHeight * 3, behavior: "instant" })`);
+await wait(300);
+await p.run(`${back}.click()`);
+await wait(100);
+check("showcase: back to top, with reduced motion, jumps", await p.run(`scrollY === 0`), await p.run(`String(scrollY)`));
+await p.send("Emulation.setEmulatedMedia", { features: [] });
 
 // The fonts are served from here, not a third party.
 const fonts = await p.run(`performance.getEntriesByType("resource").filter((r) => /\\.woff2|fonts\\.(googleapis|gstatic)/.test(r.name)).map((r) => new URL(r.name).host)`);

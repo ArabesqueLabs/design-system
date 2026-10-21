@@ -35,6 +35,7 @@ Every spec is also in Arabic, in [`ar/`](ar/README.md); the showcase links to th
 | [Logo wall](logos.md) | Who uses it: their marks in one colour, as many to a row as fit. |
 | [Call to action](cta.md) | The page's last word: one line, then what to do. |
 | [On this page](toc.md) | A page's sections beside it, the one being read marked as it scrolls. |
+| [Back to top](back-to-top.md) | On a long page, a link back up, in the corner once the page has scrolled two screens. |
 | [Code and command](code.md) | Code to read or copy, always left to right, with the lines that matter marked; a command, one line to paste. |
 | [Charts](chart.md) | Columns, a split bar and a bullet chart, in plain HTML and CSS. |
 | [Brand: mark, wordmark, lockup](brand.md) | The mark (one tile of the pattern, in a square frame) beside the wordmark. |

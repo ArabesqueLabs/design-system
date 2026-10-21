@@ -7,8 +7,9 @@
 //                                   ../dist/icons.svg from where they are
 //   examples/build/examples.js      the examples' and the showcase's one script: React,
 //                                   the components, and the Arabic they use
-//   index.html                      the showcase, from examples/src/showcase.tsx and the
-//                                   demos: rendered in English, then brought to life
+//   index.html, ar/index.html       the showcase, from examples/src/showcase.tsx and the
+//                                   demos: rendered in English and in Arabic, then
+//                                   brought to life
 //   examples/*.html                 a page per component, and the gallery: rendered in
 //                                   the browser (they're demos, and need it anyway); the
 //                                   build renders them too, to check their Arabic
@@ -16,6 +17,9 @@
 //                                   wired by the helpers, no React in the page
 //   *.html beside each document     the README, the changelog and docs/, as pages: the
 //                                   site header, what's on the page, the document
+//
+// Each page but the templates has the same head: its address, its other
+// language's page, and how it shows when shared (head(), below).
 //
 // Every generated file sits at the same depth as its source, so ../../js/
 // means js/ from both. It fails if an example's sentence has no Arabic.
@@ -39,6 +43,17 @@ const helpers = {
   },
 };
 const common = { bundle: true, format: "esm", target: "es2022", jsx: "automatic", logLevel: "warning", absWorkingDir: root };
+
+// Headings get ids as GitHub gives them, so links to #anchors work in both.
+const slug = (text) => text.toLowerCase().trim().replace(/<[^>]+>/g, "").replace(/[^\p{L}\p{N}\p{M}\s-]/gu, "").replace(/\s/g, "-");
+
+// The version released last (package.json's), and the id of its section in
+// the changelog: the showcase says which version it is, and links there.
+const pkg = JSON.parse(readFileSync(at("package.json"), "utf8"));
+const { version } = pkg;
+const released = readFileSync(at("CHANGELOG.md"), "utf8").match(new RegExp(`^## (\\[${version.replace(/\./g, "\\.")}\\].*)$`, "m"));
+if (!released) throw new Error(`CHANGELOG.md has no section for ${version}, package.json's version`);
+const RELEASE = JSON.stringify({ version, changelog: slug(released[1]) });
 
 // ---- dist/react ------------------------------------------------------------------------------
 
@@ -70,9 +85,9 @@ await build({
   external: ["react", "react-dom"],
   // No storage on the server: js/keys.js's read of it (in a try) fails quietly,
   // without Node's warning about its own experimental localStorage.
-  define: { "process.env.NODE_ENV": '"production"', localStorage: "undefined" },
+  define: { "process.env.NODE_ENV": '"production"', localStorage: "undefined", __RELEASE__: RELEASE },
 });
-const { render, renderDoc } = await import(`${pathToFileURL(renderer).href}?${Date.now()}`);
+const { render, renderDoc, REPO } = await import(`${pathToFileURL(renderer).href}?${Date.now()}`);
 const { pages, templates, showcase, missing, used } = render();
 if (missing.length) {
   console.error(`No Arabic for these (add them to examples/src/ar.ts):\n${missing.map((s) => `  ${JSON.stringify(s)}`).join("\n")}`);
@@ -104,12 +119,87 @@ await build({
   minify: true,
   // Arabic as it is, not as \u escapes: a sixth smaller.
   charset: "utf8",
-  define: { "process.env.NODE_ENV": '"production"' },
+  define: { "process.env.NODE_ENV": '"production"', __RELEASE__: RELEASE },
   plugins: [helpers, trimmed],
 });
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const THEME = `<script>try { const t = localStorage.getItem("al-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}</script>`;
+
+// ---- the head every page of the site shares ---------------------------------------------------
+
+// Its address, its other language's page, and how it shows when it's shared
+// (Open Graph, X cards) or read by a search engine (schema.org), all as full
+// addresses on the site: the site serves README.html as /README, and a
+// folder's index.html as the folder.
+const SITE = "https://design.arabesquelabs.com/";
+const COMPANY = "https://arabesquelabs.com/";
+const address = (file) => SITE + file.replace(/(^|\/)index\.html$/, "$1").replace(/\.html$/, "");
+const NAME = { en: "Arabesque", ar: "آرابيسك" };
+// The social cards (scripts/social.mjs), one in each language.
+const CARD = {
+  en: { image: "dist/brand/social/card-en.png", alt: "Arabesque, the Arabesque Labs design system", locale: "en_US" },
+  ar: { image: "dist/brand/social/card-ar.png", alt: catalogue["Arabesque, the Arabesque Labs design system"], locale: "ar_AR" },
+};
+const json = (o) => JSON.stringify(o).replace(/</g, "\\u003c");
+const WEBSITE = { "@type": "WebSite", "@id": `${SITE}#website`, url: SITE, name: NAME.en, alternateName: NAME.ar, inLanguage: ["en", "ar"], publisher: { "@id": `${COMPANY}#organization` } };
+const ORGANIZATION = { "@type": "Organization", "@id": `${COMPANY}#organization`, name: "Arabesque Labs", alternateName: "معامل آرابيسك", url: COMPANY, logo: `${SITE}dist/brand/mark-ink.svg` };
+
+/**
+ * The head's shared part. `title` is the window's; `heading` the page's own
+ * (for a card, where the site's name is said beside it). `pages` is each
+ * language's file, when the page is in both; `kind` says what schema.org
+ * calls it: "home", "article" or "page".
+ */
+function head({ file, lang, title, heading = title, description, pages, kind }) {
+  const url = address(file);
+  const card = CARD[lang];
+  const image = SITE + card.image;
+  const other = pages && address(pages[lang === "ar" ? "en" : "ar"]);
+  const page = { url, name: heading, description, inLanguage: lang, isPartOf: { "@id": `${SITE}#website` } };
+  const data = {
+    home: [
+      { "@type": "WebPage", ...page, about: { "@id": `${SITE}#software` } },
+      { "@type": "SoftwareSourceCode", "@id": `${SITE}#software`, name: NAME.en, alternateName: NAME.ar, description: pkg.description, url: SITE, codeRepository: REPO, programmingLanguage: ["CSS", "JavaScript", "TypeScript"], version, author: { "@id": `${COMPANY}#organization` } },
+    ],
+    article: [{ "@type": "TechArticle", ...page, headline: heading, publisher: { "@id": `${COMPANY}#organization` }, ...(other && { [lang === "ar" ? "translationOfWork" : "workTranslation"]: { "@id": other } }) }],
+    page: [{ "@type": "WebPage", ...page }],
+  }[kind];
+  return [
+    `<meta charset="utf-8">`,
+    `<meta name="viewport" content="width=device-width, initial-scale=1">`,
+    `<title>${esc(title)}</title>`,
+    `<meta name="description" content="${esc(description)}">`,
+    `<link rel="canonical" href="${url}">`,
+    ...(pages ? [...Object.entries(pages).map(([l, f]) => `<link rel="alternate" hreflang="${l}" href="${address(f)}">`), `<link rel="alternate" hreflang="x-default" href="${address(pages.en)}">`] : []),
+    `<meta property="og:type" content="${kind === "article" ? "article" : "website"}">`,
+    `<meta property="og:site_name" content="${NAME[lang]}">`,
+    `<meta property="og:title" content="${esc(heading)}">`,
+    `<meta property="og:description" content="${esc(description)}">`,
+    `<meta property="og:url" content="${url}">`,
+    `<meta property="og:locale" content="${card.locale}">`,
+    ...(pages ? [`<meta property="og:locale:alternate" content="${CARD[lang === "ar" ? "en" : "ar"].locale}">`] : []),
+    `<meta property="og:image" content="${image}">`,
+    `<meta property="og:image:width" content="1200">`,
+    `<meta property="og:image:height" content="630">`,
+    `<meta property="og:image:alt" content="${esc(card.alt)}">`,
+    `<meta name="twitter:card" content="summary_large_image">`,
+    `<meta name="twitter:title" content="${esc(heading)}">`,
+    `<meta name="twitter:description" content="${esc(description)}">`,
+    `<meta name="twitter:image" content="${image}">`,
+    `<meta name="twitter:image:alt" content="${esc(card.alt)}">`,
+    `<script type="application/ld+json">${json({ "@context": "https://schema.org", "@graph": [...data, WEBSITE, ORGANIZATION] })}</script>`,
+  ].map((l) => `  ${l}`).join("\n");
+}
+
+const GALLERY = "Every component, working: the React components in English and in Arabic, right to left, in light and dark.";
+
+/** A document's first paragraph of words (not its logo, nor a translation's note), as plain text, for its description. */
+function summary(html) {
+  const paragraphs = html.replace(/<blockquote>[\s\S]*?<\/blockquote>/g, "").matchAll(/<p>([\s\S]*?)<\/p>/g);
+  const text = [...paragraphs].map((p) => unescape(p[1].replace(/<[^>]+>/g, "")).replace(/\s+/g, " ").trim()).find(Boolean) ?? "";
+  return text.length <= 160 ? text : `${text.slice(0, 157).replace(/\s+\S*$/, "")}…`;
+}
 
 // Pages that are gone are removed: examples/ holds only what's generated, and examples.css.
 for (const f of readdirSync(at("examples"))) if (f.endsWith(".html")) rmSync(at(`examples/${f}`));
@@ -117,9 +207,7 @@ for (const p of pages) {
   write(p.file, `<!doctype html>
 <html lang="${p.lang}" dir="${p.lang === "ar" ? "rtl" : "ltr"}">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${esc(p.title)}</title>${p.description ? `\n  <meta name="description" content="${esc(p.description)}">` : ""}
+${head({ file: p.file, lang: p.lang, title: p.title, heading: p.title.replace(/ · Arabesque$/, ""), description: p.description ?? GALLERY, kind: "page" })}
   <!-- Generated by scripts/build-react.mjs from examples/src: don't edit. -->
   ${THEME}
   <link rel="icon" href="../dist/brand/arabesque-favicon.svg" type="image/svg+xml">
@@ -173,36 +261,45 @@ ${p.body}
 `);
 }
 
-// ---- the showcase (index.html) ----------------------------------------------------------------
+// ---- the showcase: index.html, and ar/index.html ----------------------------------------------
 
-write("index.html", `<!doctype html>
-<html lang="en" dir="ltr">
+const HOME = {
+  en: {
+    file: "index.html",
+    title: "Arabesque, the Arabesque Labs design system",
+    description: "Arabesque: tokens, foundations, components and patterns for Arabesque Labs products: accessible, and left-to-right and right-to-left from the start.",
+    font: "jost-latin.woff2",
+  },
+  ar: {
+    file: "ar/index.html",
+    title: catalogue["Arabesque, the Arabesque Labs design system"],
+    description: "آرابيسك: الرموز والأسس والمكوّنات والأنماط لمنتجات معامل آرابيسك: سهلة الوصول، ومن اليسار إلى اليمين ومن اليمين إلى اليسار منذ البداية.",
+    font: "kufam-arabic.woff2",
+  },
+};
+for (const lang of ["en", "ar"]) {
+  const h = HOME[lang];
+  const up = lang === "ar" ? "../" : "";
+  write(h.file, `<!doctype html>
+<html lang="${lang}" dir="${lang === "ar" ? "rtl" : "ltr"}">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Arabesque, the Arabesque Labs design system</title>
-  <meta name="description" content="Arabesque: tokens, foundations, components and patterns for Arabesque Labs products: accessible, and left-to-right and right-to-left from the start.">
+${head({ file: h.file, lang, title: h.title, description: h.description, pages: { en: HOME.en.file, ar: HOME.ar.file }, kind: "home" })}
   <!-- Generated by scripts/build-react.mjs from examples/src/showcase.tsx and the demos: don't edit. -->
-  <script>
-    // Theme and language before the first paint, so nothing flashes.
-    try {
-      const t = localStorage.getItem("al-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
-      if (localStorage.getItem("al-showcase-lang") === "ar") { document.documentElement.lang = "ar"; document.documentElement.dir = "rtl"; }
-    } catch {}
-  </script>
-  <link rel="preload" href="fonts/jost-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="icon" href="dist/brand/arabesque-favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="fonts/fonts.css">
-  <link rel="stylesheet" href="dist/arabesque.css">
-  <link rel="stylesheet" href="examples/examples.css">
-  <link rel="stylesheet" href="showcase.css">
-  <script type="module" src="examples/build/examples.js"></script>
+  ${THEME}
+  <link rel="preload" href="${up}fonts/${h.font}" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" href="${up}dist/brand/arabesque-favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="${up}fonts/fonts.css">
+  <link rel="stylesheet" href="${up}dist/arabesque.css">
+  <link rel="stylesheet" href="${up}examples/examples.css">
+  <link rel="stylesheet" href="${up}showcase.css">
+  <script type="module" src="${up}examples/build/examples.js"></script>
 </head>
 <body data-example="showcase">
-<div id="root">${showcase}</div>
+<div id="root">${showcase[lang]}</div>
 </body>
 </html>
 `);
+}
 
 // ---- the documents, as pages ----------------------------------------------------------------
 
@@ -214,8 +311,6 @@ const docs = [
   ...readdirSync(at("docs"), { recursive: true }).filter((f) => f.endsWith(".md")).map((f) => `docs/${f}`),
 ].sort();
 const isDoc = new Set(docs);
-// Headings get ids as GitHub gives them, so links to #anchors work in both.
-const slug = (text) => text.toLowerCase().trim().replace(/<[^>]+>/g, "").replace(/[^\p{L}\p{N}\p{M}\s-]/gu, "").replace(/\s/g, "-");
 const unescape = (s) => s.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'");
 
 for (const file of docs) {
@@ -246,6 +341,16 @@ for (const file of docs) {
     },
   });
   let html = marked.parse(readFileSync(at(file), "utf8"));
+  const description = summary(html);
+  // A logo the document shows on GitHub (the README's): the page's header has it already.
+  html = html.replace(/<p><picture>[\s\S]*?<\/picture><\/p>\n/g, "");
+  // GitHub's alerts (> [!WARNING]) as the system's notices: its words in
+  // bold first are the title; present on load, so no role.
+  html = html.replace(/<blockquote>\n<p>\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\n(?:<strong>([\s\S]*?)<\/strong>\s*)?([\s\S]*?)<\/p>\n<\/blockquote>/g, (m, kind, title, body) => {
+    const tone = { WARNING: "warning", CAUTION: "danger" }[kind];
+    return `<div class="al-notice${tone ? ` al-notice--${tone}` : ""}"><svg class="al-icon" aria-hidden="true"><use href="${up}dist/icons.svg#al-icon-${tone ?? "info"}"></use></svg>`
+      + `<div class="al-notice__body">${title ? `<p class="al-notice__title">${title}</p>` : ""}<p>${body}</p></div></div>\n`;
+  });
   // A table scrolls in its own region, as the system's tables do.
   html = html.replace(/<table>/g, `<div class="al-table-wrap" role="region" tabindex="0" aria-label="${lang === "ar" ? "جدول" : "Table"}"><table class="al-table">`).replace(/<\/table>/g, "</table></div>");
   // Links to documents go to their pages.
@@ -256,15 +361,14 @@ for (const file of docs) {
   // The other language: a document's translation sits beside it in ar/.
   const translation = lang === "ar" ? file.replace(/(^|\/)ar\//, "$1") : posix.join(dir, "ar", posix.basename(file));
   const other = translation !== file && isDoc.has(translation)
-    ? { href: posix.relative(dir, translation).replace(/\.md$/, ".html"), lang: lang === "ar" ? "en" : "ar" }
+    ? { href: posix.relative(dir, translation).replace(/\.md$/, ".html"), lang: lang === "ar" ? "en" : "ar", file: translation.replace(/\.md$/, ".html") }
     : undefined;
+  const page = file.replace(/\.md$/, ".html");
   const body = renderDoc({ lang, title, html, toc, up, other, source: file });
-  write(file.replace(/\.md$/, ".html"), `<!doctype html>
+  write(page, `<!doctype html>
 <html lang="${lang}" dir="${lang === "ar" ? "rtl" : "ltr"}">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${esc(title)} · ${lang === "ar" ? "آرابيسك" : "Arabesque"}</title>
+${head({ file: page, lang, title: `${title} · ${NAME[lang]}`, heading: title, description, pages: other && (lang === "ar" ? { en: other.file, ar: page } : { en: page, ar: other.file }), kind: "article" })}
   <!-- Generated by scripts/build-react.mjs from ${posix.basename(file)}: change that, not this. -->
   ${THEME}
   <link rel="icon" href="${up}dist/brand/arabesque-favicon.svg" type="image/svg+xml">
@@ -278,9 +382,11 @@ ${body}
   import { initSiteHeaders } from "${up || "./"}js/site-header.js";
   import { initToc } from "${up || "./"}js/toc.js";
   import { highlightCode } from "${up || "./"}js/highlight.js";
+  import { initBackToTop } from "${up || "./"}js/back-to-top.js";
   import { currentTheme, setTheme } from "${up || "./"}js/theme.js";
   initSiteHeaders();
   initToc();
+  initBackToTop();
   highlightCode();
   const theme = document.querySelector("[data-theme-toggle]");
   const label = () => theme.setAttribute("aria-label", currentTheme() === "dark" ? theme.dataset.labelLight : theme.dataset.labelDark);
@@ -292,4 +398,4 @@ ${body}
 `);
 }
 
-console.log(`react: dist/react; showcase: index.html; examples: ${pages.length - 1} pages and the gallery, Arabic catalogue ${Object.keys(kept).length} of ${Object.keys(catalogue).length}; templates: ${templates.map((t) => t.file).join(", ")}; documents: ${docs.length} pages`);
+console.log(`react: dist/react; showcase: index.html, ar/index.html; examples: ${pages.length - 1} pages and the gallery, Arabic catalogue ${Object.keys(kept).length} of ${Object.keys(catalogue).length}; templates: ${templates.map((t) => t.file).join(", ")}; documents: ${docs.length} pages`);

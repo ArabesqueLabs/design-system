@@ -7,6 +7,9 @@ main:focus { outline: none; }
 .sc-hero { padding-block: var(--al-space-12) var(--al-space-12); border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
 .sc-hero__title { max-inline-size: 12em; }
 .sc-hero .al-lede { line-height: 1.9; }
+/* The repository, beside the hero's actions: GitHub's mark as tall as they are. */
+.sc-repo { padding: 0; }
+.sc-repo .al-icon { inline-size: var(--al-button-height); block-size: var(--al-button-height); }
 
 /* Contents beside the components; above them on small screens. */
 .sc-layout { display: grid; grid-template-columns: 13rem minmax(0, 1fr); gap: var(--al-space-12); padding-block: var(--al-space-12); }

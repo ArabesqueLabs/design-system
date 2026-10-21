@@ -3,7 +3,7 @@ import { useArabesque } from "./settings.js";
 import { cx } from "./util.js";
 
 /** Every icon in the sprite (icons/). */
-export const iconNames = ["arrow", "board", "calendar", "check", "chevron", "chevron-down", "close", "copy", "danger", "edit", "external", "file", "info", "language", "mail", "menu", "minus", "more", "plus", "retry", "search", "settings", "sidebar", "success", "theme", "trash", "undo", "warning"] as const;
+export const iconNames = ["arrow", "arrow-up", "board", "calendar", "check", "chevron", "chevron-down", "close", "copy", "danger", "edit", "external", "file", "info", "language", "mail", "menu", "minus", "more", "plus", "retry", "search", "settings", "sidebar", "success", "theme", "trash", "undo", "warning"] as const;
 export type IconName = (typeof iconNames)[number];
 
 /** Directional icons, which mirror in right to left. */

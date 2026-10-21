@@ -11,28 +11,15 @@
 //                                   Chromium, CHROME= to say where)
 //
 // Run it when the component or the brand changes; the images are kept, as
-// the rest of dist/ is. Node 22+ (for its WebSocket). No packages.
+// the rest of dist/ is. Chrome is driven by chrome.mjs.
 
-import { spawn, spawnSync } from "node:child_process";
-import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
-import { tmpdir } from "node:os";
+import { mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { withChrome } from "./chrome.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const out = join(root, "dist/brand/badges");
-const PORT = 9357;
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
-function chrome() {
-  if (process.env.CHROME) return process.env.CHROME;
-  const mac = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-  if (existsSync(mac)) return mac;
-  for (const name of ["google-chrome", "google-chrome-stable", "chromium", "chromium-browser"]) {
-    if (spawnSync("which", [name]).status === 0) return name;
-  }
-  throw new Error("no Chrome or Chromium found: set CHROME to one");
-}
 
 // The mark and the star, as react/src/brand.tsx's Mark and Star draw them.
 const MARK_PATHS = [
@@ -65,50 +52,20 @@ const page = (wording, lang, theme, mark) => `<!doctype html>
 </head><body>${badge(wording, lang, mark)}</body></html>`;
 
 mkdirSync(out, { recursive: true });
-const work = mkdtempSync(join(tmpdir(), "badges-"));
-const browser = spawn(chrome(), ["--headless=new", "--disable-gpu", "--hide-scrollbars", "--allow-file-access-from-files",
-  `--remote-debugging-port=${PORT}`, `--user-data-dir=${join(work, "profile")}`, "--no-first-run", "about:blank"], { stdio: "ignore" });
-try {
-  let target;
-  for (let i = 0; i < 50 && !target; i++) {
-    try { target = (await (await fetch(`http://127.0.0.1:${PORT}/json/list`)).json()).find((t) => t.type === "page"); } catch {}
-    if (!target) await sleep(200);
-  }
-  const ws = new WebSocket(target.webSocketDebuggerUrl);
-  await new Promise((r) => ws.addEventListener("open", r));
-  let id = 0;
-  const waiting = new Map();
-  ws.addEventListener("message", (m) => { const msg = JSON.parse(m.data); if (msg.id && waiting.has(msg.id)) { waiting.get(msg.id)(msg); waiting.delete(msg.id); } });
-  const send = (method, params = {}) => new Promise((r) => { const i = ++id; waiting.set(i, r); ws.send(JSON.stringify({ id: i, method, params })); });
-  const evaluate = async (expression) => (await send("Runtime.evaluate", { expression, returnByValue: true, awaitPromise: true })).result.result.value;
-  await send("Page.enable");
-  await send("Emulation.setDefaultBackgroundColorOverride", { color: { r: 0, g: 0, b: 0, a: 0 } });
-
-  let made = 0;
+let made = 0;
+await withChrome(async (shoot) => {
   for (const wording of Object.keys(WORDS)) {
     for (const lang of ["en", "ar"]) {
       for (const theme of ["light", "dark"]) {
         for (const mark of ["mark", "star"]) {
           const name = `${wording}-${lang}-${theme}${mark === "star" ? "-star" : ""}`;
-          const file = join(work, `${name}.html`);
-          writeFileSync(file, page(wording, lang, theme, mark));
           for (const scale of [1, 2]) {
-            await send("Emulation.setDeviceMetricsOverride", { width: 600, height: 200, deviceScaleFactor: scale, mobile: false });
-            await send("Page.navigate", { url: pathToFileURL(file).href });
-            await sleep(300);
-            await evaluate("document.fonts.ready.then(() => true)");
-            const box = await evaluate(`(() => { const r = document.getElementById("badge").getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height }; })()`);
-            const shot = await send("Page.captureScreenshot", { format: "png", clip: { x: Math.floor(box.x), y: Math.floor(box.y), width: Math.ceil(box.width + box.x % 1), height: Math.ceil(box.height + box.y % 1), scale: 1 } });
-            writeFileSync(join(out, `${name}${scale === 2 ? "@2x" : ""}.png`), Buffer.from(shot.result.data, "base64"));
+            await shoot(page(wording, lang, theme, mark), join(out, `${name}${scale === 2 ? "@2x" : ""}.png`), { width: 600, height: 200, scale, clip: "badge" });
             made++;
           }
         }
       }
     }
   }
-  ws.close();
-  console.log(`badges: ${made} images in dist/brand/badges`);
-} finally {
-  browser.kill();
-  try { rmSync(work, { recursive: true, force: true, maxRetries: 5 }); } catch {}
-}
+});
+console.log(`badges: ${made} images in dist/brand/badges`);

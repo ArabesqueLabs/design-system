@@ -80,3 +80,33 @@ export function Lockup({ product, name, mark, stacked, href, className, ...rest 
   const classes = cx("al-lockup", stacked && "al-lockup--stacked", className);
   return href ? <a className={classes} href={href} {...rest}>{inner}</a> : <span className={classes}>{inner}</span>;
 }
+
+export interface AttributionProps extends ComponentPropsWithoutRef<"a"> {
+  /** "product": "A product of Arabesque Labs" (the default); "by": "By Arabesque Labs". */
+  wording?: "product" | "by";
+  /** The words alone, without the pill: inline in a line of text. */
+  plain?: boolean;
+  /** A step larger, for an about page. */
+  large?: boolean;
+  /** The star alone in place of the mark: where the line is small, under 24px for the mark. */
+  star?: boolean;
+}
+
+/**
+ * The line each of the company's products carries: "A product of Arabesque
+ * Labs" or "By Arabesque Labs", after the mark (or the star, with `star`), in
+ * the page's language. A link to the company's site (its Arabic one, in
+ * Arabic), unless `href` says where.
+ */
+export function Attribution({ wording = "product", plain, large, star, href, className, ...rest }: AttributionProps) {
+  const { lang } = useArabesque();
+  const ar = /^ar\b/i.test(lang);
+  const lead = ar ? (wording === "by" ? "من" : "من منتجات") : wording === "by" ? "By" : "A product of";
+  return (
+    <a className={cx("al-attribution", plain && "al-attribution--plain", large && "al-attribution--lg", star && "al-attribution--star", className)}
+      href={href ?? (ar ? "https://arabesquelabs.com/ar/" : "https://arabesquelabs.com")} {...rest}>
+      {star ? <Star /> : <Mark />}
+      <span>{lead} <span className="al-attribution__name" lang={ar ? "ar" : "en"}>{ar ? "معامل آرابيسك" : "Arabesque Labs"}</span></span>
+    </a>
+  );
+}

@@ -38,6 +38,7 @@ Every spec is also in Arabic, in [`ar/`](ar/README.md); the showcase links to th
 | [Code and command](code.md) | Code to read or copy, always left to right, with the lines that matter marked; a command, one line to paste. |
 | [Charts](chart.md) | Columns, a split bar and a bullet chart, in plain HTML and CSS. |
 | [Brand: mark, wordmark, lockup](brand.md) | The mark (one tile of the pattern, in a square frame) beside the wordmark. |
+| [Attribution](attribution.md) | "A product of Arabesque Labs", or "By Arabesque Labs": the line each of the company's products carries, as a component and as images. |
 | [Pattern](pattern.md) | The tessellation of the mark's tile: as texture behind a band, or across a hero with its focal tile, drawn in on load. |
 | [Construction figure](construction.md) | How the pattern is made, in three steps read as software. |
 | [Icon](icon.md) | Line icons from the sprite. |

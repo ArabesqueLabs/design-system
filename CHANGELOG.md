@@ -6,6 +6,20 @@ All notable changes to the design system. The format follows
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-10-21
+
+### Added
+
+- **Attribution** ([spec](docs/components/attribution.md)): the line each
+  of the company's products carries, "A product of Arabesque Labs" or "By
+  Arabesque Labs" («من منتجات معامل آرابيسك»، «من معامل آرابيسك»), after
+  the company's mark, in a quiet pill or plain (`.al-attribution`,
+  `--plain`, `--lg`), or after the star alone where it's small (`--star`);
+  in React, `Attribution`. As images too, for READMEs, store pages and
+  email: `dist/brand/badges/`, each wording in English and Arabic, for light
+  and dark grounds, with the mark or the star (`…-star.png`), at 1x and 2x,
+  drawn by the component in headless Chrome (`npm run badges`).
+
 ## [0.6.0] - 2026-10-19
 
 ### Added

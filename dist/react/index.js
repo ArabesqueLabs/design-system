@@ -522,6 +522,27 @@ function Lockup({ product, name, mark, stacked, href, className, ...rest }) {
   const classes = cx("al-lockup", stacked && "al-lockup--stacked", className);
   return href ? /* @__PURE__ */ jsx12("a", { className: classes, href, ...rest, children: inner }) : /* @__PURE__ */ jsx12("span", { className: classes, children: inner });
 }
+function Attribution({ wording = "product", plain, large, star, href, className, ...rest }) {
+  const { lang } = useArabesque();
+  const ar = /^ar\b/i.test(lang);
+  const lead = ar ? wording === "by" ? "من" : "من منتجات" : wording === "by" ? "By" : "A product of";
+  return /* @__PURE__ */ jsxs10(
+    "a",
+    {
+      className: cx("al-attribution", plain && "al-attribution--plain", large && "al-attribution--lg", star && "al-attribution--star", className),
+      href: href ?? (ar ? "https://arabesquelabs.com/ar/" : "https://arabesquelabs.com"),
+      ...rest,
+      children: [
+        star ? /* @__PURE__ */ jsx12(Star, {}) : /* @__PURE__ */ jsx12(Mark, {}),
+        /* @__PURE__ */ jsxs10("span", { children: [
+          lead,
+          " ",
+          /* @__PURE__ */ jsx12("span", { className: "al-attribution__name", lang: ar ? "ar" : "en", children: ar ? "معامل آرابيسك" : "Arabesque Labs" })
+        ] })
+      ]
+    }
+  );
+}
 
 // react/src/site-header.tsx
 import { useEffect as useEffect5, useRef as useRef3, useState } from "react";
@@ -1413,6 +1434,7 @@ export {
   Announcement,
   ArabesqueMark,
   ArabesqueProvider,
+  Attribution,
   Avatar,
   BackLink,
   Badge,

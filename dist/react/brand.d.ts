@@ -32,3 +32,20 @@ export interface LockupProps extends ComponentPropsWithoutRef<"a"> {
 }
 /** The mark beside the wordmark: a link with an href, otherwise just the lockup. */
 export declare function Lockup({ product, name, mark, stacked, href, className, ...rest }: LockupProps): import("react").JSX.Element;
+export interface AttributionProps extends ComponentPropsWithoutRef<"a"> {
+    /** "product": "A product of Arabesque Labs" (the default); "by": "By Arabesque Labs". */
+    wording?: "product" | "by";
+    /** The words alone, without the pill: inline in a line of text. */
+    plain?: boolean;
+    /** A step larger, for an about page. */
+    large?: boolean;
+    /** The star alone in place of the mark: where the line is small, under 24px for the mark. */
+    star?: boolean;
+}
+/**
+ * The line each of the company's products carries: "A product of Arabesque
+ * Labs" or "By Arabesque Labs", after the mark (or the star, with `star`), in
+ * the page's language. A link to the company's site (its Arabic one, in
+ * Arabic), unless `href` says where.
+ */
+export declare function Attribution({ wording, plain, large, star, href, className, ...rest }: AttributionProps): import("react").JSX.Element;

@@ -553,6 +553,50 @@ button, [role="button"] { cursor: pointer; }
 }
 
 @layer al.components {
+/* css/components/attribution.css */
+/* Attribution: the line each of the company's products carries, in its
+   footer or its about page: "A product of Arabesque Labs", or "By Arabesque
+   Labs", after the mark (2em, so never under 24px; brand.md), or the star
+   where it's small (--star). A quiet pill, or the words alone (--plain), at
+   the text's size or a step up (--lg). */
+.al-attribution {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding-block: 0.3em;
+  padding-inline: 0.5em 0.9em;
+  border: var(--al-border-hairline) solid var(--al-color-line-strong);
+  border-radius: var(--al-radius-full);
+  background: var(--al-color-surface);
+  color: var(--al-color-text-muted);
+  font-family: var(--al-font-sans);
+  font-size: var(--al-text-xs);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.al-attribution .al-mark { inline-size: 2em; block-size: 2em; color: var(--al-color-text); }
+.al-attribution--star { gap: 0.45em; padding-block: 0.45em; padding-inline-start: 0.65em; }
+.al-attribution--star .al-mark { inline-size: 1.25em; block-size: 1.25em; }
+.al-attribution__name {
+  color: var(--al-color-text);
+  font-family: var(--al-font-display);
+  font-weight: var(--al-weight-medium);
+  letter-spacing: var(--al-tracking-wide);
+}
+a.al-attribution:hover { border-color: var(--al-color-text-muted); color: var(--al-color-text); }
+a.al-attribution:hover .al-attribution__name { text-decoration: underline; text-underline-offset: 0.2em; }
+a.al-attribution:focus-visible { outline: var(--al-border-focus) solid var(--al-color-focus); outline-offset: 2px; }
+.al-attribution--plain { padding: 0; border: 0; background: none; }
+.al-attribution--lg { font-size: var(--al-text-sm); }
+@media (forced-colors: active) {
+  .al-attribution { border-color: CanvasText; }
+  .al-attribution--plain { border: 0; }
+}
+
+}
+
+@layer al.components {
 /* css/components/badge.css */
 /* Badge: a short status beside something ("Active", "Experimental", "3").
    Sentence case, never capitals; its meaning in words, not colour alone.

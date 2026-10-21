@@ -236,3 +236,9 @@ token, the release PR wouldn't start `check.yml`.
 
 By hand, the same steps: `npm run release -- 0.3.0`, `npm run check`, commit
 ("Release 0.3.0"), and merge; the tag follows.
+
+## License
+
+Arabesque's code is [MIT licensed](LICENSE): its tokens, CSS, JavaScript helpers, React components, icons, and its build and release tooling.
+
+The Arabesque and Arabesque Labs logos, marks and wordmark lockups are not open source: they're the property of Arabesque Labs Ltd., all rights reserved. The fonts keep their own licences (SIL Open Font License 1.1). [NOTICE.md](NOTICE.md) says what each licence covers.

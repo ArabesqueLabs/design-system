@@ -6,6 +6,16 @@ All notable changes to the design system. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- Arabesque is MIT licensed (`LICENSE`): its tokens, CSS, JavaScript
+  helpers, React components, icons, and its build and release tooling. The
+  Arabesque and Arabesque Labs logos, marks and wordmark lockups, and the
+  badges and social cards drawn from them, aren't: they're Arabesque Labs
+  Ltd.'s, all rights reserved. The fonts keep their own licences.
+  `NOTICE.md` says what each licence covers, and the README has a License
+  section, in English and Arabic.
+
 ## [0.8.0] - 2026-10-21
 
 ### Added

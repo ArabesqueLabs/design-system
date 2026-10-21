@@ -2,15 +2,28 @@
   "name": "@arabesquelabs/design-system",
   "version": "0.8.0",
   "description": "Arabesque, the Arabesque Labs design system: tokens, CSS and components, accessible (WCAG 2.2 AA) and bidirectional (English and Arabic).",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "private": true,
-  "repository": { "type": "git", "url": "git+https://github.com/ArabesqueLabs/design-system.git" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArabesqueLabs/design-system.git"
+  },
   "homepage": "https://design.arabesquelabs.com",
   "bugs": "https://github.com/ArabesqueLabs/design-system/issues",
   "type": "module",
-  "files": ["dist", "fonts", "css", "js", "icons", "assets", "tokens"],
+  "files": [
+    "dist",
+    "fonts",
+    "css",
+    "js",
+    "icons",
+    "assets",
+    "tokens"
+  ],
   "style": "./dist/arabesque.css",
-  "sideEffects": ["*.css"],
+  "sideEffects": [
+    "*.css"
+  ],
   "exports": {
     ".": "./dist/arabesque.css",
     "./tokens.css": "./dist/tokens.css",
@@ -19,7 +32,10 @@
     "./icons.svg": "./dist/icons.svg",
     "./fonts.css": "./fonts/fonts.css",
     "./js/*": "./js/*",
-    "./react": { "types": "./dist/react/index.d.ts", "default": "./dist/react/index.js" }
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "default": "./dist/react/index.js"
+    }
   },
   "scripts": {
     "build": "node scripts/build.mjs && node scripts/build-react.mjs",
@@ -33,9 +49,21 @@
     "social": "node scripts/social.mjs",
     "serve": "python3 -m http.server 4900 --bind 127.0.0.1"
   },
-  "engines": { "node": ">=20" },
-  "peerDependencies": { "react": ">=19", "react-dom": ">=19" },
-  "peerDependenciesMeta": { "react": { "optional": true }, "react-dom": { "optional": true } },
+  "engines": {
+    "node": ">=20"
+  },
+  "peerDependencies": {
+    "react": ">=19",
+    "react-dom": ">=19"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",

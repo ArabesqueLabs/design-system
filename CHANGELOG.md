@@ -6,6 +6,40 @@ All notable changes to the design system. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- **Back to top** ([spec](docs/components/back-to-top.md)): on a long page,
+  a link back up, in the corner at the end of the line once the page has
+  scrolled two screens (`.al-back-to-top`, `js/back-to-top.js`'s
+  `initBackToTop()`); followed, it moves focus to the top too. In React,
+  `BackToTop`; its words are the new label `backToTop`. The site's pages
+  have it. A new icon for it, `arrow-up`, which doesn't mirror.
+- The showcase in Arabic has its own page, `ar/index.html` (at `/ar/`),
+  rendered in Arabic, so it reads without JavaScript and can be linked to.
+- The showcase says which version it is, linked to that version's section
+  of the changelog.
+- Every page of the site but the templates has the same head: its
+  canonical address, its other language's page (`hreflang`), Open Graph and
+  X card tags, and schema.org data (the site, the company, and the page: the
+  system's source code on the homepage, an article on a document's page).
+- The social card, the picture shown when a page is shared: 1200×630, in
+  English and Arabic, drawn by the system in headless Chrome
+  (`dist/brand/social/card-en.png`, `card-ar.png`; `npm run social`).
+
+### Changed
+
+- The showcase's language is a link to the other page, as on the documents'
+  pages, not a switch; the language chosen there before isn't remembered.
+  The Arabic page still remembers its digits.
+- The showcase links to the repository from its hero, as GitHub's mark
+  beside the actions, opening in a new tab, not from its header.
+- The README ("Using it") opens with a warning: Arabesque is experimental,
+  and a release may break what's built on it until 1.0. A document's
+  GitHub alerts (`> [!WARNING]`, `> [!NOTE]`…) are notices on its page, and
+  the README's logo is left off its page, whose header has it.
+- `dist/arabesque.css`'s size budget is 28 KB, from 27: the attribution
+  line and back to top took it to 27.3 KB.
+
 ## [0.7.0] - 2026-10-21
 
 ### Added

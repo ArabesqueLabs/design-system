@@ -17,6 +17,8 @@ body { margin: 0; }
 @media (max-width: 52rem) { .ex-shell .al-sidebar { min-block-size: 0; } }
 .ex-shell__main { padding: var(--al-space-5); }
 .ex-flush .al-site-header { position: static; }
+/* The page's own is in its corner; the demo's stays in its frame, shown. */
+.ex-back-to-top .al-back-to-top, .ex-back-to-top .al-back-to-top[data-al-hidden] { position: static; align-self: start; opacity: 1; translate: none; visibility: visible; }
 .ex-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--al-space-2); }
 .ex-list > li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--al-space-2) var(--al-space-4); padding-block: var(--al-space-1); }
 .ex-list > li > .al-rollback-note { flex-basis: 100%; }

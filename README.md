@@ -2,6 +2,13 @@
 
 # Arabesque
 
+> [!WARNING]
+> **Arabesque is experimental.** It's new and changing quickly: until 1.0,
+> any release may rename or remove tokens, classes and components, and break
+> pages built on it. Link a released version (see
+> [Use it in a project](#use-it-in-a-project)), and read the
+> [changelog](CHANGELOG.md) before you upgrade.
+
 Arabesque is the Arabesque Labs design system: the tokens, CSS, components
 and rules that Arabesque Labs builds with.
 **Accessible** (WCAG 2.2 AA as a floor), **bidirectional** (English and

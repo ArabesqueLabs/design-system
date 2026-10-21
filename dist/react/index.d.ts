@@ -30,6 +30,7 @@ export * from "./code.js";
 export * from "./logos.js";
 export * from "./cta.js";
 export * from "./toc.js";
+export * from "./back-to-top.js";
 export * from "./chart.js";
 export * from "./pattern.js";
 export * from "./construction.js";

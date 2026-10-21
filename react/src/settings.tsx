@@ -52,6 +52,7 @@ export interface Labels {
   heroCaption: string;
   announcement: string;
   onThisPage: string;
+  backToTop: string;
   copy: string;
   copied: string;
   copyFailed: string;
@@ -111,6 +112,7 @@ export const englishLabels: Labels = {
   heroCaption: "This tile is our mark. Everything around it follows from the same rule.",
   announcement: "Announcement",
   onThisPage: "On this page",
+  backToTop: "Back to top",
   copy: "Copy",
   copied: "Copied",
   copyFailed: "Couldn't copy. The text is selected, so you can copy it yourself.",
@@ -168,6 +170,7 @@ export const arabicLabels: Labels = {
   heroCaption: "هذه البلاطة هي علامتنا. كل ما حولها ينبع من القاعدة نفسها.",
   announcement: "إعلان",
   onThisPage: "في هذه الصفحة",
+  backToTop: "العودة إلى الأعلى",
   copy: "انسخ",
   copied: "نُسخ",
   copyFailed: "تعذّر النسخ. النص محدّد لتنسخه بنفسك.",

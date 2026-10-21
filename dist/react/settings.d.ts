@@ -45,6 +45,7 @@ export interface Labels {
     heroCaption: string;
     announcement: string;
     onThisPage: string;
+    backToTop: string;
     copy: string;
     copied: string;
     copyFailed: string;

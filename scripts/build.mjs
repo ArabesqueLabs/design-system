@@ -330,7 +330,8 @@ write("dist/patterns/tile-quiet-dark.svg", tileSvg("pattern-quiet", "dark"));
 // 27 KB from 0.5: code with syntax colour, and a product page's parts (stats,
 // eyebrow, feature tabs, logos, quotes, call to action, announcement, on
 // this page), for the same reason.
-const BUDGET = 27 * 1024;
+// 28 KB from 0.8: the attribution line, and back to top, took it to 27.2.
+const BUDGET = 28 * 1024;
 const gz = gzipSync(bundle, { level: 9 }).length;
 const kb = (n) => `${(n / 1024).toFixed(1)} KB`;
 const overBudget = gz > BUDGET;

@@ -597,6 +597,46 @@ a.al-attribution:focus-visible { outline: var(--al-border-focus) solid var(--al-
 }
 
 @layer al.components {
+/* css/components/back-to-top.css */
+/* Back to top: on a long page, a link back up, in the corner at the end of
+   the line. Hidden until the page has scrolled two screens
+   (js/back-to-top.js), and until that's wired, so it doesn't flash on
+   load; without JavaScript, always there. */
+.al-back-to-top {
+  position: fixed;
+  inset-block-end: var(--al-space-4);
+  inset-inline-end: var(--al-space-4);
+  z-index: var(--al-z-sticky);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--al-space-2);
+  min-block-size: 2.75rem;
+  padding-inline: var(--al-space-4);
+  border: var(--al-border-hairline) solid var(--al-color-line-strong);
+  border-radius: var(--al-radius-full);
+  background: var(--al-color-surface);
+  color: var(--al-color-text);
+  font-size: var(--al-text-sm);
+  text-decoration: none;
+  transition: opacity var(--al-duration-base) var(--al-ease-standard), translate var(--al-duration-base) var(--al-ease-standard), visibility 0s;
+}
+.al-back-to-top[data-al-hidden] {
+  opacity: 0;
+  translate: 0 var(--al-space-2);
+  visibility: hidden;
+  transition-timing-function: var(--al-ease-exit);
+  transition-delay: 0s, 0s, var(--al-duration-base);
+}
+@media (scripting: enabled) { .al-back-to-top:not([data-al-wired]) { opacity: 0; visibility: hidden; } }
+.al-back-to-top:hover { border-color: var(--al-color-text-muted); }
+.al-back-to-top:focus-visible { outline: var(--al-border-focus) solid var(--al-color-focus); outline-offset: 2px; }
+body[data-al-top]:focus { outline: none; }
+@media print { .al-back-to-top { display: none; } }
+@media (forced-colors: active) { .al-back-to-top { border-color: CanvasText; } }
+
+}
+
+@layer al.components {
 /* css/components/badge.css */
 /* Badge: a short status beside something ("Active", "Experimental", "3").
    Sentence case, never capitals; its meaning in words, not colour alone.

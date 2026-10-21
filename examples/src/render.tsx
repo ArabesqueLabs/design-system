@@ -10,12 +10,14 @@ import { Showcase } from "./showcase.js";
 import { DocPage, type DocInput } from "./doc-page.js";
 import { demos } from "./demos.js";
 
+export { REPO } from "./repo.js";
+
 export interface Page { file: string; title: string; lang: string; body: string; example?: string; description?: string }
 
 /** A document's page: everything inside <body>. */
 export const renderDoc = (d: DocInput): string => renderToStaticMarkup(<DocPage d={d} />);
 
-export function render(): { pages: Page[]; templates: Page[]; showcase: string; missing: string[]; used: string[] } {
+export function render(): { pages: Page[]; templates: Page[]; showcase: { en: string; ar: string }; missing: string[]; used: string[] } {
   const missing = new Set<string>();
   const pages: Page[] = [
     { file: "examples/index.html", title: "Examples · Arabesque", lang: "en", example: "index", body: renderToString(<Gallery />) },
@@ -29,9 +31,8 @@ export function render(): { pages: Page[]; templates: Page[]; showcase: string; 
     lang,
     body: renderToStaticMarkup(<ArabesqueProvider lang={lang} sprite={lang === "en" ? "../dist/icons.svg" : "../../dist/icons.svg"}><Home c={copy[lang]} /></ArabesqueProvider>),
   }));
-  // The showcase: in English for the page; in Arabic too, to check its Arabic.
-  const showcase = renderToString(<Showcase />);
-  renderToString(<Showcase initial={{ lang: "ar", numerals: "latn" }} />);
+  // The showcase, in English (index.html) and in Arabic (ar/index.html).
+  const showcase = { en: renderToString(<Showcase />), ar: renderToString(<Showcase lang="ar" root="../" />) };
   for (const s of missingArabic) missing.add(s);
   return { pages, templates, showcase, missing: [...missing].sort(), used: [...usedArabic].sort() };
 }

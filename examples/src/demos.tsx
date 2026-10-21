@@ -9,7 +9,7 @@ import { forgetDismissal } from "../../js/announcement.js";
 import { ColourDemo, MotionDemo, SpaceDemo, TintsDemo, TypeDemo } from "./foundations.js";
 import { formatMoney, formatNumber, formatPercent } from "../../js/format.js";
 import {
-  Affix, AffixText, Announcement, Avatar, BackLink, Badge, CallToAction, CodeBlock, Command, DisclosureGroup, FeatureTabs, LogoWordmark, Logos, OnThisPage, Quote, Stats, Breadcrumbs, BulkBar, BulletChart, Button, Card, CharacterCount, ChartFigure, Checkbox,
+  Affix, AffixText, Announcement, Avatar, BackLink, BackToTop, Badge, CallToAction, CodeBlock, Command, DisclosureGroup, FeatureTabs, LogoWordmark, Logos, OnThisPage, Quote, Stats, Breadcrumbs, BulkBar, BulletChart, Button, Card, CharacterCount, ChartFigure, Checkbox,
   Choices, ColumnChart, Confirmation, LanguageLink, Section, Star, TextLink, iconNames, ConstructionFigure, DateExample, DateInput, DatePicker, Dialog, Disclosure, EmptyState, ErrorSummary,
   Field, Fieldset, Footer, Grid, Hero, HeroCaption, Highlight, Icon, Input, Lockup, Mark, Menu, Notice, PageHead, Panel, Pattern, PhaseBanner,
   Progress, Radio, RollbackNote, SaveState, Search, Segmented, Select, Shell, Shortcuts, SideEffect, SiteHeader, Skeleton, Spinner, SplitBar,
@@ -422,6 +422,15 @@ function CtaDemo({ t }: DemoProps) {
         <Button href="../README.html">{t("Read how to use it")}</Button>
         <Command>npm run build</Command>
       </>} />
+  );
+}
+
+function BackToTopDemo({ t }: DemoProps) {
+  return (
+    <div className="ex-frame ex-back-to-top al-stack">
+      <p className="al-muted">{t("Scroll this page two screens down: this link appears in the corner, at the end of the line.")}</p>
+      <BackToTop />
+    </div>
   );
 }
 
@@ -904,6 +913,7 @@ export const demos: Demo[] = [
   d("sidebar", "Sidebar", "Navigation", "An app's sections, collapsible to icons; on a phone, behind a menu button.", "sidebar", SidebarDemo),
   d("site-header", "Site header", "Navigation", "A website's top bar: the lockup, the sections, and the language and theme controls. Under the md breakpoint the sections fold into a menu.", "site-header", SiteHeaderDemo),
   d("on-this-page", "On this page", "Navigation", "A page's sections beside it, with the one being read marked as it scrolls.", "toc", OnThisPageDemo),
+  d("back-to-top", "Back to top", "Navigation", "On a long page, a link back up, in the corner once the page has scrolled two screens. Followed, it moves focus to the top too.", "back-to-top", BackToTopDemo),
   d("language-link", "Language link", "Navigation", "The same page in the other language, named in that language. Never a flag.", "language-switch", LanguageDemo),
   d("footer", "Footer", "Navigation", "Who made it, where to go next, and the legal line; quiet, and the same on every page.", "footer", FooterDemo),
   d("notice", "Notice and side-effect note", "Feedback", "A message in the page, in four kinds, each with an icon and a title. A side-effect note says what else will change, before it does.", "notice", NoticeDemo),

@@ -3,7 +3,7 @@
 // footer. Rendered on the server by scripts/build-react.mjs, from the
 // Markdown; the helpers wire the header in the page.
 
-import { ArabesqueMark, ArabesqueProvider, Footer, Lockup, OnThisPage, SiteHeader, TextLink } from "../../react/src/index.js";
+import { ArabesqueMark, ArabesqueProvider, BackToTop, Footer, Lockup, OnThisPage, SiteHeader, TextLink } from "../../react/src/index.js";
 import { REPO, onGitHub } from "./repo.js";
 
 export interface DocInput {
@@ -45,6 +45,7 @@ export function DocPage({ d }: { d: DocInput }) {
       <div className="al-page">
         <Footer lockup={<Lockup name={<span lang="en" dir="ltr">{w.legal}</span>} />} />
       </div>
+      <BackToTop />
     </ArabesqueProvider>
   );
 }

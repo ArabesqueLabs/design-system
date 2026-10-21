@@ -6,6 +6,8 @@ All notable changes to the design system. The format follows
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-10-21
+
 ### Added
 
 - **Back to top** ([spec](docs/components/back-to-top.md)): on a long page,

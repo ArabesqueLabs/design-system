@@ -6,6 +6,8 @@ All notable changes to the design system. The format follows
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-10-22
+
 ### Changed
 
 - Arabesque is MIT licensed (`LICENSE`): its tokens, CSS, JavaScript

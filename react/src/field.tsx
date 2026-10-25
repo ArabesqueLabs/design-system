@@ -3,7 +3,7 @@
 // aria-describedby and aria-invalid from it, so they can't disagree.
 
 import { createContext, useContext, type ComponentPropsWithoutRef, type ReactNode } from "react";
-import { Icon } from "./icon.js";
+import { Icon, type IconName } from "./icon.js";
 import { useArabesque } from "./settings.js";
 import { cx, useStableId } from "./util.js";
 
@@ -68,10 +68,13 @@ export function ErrorMessage({ className, children, ...rest }: ComponentPropsWit
 export interface InputProps extends ComponentPropsWithoutRef<"input"> {
   /** A number or an amount: tabular, left to right, a decimal keypad. */
   number?: boolean;
+  /** An icon at its start, saying what goes in ("mail", "calendar"); the label still names it. */
+  icon?: IconName;
 }
-export function Input({ number, className, ...rest }: InputProps) {
+export function Input({ number, icon, className, ...rest }: InputProps) {
   const field = useField(rest);
-  return <input className={cx("al-input", number && "al-input--number", className)} inputMode={number ? "decimal" : undefined} {...rest} {...field} />;
+  const input = <input className={cx("al-input", number && "al-input--number", className)} inputMode={number ? "decimal" : undefined} {...rest} {...field} />;
+  return icon ? <div className="al-input-icon"><Icon name={icon} />{input}</div> : input;
 }
 
 export function Select({ className, ...rest }: ComponentPropsWithoutRef<"select">) {

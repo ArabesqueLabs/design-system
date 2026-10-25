@@ -9,6 +9,7 @@ import { createRoot } from "react-dom/client";
 import { ExamplePage, Gallery } from "./app.js";
 import { demos } from "./demos.js";
 import { Showcase, chosenNumerals } from "./showcase.js";
+import { Homepage } from "./home.js";
 
 /** For the page check (scripts/check-page.mjs): React has rendered and run its effects. Renders nothing. */
 function Ready() {
@@ -20,6 +21,7 @@ const id = document.body.dataset.example;
 const demo = demos.find((x) => x.id === id);
 const root = document.getElementById("root");
 const ar = document.documentElement.lang === "ar";
-const page = id === "showcase" ? <Showcase lang={ar ? "ar" : "en"} root={ar ? "../" : ""} numerals={ar ? chosenNumerals() : "latn"} />
+const page = id === "showcase" ? <Showcase lang={ar ? "ar" : "en"} root={ar ? "../../" : "../"} numerals={ar ? chosenNumerals() : "latn"} />
+  : id === "home" ? <Homepage lang={ar ? "ar" : "en"} root={ar ? "../" : ""} numerals={ar ? chosenNumerals() : "latn"} />
   : id === "index" ? <Gallery /> : demo && <ExamplePage demo={demo} />;
 if (root) createRoot(root).render(<>{page}<Ready /></>);

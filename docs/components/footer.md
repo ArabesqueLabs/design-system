@@ -2,7 +2,7 @@
 
 Who made it, where to go next, and the legal line; quiet, and the same on every page.
 
-**CSS:** [`css/components/footer.css`](../../css/components/footer.css). **Classes:** `.al-footer`, `.al-footer__legal`, `.al-footer__links`.
+**CSS:** [`css/components/footer.css`](../../css/components/footer.css). **Classes:** `.al-footer`, `.al-footer__legal`, `.al-footer__links`, `.al-footer__attribution`.
 
 ## Anatomy
 
@@ -17,6 +17,8 @@ Who made it, where to go next, and the legal line; quiet, and the same on every 
 ## Variants and sizes
 
 One.
+
+Without the lockup (in React, `lockup={false}`) when the page's header already has it: the legal line takes its place, first, on the links' row and centred with them. Under the legal line, the product's attribution (`.al-footer__attribution`, in React `attribution`): an [attribution](attribution.md), the component or its image for the theme.
 
 ## States
 

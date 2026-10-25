@@ -1,6 +1,6 @@
 {
   "name": "@arabesquelabs/design-system",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Arabesque, the Arabesque Labs design system: tokens, CSS and components, accessible (WCAG 2.2 AA) and bidirectional (English and Arabic).",
   "license": "MIT",
   "private": true,

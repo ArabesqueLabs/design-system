@@ -6,8 +6,86 @@ All notable changes to the design system. The format follows
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-10-25
+
+### Added
+
+- The elements of [Tabler](https://preview.tabler.io/all-elements.html)
+  that Arabesque didn't have, made in its own way: in words as well as
+  colour, right to left, accessible, each with a spec in English and Arabic,
+  a React component and a demo.
+  - **Pagination** ([spec](docs/components/pagination.md)): Previous and
+    Next in words, at most seven numbers, the gaps an ellipsis
+    (`.al-pagination`; `Pagination`, `pageRange`).
+  - **Stepper** ([spec](docs/components/stepper.md)): where a person is in
+    a flow of a few steps, "Step 2 of 4" (`.al-stepper`; `Stepper`).
+  - **Status** ([spec](docs/components/status.md)): a state in a word with
+    a dot in its colour, pulsing when live (`.al-status`; `Status`).
+  - **Rating** ([spec](docs/components/rating.md)): one to five, as radios
+    drawn as the mark's star, each named "3 of 5"; or shown, as a picture
+    (`.al-rating`; `Rating`, `RatingValue`).
+  - **Timeline** ([spec](docs/components/timeline.md)): what happened,
+    each event at its time, along a line (`.al-timeline`; `Timeline`).
+  - **List** ([spec](docs/components/list.md)): things of one kind, one to
+    a row, linked from edge to edge, the open one marked (`.al-list`;
+    `List`).
+  - **Popover** ([spec](docs/components/popover.md)): more about something,
+    opened by a button, in a native popover (`.al-popover`;
+    `js/popover.js`'s `initPopovers()`; `Popover`).
+  - **Button group** ([button](docs/components/button.md)): related
+    buttons joined, in a row or a column (`.al-button-group`;
+    `ButtonGroup`).
+  - **Range** ([field](docs/components/field.md)): a slider with its value
+    beside it, in the page's digits (`.al-range`; `Range`). And an icon at
+    a field's start (`.al-input-icon`; `Input`'s `icon`).
+  - A card's **footer** for its actions, and a **ribbon** for one word on
+    its corner (`.al-card__footer`, `.al-ribbon`; `Card`'s `footer` and
+    `ribbon`).
+  - **Avatars** in four sizes, square for an organisation, and stacked
+    (`.al-avatar--sm`, `--xl`, `--square`, `.al-avatars`; `Avatar`'s
+    `size` and `square`, `AvatarStack`).
+  - **Running text**: inside `.al-prose`, lists, a quotation and code in a
+    sentence are styled by the system, not only on the documents' pages.
+  - The components' new labels: `pagination`, `previousPage`, `nextPage`,
+    `page`, `progress`, `stepOf`, `stepDone`, `ratingOf`.
+
 ### Changed
 
+- The page of every component is called **Elements**, not Showcase (in
+  Arabic, «العناصر»): in the site's header, on the example pages and in the
+  documents. A Showcase, of whole examples, may come later.
+- **A homepage** (`/`, `/ar/`): what Arabesque is for, in four points; a
+  few elements working together, as they'd sit in a product; the same card
+  in English and Arabic, side by side; the figures; the questions people
+  ask; and how to start. Every element is on its own page now,
+  **Elements** (`/elements/`, `/ar/elements/`), with its contents beside
+  them. A link to an element on the homepage from before
+  (`/#date-picker`) goes on to it there.
+- The site's header stays at the top of the window while a page scrolls,
+  on the documents' pages and the example pages too, not only on the
+  Elements page; links to a heading, and "On this page", sit below it.
+- The homepage's actions say what they do: "Browse all elements" and
+  "Add it to your project". Its sections sit closer together.
+- The site's footer carries "A product of Arabesque Labs" under its legal
+  line, in place of the company's lockup: the attribution badge with the
+  star (`dist/brand/badges/`), as hunt's footer has it, dark on the light
+  theme and light on the dark. A footer can have no lockup
+  (`Footer`'s `lockup={false}`), its legal line then in the lockup's place,
+  beside the links; and an attribution under its legal line
+  (`.al-footer__attribution`; `Footer`'s `attribution`).
+- Behind a call to action's centred words, the quiet pattern fades toward
+  the middle, so the words read clear of it.
+- A footer's links keep to the end of the line with or without the lockup
+  before them.
+- The site's footer is laid out as hunt's: what Arabesque is, with the
+  attribution badge, beside three columns of links (Arabesque, Guides,
+  Project); then who made it, and its licences: MIT for the code, the
+  logos and marks not licensed (`NOTICE.md`). The same footer on the
+  homepage, the Elements page and the documents' pages (`site.css`).
+- The site's links to arabesquelabs.com (the hero's, and the footer's
+  badge) open in a new tab, and say so.
+- `dist/arabesque.css`'s size budget is 31 KB, from 28: the new elements
+  took it to 30.4 KB.
 - Arabesque is MIT licensed (`LICENSE`): its tokens, CSS, JavaScript
   helpers, React components, icons, and its build and release tooling. The
   Arabesque and Arabesque Labs logos, marks and wordmark lockups, and the

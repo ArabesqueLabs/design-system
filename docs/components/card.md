@@ -2,7 +2,7 @@
 
 Containers. A card is a bordered surface for one thing; a panel is a page section marked by a rule above, which is all most groupings need; a stat is a figure with its label, stats a row of them, and a quote what someone said.
 
-**CSS:** [`css/components/card.css`](../../css/components/card.css). **Classes:** `.al-card`, `.al-card--interactive`, `.al-card--selected`, `.al-card__description`, `.al-card__header`, `.al-panel`, `.al-stat`, `.al-stat__label`, `.al-stat__note`, `.al-stat__value`, `.al-stats`, `.al-quote`, `.al-quote__by`, `.al-quote__name`, `.al-quote__role`.
+**CSS:** [`css/components/card.css`](../../css/components/card.css). **Classes:** `.al-card`, `.al-card--interactive`, `.al-card--selected`, `.al-card__description`, `.al-card__header`, `.al-panel`, `.al-stat`, `.al-stat__label`, `.al-stat__note`, `.al-stat__value`, `.al-stats`, `.al-quote`, `.al-quote__by`, `.al-quote__name`, `.al-quote__role`, `.al-card__footer`, `.al-ribbon`.
 
 ## Anatomy
 
@@ -40,6 +40,8 @@ Containers. A card is a bordered surface for one thing; a panel is a page sectio
 </figure>
 ```
 
+A card's actions go in its footer (`.al-card__footer`, in React `footer`): after a hairline, at its foot, at the end of the line, the primary last. A ribbon (`.al-ribbon`, in React `ribbon`) pins one word to the card's top end corner ("New", "Recommended"), in the accent: one card in a set has one, at most, and the word is said in the card too, as text.
+
 ## States
 
 Hover (interactive): border to control colour. Focus: on the card's link. Selected: accent. Loading: skeletons inside ([progress](progress.md)).
@@ -71,4 +73,4 @@ Content follows the reading direction; nothing to mirror.
 
 ## Tokens
 
-`--al-border-hairline`, `--al-color-accent`, `--al-color-accent-wash`, `--al-color-control`, `--al-color-line`, `--al-color-line-strong`, `--al-color-surface`, `--al-color-text-muted`, `--al-duration-fast`, `--al-ease-standard`, `--al-font-display`, `--al-font-serif`, `--al-leading-prose`, `--al-leading-tight`, `--al-radius-sm`, `--al-space-1`, `--al-space-2`, `--al-space-3`, `--al-space-4`, `--al-space-5`, `--al-space-6`, `--al-text-2xl`, `--al-text-3xl`, `--al-text-lg`, `--al-text-md`, `--al-text-sm`, `--al-tracking-none`, `--al-weight-medium`
+`--al-border-hairline`, `--al-color-accent`, `--al-color-accent-wash`, `--al-color-control`, `--al-color-line`, `--al-color-line-strong`, `--al-color-on-accent`, `--al-color-surface`, `--al-color-text-muted`, `--al-duration-fast`, `--al-ease-standard`, `--al-font-display`, `--al-font-serif`, `--al-leading-prose`, `--al-leading-tight`, `--al-radius-sm`, `--al-space-0-5`, `--al-space-1`, `--al-space-2`, `--al-space-3`, `--al-space-4`, `--al-space-5`, `--al-space-6`, `--al-space-8`, `--al-text-2xl`, `--al-text-3xl`, `--al-text-lg`, `--al-text-md`, `--al-text-sm`, `--al-text-xs`, `--al-tracking-none`, `--al-weight-medium`, `--al-weight-semibold`

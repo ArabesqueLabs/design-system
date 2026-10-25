@@ -99,6 +99,20 @@
 .al-button[aria-busy="true"] { cursor: progress; pointer-events: none; }
 /* Its spinner (the star) is drawn by css/components/progress.css. */
 
+/* Button group: related actions joined in a row (or a column), one border
+   between each, no gap: Left, Centre, Right; Day, Week, Month as links.
+   Each is still its own button; the group (role="group") has a name. */
+.al-button-group { display: inline-flex; align-self: flex-start; }
+.al-button-group > .al-button { position: relative; border-radius: 0; --_border: var(--al-color-control); }
+.al-button-group > .al-button:is(:hover, :focus-visible) { z-index: 1; }
+.al-button-group > .al-button + .al-button { margin-inline-start: calc(-1 * var(--al-border-hairline)); }
+.al-button-group > :first-child { border-start-start-radius: var(--al-button-radius); border-end-start-radius: var(--al-button-radius); }
+.al-button-group > :last-child { border-start-end-radius: var(--al-button-radius); border-end-end-radius: var(--al-button-radius); }
+.al-button-group--vertical { flex-direction: column; }
+.al-button-group--vertical > .al-button + .al-button { margin: calc(-1 * var(--al-border-hairline)) 0 0; }
+.al-button-group--vertical > :first-child { border-radius: var(--al-button-radius) var(--al-button-radius) 0 0; }
+.al-button-group--vertical > :last-child { border-radius: 0 0 var(--al-button-radius) var(--al-button-radius); }
+
 /* Bigger targets for fingers. */
 @media (pointer: coarse) {
   .al-button { min-block-size: var(--al-size-target-touch); }

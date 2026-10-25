@@ -4,7 +4,7 @@
 
 عنصر إدخال في نموذج، مع تسميته وتلميحه وخطئه. يشمل النص، والأرقام والمبالغ (مع العملة)، وقائمة الاختيار، والحقل المركب (`datalist`)، والتاريخ، ومساحة النص، ومجموعة الحقول وعنوانها.
 
-**CSS:** [`css/components/field.css`](../../../css/components/field.css). **الأصناف:** `.al-affix`، `.al-affix__text`، `.al-error`، `.al-field`، `.al-field__changed`، `.al-fieldset`، `.al-hint`، `.al-input`، `.al-input--number`، `.al-label`، `.al-label__optional`، `.al-select`، `.al-textarea`.
+**CSS:** [`css/components/field.css`](../../../css/components/field.css). **الأصناف:** `.al-affix`، `.al-affix__text`، `.al-error`، `.al-field`، `.al-field__changed`، `.al-fieldset`، `.al-hint`، `.al-input`، `.al-input--number`، `.al-label`، `.al-label__optional`، `.al-select`، `.al-textarea`، `.al-range`.
 
 ## البنية
 
@@ -40,6 +40,17 @@
 | متغيّر، غير محفوظ | `data-changed` على `.al-field`، و`<p class="al-field__changed">Changed, not saved</p>` |
 
 **الأحجام:** 40px، و44px مع مؤشرات اللمس.
+
+**المنزلق** (`.al-range`، وفي React ‏`Range`، داخل `Field`): قيمة على مقياس، والقيمة نفسها بجانبه في عنصر `<output>`، بأرقام الصفحة ومع وحدتها («40%»، «1,200 £»). ويقول `aria-valuetext` الخاص بالمنزلق الشيء نفسه، فيُخفى الناتج عن قارئات الشاشة. ويبدأ من اليمين في الكتابة من اليمين إلى اليسار. وللقيمة التي يجب أن تكون دقيقة، حقل رقم.
+
+```html
+<div class="al-field">
+  <label class="al-label" for="budget">Budget, a month</label>
+  <div class="al-range"><input type="range" id="budget" min="0" max="2000" step="50" value="1200" aria-valuetext="£1,200"><output for="budget" aria-hidden="true">£1,200</output></div>
+</div>
+```
+
+وأيقونة في بداية الحقل تقول ما يُكتب فيه (`.al-input-icon`، من [البحث](search.md)؛ وفي React الخاصية `icon` للمكوّن `Input`)؛ ويبقى العنوان هو ما يسمّيه.
 
 ## الحالات
 
@@ -78,4 +89,4 @@
 
 ## الرموز
 
-`--al-border-focus`، `--al-border-hairline`، `--al-color-control`، `--al-color-danger`، `--al-color-focus`، `--al-color-surface`، `--al-color-surface-sunk`، `--al-color-text`، `--al-color-text-muted`، `--al-color-warning`، `--al-duration-fast`، `--al-ease-standard`، `--al-field-height`، `--al-field-padding-inline`، `--al-field-radius`، `--al-leading-ui`، `--al-size-target-touch`، `--al-space-1`، `--al-space-1-5`، `--al-space-2`، `--al-space-3`، `--al-text-base`، `--al-text-sm`، `--al-text-xs`، `--al-weight-medium`، `--al-weight-regular`
+`--al-border-focus`، `--al-border-hairline`، `--al-color-accent`، `--al-color-control`، `--al-color-danger`، `--al-color-focus`، `--al-color-surface`، `--al-color-surface-sunk`، `--al-color-text`، `--al-color-text-muted`، `--al-color-warning`، `--al-duration-fast`، `--al-ease-standard`، `--al-field-height`، `--al-field-padding-inline`، `--al-field-radius`، `--al-leading-ui`، `--al-size-target-min`، `--al-size-target-touch`، `--al-space-1`، `--al-space-1-5`، `--al-space-2`، `--al-space-3`، `--al-text-base`، `--al-text-sm`، `--al-text-xs`، `--al-weight-medium`، `--al-weight-regular`

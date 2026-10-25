@@ -19,7 +19,7 @@ Modern Standard Arabic.
   these docs, never on a page.
 - **Never invent facts.** No made-up products, customers, figures,
   testimonials or team members, not even as placeholders: where a slot
-  needs a name, write "Product name". Example data in the showcase is
+  needs a name, write "Product name". Example data on the Elements page is
   plainly an example ("Item one", "Offer A").
 - **No hype.** Not "revolutionary", "cutting-edge", "seamless", "next-gen";
   no exclamation marks, no emoji.

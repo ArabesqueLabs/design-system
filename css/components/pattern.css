@@ -21,6 +21,8 @@
 /* Quiet: a low-contrast field for a small area with nothing on it (an empty
    state, a card). No mask, at any width. */
 .al-pattern--quiet .al-pattern__art, .al-pattern--quiet .al-pattern__art:dir(rtl) { color: var(--al-color-pattern-quiet); -webkit-mask-image: none; mask-image: none; }
+/* Behind a call to action's centred words, it fades toward the middle. */
+.al-cta.al-pattern--quiet .al-pattern__art { -webkit-mask-image: radial-gradient(ellipse 55% 65% at center, rgb(0 0 0 / 0.15) 35%, black 100%); mask-image: radial-gradient(ellipse 55% 65% at center, rgb(0 0 0 / 0.15) 35%, black 100%); }
 @media (max-width: 52rem) {
   .al-pattern__art, .al-pattern__art:dir(rtl) {
     -webkit-mask-image: linear-gradient(to bottom, black 0 30%, transparent 70%);

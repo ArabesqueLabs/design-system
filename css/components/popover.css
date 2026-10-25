@@ -1,0 +1,21 @@
+/* Popover: more about something, when it's asked for. A button opens it
+   beside itself, in a native popover: a title, a few lines, perhaps a link.
+   Escape, the button again, or a click outside closes it (js/popover.js
+   places it and keeps aria-expanded true to it). Not for actions (a menu),
+   nor for a name (a tooltip). */
+.al-popover {
+  margin: 0;
+  inset: auto;
+  inline-size: max-content;
+  max-inline-size: min(20rem, calc(100vw - 1rem));
+  padding: var(--al-space-4);
+  border: var(--al-border-hairline) solid var(--al-color-line-strong);
+  border-radius: var(--al-radius-sm);
+  background: var(--al-color-surface);
+  color: var(--al-color-text);
+  font-size: var(--al-text-sm);
+  line-height: var(--al-leading-ui);
+}
+.al-popover > * + * { margin-block-start: var(--al-space-2); }
+.al-popover__title { font-size: var(--al-text-base); font-weight: var(--al-weight-semibold); }
+@media (forced-colors: active) { .al-popover { border-color: CanvasText; } }

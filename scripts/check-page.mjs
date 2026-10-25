@@ -40,7 +40,8 @@ const server = createServer(async (req, res) => {
 });
 await new Promise((r) => server.listen(0, "127.0.0.1", r));
 const origin = `http://127.0.0.1:${server.address().port}`;
-const SHOWCASE = `${origin}/index.html`;
+const SHOWCASE = `${origin}/elements/index.html`;
+const HOME = `${origin}/index.html`;
 const HELPERS = `${origin}/tests/pages/helpers.html`;
 
 // ---- Chrome over the DevTools protocol ------------------------------------------------------
@@ -90,8 +91,8 @@ async function page() {
 }
 
 async function open(p, { url, theme = "light", lang = "en", ready: when } = {}) {
-  // The showcase in each language is its own page.
-  url ??= lang === "ar" ? `${origin}/ar/index.html` : SHOWCASE;
+  // The Elements page in each language is its own page.
+  url ??= lang === "ar" ? `${origin}/ar/elements/index.html` : SHOWCASE;
   await p.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-color-scheme", value: theme }] });
   await p.send("Page.navigate", { url });
   const ready = when ?? `document.documentElement.dataset.ready === "yes"`;
@@ -227,7 +228,7 @@ await p.run(`document.activeElement.click()`);
 await wait(100);
 check("toast: focus returns after the action", await p.run(`document.activeElement?.id === "toast"`));
 
-// ---- the showcase (index.html): accessible in every mode, demos wired ----
+// ---- the Elements page (elements/index.html): accessible in every mode, demos wired ----
 
 p.errors.length = 0;
 for (const theme of ["light", "dark"]) {
@@ -257,14 +258,30 @@ await p.key("n", "KeyN");
 await wait(150);
 check("showcase: a single-key shortcut works", await p.run(`!!document.querySelector(".al-toast")`));
 
+// The elements from Tabler: a popover opens beside its button and Escape
+// brings focus back; pagination moves its current page; a rating's radios
+// are named in words and fill up to the one chosen; a range says its value.
+const popButton = `document.querySelector("#popover button[popovertarget]")`;
+await p.run(`${popButton}.focus(); ${popButton}.click()`);
+await wait(100);
+check("showcase: a popover opens, and says so", await p.run(`document.getElementById(${popButton}.getAttribute("popovertarget")).matches(":popover-open") && ${popButton}.getAttribute("aria-expanded") === "true"`));
+await p.key("Escape");
+await wait(100);
+check("showcase: Escape closes the popover, focus on its button", await p.run(`!document.querySelector(".al-popover:popover-open") && ${popButton}.getAttribute("aria-expanded") === "false" && document.activeElement === ${popButton}`));
+await p.run(`document.querySelector('#pagination .al-pagination a[aria-label="Page 7"]').click()`);
+await wait(100);
+check("showcase: pagination moves the current page", await p.run(`document.querySelector("#pagination .al-pagination [aria-current=page]").textContent === "7" && !!document.querySelector("#pagination .al-pagination__prev")`));
+check("showcase: rating radios are named in words, and fill to the chosen one", await p.run(`(() => { const s = [...document.querySelectorAll("#rating fieldset .al-rating__star")]; return s.length === 5 && s[3].textContent === "4 of 5" && s.filter((x) => getComputedStyle(x).color === getComputedStyle(document.querySelector("#rating fieldset .al-rating__star:has(input:checked)")).color).length === 4; })()`));
+check("showcase: a range says its value in words", await p.run(`document.querySelector("#range input[type=range]").getAttribute("aria-valuetext") === document.querySelector("#range output").textContent`));
+
 // Specs are pages: in the page's language where they're translated, in English where they aren't.
-const specLinks = async () => p.run(`({ date: document.querySelector("#date-picker .sc-spec a").getAttribute("href"), colour: document.querySelector("#colour .sc-spec a").getAttribute("href"), how: [...document.querySelectorAll(".sc-hero a")].find((a) => a.href.includes("README"))?.getAttribute("href") })`);
+const specLinks = async () => p.run(`({ date: document.querySelector("#date-picker .sc-spec a").getAttribute("href"), colour: document.querySelector("#colour .sc-spec a").getAttribute("href"), how: [...document.querySelectorAll(".sc-intro a")].find((a) => a.href.includes("README"))?.getAttribute("href") })`);
 const specsEn = await specLinks();
-check("showcase: specs link to their pages", specsEn.date === "docs/components/date-picker.html" && specsEn.colour === "docs/foundations/colour.html" && specsEn.how === "README.html#use-it-in-a-project", JSON.stringify(specsEn));
+check("showcase: specs link to their pages", specsEn.date === "../docs/components/date-picker.html" && specsEn.colour === "../docs/foundations/colour.html" && specsEn.how === "../README.html#use-it-in-a-project", JSON.stringify(specsEn));
 await open(p, { lang: "ar" });
 const specsAr = await specLinks();
-check("showcase: in Arabic, to the Arabic spec, the Arabic README, and the English where there's no translation", specsAr.date === "../docs/components/ar/date-picker.html" && specsAr.colour === "../docs/foundations/colour.html" && specsAr.how === "../ar/README.html#استخدامه-في-مشروع", JSON.stringify(specsAr));
-check("showcase: in Arabic, its language link goes to the English page", await p.run(`document.querySelector('.al-site-header a.al-language')?.getAttribute("href") === "../index.html"`));
+check("showcase: in Arabic, to the Arabic spec, the Arabic README, and the English where there's no translation", specsAr.date === "../../docs/components/ar/date-picker.html" && specsAr.colour === "../../docs/foundations/colour.html" && specsAr.how === "../../ar/README.html#استخدامه-في-مشروع", JSON.stringify(specsAr));
+check("showcase: in Arabic, its language link goes to the English page", await p.run(`document.querySelector('.al-site-header a.al-language')?.getAttribute("href") === "../../elements/index.html"`));
 check("showcase: in Arabic, the demos are in Arabic", await p.run(`document.querySelector("#button .al-button--primary").textContent === "حفظ التغييرات" && document.documentElement.dir === "rtl"`));
 const digits = `document.querySelector('.sc-top [role=group]:not(:has(button[lang])) button[aria-pressed="false"]')?.click()`;
 await p.run(digits);
@@ -274,9 +291,25 @@ await p.run(digits);
 
 // Back to top: hidden at the top; shown two screens down; followed, the
 // page is at the top and focus is too.
-await open(p);
+// The homepage: what it's for, a few elements working, and every element a link away.
+for (const theme of ["light", "dark"]) {
+  for (const lang of ["en", "ar"]) {
+    await open(p, { url: lang === "ar" ? `${origin}/ar/index.html` : HOME, theme });
+    await axe(p, `homepage, ${theme}, ${lang}`);
+  }
+}
+p.errors.length = 0;
+await open(p, { url: HOME });
+check("homepage: no errors on load", p.errors.length === 0, p.errors.join(" | "));
+check("homepage: links to the Elements page", await p.run(`[...document.querySelectorAll("main a")].some((a) => a.getAttribute("href") === "elements/index.html")`));
+check("homepage: the footer's licences are MIT for the code, and the marks not licensed", await p.run(`(() => { const l = document.querySelector(".sc-foot .al-footer__legal"); return /MIT/.test(l.textContent) && /all rights reserved/.test(l.textContent) && !/AGPL/.test(l.textContent) && l.querySelector('a[href$="/LICENSE"]').target === "_blank"; })()`));
+check("homepage: its preview is working elements", await p.run(`!!document.querySelector("#preview .al-stepper [aria-current=step]") && !!document.querySelector("#preview input[type=range][aria-valuetext]")`));
+check("homepage: the same card both ways, each in its own direction", await p.run(`[...document.querySelectorAll("#both-ways .hm-side")].map((s) => getComputedStyle(s.querySelector(".al-card")).direction).join() === "ltr,rtl"`));
+await open(p, { url: `${HOME}?from=an-old-link#date-picker`, ready: `location.pathname.endsWith("/elements/index.html") && document.documentElement.dataset.ready === "yes"` });
+check("homepage: an old link to an element goes on to the Elements page", await p.run(`location.pathname.endsWith("/elements/index.html") && location.hash === "#date-picker"`));
+await open(p, { url: HOME });
 // The repository: an icon button beside the hero's actions, in a new tab, saying so; not in the header.
-check("showcase: the repository is linked from the hero, in a new tab", await p.run(`(() => { const a = document.querySelector('.sc-hero a.al-button--icon[target="_blank"]'); return !!a && a.href.startsWith("https://github.com/") && /new tab/.test(a.getAttribute("aria-label")) && !document.querySelector('.al-site-header a[href^="https://github.com/"]'); })()`));
+check("homepage: the repository is linked from the hero, in a new tab", await p.run(`(() => { const a = document.querySelector('.sc-hero a.al-button--icon[target="_blank"]'); return !!a && a.href.startsWith("https://github.com/") && /new tab/.test(a.getAttribute("aria-label")) && !document.querySelector('.al-site-header a[href^="https://github.com/"]'); })()`));
 // The page's own is the last; the demo's, in its frame, comes first.
 const back = `[...document.querySelectorAll(".al-back-to-top")].at(-1)`;
 check("showcase: back to top is hidden at the top", await p.run(`${back}.hasAttribute("data-al-hidden") && getComputedStyle(${back}).visibility === "hidden"`));

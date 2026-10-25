@@ -4,7 +4,7 @@
 
 إجراء. العنصر `<button>` ينفّذ شيئًا؛ والعنصر `<a href>` ينقل إلى مكان ما، ويُنسَّق بالشكل نفسه حين يكون رابطًا يشبه الإجراء («افتح الحاسبة»).
 
-**CSS:** [`css/components/button.css`](../../../css/components/button.css). **الأصناف:** `.al-button`، `.al-button--danger`، `.al-button--icon`، `.al-button--primary`، `.al-button--quiet`، `.al-button--sm`.
+**CSS:** [`css/components/button.css`](../../../css/components/button.css). **الأصناف:** `.al-button`، `.al-button--danger`، `.al-button--icon`، `.al-button--primary`، `.al-button--quiet`، `.al-button--sm`، `.al-button-group`، `.al-button-group--vertical`.
 
 ## البنية
 
@@ -30,6 +30,15 @@
 | أيقونة | `--icon` | أيقونة وحدها، مع `aria-label` وتلميح أدوات |
 
 **الأحجام:** الافتراضي (40px) و`--sm` (32px). وتحتفظ الأزرار الهادئة بهدف نقر لا يقل عن 24px في الحجمين.
+
+**مجموعة الأزرار** (`.al-button-group`، وفي React ‏`ButtonGroup`): إجراءات مترابطة متصلة في صف، بينها حدّ واحد بلا فراغ (يوم، أسبوع، شهر؛ تراجع، إعادة)، أو في عمود مع `--vertical`. ويبقى كل منها زرًا قائمًا بذاته، باسمه؛ والمجموعة `role="group"`، مسمّاة بـ`aria-label` («الفترة»). ولأزرار الأيقونات في المجموعة حدودها. ولاختيار واحد بين خيارات، استخدم أداة التحكم المقسّمة بدلًا منها.
+
+```html
+<div class="al-button-group" role="group" aria-label="History">
+  <button class="al-button al-button--sm al-button--icon" aria-label="Undo">…</button>
+  <button class="al-button al-button--sm al-button--icon" aria-label="Redo">…</button>
+</div>
+```
 
 ## الحالات
 
@@ -68,4 +77,4 @@
 
 ## الرموز
 
-`--al-border-hairline`، `--al-button-height`، `--al-button-height-sm`، `--al-button-padding-inline`، `--al-button-radius`، `--al-color-accent`، `--al-color-control`، `--al-color-danger`، `--al-color-on-accent`، `--al-color-surface-sunk`، `--al-color-text`، `--al-duration-fast`، `--al-ease-standard`، `--al-font-sans`، `--al-size-target-min`، `--al-size-target-touch`، `--al-space-1`، `--al-space-2`، `--al-space-3`، `--al-text-base`، `--al-text-sm`، `--al-weight-medium`
+`--al-border-hairline`، `--al-button-height`، `--al-button-height-sm`، `--al-button-padding-inline`، `--al-button-radius`، `--al-color-accent`، `--al-color-accent-hover`، `--al-color-control`، `--al-color-danger`، `--al-color-danger-hover`، `--al-color-on-accent`، `--al-color-surface-sunk`، `--al-color-text`، `--al-duration-fast`، `--al-ease-standard`، `--al-font-sans`، `--al-size-target-min`، `--al-size-target-touch`، `--al-space-1`، `--al-space-2`، `--al-space-3`، `--al-text-base`، `--al-text-sm`، `--al-weight-medium`

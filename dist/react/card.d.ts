@@ -7,8 +7,12 @@ export interface CardProps extends Omit<ComponentPropsWithoutRef<"article">, "ti
     /** The whole card is one link or button (hover and focus on the card). */
     interactive?: boolean;
     selected?: boolean;
+    /** Its actions, at its foot, at the end of the line. */
+    footer?: ReactNode;
+    /** One word pinned to its corner ("New"). */
+    ribbon?: ReactNode;
 }
-export declare function Card({ title, level, description, interactive, selected, className, children, ...rest }: CardProps): import("react").JSX.Element;
+export declare function Card({ title, level, description, interactive, selected, footer, ribbon, className, children, ...rest }: CardProps): import("react").JSX.Element;
 export declare function Panel<T extends ElementType = "section">({ as, className, ...rest }: {
     as?: T;
 } & Omit<ComponentPropsWithoutRef<T>, "as">): import("react").JSX.Element;

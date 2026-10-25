@@ -331,7 +331,11 @@ write("dist/patterns/tile-quiet-dark.svg", tileSvg("pattern-quiet", "dark"));
 // eyebrow, feature tabs, logos, quotes, call to action, announcement, on
 // this page), for the same reason.
 // 28 KB from 0.8: the attribution line, and back to top, took it to 27.2.
-const BUDGET = 28 * 1024;
+// 31 KB from 0.9: the elements ported from Tabler (pagination, button
+// group, status, rating, range, timeline, list, popover, stepper, ribbon,
+// card footer, avatar sizes and stacks, an icon in a field, and prose's
+// lists, quotes and inline code) took it to 30.4.
+const BUDGET = 31 * 1024;
 const gz = gzipSync(bundle, { level: 9 }).length;
 const kb = (n) => `${(n / 1024).toFixed(1)} KB`;
 const overBudget = gz > BUDGET;

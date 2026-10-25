@@ -2,7 +2,7 @@
 
 An action. A `<button>` does something; an `<a href>` goes somewhere, styled the same when it's an action-like link ("Open the calculator").
 
-**CSS:** [`css/components/button.css`](../../css/components/button.css). **Classes:** `.al-button`, `.al-button--danger`, `.al-button--icon`, `.al-button--primary`, `.al-button--quiet`, `.al-button--sm`.
+**CSS:** [`css/components/button.css`](../../css/components/button.css). **Classes:** `.al-button`, `.al-button--danger`, `.al-button--icon`, `.al-button--primary`, `.al-button--quiet`, `.al-button--sm`, `.al-button-group`, `.al-button-group--vertical`.
 
 ## Anatomy
 
@@ -28,6 +28,15 @@ Label, optionally with an icon before it (or a trailing chevron for "Move to…"
 | Icon | `--icon` | Icon alone, with `aria-label` and a tooltip |
 
 **Sizes:** default (40px) and `--sm` (32px). Quiet buttons keep a 24px minimum target in both.
+
+**Button group** (`.al-button-group`, in React `ButtonGroup`): related actions joined in a row, one border between each and no gap (Day, Week, Month; Undo, Redo), or a column with `--vertical`. Each is still its own button, with its own name; the group is `role="group"`, named by `aria-label` ("Period"). Icon buttons in a group have their border. For one choice among options, a segmented control instead.
+
+```html
+<div class="al-button-group" role="group" aria-label="History">
+  <button class="al-button al-button--sm al-button--icon" aria-label="Undo">…</button>
+  <button class="al-button al-button--sm al-button--icon" aria-label="Redo">…</button>
+</div>
+```
 
 ## States
 
@@ -66,4 +75,4 @@ Icons before the label stay before it (on the right in Arabic). Directional icon
 
 ## Tokens
 
-`--al-border-hairline`, `--al-button-height`, `--al-button-height-sm`, `--al-button-padding-inline`, `--al-button-radius`, `--al-color-accent`, `--al-color-control`, `--al-color-danger`, `--al-color-on-accent`, `--al-color-surface-sunk`, `--al-color-text`, `--al-duration-fast`, `--al-ease-standard`, `--al-font-sans`, `--al-size-target-min`, `--al-size-target-touch`, `--al-space-1`, `--al-space-2`, `--al-space-3`, `--al-text-base`, `--al-text-sm`, `--al-weight-medium`
+`--al-border-hairline`, `--al-button-height`, `--al-button-height-sm`, `--al-button-padding-inline`, `--al-button-radius`, `--al-color-accent`, `--al-color-accent-hover`, `--al-color-control`, `--al-color-danger`, `--al-color-danger-hover`, `--al-color-on-accent`, `--al-color-surface-sunk`, `--al-color-text`, `--al-duration-fast`, `--al-ease-standard`, `--al-font-sans`, `--al-size-target-min`, `--al-size-target-touch`, `--al-space-1`, `--al-space-2`, `--al-space-3`, `--al-text-base`, `--al-text-sm`, `--al-weight-medium`

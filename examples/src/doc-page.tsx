@@ -3,8 +3,10 @@
 // footer. Rendered on the server by scripts/build-react.mjs, from the
 // Markdown; the helpers wire the header in the page.
 
-import { ArabesqueMark, ArabesqueProvider, BackToTop, Footer, Lockup, OnThisPage, SiteHeader, TextLink } from "../../react/src/index.js";
+import { ArabesqueMark, ArabesqueProvider, BackToTop, Lockup, OnThisPage, SiteHeader, TextLink } from "../../react/src/index.js";
 import { REPO, onGitHub } from "./repo.js";
+import { SiteFooter } from "./site.js";
+import { translator } from "./app.js";
 
 export interface DocInput {
   lang: "en" | "ar";
@@ -22,8 +24,8 @@ export interface DocInput {
 }
 
 const WORDS = {
-  en: { name: "Arabesque", product: "Design system", showcase: "Showcase", examples: "Examples", docs: "Using it", source: "View this page on GitHub", legal: "Arabesque Labs Ltd." },
-  ar: { name: "آرابيسك", product: "نظام التصميم", showcase: "صفحة العرض", examples: "الأمثلة", docs: "دليل الاستخدام", source: "اعرض هذه الصفحة على GitHub", legal: "Arabesque Labs Ltd." },
+  en: { name: "Arabesque", product: "Design system", elements: "Elements", examples: "Examples", docs: "Using it", source: "View this page on GitHub" },
+  ar: { name: "آرابيسك", product: "نظام التصميم", elements: "العناصر", examples: "الأمثلة", docs: "دليل الاستخدام", source: "اعرض هذه الصفحة على GitHub" },
 };
 
 export function DocPage({ d }: { d: DocInput }) {
@@ -31,8 +33,8 @@ export function DocPage({ d }: { d: DocInput }) {
   const readme = d.lang === "ar" ? `${d.up}ar/README.html` : `${d.up}README.html`;
   return (
     <ArabesqueProvider lang={d.lang} sprite={`${d.up}dist/icons.svg`}>
-      <SiteHeader home={`${d.up}index.html`} menuId="site-menu" lockup={<Lockup className="al-site-header__lockup" href={`${d.up}index.html`} mark={<ArabesqueMark />} name={<span className="al-wordmark" lang={d.lang}>{w.name}</span>} product={w.product} />}
-        links={[{ label: w.showcase, href: `${d.up}index.html` }, { label: w.examples, href: `${d.up}examples/index.html` }, { label: w.docs, href: readme, current: d.source.endsWith("README.md") && !d.source.includes("/") || d.source === "ar/README.md" }]}
+      <SiteHeader sticky home={`${d.up}${d.lang === "ar" ? "ar/" : ""}index.html`} menuId="site-menu" lockup={<Lockup className="al-site-header__lockup" href={`${d.up}${d.lang === "ar" ? "ar/" : ""}index.html`} mark={<ArabesqueMark />} name={<span className="al-wordmark" lang={d.lang}>{w.name}</span>} product={w.product} />}
+        links={[{ label: w.elements, href: `${d.up}${d.lang === "ar" ? "ar/" : ""}elements/index.html` }, { label: w.examples, href: `${d.up}examples/index.html` }, { label: w.docs, href: readme, current: d.source.endsWith("README.md") && !d.source.includes("/") || d.source === "ar/README.md" }]}
         language={d.other ? { href: d.other.href, lang: d.other.lang } : undefined}
         tools={<TextLink muted external href={REPO}><span lang="en">GitHub</span></TextLink>} />
       <div className="al-page dp-layout">
@@ -42,9 +44,7 @@ export function DocPage({ d }: { d: DocInput }) {
           <p className="dp-source"><TextLink muted external href={onGitHub(d.source)}>{w.source}</TextLink></p>
         </main>
       </div>
-      <div className="al-page">
-        <Footer lockup={<Lockup name={<span lang="en" dir="ltr">{w.legal}</span>} />} />
-      </div>
+      <SiteFooter t={translator(d.lang)} lang={d.lang} root={d.up} />
       <BackToTop />
     </ArabesqueProvider>
   );

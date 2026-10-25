@@ -1,0 +1,27 @@
+/* Stepper: where a person is in a flow of three to six steps. Each step
+   named, under a bar: done ones in the accent and ticked, the current one
+   in the accent and bold (aria-current="step"), the rest muted. "Step 2 of
+   4" above, in words. Not for content: a sequence to read is Steps. On a
+   phone, only the current step's name shows. */
+.al-stepper { display: flex; flex-direction: column; gap: var(--al-space-2); }
+.al-stepper__count { margin: 0; font-size: var(--al-text-sm); color: var(--al-color-text-muted); }
+.al-stepper ol { display: flex; gap: var(--al-space-2); margin: 0; padding: 0; list-style: none; }
+.al-stepper li {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  gap: var(--al-space-1-5);
+  min-inline-size: 0;
+  padding-block-start: var(--al-space-2);
+  border-block-start: 3px solid var(--al-color-line-strong);
+  font-size: var(--al-text-sm);
+  color: var(--al-color-text-muted);
+}
+.al-stepper li[data-done], .al-stepper li[aria-current="step"] { border-block-start-color: var(--al-color-accent); color: var(--al-color-text); }
+.al-stepper li[aria-current="step"] { font-weight: var(--al-weight-semibold); }
+.al-stepper__num { font-variant-numeric: tabular-nums; }
+.al-stepper li[data-done] .al-icon { color: var(--al-color-accent); }
+@media (max-width: 40rem) {
+  .al-stepper li:not([aria-current="step"]) .al-stepper__name { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
+@media (forced-colors: active) { .al-stepper li[data-done], .al-stepper li[aria-current="step"] { border-block-start-color: Highlight; } }

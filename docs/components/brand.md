@@ -38,9 +38,9 @@ The design system has a mark of its own: four of the company's tiles, two by two
 |---|---|
 | Arabesque's mark (`arabesque-mark.svg`; `dist/brand/arabesque-mark-ink.svg`, `-reversed.svg`) | Where Arabesque stands alone: its README, its package and repository pages, a talk |
 | Its four stars, solid, no frame (`arabesque-star.svg`; `dist/brand/arabesque-star-ink.svg`, `-reversed.svg`) | At 16–24px |
-| Its favicon (`dist/brand/arabesque-favicon.svg`) | The icon of Arabesque's own pages: the showcase, the docs, the examples |
+| Its favicon (`dist/brand/arabesque-favicon.svg`) | The icon of Arabesque's own pages: the elements, the docs, the examples |
 
-Beside it, the name is "Arabesque" (in Arabic «آرابيسك»), in the wordmark's face and tracking. Its size limits and clear space are the mark's. Arabesque's own site (the showcase, the docs, the examples) has it in its header: the mark, "Arabesque" and the product name, "Arabesque · Design system" («آرابيسك · نظام التصميم»). In React: `<Lockup mark={<ArabesqueMark />} name={…"Arabesque"…} product="Design system" />`. Arabesque Labs' own sites and products keep the company lockup.
+Beside it, the name is "Arabesque" (in Arabic «آرابيسك»), in the wordmark's face and tracking. Its size limits and clear space are the mark's. Arabesque's own site (the elements, the docs, the examples) has it in its header: the mark, "Arabesque" and the product name, "Arabesque · Design system" («آرابيسك · نظام التصميم»). In React: `<Lockup mark={<ArabesqueMark />} name={…"Arabesque"…} product="Design system" />`. Arabesque Labs' own sites and products keep the company lockup.
 
 ## States
 

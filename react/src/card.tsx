@@ -12,9 +12,13 @@ export interface CardProps extends Omit<ComponentPropsWithoutRef<"article">, "ti
   /** The whole card is one link or button (hover and focus on the card). */
   interactive?: boolean;
   selected?: boolean;
+  /** Its actions, at its foot, at the end of the line. */
+  footer?: ReactNode;
+  /** One word pinned to its corner ("New"). */
+  ribbon?: ReactNode;
 }
 
-export function Card({ title, level = 3, description, interactive, selected, className, children, ...rest }: CardProps) {
+export function Card({ title, level = 3, description, interactive, selected, footer, ribbon, className, children, ...rest }: CardProps) {
   const H = `h${level}` as ElementType;
   return (
     <article className={cx("al-card", interactive && "al-card--interactive", selected && "al-card--selected", className)} {...rest}>
@@ -24,7 +28,9 @@ export function Card({ title, level = 3, description, interactive, selected, cla
           {description && <p className="al-card__description">{description}</p>}
         </header>
       )}
+      {ribbon && <p className="al-ribbon">{ribbon}</p>}
       {children}
+      {footer && <footer className="al-card__footer">{footer}</footer>}
     </article>
   );
 }

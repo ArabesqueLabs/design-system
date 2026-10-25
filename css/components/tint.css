@@ -43,6 +43,17 @@ a.al-highlight { text-decoration-color: currentColor; text-underline-offset: 0.2
 }
 .al-avatar--lg { inline-size: 3rem; block-size: 3rem; font-size: var(--al-text-lg); }
 
+.al-avatar--sm { inline-size: 1.5rem; block-size: 1.5rem; font-size: var(--al-text-xs); }
+.al-avatar--xl { inline-size: 4rem; block-size: 4rem; font-size: var(--al-text-xl); }
+/* Square: an organisation or a workspace, not a person. A picture fills it. */
+.al-avatar--square { border-radius: var(--al-radius-sm); }
+img.al-avatar { object-fit: cover; }
+/* Stacked: who's on something, overlapping, each ringed in the ground it
+   sits on (--al-avatars-ring), then how many more. Its words are hidden text. */
+.al-avatars { display: inline-flex; align-items: center; }
+.al-avatars > .al-avatar { box-sizing: content-box; border: 2px solid var(--al-avatars-ring, var(--al-color-surface)); }
+.al-avatars > .al-avatar + .al-avatar { margin-inline-start: -0.5rem; }
+
 @media (forced-colors: active) {
   .al-highlight { forced-color-adjust: none; background: Mark; color: MarkText; }
   .al-avatar { border: 1px solid CanvasText; }

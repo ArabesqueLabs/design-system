@@ -2,7 +2,7 @@
 
 A form control with its label, hint and error. Covers text, number and money (with currency), select, combobox (`datalist`), date and textarea, and fieldset/legend.
 
-**CSS:** [`css/components/field.css`](../../css/components/field.css). **Classes:** `.al-affix`, `.al-affix__text`, `.al-error`, `.al-field`, `.al-field__changed`, `.al-fieldset`, `.al-hint`, `.al-input`, `.al-input--number`, `.al-label`, `.al-label__optional`, `.al-select`, `.al-textarea`.
+**CSS:** [`css/components/field.css`](../../css/components/field.css). **Classes:** `.al-affix`, `.al-affix__text`, `.al-error`, `.al-field`, `.al-field__changed`, `.al-fieldset`, `.al-hint`, `.al-input`, `.al-input--number`, `.al-label`, `.al-label__optional`, `.al-select`, `.al-textarea`, `.al-range`.
 
 ## Anatomy
 
@@ -38,6 +38,17 @@ Label → control → hint → error, in that order. The error goes under the co
 | Changed, not saved | `data-changed` on `.al-field`, and `<p class="al-field__changed">Changed, not saved</p>` |
 
 **Sizes:** 40px, 44px on coarse pointers.
+
+**Range** (`.al-range`, in React `Range`, inside a `Field`): a value along a scale, with the value itself beside it in an `<output>`, in the page's digits and with its unit ("40%", "£1,200"). The slider's `aria-valuetext` says the same, so the output is hidden from screen readers. It runs from the right in right to left. For a value that has to be exact, a number field.
+
+```html
+<div class="al-field">
+  <label class="al-label" for="budget">Budget, a month</label>
+  <div class="al-range"><input type="range" id="budget" min="0" max="2000" step="50" value="1200" aria-valuetext="£1,200"><output for="budget" aria-hidden="true">£1,200</output></div>
+</div>
+```
+
+An icon at the start of a field says what goes in (`.al-input-icon`, from [search](search.md); in React, `Input`'s `icon`); the label still names it.
 
 ## States
 
@@ -76,4 +87,4 @@ Numbers and dates stay LTR inside the field (`direction: ltr`), aligned to the e
 
 ## Tokens
 
-`--al-border-focus`, `--al-border-hairline`, `--al-color-control`, `--al-color-danger`, `--al-color-focus`, `--al-color-surface`, `--al-color-surface-sunk`, `--al-color-text`, `--al-color-text-muted`, `--al-color-warning`, `--al-duration-fast`, `--al-ease-standard`, `--al-field-height`, `--al-field-padding-inline`, `--al-field-radius`, `--al-leading-ui`, `--al-size-target-touch`, `--al-space-1`, `--al-space-1-5`, `--al-space-2`, `--al-space-3`, `--al-text-base`, `--al-text-sm`, `--al-text-xs`, `--al-weight-medium`, `--al-weight-regular`
+`--al-border-focus`, `--al-border-hairline`, `--al-color-accent`, `--al-color-control`, `--al-color-danger`, `--al-color-focus`, `--al-color-surface`, `--al-color-surface-sunk`, `--al-color-text`, `--al-color-text-muted`, `--al-color-warning`, `--al-duration-fast`, `--al-ease-standard`, `--al-field-height`, `--al-field-padding-inline`, `--al-field-radius`, `--al-leading-ui`, `--al-size-target-min`, `--al-size-target-touch`, `--al-space-1`, `--al-space-1-5`, `--al-space-2`, `--al-space-3`, `--al-text-base`, `--al-text-sm`, `--al-text-xs`, `--al-weight-medium`, `--al-weight-regular`

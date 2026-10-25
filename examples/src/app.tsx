@@ -23,10 +23,10 @@ export const translator = (lang: "en" | "ar", missing?: Set<string>): T => (s) =
   return ar ?? s;
 };
 
-/** The site header, as on the showcase and the docs; `gallery` on the examples' own index. */
+/** The site header, as on the Elements page and the docs; `gallery` on the examples' own index. */
 const Top = ({ gallery }: { gallery?: boolean }) => (
-  <SiteHeader menuId="site-menu" lockup={<Lockup className="al-site-header__lockup" href="../index.html" mark={<ArabesqueMark />} name={<span className="al-wordmark" lang="en">Arabesque</span>} product="Design system" />}
-    links={[{ label: "Showcase", href: "../index.html" }, { label: "Examples", href: "index.html", current: gallery }, { label: "Using it", href: "../README.html" }]}
+  <SiteHeader sticky menuId="site-menu" lockup={<Lockup className="al-site-header__lockup" href="../index.html" mark={<ArabesqueMark />} name={<span className="al-wordmark" lang="en">Arabesque</span>} product="Design system" />}
+    links={[{ label: "Elements", href: "../elements/index.html" }, { label: "Examples", href: "index.html", current: gallery }, { label: "Using it", href: "../README.html" }]}
     tools={<TextLink muted external href={REPO}><span lang="en">GitHub</span></TextLink>} />
 );
 
@@ -39,7 +39,7 @@ export function ExamplePage({ demo, missing }: { demo: Demo; missing?: Set<strin
         <BackLink href="index.html">All components</BackLink>
         <h1 className="ex-title">{demo.title}</h1>
         <p className="al-lede">{demo.lead}</p>
-        <p className="ex-spec"><a href={`../${demo.spec.replace(/\.md$/, ".html")}`}>Read the spec</a> · <a href={`../index.html#${demo.id}`}>In the showcase</a> · <TextLink external href={onGitHub("examples/src/demos.tsx")}>The demo&apos;s source</TextLink></p>
+        <p className="ex-spec"><a href={`../${demo.spec.replace(/\.md$/, ".html")}`}>Read the spec</a> · <a href={`../elements/index.html#${demo.id}`}>On the Elements page</a> · <TextLink external href={onGitHub("examples/src/demos.tsx")}>The demo&apos;s source</TextLink></p>
         <section className="ex-example" aria-labelledby="en-h">
           <h2 className="ex-h" id="en-h">English</h2>
           <Shown t={translator("en")} />
@@ -59,11 +59,11 @@ export function ExamplePage({ demo, missing }: { demo: Demo; missing?: Set<strin
 export function Gallery() {
   return (
     <ArabesqueProvider sprite={SPRITE}>
+      <Top gallery />
       <Hero className="ex-cover">
-        <Top gallery />
         <div className="al-page ex-cover__body">
           <h1 className="al-display ex-cover__title">Every component, working.</h1>
-          <p className="al-lede ex-cover__lede">Each page runs the React components (<code>react/</code>) in English and in Arabic, right to left, in light and dark. They write the same markup as the CSS and the showcase.</p>
+          <p className="al-lede ex-cover__lede">Each page runs the React components (<code>react/</code>) in English and in Arabic, right to left, in light and dark. They write the same markup as the CSS and the Elements page.</p>
           <HeroCaption />
         </div>
       </Hero>
@@ -73,7 +73,8 @@ export function Gallery() {
           <h2 className="ex-group__h" id="pages-h">Pages</h2>
           <ul className="ex-group__list" role="list">
             <li><a href="../templates/home.html">The studio homepage</a> <span className="al-muted">rendered from <code>templates/react/home.tsx</code>; <a href="../templates/ar/home.html" lang="ar" hrefLang="ar">بالعربية</a></span></li>
-            <li><a href="../index.html">The showcase</a> <span className="al-muted">every component on one page, in plain HTML; <a href="../ar/index.html" lang="ar" hrefLang="ar">بالعربية</a></span></li>
+            <li><a href="../index.html">The homepage</a> <span className="al-muted">what Arabesque is for, and a few elements working together; <a href="../ar/index.html" lang="ar" hrefLang="ar">بالعربية</a></span></li>
+            <li><a href="../elements/index.html">The elements</a> <span className="al-muted">every component on one page, in plain HTML; <a href="../ar/elements/index.html" lang="ar" hrefLang="ar">بالعربية</a></span></li>
           </ul>
         </section>
         {groups.map((g) => (

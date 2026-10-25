@@ -1,4 +1,5 @@
 import { type ComponentPropsWithoutRef, type ReactNode } from "react";
+import { type IconName } from "./icon.js";
 /** The id, description and validity a control inside a <Field> takes. */
 export declare function useField(own?: {
     id?: string;
@@ -30,8 +31,10 @@ export declare function ErrorMessage({ className, children, ...rest }: Component
 export interface InputProps extends ComponentPropsWithoutRef<"input"> {
     /** A number or an amount: tabular, left to right, a decimal keypad. */
     number?: boolean;
+    /** An icon at its start, saying what goes in ("mail", "calendar"); the label still names it. */
+    icon?: IconName;
 }
-export declare function Input({ number, className, ...rest }: InputProps): import("react").JSX.Element;
+export declare function Input({ number, icon, className, ...rest }: InputProps): import("react").JSX.Element;
 export declare function Select({ className, ...rest }: ComponentPropsWithoutRef<"select">): import("react").JSX.Element;
 export declare function Textarea({ className, ...rest }: ComponentPropsWithoutRef<"textarea">): import("react").JSX.Element;
 /** A control with what goes before or after it: a currency, a period ("a year"). */

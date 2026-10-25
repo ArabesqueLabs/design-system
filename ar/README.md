@@ -38,11 +38,12 @@
 | `dist/react/` | مكوّنات React، مع أنواعها ([`docs/react.md`](../docs/react.md)، بالإنجليزية) |
 | `css/` | المصادر: `base.css`، و`layout.css`، و`utilities.css`، و`components/*.css` |
 | `react/src/` | مصادر مكوّنات React: وحدة لكل مواصفة، تكتب الترميز نفسه وتستخدم المساعدات |
-| `js/` | مساعدات اختيارية، لكل منها أنواعه (`.d.ts`): `theme`، `toast`، `dialog`، `menu`، `tabs`، `tooltip`، `position`، `validate`، `count`، `search`، `keys`، `format`، `chart`، `datepicker`، `pattern`، `site-header`، `sidebar` |
-| `tests/`، `scripts/check-page.mjs` | اختبارات الوحدات وقواعد النظام نفسه؛ وصفحة العرض مفحوصة في متصفح حقيقي |
+| `js/` | مساعدات اختيارية، لكل منها أنواعه (`.d.ts`): `theme`، `toast`، `dialog`، `menu`، `tabs`، `tooltip`، `position`، `validate`، `count`، `search`، `keys`، `format`، `chart`، `datepicker`، `pattern`، `site-header`، `sidebar`، `popover` |
+| `tests/`، `scripts/check-page.mjs` | اختبارات الوحدات وقواعد النظام نفسه؛ وصفحة العناصر مفحوصة في متصفح حقيقي |
 | `icons/`، `assets/brand/` | مصادر الأيقونات؛ والعلامة والنجمة والشعار النصي من حزمة الشعار، وعلامة آرابيسك ونجومها |
 | `docs/` | الأسس، والتفاعل، وإتاحة الوصول، والكتابة من اليمين إلى اليسار، والتبنّي، ومواصفات المكوّنات، والتدقيق، وتقرير التباين |
-| `index.html` | صفحة العرض: كل الأمثلة في صفحة واحدة، مولَّدة من `examples/src/` |
+| `index.html` | الصفحة الرئيسية: ما الغاية من آرابيسك، وبعض العناصر تعمل معًا، وكيف تبدأ، مولَّدة من `examples/src/home.tsx` |
+| `elements/index.html` | صفحة العناصر: كل الأمثلة في صفحة واحدة، مولَّدة من `examples/src/` |
 | `examples/` | كل مكوّن يعمل، بـReact، في صفحة لكل منها، بالإنجليزية والعربية ([`examples/index.html`](../examples/index.html)) |
 | `templates/` | صفحات كاملة يُبدأ منها موقع: الصفحة الرئيسية للاستوديو، بالإنجليزية والعربية، بـHTML وبـReact ([`templates/README.md`](../templates/README.md)) |
 
@@ -73,7 +74,7 @@ npm run check        # build, test, and fail if dist/, the examples or the templ
 npm i --no-save axe-core@4.10.2
 node scripts/check-page.mjs   # in Chrome: the helpers on their own page
                               # (tests/pages/helpers.html), with real key presses;
-                              # the showcase with axe in light, dark, English and Arabic;
+                              # the Elements page with axe in light, dark, English and Arabic;
                               # every example page, and the template, the same way
 ```
 
@@ -82,17 +83,17 @@ node scripts/check-page.mjs   # in Chrome: the helpers on their own page
 `arabesque.css` ميزانية حجمه (27 KB مضغوطًا). وقبل كل إصدار، نفّذ
 [فحوص قارئ الشاشة](../docs/screen-readers.md) (بالإنجليزية) يدويًا.
 
-## مشاهدة صفحة العرض
+## مشاهدة العناصر
 
 يجب تقديم ملف الأيقونات عبر HTTP:
 
 ```sh
-npm run serve        # then open http://127.0.0.1:4900/
+npm run serve        # then open http://127.0.0.1:4900/elements/
 ```
 
 بدّل السمة واللغة من الأعلى؛ وفي العربية، اختر الأرقام الغربية أو الهندية
-العربية. وتُحفظ الاختيارات الثلاثة. وصفحة العرض مبنية من أمثلة صفحات الأمثلة
-نفسها (`examples/src/showcase.tsx`): فـ`index.html` مولَّد، فغيّر الأمثلة لا هو. وكل مستند، وهذا منها، صفحةٌ قائمة بذاتها
+العربية. وتُحفظ الاختيارات الثلاثة. وصفحة العناصر مبنية من أمثلة صفحات الأمثلة
+نفسها (`examples/src/showcase.tsx`): فـ`elements/index.html` مولَّد، فغيّر الأمثلة لا هو. وكل مستند، وهذا منها، صفحةٌ قائمة بذاتها
 أيضًا: `README.html`، و`docs/react.html`، وغيرهما، بالإنجليزية، وبالعربية حيث
 توجد ترجمة.
 

@@ -1,0 +1,21 @@
+/* Pagination: the pages of a long list, as links. Previous and Next in
+   words; the current page marked in the markup (aria-current) and by
+   inverting it; at most seven numbers, the gaps an ellipsis. On the first
+   page there's no Previous, on the last no Next. Chevrons mirror. */
+.al-pagination ul { display: flex; flex-wrap: wrap; align-items: center; gap: var(--al-space-1); margin: 0; padding: 0; list-style: none; font-size: var(--al-text-sm); font-variant-numeric: tabular-nums; }
+.al-pagination a, .al-pagination__gap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--al-space-1);
+  min-inline-size: var(--al-size-control-sm);
+  min-block-size: var(--al-size-control-sm);
+  padding-inline: var(--al-space-2);
+  border-radius: var(--al-radius-sm);
+  text-decoration: none;
+}
+.al-pagination a:hover { background: var(--al-color-surface-sunk); color: var(--al-color-text); }
+.al-pagination a[aria-current="page"] { background: var(--al-color-text); color: var(--al-color-bg); font-weight: var(--al-weight-semibold); }
+.al-pagination__gap { color: var(--al-color-text-muted); }
+.al-pagination__prev .al-icon { rotate: 180deg; }
+@media (forced-colors: active) { .al-pagination a[aria-current="page"] { forced-color-adjust: none; background: Highlight; color: HighlightText; } }

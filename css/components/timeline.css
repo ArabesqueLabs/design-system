@@ -1,0 +1,28 @@
+/* Timeline: what happened, each event at its time, along a line down the
+   start edge: a marker (a dot, or an icon), the time, what happened and, if
+   it needs one, a line more. For a record's history or an activity feed;
+   newest first, unless the order of events is the point. */
+.al-timeline { list-style: none; margin: 0; padding: 0; }
+.al-timeline > li { position: relative; display: flex; gap: var(--al-space-3); padding-block-end: var(--al-space-6); }
+.al-timeline > li:last-child { padding-block-end: 0; }
+.al-timeline > li:not(:last-child)::before { content: ""; position: absolute; inset-block: 2rem 0; inset-inline-start: calc(1rem - var(--al-border-hairline) / 2); border-inline-start: var(--al-border-hairline) solid var(--al-color-line-strong); }
+.al-timeline__marker {
+  display: grid;
+  place-items: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  flex: none;
+  border: var(--al-border-hairline) solid var(--al-color-line-strong);
+  border-radius: var(--al-radius-full);
+  background: var(--al-color-surface);
+  color: var(--al-color-text-muted);
+}
+.al-timeline__marker:empty::after { content: ""; inline-size: 0.5rem; block-size: 0.5rem; border-radius: var(--al-radius-full); background: currentColor; }
+.al-timeline__marker[data-tone="accent"] { color: var(--al-color-accent); }
+.al-timeline__marker[data-tone="success"] { color: var(--al-color-success); }
+.al-timeline__marker[data-tone="warning"] { color: var(--al-color-warning); }
+.al-timeline__marker[data-tone="danger"] { color: var(--al-color-danger); }
+.al-timeline__event { display: flex; flex-direction: column; gap: var(--al-space-1); min-inline-size: 0; padding-block-start: var(--al-space-1); }
+.al-timeline__time { font-size: var(--al-text-sm); color: var(--al-color-text-muted); font-variant-numeric: tabular-nums; }
+.al-timeline__title { margin: 0; font-weight: var(--al-weight-medium); }
+.al-timeline__body { color: var(--al-color-text-muted); }

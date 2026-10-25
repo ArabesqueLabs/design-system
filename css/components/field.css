@@ -68,6 +68,14 @@
 .al-affix > .al-affix__text:last-child { border-inline-start: 0; }
 .al-affix > .al-select { inline-size: auto; flex: none; border-radius: 0; }
 
+/* Range: a value along a scale, the value itself beside it in an <output>,
+   in the page's digits and with its unit. Arrow keys step, Page Up and
+   Down step further, Home and End jump. In right to left, it runs from the
+   right. For a value that needs to be exact, a number field. */
+.al-range { display: flex; align-items: center; gap: var(--al-space-3); }
+.al-range > input { flex: 1; min-inline-size: 0; block-size: var(--al-size-target-min); margin: 0; accent-color: var(--al-color-accent); cursor: pointer; }
+.al-range > output { min-inline-size: 4ch; font-variant-numeric: tabular-nums; font-weight: var(--al-weight-medium); text-align: end; }
+
 /* A group of fields under one question. */
 .al-fieldset { border: 0; margin: 0; padding: 0; min-inline-size: 0; display: flex; flex-direction: column; gap: var(--al-space-3); }
 .al-fieldset > legend { padding: 0; margin-block-end: var(--al-space-1); font-size: var(--al-text-sm); font-weight: var(--al-weight-medium); }

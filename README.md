@@ -38,11 +38,12 @@ The source is on GitHub: [ArabesqueLabs/design-system](https://github.com/Arabes
 | `dist/react/` | The React components, with their types ([`docs/react.md`](docs/react.md)) |
 | `css/` | The sources: `base.css`, `layout.css`, `utilities.css`, `components/*.css` |
 | `react/src/` | The React components' sources: one module per spec, writing the same markup and using the helpers |
-| `js/` | Optional helpers, each with its types (`.d.ts`): `theme`, `toast`, `dialog`, `menu`, `tabs`, `tooltip`, `position`, `validate`, `count`, `search`, `keys`, `format`, `chart`, `datepicker`, `pattern`, `site-header`, `sidebar` |
-| `tests/`, `scripts/check-page.mjs` | Unit tests and the system's own rules; the showcase checked in a real browser |
+| `js/` | Optional helpers, each with its types (`.d.ts`): `theme`, `toast`, `dialog`, `menu`, `tabs`, `tooltip`, `position`, `validate`, `count`, `search`, `keys`, `format`, `chart`, `datepicker`, `pattern`, `site-header`, `sidebar`, `popover` |
+| `tests/`, `scripts/check-page.mjs` | Unit tests and the system's own rules; the Elements page checked in a real browser |
 | `icons/`, `assets/brand/` | Icon sources; the mark, star and wordmark from the logo pack, and Arabesque's mark and stars |
 | `docs/` | Foundations, interaction, accessibility, RTL, adoption, component specs, the audit, the contrast report |
-| `index.html` | The showcase: every demo on one page, generated from `examples/src/` |
+| `index.html` | The homepage: what Arabesque is for, a few elements working together, and how to start, generated from `examples/src/home.tsx` |
+| `elements/index.html` | The Elements page: every demo on one page, generated from `examples/src/` |
 | `examples/` | Every component working, in React, a page each, in English and Arabic ([`examples/index.html`](examples/index.html)) |
 | `templates/` | Whole pages to start a site from: the studio homepage, in English and Arabic, in HTML and in React ([`templates/README.md`](templates/README.md)) |
 
@@ -73,7 +74,7 @@ npm run check        # build, test, and fail if dist/, the examples or the templ
 npm i --no-save axe-core@4.10.2
 node scripts/check-page.mjs   # in Chrome: the helpers on their own page
                               # (tests/pages/helpers.html), with real key presses;
-                              # the showcase with axe in light, dark, English and Arabic;
+                              # the Elements page with axe in light, dark, English and Arabic;
                               # every example page, and the template, the same way
 ```
 
@@ -83,18 +84,18 @@ contrast check doesn't measure, or if `arabesque.css` grows past its size
 budget (27 KB gzipped). Before a release, run the
 [screen reader checks](docs/screen-readers.md) by hand.
 
-## See the showcase
+## See the elements
 
 The sprite needs to be served over HTTP:
 
 ```sh
-npm run serve        # then open http://127.0.0.1:4900/
+npm run serve        # then open http://127.0.0.1:4900/elements/
 ```
 
 Switch theme and language at the top; in Arabic, choose Western or
-Arabic-Indic digits. All three are remembered. The showcase is built from the
-same demos as the example pages (`examples/src/showcase.tsx`): `index.html`
-is generated, so change the demos, not it. Every document, this one
+Arabic-Indic digits. All three are remembered. The Elements page is built from the
+same demos as the example pages (`examples/src/showcase.tsx`):
+`elements/index.html` is generated, so change the demos, not it. Every document, this one
 included, is also a page of its own: `README.html`, `docs/react.html` and so
 on, in English and, where there's a translation, Arabic.
 

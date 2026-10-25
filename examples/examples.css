@@ -1,6 +1,10 @@
 /* The example pages: their frame only. Everything inside an example is the
    system's own (dist/arabesque.css). Tokens only, logical properties only. */
 body { margin: 0; }
+/* Below the sticky site header (5rem): where a link lands, and a sticky
+   "On this page". */
+.ex-main [id] { scroll-margin-block-start: calc(5rem + var(--al-space-6)); }
+.ex-main .al-toc { inset-block-start: calc(5rem + var(--al-space-6)); }
 .ex-main { padding-block: var(--al-space-8) var(--al-space-16); display: flex; flex-direction: column; gap: var(--al-space-6); }
 .ex-main > * { margin: 0; }
 .ex-title { font-family: var(--al-font-display); font-size: var(--al-text-3xl); font-weight: var(--al-weight-regular); letter-spacing: var(--al-tracking-tight); }

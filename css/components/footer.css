@@ -11,7 +11,13 @@
   color: var(--al-color-text-muted);
   font-size: var(--al-text-sm);
 }
-.al-footer__links { display: flex; flex-wrap: wrap; gap: var(--al-space-2) var(--al-space-5); list-style: none; margin: 0; padding: 0; }
+/* At the end of the line, with or without the lockup before them. */
+.al-footer__links { display: flex; flex-wrap: wrap; gap: var(--al-space-2) var(--al-space-5); list-style: none; margin: 0; margin-inline-start: auto; padding: 0; }
 .al-footer__links a { color: inherit; text-decoration: none; }
 .al-footer__links a:hover { color: var(--al-color-accent); text-decoration: underline; }
-.al-footer__legal { flex-basis: 100%; font-size: var(--al-text-xs); }
+.al-footer__legal, .al-footer__attribution { flex-basis: 100%; }
+.al-footer__legal { font-size: var(--al-text-xs); }
+/* With no lockup, the legal line comes first, in its place: on the links'
+   row, centred with them. */
+.al-footer:has(> .al-footer__legal:first-child) { align-items: center; }
+.al-footer > .al-footer__legal:first-child { flex-basis: auto; }

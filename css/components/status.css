@@ -1,0 +1,13 @@
+/* Status: a state in a word, with a dot before it in the state's colour
+   ("Online", "Degraded", "Down"). The word is the meaning; the dot repeats
+   it. Without a visible word, the word is visually hidden inside. Live: the
+   dot pulses, for something happening now; still, with reduced motion. */
+.al-status { display: inline-flex; align-items: center; gap: var(--al-space-1-5); font-size: var(--al-text-sm); }
+.al-status::before { content: ""; inline-size: 0.5rem; block-size: 0.5rem; flex: none; border-radius: var(--al-radius-full); background: var(--_dot, var(--al-color-text-muted)); }
+.al-status--success { --_dot: var(--al-color-success); }
+.al-status--warning { --_dot: var(--al-color-warning); }
+.al-status--danger { --_dot: var(--al-color-danger); }
+.al-status--info { --_dot: var(--al-color-info); }
+.al-status--live::before { animation: al-pulse 2s var(--al-ease-standard) infinite; }
+@keyframes al-pulse { 50% { opacity: 0.35; } }
+@media (forced-colors: active) { .al-status::before { forced-color-adjust: none; } }

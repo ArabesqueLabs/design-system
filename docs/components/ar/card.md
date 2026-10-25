@@ -4,7 +4,7 @@
 
 حاويات. البطاقة سطح بإطار لشيء واحد؛ واللوح قسم من الصفحة يعلوه خط فاصل، وهو كل ما تحتاجه معظم المجموعات؛ والإحصائية رقم مع تسميته، والإحصائيات صف منها، والاقتباس ما قاله أحدهم.
 
-**CSS:** [`css/components/card.css`](../../../css/components/card.css). **الأصناف:** `.al-card`، `.al-card--interactive`، `.al-card--selected`، `.al-card__description`، `.al-card__header`، `.al-panel`، `.al-stat`، `.al-stat__label`، `.al-stat__note`، `.al-stat__value`، `.al-stats`، `.al-quote`، `.al-quote__by`، `.al-quote__name`، `.al-quote__role`.
+**CSS:** [`css/components/card.css`](../../../css/components/card.css). **الأصناف:** `.al-card`، `.al-card--interactive`، `.al-card--selected`، `.al-card__description`، `.al-card__header`، `.al-panel`، `.al-stat`، `.al-stat__label`، `.al-stat__note`، `.al-stat__value`، `.al-stats`، `.al-quote`، `.al-quote__by`، `.al-quote__name`، `.al-quote__role`، `.al-card__footer`، `.al-ribbon`.
 
 ## البنية
 
@@ -42,6 +42,8 @@
 </figure>
 ```
 
+وإجراءات البطاقة في تذييلها (`.al-card__footer`، وفي React ‏`footer`): بعد خط رفيع، في أسفلها، عند نهاية السطر، والأساسي آخرًا. والشريط (`.al-ribbon`، وفي React ‏`ribbon`) يثبّت كلمة واحدة في الزاوية العليا عند نهاية البطاقة («جديد»، «موصى بها»)، بلون التمييز: لبطاقة واحدة في المجموعة على الأكثر، والكلمة جزء من نص البطاقة أيضًا.
+
 ## الحالات
 
 التمرير (التفاعلية): الإطار بلون عناصر التحكم. التركيز: على رابط البطاقة. المحددة: لون التمييز. التحميل: هياكل مبدئية بداخلها ([التقدم](progress.md)).
@@ -73,4 +75,4 @@
 
 ## الرموز
 
-`--al-border-hairline`، `--al-color-accent`، `--al-color-accent-wash`، `--al-color-control`، `--al-color-line`، `--al-color-line-strong`، `--al-color-surface`، `--al-color-text-muted`، `--al-duration-fast`، `--al-ease-standard`، `--al-font-display`، `--al-font-serif`، `--al-leading-prose`، `--al-leading-tight`، `--al-radius-sm`، `--al-space-1`، `--al-space-2`، `--al-space-3`، `--al-space-4`، `--al-space-5`، `--al-space-6`، `--al-text-2xl`، `--al-text-3xl`، `--al-text-lg`، `--al-text-md`، `--al-text-sm`، `--al-tracking-none`، `--al-weight-medium`
+`--al-border-hairline`، `--al-color-accent`، `--al-color-accent-wash`، `--al-color-control`، `--al-color-line`، `--al-color-line-strong`، `--al-color-on-accent`، `--al-color-surface`، `--al-color-text-muted`، `--al-duration-fast`، `--al-ease-standard`، `--al-font-display`، `--al-font-serif`، `--al-leading-prose`، `--al-leading-tight`، `--al-radius-sm`، `--al-space-0-5`، `--al-space-1`، `--al-space-2`، `--al-space-3`، `--al-space-4`، `--al-space-5`، `--al-space-6`، `--al-space-8`، `--al-text-2xl`، `--al-text-3xl`، `--al-text-lg`، `--al-text-md`، `--al-text-sm`، `--al-text-xs`، `--al-tracking-none`، `--al-weight-medium`، `--al-weight-semibold`

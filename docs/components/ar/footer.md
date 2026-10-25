@@ -4,7 +4,7 @@
 
 من صنعه، وإلى أين بعد ذلك، والسطر القانوني؛ هادئ، ومتطابق في كل صفحة.
 
-**CSS:** [`css/components/footer.css`](../../../css/components/footer.css). **الأصناف:** `.al-footer`، `.al-footer__legal`، `.al-footer__links`.
+**CSS:** [`css/components/footer.css`](../../../css/components/footer.css). **الأصناف:** `.al-footer`، `.al-footer__legal`، `.al-footer__links`، `.al-footer__attribution`.
 
 ## البنية
 
@@ -19,6 +19,8 @@
 ## الأنواع والأحجام
 
 نوع واحد.
+
+بلا التركيبة (وفي React ‏`lockup={false}`) حين تحملها ترويسة الصفحة: فيحلّ السطر القانوني محلّها، أولًا، في صف الروابط ومتوسّطًا معها. وتحت السطر القانوني، نسبة المنتج (`.al-footer__attribution`، وفي React ‏`attribution`): [سطر النسبة](attribution.md)، المكوّن أو صورته الملائمة للمظهر.
 
 ## الحالات
 

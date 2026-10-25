@@ -1,9 +1,12 @@
 /* Search field: an input with its icon and a Clear button once there's
    text. role="search" on its form; results update as people type, with
-   the count announced politely. "/" focuses it (see kbd). */
-.al-search { position: relative; display: flex; align-items: center; min-inline-size: 0; }
-.al-search > .al-icon { position: absolute; inset-inline-start: var(--al-space-3); color: var(--al-color-text-muted); pointer-events: none; }
-.al-search > .al-input { padding-inline-start: calc(var(--al-space-3) * 2 + var(--al-size-icon)); padding-inline-end: var(--al-size-control-sm); }
+   the count announced politely. "/" focuses it (see kbd). Any field may
+   have an icon at its start the same way (.al-input-icon): it says what goes
+   in; the label still names it. */
+.al-search, .al-input-icon { position: relative; display: flex; align-items: center; min-inline-size: 0; }
+:is(.al-search, .al-input-icon) > .al-icon { position: absolute; inset-inline-start: var(--al-space-3); color: var(--al-color-text-muted); pointer-events: none; }
+:is(.al-search, .al-input-icon) > .al-input { padding-inline-start: calc(var(--al-space-3) * 2 + var(--al-size-icon)); }
+.al-search > .al-input { padding-inline-end: var(--al-size-control-sm); }
 .al-search > .al-input::-webkit-search-cancel-button { display: none; }
 .al-search__clear {
   all: unset;

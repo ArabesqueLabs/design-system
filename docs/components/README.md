@@ -2,7 +2,7 @@
 
 Each spec covers anatomy, variants and sizes, states, keyboard, ARIA, right to left, do and don't, and the tokens it uses (listed from its CSS). See them working in `index.html`, and in React, a page each, in [`examples/`](../../examples/index.html) ([`docs/react.md`](../react.md)).
 
-Every spec is also in Arabic, in [`ar/`](ar/README.md); the showcase links to them when the page is in Arabic, and each is a page of its own (`button.html`, `ar/button.html`). The English is the reference: change a spec and its translation together (a test fails if a spec has no translation, or a link in either is broken).
+Every spec is also in Arabic, in [`ar/`](ar/README.md); the Elements page links to them when the page is in Arabic, and each is a page of its own (`button.html`, `ar/button.html`). The English is the reference: change a spec and its translation together (a test fails if a spec has no translation, or a link in either is broken).
 
 | Component | What it is |
 |---|---|
@@ -54,3 +54,10 @@ Every spec is also in Arabic, in [`ar/`](ar/README.md); the showcase links to th
 | [Summary list](summary-list.md) | Facts as key–value pairs, each optionally with a Change link: the "check your answers" step, or a record's details. |
 | [Task list](task-list.md) | The parts of a long job, each with its status, so people can do them in any order and see what's left. |
 | [Tints: highlight, tag and avatar](tint.md) | Soft colour washes for emphasis and identity. |
+| [Pagination](pagination.md) | The pages of a long list, as links: Previous and Next in words, the numbers around the current page. |
+| [Stepper](stepper.md) | Where a person is in a flow of three to six steps: done, current, to come, and "Step 2 of 4". |
+| [Status](status.md) | A state in a word, with a dot before it in the state's colour. |
+| [Rating](rating.md) | One to five, as radios drawn as the mark's star, each named in words; or shown, as a picture named with its value. |
+| [Timeline](timeline.md) | What happened, each event at its time, along a line: a record's history or an activity feed. |
+| [List](list.md) | Things of one kind, one to a row, hairlines between; a row that opens something is a link from edge to edge. |
+| [Popover](popover.md) | More about something, when it's asked for: a button opens it beside itself, in a native popover. |

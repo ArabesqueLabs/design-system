@@ -67,7 +67,10 @@ bold a whole paragraph.
 
 **Leading:** `leading-tight` (display), `leading-heading`, `leading-ui` (the
 default), `leading-prose` (reading text). **Measure:** `--al-size-measure`
-(65ch) for anything read as prose.
+(65ch) for anything read as prose. **Running text** goes in `.al-prose`:
+the reading face, the measure and 1em between blocks; inside it, lists are
+indented, a quotation has a rule at its start and is muted, and code in a
+sentence sits on the sunk surface, left to right in Arabic too.
 
 ## Arabic adjustments
 

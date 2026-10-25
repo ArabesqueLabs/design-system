@@ -24,4 +24,12 @@ type AsLink = Common & ComponentProps<"a"> & {
 export type ButtonProps = AsButton | AsLink;
 /** An action: a <button>, or an <a> when it has an href. A `ref` reaches the element. */
 export declare function Button(props: ButtonProps): import("react").JSX.Element;
+export interface ButtonGroupProps extends ComponentProps<"div"> {
+    /** What the buttons are for together ("Text alignment"). */
+    label: string;
+    /** One under another. */
+    vertical?: boolean;
+}
+/** Related buttons joined, one border between each: each still its own button. */
+export declare function ButtonGroup({ label, vertical, className, ...rest }: ButtonGroupProps): import("react").JSX.Element;
 export {};

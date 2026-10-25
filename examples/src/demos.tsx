@@ -9,7 +9,7 @@ import { forgetDismissal } from "../../js/announcement.js";
 import { ColourDemo, MotionDemo, SpaceDemo, TintsDemo, TypeDemo } from "./foundations.js";
 import { formatMoney, formatNumber, formatPercent } from "../../js/format.js";
 import {
-  Affix, AffixText, Announcement, Avatar, BackLink, BackToTop, Badge, CallToAction, CodeBlock, Command, DisclosureGroup, FeatureTabs, LogoWordmark, Logos, OnThisPage, Quote, Stats, Breadcrumbs, BulkBar, BulletChart, Button, Card, CharacterCount, ChartFigure, Checkbox,
+  Affix, AffixText, Announcement, Avatar, AvatarStack, ButtonGroup, List, Pagination, Popover, Range, Rating, RatingValue, Status, Stepper, Timeline, BackLink, BackToTop, Badge, CallToAction, CodeBlock, Command, DisclosureGroup, FeatureTabs, LogoWordmark, Logos, OnThisPage, Quote, Stats, Breadcrumbs, BulkBar, BulletChart, Button, Card, CharacterCount, ChartFigure, Checkbox,
   Choices, ColumnChart, Confirmation, LanguageLink, Section, Star, TextLink, iconNames, ConstructionFigure, DateExample, DateInput, DatePicker, Dialog, Disclosure, EmptyState, ErrorSummary,
   Field, Fieldset, Footer, Grid, Hero, HeroCaption, Highlight, Icon, Input, Lockup, Mark, Menu, Notice, PageHead, Panel, Pattern, PhaseBanner,
   Progress, Radio, RollbackNote, SaveState, Search, Segmented, Select, Shell, Shortcuts, SideEffect, SiteHeader, Skeleton, Spinner, SplitBar,
@@ -59,6 +59,45 @@ function ButtonDemo({ t }: DemoProps) {
   );
 }
 
+function ButtonGroupDemo({ t }: DemoProps) {
+  const [view, setView] = useState("Week");
+  return (
+    <Stack>
+      <ButtonGroup label={t("Period")}>
+        {["Day", "Week", "Month"].map((v) => <Button key={v} size="sm" aria-pressed={view === v} variant={view === v ? "primary" : undefined} onClick={() => setView(v)}>{t(v)}</Button>)}
+      </ButtonGroup>
+      <Cluster>
+        <ButtonGroup label={t("Text style")}>
+          <Button size="sm" icon="edit" label={t("Edit")} />
+          <Button size="sm" icon="copy" label={t("Copy link")} />
+          <Button size="sm" icon="trash" label={t("Delete")} />
+        </ButtonGroup>
+        <ButtonGroup label={t("History")}>
+          <Button size="sm" icon="undo" label={t("Undo")} />
+          <Button size="sm" icon="retry" label={t("Redo")} />
+        </ButtonGroup>
+      </Cluster>
+      <ButtonGroup label={t("Move")} vertical>
+        <Button size="sm">{t("Move up")}</Button>
+        <Button size="sm">{t("Move down")}</Button>
+        <Button size="sm">{t("Move to the end")}</Button>
+      </ButtonGroup>
+    </Stack>
+  );
+}
+
+function PaginationDemo({ t }: DemoProps) {
+  const [page, setPage] = useState(6);
+  const { n } = useDigits();
+  return (
+    <Stack>
+      <p className="al-muted">{t("Results {from} to {to} of {total}").replace("{from}", n((page - 1) * 20 + 1)).replace("{to}", n(page * 20)).replace("{total}", n(240))}</p>
+      <Pagination page={page} pages={12} href={(p) => `#page-${p}`} onNavigate={(p, e) => { e.preventDefault(); setPage(p); }} />
+      <Pagination page={1} pages={3} href={(p) => `#page-${p}`} onNavigate={(_, e) => e.preventDefault()} />
+    </Stack>
+  );
+}
+
 function BreadcrumbsDemo({ t }: DemoProps) {
   return (
     <Stack>
@@ -83,6 +122,7 @@ function TextInputDemo({ t }: DemoProps) {
         </Affix>
       </Field>
       <Field label={t("Reference")} error={t("Enter a reference that's 2 letters then 6 numbers, like AB123456")}><Input defaultValue="12" dir="ltr" /></Field>
+      <Field label={t("Work email")} hint={t("An icon says what goes in; the label still names it.")}><Input type="email" icon="mail" autoComplete="email" spellCheck={false} dir="ltr" /></Field>
       <Field label={t("Account number")}><Input defaultValue="40-12-76" readOnly dir="ltr" /></Field>
       <Field label={t("Quantity")} changed={t("Changed, not saved")}><Input number inputMode="numeric" defaultValue="12" /></Field>
     </Grid>
@@ -185,6 +225,26 @@ function SegmentedDemo({ t }: DemoProps) {
   );
 }
 
+function RangeDemo({ t }: DemoProps) {
+  const { lang, numerals, money } = useDigits();
+  return (
+    <Grid className="ex-form">
+      <Field label={t("Volume")}><Range defaultValue={40} format={(v) => formatPercent(v / 100, { lang, numerals })} /></Field>
+      <Field label={t("Budget, a month")} hint={t("Up to £2,000.")}><Range min={0} max={2000} step={50} defaultValue={1200} format={money} /></Field>
+    </Grid>
+  );
+}
+
+function RatingDemo({ t }: DemoProps) {
+  const [value, setValue] = useState(4);
+  return (
+    <Stack>
+      <Rating legend={t("How was your visit?")} value={value} onChange={setValue} />
+      <p className="al-muted"><RatingValue value={value} /> {t("Your rating, as it's shown.")}</p>
+    </Stack>
+  );
+}
+
 function ErrorSummaryDemo({ t }: DemoProps) {
   return <ErrorSummary autoFocus={false} errors={[{ href: "#", message: t("Enter your full name") }, { href: "#", message: t("Enter a reference that's 2 letters then 6 numbers, like AB123456") }]} />;
 }
@@ -209,6 +269,9 @@ function CardDemo({ t }: DemoProps) {
       <Card title={t("Card title")} level={2} description={t("Supporting text · updated today")}>
         <p>{t("A card groups one thing: its summary, and what you can do with it.")}</p>
         <Cluster><Button size="sm">{t("Open")}</Button><Button size="sm" variant="quiet">{t("Edit")}</Button></Cluster>
+      </Card>
+      <Card title={t("Team plan")} level={2} ribbon={t("Recommended")} footer={<><Button size="sm" variant="quiet">{t("Compare plans")}</Button><Button size="sm" variant="primary">{t("Choose this plan")}</Button></>}>
+        <p>{t("A ribbon pins one word to one card; the footer holds its actions.")}</p>
       </Card>
       <Stat label={t("Figure, this month")} value={n(12480)} note={<>{t("last month:")} <bdi>{n(11902)}</bdi></>} />
       <Panel><h2>{t("Panel title")}</h2><p className="al-muted">{t("A rule above a group: most groupings need no box.")}</p></Panel>
@@ -274,9 +337,23 @@ function TintDemo({ t }: DemoProps) {
         {t("Highlights draw the eye to")} <Highlight tint="teal">{t("key words")}</Highlight>, <Highlight tint="yellow">{t("names")}</Highlight> {t("and")} <Highlight tint="pink">{t("ideas")}</Highlight>{t(", in")} <Highlight tint="purple">{t("any of eight tints")}</Highlight>.
       </p>
       <Cluster>
-        <Avatar tint="teal">LH</Avatar><Avatar tint="orange">SO</Avatar><Avatar tint="blue">YA</Avatar><Avatar tint="green" large>ST</Avatar>
+        <Avatar tint="teal" size="sm">LH</Avatar><Avatar tint="orange">SO</Avatar><Avatar tint="blue" size="lg">YA</Avatar><Avatar tint="green" size="xl">ST</Avatar><Avatar tint="purple" size="lg" square>AL</Avatar>
       </Cluster>
+      <AvatarStack label={t("Shared with Lina, Sam, Yusuf and 3 others")} more="+3">
+        <Avatar tint="teal">LH</Avatar><Avatar tint="orange">SO</Avatar><Avatar tint="blue">YA</Avatar>
+      </AvatarStack>
     </Stack>
+  );
+}
+
+function ProseDemo({ t }: DemoProps) {
+  return (
+    <div className="al-prose">
+      <p>{t("Running text in")} <strong>{t("bold")}</strong>{t(", ")}<em>{t("italic")}</em>{t(", ")}{t("with")} <a href="#">{t("a link")}</a>{t(", ")}<code>inline code</code>{t(", ")}{t("a key,")} <kbd>Ctrl</kbd> + <kbd>S</kbd>{t(", and ")}<mark className="al-highlight">{t("a highlight")}</mark>. <small>{t("And small print.")}</small></p>
+      <ul><li>{t("A list of things")}</li><li>{t("in no order")}</li></ul>
+      <ol><li>{t("Steps, in order")}</li><li>{t("one after another")}</li></ol>
+      <blockquote><p>{t("A quotation inside running text, with its source after it.")}</p></blockquote>
+    </div>
   );
 }
 
@@ -302,6 +379,34 @@ function StepsDemo({ t }: DemoProps) {
   return <Steps level={2} steps={STAGES.map(([title, body]) => ({ title: t(title), body: t(body) }))} />;
 }
 
+function TimelineDemo({ t }: DemoProps) {
+  return (
+    <Timeline className="ex-narrow" events={[
+      { time: <time dateTime="2026-10-25T09:40">{t("Today, 09:40")}</time>, title: t("Request approved"), body: t("By Lina Haddad. The team can start."), icon: "check", tone: "success" },
+      { time: <time dateTime="2026-10-24T16:05">{t("Yesterday, 16:05")}</time>, title: t("Budget changed to £1,200 a month"), icon: "edit" },
+      { time: <time dateTime="2026-10-24T11:20">{t("Yesterday, 11:20")}</time>, title: t("Sam Okafor commented"), body: <p>{t("Can we start a week earlier?")}</p> },
+      { time: <time dateTime="2026-10-22">{t("22 October")}</time>, title: t("Request sent"), tone: "accent" },
+    ]} />
+  );
+}
+
+function ListDemo({ t }: DemoProps) {
+  return (
+    <Grid>
+      <List label={t("Notifications")} rows={[
+        { title: t("Lina approved your request"), description: t("The team can start on Monday."), start: <Status tone="info" live dotOnly>{t("Unread")}</Status>, end: t("2 min"), href: "#" },
+        { title: t("Sam commented on Budget"), description: t("Can we start a week earlier?"), start: <Status tone="info" dotOnly>{t("Unread")}</Status>, end: t("1 hour"), href: "#" },
+        { title: t("Your export is ready"), description: t("Report, October.pdf"), start: <Status dotOnly>{t("Read")}</Status>, end: t("Yesterday"), href: "#" },
+      ]} />
+      <List label={t("Sections (example)")} rows={[
+        { title: t("Home"), start: <Avatar tint="teal" size="sm" square>H</Avatar>, href: "#", current: true },
+        { title: t("Calendar"), start: <Avatar tint="blue" size="sm" square>C</Avatar>, href: "#" },
+        { title: t("Files"), description: t("Only for admins"), start: <Avatar tint="orange" size="sm" square>F</Avatar>, href: "#", disabled: true },
+      ]} />
+    </Grid>
+  );
+}
+
 // ---- navigation -------------------------------------------------------------------------------
 
 function PageHeadDemo({ t }: DemoProps) {
@@ -316,6 +421,20 @@ function PageHeadDemo({ t }: DemoProps) {
         { id: "settings", label: t("Settings"), content: <p>{t("The third view.")}</p> },
       ]} />
     </div>
+  );
+}
+
+function StepperDemo({ t }: DemoProps) {
+  const [step, setStep] = useState(2);
+  const steps = [t("Your details"), t("Contact"), t("Payment"), t("Check and send")];
+  return (
+    <Stack>
+      <Stepper steps={steps} current={step} href={() => "#"} />
+      <Cluster>
+        <Button size="sm" onClick={() => setStep(Math.max(1, step - 1))}>{t("Back")}</Button>
+        <Button size="sm" variant="primary" onClick={() => setStep(Math.min(steps.length, step + 1))}>{t("Continue")}</Button>
+      </Cluster>
+    </Stack>
   );
 }
 
@@ -567,6 +686,33 @@ function TooltipDemo({ t }: DemoProps) {
     <Cluster>
       <Button icon="copy" label={t("Copy link")} data-al-tip={t("Copy link|to this page")} />
       <Button icon="settings" label={t("Settings")} />
+    </Cluster>
+  );
+}
+
+function StatusDemo({ t }: DemoProps) {
+  return (
+    <Stack>
+      <Cluster>
+        <Status tone="success">{t("Online")}</Status>
+        <Status tone="warning">{t("Degraded")}</Status>
+        <Status tone="danger">{t("Down")}</Status>
+        <Status tone="info" live>{t("Deploying")}</Status>
+        <Status>{t("Paused")}</Status>
+      </Cluster>
+      <p>{t("Server one")} <Status tone="success" dotOnly>{t("Online")}</Status></p>
+    </Stack>
+  );
+}
+
+function PopoverDemo({ t }: DemoProps) {
+  return (
+    <Cluster>
+      <Popover label={t("What's a tax code?")} title={t("Tax code")}>
+        <p>{t("It tells your employer how much tax to take from your pay. It's on your payslip.")}</p>
+        <p><a href="#">{t("Find your tax code")}</a></p>
+      </Popover>
+      <span className="al-cluster">{t("Contact angle")} <Popover icon="info" label={t("About the contact angle")} title={t("Contact angle")}>{t("The angle at which the pattern's lines meet the tile's edge: 67.5°.")}</Popover></span>
     </Cluster>
   );
 }
@@ -880,7 +1026,9 @@ export const demos: Demo[] = [
   { id: "space", title: "Space and shape", group: "Foundations", lead: "A 4px step for everything spatial. Corners are crisp (2px); depth comes from borders and surface steps, never shadows.", spec: "docs/foundations/space-and-shape.md", Demo: SpaceDemo },
   { id: "motion", title: "Motion", group: "Foundations", lead: "Quick, and only in answer to something done: 150ms for feedback, 250ms for disclosure and themes. With reduced motion, things change at once.", spec: "docs/foundations/motion.md", Demo: MotionDemo },
   { id: "icons", title: "Icons", group: "Foundations", lead: "Line icons on a 24-unit grid. Those that point along the reading direction mirror in right-to-left.", spec: "docs/foundations/iconography.md", Demo: IconDemo },
+  { id: "prose", title: "Running text", group: "Foundations", lead: "Paragraphs, lists, a quotation, code, keys and a highlight, inside .al-prose: the reading face, the measure, and space between.", spec: "docs/foundations/typography.md", Demo: ProseDemo },
   d("button", "Button", "Actions", "Does something. One primary per view; the label names the action and its object.", "button", ButtonDemo),
+  d("button-group", "Button group", "Actions", "Related actions joined in a row or a column, one border between each. Each is still its own button.", "button", ButtonGroupDemo),
   d("text-link", "Text link", "Actions", "A link that stands on its own: underlined in the accent, with an arrow to a next step, or an icon to another site.", "link", TextLinkDemo),
   d("back-link", "Back link and breadcrumbs", "Actions", "A way back, before the page's title: a back link for the previous step, breadcrumbs for where a page sits.", "breadcrumbs", BreadcrumbsDemo),
   d("text-input", "Text input", "Forms", "A visible label, an optional hint, the field; optional fields say so.", "field", TextInputDemo),
@@ -894,9 +1042,11 @@ export const demos: Demo[] = [
   d("radios", "Radios", "Forms", "One of several, with a sensible default where there is one.", "choice", RadiosDemo),
   d("switch", "Switch", "Forms", "A setting that applies the moment it's flipped: no Save.", "choice", SwitchDemo),
   d("segmented", "Segmented control", "Forms", "Two to five short options, all visible: a choice in a form, or a view switch.", "segmented", SegmentedDemo),
+  d("range", "Range", "Forms", "A value along a scale, with the value itself beside it, in the page's digits and with its unit.", "field", RangeDemo),
+  d("rating", "Rating", "Forms", "One to five, as radios drawn as the mark's star, each named in words: “4 of 5”.", "rating", RatingDemo),
   d("error-summary", "Error summary", "Forms", "When a form is submitted with errors: every error, at the top, each a link to its field. It takes focus, and the page title starts with “Error:”.", "error-summary", ErrorSummaryDemo),
   d("disclosure", "Disclosure", "Content", "What's secondary, folded away, with the value inside shown beside its name.", "disclosure", DisclosureDemo),
-  d("card", "Card, panel and stat", "Content", "A card holds one thing people act on; a panel is a rule above a group; a stat is a figure with its label.", "card", CardDemo),
+  d("card", "Card, panel and stat", "Content", "A card holds one thing people act on, with its actions at its foot; a panel is a rule above a group; a stat is a figure with its label.", "card", CardDemo),
   d("code", "Code and command", "Content", "Code to read or copy, left to right in either language, with the lines that matter marked. A command is one line to paste.", "code", CodeDemo),
   d("feature-tabs", "Feature tabs", "Content", "A column of tabs, each a name and a line about it, beside what the chosen one shows.", "nav", FeatureTabsDemo),
   d("logos", "Logo wall", "Content", "Who uses it, as their marks in one colour, as many to a row as fit. Never a scrolling marquee.", "logos", LogosDemo),
@@ -907,9 +1057,13 @@ export const demos: Demo[] = [
   d("badge", "Badge", "Content", "A short status beside something, in words. Sentence case, never capitals.", "badge", BadgeDemo),
   d("tag", "Tag, highlight and avatar", "Content", "Colour for identity and emphasis, in eight bright tints; never for status.", "tint", TintDemo),
   d("task-list", "Task list", "Content", "The parts of a longer job, each with its status in words; done in any order.", "task-list", TaskListDemo),
+  d("timeline", "Timeline", "Content", "What happened, each event at its time, along a line: a record's history or an activity feed.", "timeline", TimelineDemo),
+  d("list", "List", "Content", "Things of one kind, one to a row: notifications, results, files. A row that opens something is a link from edge to edge.", "list", ListDemo),
   d("section", "Section", "Content", "A band of the page: a hairline from the one before, its heading and lede.", "page-head", SectionDemo),
   d("steps", "Steps", "Content", "A numbered sequence: the stages of how something is done. Only for real sequences.", "steps", StepsDemo),
   d("page-head", "Page head and tabs", "Navigation", "The page's title, what applies to the whole page, then its views.", "page-head", PageHeadDemo),
+  d("pagination", "Pagination", "Navigation", "The pages of a long list: Previous and Next in words, the numbers around this one, the gaps an ellipsis.", "pagination", PaginationDemo),
+  d("stepper", "Stepper", "Navigation", "Where a person is in a flow of a few steps: what's done, this one, what's left, in words.", "stepper", StepperDemo),
   d("sidebar", "Sidebar", "Navigation", "An app's sections, collapsible to icons; on a phone, behind a menu button.", "sidebar", SidebarDemo),
   d("site-header", "Site header", "Navigation", "A website's top bar: the lockup, the sections, and the language and theme controls. Under the md breakpoint the sections fold into a menu.", "site-header", SiteHeaderDemo),
   d("on-this-page", "On this page", "Navigation", "A page's sections beside it, with the one being read marked as it scrolls.", "toc", OnThisPageDemo),
@@ -922,6 +1076,8 @@ export const demos: Demo[] = [
   d("dialog", "Dialog", "Feedback", "A decision that needs attention now. It never loses what was typed, and confirms only what can't be undone. A sheet on small screens.", "dialog", DialogDemo),
   d("menu", "Menu", "Feedback", "Actions on one thing, behind a button. Arrow keys move; Escape closes; destructive items last.", "menu", MenuDemo),
   d("tooltip", "Tooltip", "Feedback", "A short label for an icon or a mark, on hover and on focus. Never essential.", "tooltip", TooltipDemo),
+  d("status", "Status", "Feedback", "A state in a word, with a dot in its colour. The word is the meaning; the dot repeats it.", "status", StatusDemo),
+  d("popover", "Popover", "Feedback", "More about something, when it's asked for: a button opens it beside itself. Escape or a click outside closes it.", "popover", PopoverDemo),
   d("empty-state", "Empty state", "Feedback", "Why there's nothing here, and the next action. Never a dead end.", "empty-state", EmptyStateDemo),
   d("loading", "Loading and progress", "Feedback", "Progress where the work happens: a skeleton, a spinner, or a bar when it can be measured.", "progress", ProgressDemo),
   d("confirmation", "Confirmation", "Feedback", "The end of a flow that sends something: it's done, the reference, then what happens next.", "confirmation", ConfirmationDemo),

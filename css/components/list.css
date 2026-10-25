@@ -1,0 +1,27 @@
+/* List: things of one kind, one to a row, hairlines between: notifications,
+   an inbox, results, a record's files. A row may start with an avatar, an
+   icon or a status, and end with a value or one action. A row that opens
+   something is a link from edge to edge; the one that's open says so
+   (aria-current), with a bar at its start. Flush, inside a card or a menu. */
+.al-list { list-style: none; margin: 0; padding: 0; border: var(--al-border-hairline) solid var(--al-color-line); border-radius: var(--al-radius-sm); background: var(--al-color-surface); overflow: hidden; }
+.al-list--flush { border: 0; border-radius: 0; background: transparent; }
+.al-list > li + li { border-block-start: var(--al-border-hairline) solid var(--al-color-line); }
+.al-list__item {
+  display: flex;
+  align-items: center;
+  gap: var(--al-space-3);
+  min-block-size: var(--al-size-control-md);
+  padding: var(--al-space-3) var(--al-space-4);
+  border-inline-start: 3px solid transparent;
+  color: inherit;
+  text-decoration: none;
+}
+a.al-list__item:hover { background: var(--al-color-surface-sunk); color: var(--al-color-text); }
+a.al-list__item:focus-visible { outline-offset: calc(-1 * var(--al-border-focus)); }
+.al-list__item[aria-current] { border-inline-start-color: var(--al-color-accent); background: var(--al-color-accent-wash); }
+.al-list__item[aria-disabled="true"] { opacity: 0.5; pointer-events: none; }
+.al-list__text { display: flex; flex-direction: column; gap: var(--al-space-0-5); flex: 1; min-inline-size: 0; }
+.al-list__title { font-weight: var(--al-weight-medium); }
+.al-list__description { overflow: hidden; font-size: var(--al-text-sm); color: var(--al-color-text-muted); text-overflow: ellipsis; white-space: nowrap; }
+.al-list__end { flex: none; font-size: var(--al-text-sm); color: var(--al-color-text-muted); }
+@media (forced-colors: active) { .al-list__item[aria-current] { border-inline-start-color: Highlight; } }

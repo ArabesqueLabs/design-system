@@ -2,7 +2,7 @@
 
 axe and `scripts/check-page.mjs` check the markup and the behaviour; neither
 can say what a screen reader actually announces, or when. These are the
-parts of the system where that's most delicate. Run them on the showcase
+parts of the system where that's most delicate. Run them on the Elements page
 before a release, in both languages, and record what you heard below.
 
 ## Setups
@@ -13,7 +13,7 @@ before a release, in both languages, and record what you heard below.
 | NVDA (Windows) | Firefox | ⌃⌥N | ↓ / ↑ (browse mode) | Tab; Insert+Space switches to focus mode |
 | VoiceOver (iOS), optional | Safari | Settings → Accessibility | swipe right / left | double-tap |
 
-For Arabic, switch the showcase to Arabic first. VoiceOver picks its Arabic
+For Arabic, switch the Elements page to Arabic first. VoiceOver picks its Arabic
 voice from `lang="ar"`; for NVDA, install an Arabic voice (Windows OneCore,
 or eSpeak) and turn on automatic language switching in Speech settings.
 

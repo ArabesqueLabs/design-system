@@ -56,6 +56,17 @@ export interface Labels {
   copy: string;
   copied: string;
   copyFailed: string;
+  pagination: string;
+  previousPage: string;
+  nextPage: string;
+  /** "{n}" is the page's number, in the page's digits. */
+  page: string;
+  progress: string;
+  /** "{n}" and "{total}", in the page's digits. */
+  stepOf: string;
+  stepDone: string;
+  /** A rating: "{n}" of "{max}", in the page's digits. */
+  ratingOf: string;
   /** "{name}" is the tag's text. */
   removeTag: string;
   /** "{n}" is the count, in the page's digits. */
@@ -116,6 +127,14 @@ export const englishLabels: Labels = {
   copy: "Copy",
   copied: "Copied",
   copyFailed: "Couldn't copy. The text is selected, so you can copy it yourself.",
+  pagination: "Pagination",
+  previousPage: "Previous",
+  nextPage: "Next",
+  page: "Page {n}",
+  progress: "Progress",
+  stepOf: "Step {n} of {total}",
+  stepDone: "(done)",
+  ratingOf: "{n} of {max}",
   removeTag: "Remove tag {name}",
   selected: "{n} selected",
   countLeftOne: "You have {n} character remaining",
@@ -174,6 +193,14 @@ export const arabicLabels: Labels = {
   copy: "انسخ",
   copied: "نُسخ",
   copyFailed: "تعذّر النسخ. النص محدّد لتنسخه بنفسك.",
+  pagination: "ترقيم الصفحات",
+  previousPage: "السابقة",
+  nextPage: "التالية",
+  page: "الصفحة {n}",
+  progress: "التقدّم",
+  stepOf: "الخطوة {n} من {total}",
+  stepDone: "(اكتملت)",
+  ratingOf: "{n} من {max}",
   removeTag: "أزل وسم {name}",
   selected: "{n} محدّدة",
   countLeftOne: "تبقّى لك حرف واحد",

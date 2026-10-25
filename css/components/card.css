@@ -16,6 +16,12 @@
 .al-card__header { display: flex; flex-direction: column; gap: var(--al-space-1); }
 .al-card__header h2, .al-card__header h3 { font-size: var(--al-text-lg); font-weight: var(--al-weight-medium); letter-spacing: var(--al-tracking-none); }
 .al-card__description { font-size: var(--al-text-sm); color: var(--al-color-text-muted); }
+/* Its actions, at its foot, after a hairline, at the end of the line. */
+.al-card__footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: var(--al-space-2); margin-block-start: auto; padding-block-start: var(--al-space-4); border-block-start: var(--al-border-hairline) solid var(--al-color-line); }
+/* Ribbon: one word pinned to the card's top end corner ("New",
+   "Recommended"), in the accent. One card in a set has one, at most. */
+.al-card:has(> .al-ribbon) { position: relative; padding-block-start: var(--al-space-8); }
+.al-ribbon { position: absolute; inset-block-start: var(--al-space-3); inset-inline-end: calc(-1 * var(--al-border-hairline)); padding: var(--al-space-0-5) var(--al-space-3); border-start-start-radius: var(--al-radius-sm); border-end-start-radius: var(--al-radius-sm); background: var(--al-color-accent); color: var(--al-color-on-accent); font-size: var(--al-text-xs); font-weight: var(--al-weight-semibold); }
 .al-card--interactive { transition: border-color var(--al-duration-fast) var(--al-ease-standard); }
 .al-card--interactive:hover { border-color: var(--al-color-control); }
 .al-card--selected { border-color: var(--al-color-accent); background: color-mix(in oklch, var(--al-color-accent-wash) 60%, var(--al-color-surface)); }

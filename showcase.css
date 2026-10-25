@@ -1,7 +1,8 @@
-/* The showcase page's own frame: its top bar, hero, contents and sections.
-   Not part of the design system. What's inside each example is styled by
-   the system, and by examples/examples.css. The page itself is generated
-   (scripts/build-react.mjs, from examples/src/showcase.tsx). */
+/* The site's own pages' frame: the homepage (examples/src/home.tsx) and
+   the Elements page (examples/src/showcase.tsx): the top bar, the hero, the
+   contents and sections. Not part of the design system. What's inside each
+   example is styled by the system, and by examples/examples.css. The pages
+   are generated (scripts/build-react.mjs). */
 
 main:focus { outline: none; }
 .sc-hero { padding-block: var(--al-space-12) var(--al-space-12); border-block-end: var(--al-border-hairline) solid var(--al-color-line); }
@@ -38,3 +39,18 @@ main:focus { outline: none; }
 /* In the hero, the text keeps to the leading side; the focal tile and its caption sit on the trailing side. */
 .sc-hero.al-pattern--hero .al-stack > :not(.al-pattern__caption) { max-inline-size: min(40rem, 60%); }
 @media (max-width: 52rem) { .sc-hero.al-pattern--hero .al-stack > :not(.al-pattern__caption) { max-inline-size: none; } }
+
+/* The Elements page's own heading, in place of the homepage's hero. */
+.sc-intro { padding-block: var(--al-space-12) 0; }
+.sc-intro__title { font-size: var(--al-text-3xl); }
+
+/* The homepage (examples/src/home.tsx): why, a preview, both directions. */
+.hm-why { --al-grid-min: 14rem; }
+.hm-why__item { display: flex; flex-direction: column; gap: var(--al-space-2); padding-block-start: var(--al-space-4); border-block-start: var(--al-border-hairline) solid var(--al-color-line-strong); }
+.hm-why__item > .al-icon { color: var(--al-color-accent); }
+.hm-why__item > h3 { font-size: var(--al-text-lg); font-weight: var(--al-weight-medium); letter-spacing: var(--al-tracking-none); }
+.hm-preview { --al-grid-min: 18rem; align-items: start; }
+.hm-both { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(22rem, 100%), 1fr)); gap: var(--al-space-6); }
+.hm-faq { max-inline-size: var(--al-size-measure); }
+/* Closer sections than a product page's: about half the system's spacing. */
+.hm-main > .al-section, .hm-main > .al-cta { padding-block: clamp(var(--al-space-8), 1rem + 3vw, var(--al-space-16)); }

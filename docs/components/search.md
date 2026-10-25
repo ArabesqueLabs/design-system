@@ -2,7 +2,7 @@
 
 A search field with a visible label, a search icon and a Clear button.
 
-**CSS:** [`css/components/search.css`](../../css/components/search.css). **Classes:** `.al-icon`, `.al-input`, `.al-search`, `.al-search__clear`.
+**CSS:** [`css/components/search.css`](../../css/components/search.css). **Classes:** `.al-icon`, `.al-input`, `.al-search`, `.al-search__clear`, `.al-input-icon`.
 
 ## Anatomy
 
@@ -20,6 +20,8 @@ A search field with a visible label, a search icon and a Clear button.
 ## Variants and sizes
 
 One size; suggestions with a native `<datalist>` for simple free text.
+
+Any field may have an icon at its start the same way, without Clear: `.al-input-icon` around the icon and the input (in React, `Input`'s `icon`). The icon says what goes in ("mail"); the label still names the field.
 
 ## States
 

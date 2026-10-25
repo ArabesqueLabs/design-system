@@ -49,6 +49,17 @@ export interface Labels {
     copy: string;
     copied: string;
     copyFailed: string;
+    pagination: string;
+    previousPage: string;
+    nextPage: string;
+    /** "{n}" is the page's number, in the page's digits. */
+    page: string;
+    progress: string;
+    /** "{n}" and "{total}", in the page's digits. */
+    stepOf: string;
+    stepDone: string;
+    /** A rating: "{n}" of "{max}", in the page's digits. */
+    ratingOf: string;
     /** "{name}" is the tag's text. */
     removeTag: string;
     /** "{n}" is the count, in the page's digits. */

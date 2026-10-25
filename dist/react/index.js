@@ -51,6 +51,14 @@ var englishLabels = {
   copy: "Copy",
   copied: "Copied",
   copyFailed: "Couldn't copy. The text is selected, so you can copy it yourself.",
+  pagination: "Pagination",
+  previousPage: "Previous",
+  nextPage: "Next",
+  page: "Page {n}",
+  progress: "Progress",
+  stepOf: "Step {n} of {total}",
+  stepDone: "(done)",
+  ratingOf: "{n} of {max}",
   removeTag: "Remove tag {name}",
   selected: "{n} selected",
   countLeftOne: "You have {n} character remaining",
@@ -107,6 +115,14 @@ var arabicLabels = {
   copy: "انسخ",
   copied: "نُسخ",
   copyFailed: "تعذّر النسخ. النص محدّد لتنسخه بنفسك.",
+  pagination: "ترقيم الصفحات",
+  previousPage: "السابقة",
+  nextPage: "التالية",
+  page: "الصفحة {n}",
+  progress: "التقدّم",
+  stepOf: "الخطوة {n} من {total}",
+  stepDone: "(اكتملت)",
+  ratingOf: "{n} من {max}",
   removeTag: "أزل وسم {name}",
   selected: "{n} محدّدة",
   countLeftOne: "تبقّى لك حرف واحد",
@@ -175,6 +191,9 @@ function Button(props) {
   }
   const { type = "button", ...button } = rest;
   return /* @__PURE__ */ jsx3("button", { type, className: classes, "aria-busy": busy || void 0, ...named, ...button, children: inner });
+}
+function ButtonGroup({ label, vertical, className, ...rest }) {
+  return /* @__PURE__ */ jsx3("div", { role: "group", "aria-label": label, className: cx("al-button-group", vertical && "al-button-group--vertical", className), ...rest });
 }
 
 // react/src/layout.tsx
@@ -274,9 +293,13 @@ function ErrorMessage({ className, children, ...rest }) {
     children
   ] });
 }
-function Input({ number, className, ...rest }) {
+function Input({ number, icon, className, ...rest }) {
   const field = useField(rest);
-  return /* @__PURE__ */ jsx5("input", { className: cx("al-input", number && "al-input--number", className), inputMode: number ? "decimal" : void 0, ...rest, ...field });
+  const input = /* @__PURE__ */ jsx5("input", { className: cx("al-input", number && "al-input--number", className), inputMode: number ? "decimal" : void 0, ...rest, ...field });
+  return icon ? /* @__PURE__ */ jsxs3("div", { className: "al-input-icon", children: [
+    /* @__PURE__ */ jsx5(Icon, { name: icon }),
+    input
+  ] }) : input;
 }
 function Select({ className, ...rest }) {
   const field = useField(rest);
@@ -371,14 +394,16 @@ function Disclosure({ summary, value, className, children, ...rest }) {
 
 // react/src/card.tsx
 import { jsx as jsx9, jsxs as jsxs7 } from "react/jsx-runtime";
-function Card({ title, level = 3, description, interactive, selected, className, children, ...rest }) {
+function Card({ title, level = 3, description, interactive, selected, footer, ribbon, className, children, ...rest }) {
   const H = `h${level}`;
   return /* @__PURE__ */ jsxs7("article", { className: cx("al-card", interactive && "al-card--interactive", selected && "al-card--selected", className), ...rest, children: [
     (title || description) && /* @__PURE__ */ jsxs7("header", { className: "al-card__header", children: [
       title && /* @__PURE__ */ jsx9(H, { children: title }),
       description && /* @__PURE__ */ jsx9("p", { className: "al-card__description", children: description })
     ] }),
-    children
+    ribbon && /* @__PURE__ */ jsx9("p", { className: "al-ribbon", children: ribbon }),
+    children,
+    footer && /* @__PURE__ */ jsx9("footer", { className: "al-card__footer", children: footer })
   ] });
 }
 function Panel({ as, className, ...rest }) {
@@ -665,12 +690,15 @@ function Shell({ label, links, footLinks = [], defaultCollapsed = false, onColla
 
 // react/src/footer.tsx
 import { jsx as jsx16, jsxs as jsxs13 } from "react/jsx-runtime";
-function Footer({ lockup, links, legal, className, children, ...rest }) {
+function Footer({ lockup, links, legal, attribution, className, children, ...rest }) {
+  const first = lockup === false;
+  const legalLine = legal && /* @__PURE__ */ jsx16("p", { className: "al-footer__legal", children: legal });
   return /* @__PURE__ */ jsxs13("footer", { className: cx("al-footer", className), ...rest, children: [
-    lockup ?? /* @__PURE__ */ jsx16(Lockup, {}),
+    first ? legalLine : lockup ?? /* @__PURE__ */ jsx16(Lockup, {}),
     children,
     links && links.length > 0 && /* @__PURE__ */ jsx16("ul", { className: "al-footer__links", children: links.map((l) => /* @__PURE__ */ jsx16("li", { children: /* @__PURE__ */ jsx16("a", { href: l.href, children: l.label }) }, l.href)) }),
-    legal && /* @__PURE__ */ jsx16("p", { className: "al-footer__legal", children: legal })
+    !first && legalLine,
+    attribution && /* @__PURE__ */ jsx16("div", { className: "al-footer__attribution", children: attribution })
   ] });
 }
 
@@ -1420,29 +1448,215 @@ function TaskList({ tasks, className }) {
 }
 
 // react/src/tint.tsx
-import { jsx as jsx43 } from "react/jsx-runtime";
+import { jsx as jsx43, jsxs as jsxs37 } from "react/jsx-runtime";
 var tints = ["teal", "green", "yellow", "orange", "pink", "purple", "blue", "cyan"];
 function Highlight({ tint = "teal", className, ...rest }) {
   return /* @__PURE__ */ jsx43("mark", { className: cx("al-highlight", className), "data-tint": tint, ...rest });
 }
-function Avatar({ tint = "teal", large, className, ...rest }) {
-  return /* @__PURE__ */ jsx43("span", { className: cx("al-avatar", large && "al-avatar--lg", className), "data-tint": tint, "aria-hidden": "true", ...rest });
+function Avatar({ tint = "teal", size, large, square, className, ...rest }) {
+  const s = size ?? (large ? "lg" : "md");
+  return /* @__PURE__ */ jsx43("span", { className: cx("al-avatar", s !== "md" && `al-avatar--${s}`, square && "al-avatar--square", className), "data-tint": tint, "aria-hidden": "true", ...rest });
+}
+function AvatarStack({ label, children, more, className }) {
+  return /* @__PURE__ */ jsxs37("span", { className: cx("al-avatars", className), children: [
+    children,
+    more && /* @__PURE__ */ jsx43("span", { className: "al-avatar", "aria-hidden": "true", children: /* @__PURE__ */ jsx43("bdi", { children: more }) }),
+    /* @__PURE__ */ jsx43("span", { className: "al-visually-hidden", children: label })
+  ] });
 }
 
 // react/src/link.tsx
-import { Fragment as Fragment15, jsx as jsx44, jsxs as jsxs37 } from "react/jsx-runtime";
+import { Fragment as Fragment15, jsx as jsx44, jsxs as jsxs38 } from "react/jsx-runtime";
 function TextLink({ arrow, external, muted, className, children, ...rest }) {
   const { labels } = useArabesque();
-  return /* @__PURE__ */ jsxs37("a", { className: cx("al-link", arrow && "al-link--arrow", muted && "al-link--muted", className), ...external ? { target: "_blank", rel: "noopener" } : {}, ...rest, children: [
+  return /* @__PURE__ */ jsxs38("a", { className: cx("al-link", arrow && "al-link--arrow", muted && "al-link--muted", className), ...external ? { target: "_blank", rel: "noopener" } : {}, ...rest, children: [
     children,
     arrow && /* @__PURE__ */ jsx44(Icon, { name: "arrow" }),
-    external && /* @__PURE__ */ jsxs37(Fragment15, { children: [
+    external && /* @__PURE__ */ jsxs38(Fragment15, { children: [
       /* @__PURE__ */ jsx44(Icon, { name: "external" }),
-      /* @__PURE__ */ jsxs37("span", { className: "al-visually-hidden", children: [
+      /* @__PURE__ */ jsxs38("span", { className: "al-visually-hidden", children: [
         " ",
         labels.newTab
       ] })
     ] })
+  ] });
+}
+
+// react/src/pagination.tsx
+import { formatNumber as formatNumber5 } from "../../js/format.js";
+import { jsx as jsx45, jsxs as jsxs39 } from "react/jsx-runtime";
+function pageRange(page, pages) {
+  const run = (from, to) => Array.from({ length: to - from + 1 }, (_, i) => from + i);
+  if (pages <= 7) return run(1, pages);
+  if (page <= 4) return [...run(1, 5), null, pages];
+  if (page >= pages - 3) return [1, null, ...run(pages - 4, pages)];
+  return [1, null, page - 1, page, page + 1, null, pages];
+}
+function Pagination({ page, pages, href, onNavigate, className }) {
+  const { labels, lang, numerals } = useArabesque();
+  if (pages < 2) return null;
+  const n = (v) => formatNumber5(v, { lang, numerals });
+  const go = (p) => onNavigate && ((e) => onNavigate(p, e));
+  return /* @__PURE__ */ jsx45("nav", { className: cx("al-pagination", className), "aria-label": labels.pagination, children: /* @__PURE__ */ jsxs39("ul", { children: [
+    page > 1 && /* @__PURE__ */ jsx45("li", { children: /* @__PURE__ */ jsxs39("a", { className: "al-pagination__prev", href: href(page - 1), rel: "prev", onClick: go(page - 1), children: [
+      /* @__PURE__ */ jsx45(Icon, { name: "chevron", size: "sm" }),
+      labels.previousPage
+    ] }) }),
+    pageRange(page, pages).map((p, i) => /* @__PURE__ */ jsx45("li", { children: p === null ? /* @__PURE__ */ jsx45("span", { className: "al-pagination__gap", "aria-hidden": "true", children: "…" }) : /* @__PURE__ */ jsx45("a", { href: href(p), "aria-label": fill(labels.page, { n: n(p) }), "aria-current": p === page ? "page" : void 0, onClick: go(p), children: n(p) }) }, p ?? `gap-${i}`)),
+    page < pages && /* @__PURE__ */ jsx45("li", { children: /* @__PURE__ */ jsxs39("a", { className: "al-pagination__next", href: href(page + 1), rel: "next", onClick: go(page + 1), children: [
+      labels.nextPage,
+      /* @__PURE__ */ jsx45(Icon, { name: "chevron", size: "sm" })
+    ] }) })
+  ] }) });
+}
+
+// react/src/status.tsx
+import { Fragment as Fragment16, jsx as jsx46, jsxs as jsxs40 } from "react/jsx-runtime";
+function Status({ tone = "neutral", live, dotOnly, className, children, ...rest }) {
+  return /* @__PURE__ */ jsx46("span", { className: cx("al-status", tone !== "neutral" && `al-status--${tone}`, live && "al-status--live", className), ...rest, children: dotOnly ? /* @__PURE__ */ jsx46("span", { className: "al-visually-hidden", children }) : children });
+}
+function Timeline({ events, className }) {
+  return /* @__PURE__ */ jsx46("ol", { className: cx("al-timeline", className), children: events.map((e, i) => /* @__PURE__ */ jsxs40("li", { children: [
+    /* @__PURE__ */ jsx46("span", { className: "al-timeline__marker", "data-tone": e.tone, "aria-hidden": "true", children: e.icon && /* @__PURE__ */ jsx46(Icon, { name: e.icon, size: "sm" }) }),
+    /* @__PURE__ */ jsxs40("div", { className: "al-timeline__event", children: [
+      /* @__PURE__ */ jsx46("span", { className: "al-timeline__time", children: e.time }),
+      /* @__PURE__ */ jsx46("p", { className: "al-timeline__title", children: e.title }),
+      e.body && /* @__PURE__ */ jsx46("div", { className: "al-timeline__body", children: e.body })
+    ] })
+  ] }, i)) });
+}
+function List({ rows, flush, label, className }) {
+  return /* @__PURE__ */ jsx46("ul", { className: cx("al-list", flush && "al-list--flush", className), "aria-label": label, role: "list", children: rows.map((r, i) => {
+    const inner = /* @__PURE__ */ jsxs40(Fragment16, { children: [
+      r.start,
+      /* @__PURE__ */ jsxs40("span", { className: "al-list__text", children: [
+        /* @__PURE__ */ jsx46("span", { className: "al-list__title", children: r.title }),
+        r.description && /* @__PURE__ */ jsx46("span", { className: "al-list__description", children: r.description })
+      ] }),
+      r.end && /* @__PURE__ */ jsx46("span", { className: "al-list__end", children: r.end })
+    ] });
+    return /* @__PURE__ */ jsx46("li", { children: r.href ? /* @__PURE__ */ jsx46("a", { className: "al-list__item", href: r.href, "aria-current": r.current ? "page" : void 0, "aria-disabled": r.disabled || void 0, tabIndex: r.disabled ? -1 : void 0, children: inner }) : /* @__PURE__ */ jsx46("div", { className: "al-list__item", "aria-current": r.current || void 0, children: inner }) }, i);
+  }) });
+}
+
+// react/src/rating.tsx
+import { formatNumber as formatNumber6 } from "../../js/format.js";
+import { jsx as jsx47, jsxs as jsxs41 } from "react/jsx-runtime";
+function Rating({ legend, name, value, defaultValue, onChange, max = 5, className }) {
+  const { labels, lang, numerals } = useArabesque();
+  const group = useStableId(name, "rating");
+  const n = (v) => formatNumber6(v, { lang, numerals });
+  return /* @__PURE__ */ jsxs41("fieldset", { className: cx("al-fieldset", className), children: [
+    /* @__PURE__ */ jsx47("legend", { children: legend }),
+    /* @__PURE__ */ jsx47("div", { className: "al-rating", children: Array.from({ length: max }, (_, i) => i + 1).map((v) => /* @__PURE__ */ jsxs41("label", { className: "al-rating__star", children: [
+      /* @__PURE__ */ jsx47(
+        "input",
+        {
+          type: "radio",
+          name: group,
+          value: v,
+          checked: value === void 0 ? void 0 : value === v,
+          defaultChecked: defaultValue === void 0 ? void 0 : defaultValue === v,
+          onChange: () => onChange?.(v)
+        }
+      ),
+      /* @__PURE__ */ jsx47("span", { className: "al-visually-hidden", children: fill(labels.ratingOf, { n: n(v), max: n(max) }) })
+    ] }, v)) })
+  ] });
+}
+function RatingValue({ value, max = 5, className }) {
+  const { labels, lang, numerals } = useArabesque();
+  const n = (v) => formatNumber6(v, { lang, numerals });
+  return /* @__PURE__ */ jsx47("span", { className: cx("al-rating", className), role: "img", "aria-label": fill(labels.ratingOf, { n: n(value), max: n(max) }), children: Array.from({ length: max }, (_, i) => /* @__PURE__ */ jsx47("span", { className: cx("al-rating__star", i < Math.round(value) && "al-rating__star--on") }, i)) });
+}
+
+// react/src/stepper.tsx
+import { formatNumber as formatNumber7 } from "../../js/format.js";
+import { Fragment as Fragment17, jsx as jsx48, jsxs as jsxs42 } from "react/jsx-runtime";
+function Stepper({ steps, current, href, className }) {
+  const { labels, lang, numerals } = useArabesque();
+  const n = (v) => formatNumber7(v, { lang, numerals });
+  return /* @__PURE__ */ jsxs42("nav", { className: cx("al-stepper", className), "aria-label": labels.progress, children: [
+    /* @__PURE__ */ jsx48("p", { className: "al-stepper__count", children: fill(labels.stepOf, { n: n(current), total: n(steps.length) }) }),
+    /* @__PURE__ */ jsx48("ol", { children: steps.map((name, i) => {
+      const step = i + 1;
+      const done = step < current;
+      const to = done ? href?.(step) : void 0;
+      const label = /* @__PURE__ */ jsxs42(Fragment17, { children: [
+        /* @__PURE__ */ jsx48("span", { className: "al-stepper__name", children: name }),
+        done && /* @__PURE__ */ jsxs42("span", { className: "al-visually-hidden", children: [
+          " ",
+          labels.stepDone
+        ] })
+      ] });
+      return /* @__PURE__ */ jsxs42("li", { "data-done": done ? "" : void 0, "aria-current": step === current ? "step" : void 0, children: [
+        done ? /* @__PURE__ */ jsx48(Icon, { name: "check", size: "sm" }) : /* @__PURE__ */ jsx48("span", { className: "al-stepper__num", "aria-hidden": "true", children: n(step) }),
+        to ? /* @__PURE__ */ jsx48("a", { href: to, children: label }) : /* @__PURE__ */ jsx48("span", { children: label })
+      ] }, i);
+    }) })
+  ] });
+}
+
+// react/src/popover.tsx
+import { useEffect as useEffect20, useRef as useRef18 } from "react";
+import { initPopovers } from "../../js/popover.js";
+import { jsx as jsx49, jsxs as jsxs43 } from "react/jsx-runtime";
+function Popover({ label, icon, title, children, id, className }) {
+  const ref = useRef18(null);
+  const popId = useStableId(id, "popover");
+  useEffect20(() => {
+    if (ref.current) initPopovers(ref.current);
+  }, []);
+  useTooltips(!!icon);
+  return /* @__PURE__ */ jsxs43("span", { ref, className, style: { display: "contents" }, children: [
+    /* @__PURE__ */ jsx49(
+      "button",
+      {
+        type: "button",
+        className: cx("al-button", icon ? "al-button--icon" : "al-button--sm"),
+        popoverTarget: popId,
+        "aria-expanded": "false",
+        "aria-label": icon ? label : void 0,
+        "data-al-tip": icon ? label : void 0,
+        children: icon ? /* @__PURE__ */ jsx49(Icon, { name: icon }) : label
+      }
+    ),
+    /* @__PURE__ */ jsxs43("div", { className: "al-popover", id: popId, popover: "auto", role: "dialog", "aria-labelledby": `${popId}-title`, children: [
+      /* @__PURE__ */ jsx49("p", { className: "al-popover__title", id: `${popId}-title`, children: title }),
+      typeof children === "string" ? /* @__PURE__ */ jsx49("p", { children }) : children
+    ] })
+  ] });
+}
+
+// react/src/range.tsx
+import { useState as useState3 } from "react";
+import { formatNumber as formatNumber8 } from "../../js/format.js";
+import { jsx as jsx50, jsxs as jsxs44 } from "react/jsx-runtime";
+function Range({ value, defaultValue, onChange, format, min = 0, max = 100, className, ...rest }) {
+  const { lang, numerals } = useArabesque();
+  const field = useField(rest);
+  const [own, setOwn] = useState3(defaultValue ?? Number(min));
+  const v = value ?? own;
+  const text = format ? format(v) : formatNumber8(v, { lang, numerals });
+  return /* @__PURE__ */ jsxs44("div", { className: cx("al-range", className), children: [
+    /* @__PURE__ */ jsx50(
+      "input",
+      {
+        type: "range",
+        min,
+        max,
+        value: v,
+        "aria-valuetext": text,
+        ...rest,
+        ...field,
+        onChange: (e) => {
+          const next = Number(e.target.value);
+          setOwn(next);
+          onChange?.(next);
+        }
+      }
+    ),
+    /* @__PURE__ */ jsx50("output", { htmlFor: field.id, "aria-hidden": "true", children: text })
   ] });
 }
 export {
@@ -1454,6 +1668,7 @@ export {
   ArabesqueProvider,
   Attribution,
   Avatar,
+  AvatarStack,
   BackLink,
   BackToTop,
   Badge,
@@ -1462,6 +1677,7 @@ export {
   BulkBar,
   BulletChart,
   Button,
+  ButtonGroup,
   CallToAction,
   Card,
   CharacterCount,
@@ -1497,6 +1713,7 @@ export {
   Input,
   Kbd,
   LanguageLink,
+  List,
   Lockup,
   LogoWordmark,
   Logos,
@@ -1507,12 +1724,17 @@ export {
   OnThisPage,
   Page,
   PageHead,
+  Pagination,
   Panel,
   Pattern,
   PhaseBanner,
+  Popover,
   Progress,
   Quote,
   Radio,
+  Range,
+  Rating,
+  RatingValue,
   RollbackNote,
   STAR_PATH,
   SaveState,
@@ -1537,6 +1759,8 @@ export {
   Star,
   Stat,
   Stats,
+  Status,
+  Stepper,
   Steps,
   SummaryList,
   Switch,
@@ -1547,6 +1771,7 @@ export {
   TextLink,
   Textarea,
   ThemeToggle,
+  Timeline,
   VisuallyHidden,
   Wordmark,
   arabicLabels,
@@ -1555,6 +1780,7 @@ export {
   fill,
   iconNames,
   languageNames,
+  pageRange,
   tints,
   toast,
   useArabesque,

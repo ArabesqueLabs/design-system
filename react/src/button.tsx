@@ -46,3 +46,15 @@ export function Button(props: ButtonProps) {
   const { type = "button", ...button } = rest as ComponentProps<"button">;
   return <button type={type} className={classes} aria-busy={busy || undefined} {...named} {...button}>{inner}</button>;
 }
+
+export interface ButtonGroupProps extends ComponentProps<"div"> {
+  /** What the buttons are for together ("Text alignment"). */
+  label: string;
+  /** One under another. */
+  vertical?: boolean;
+}
+
+/** Related buttons joined, one border between each: each still its own button. */
+export function ButtonGroup({ label, vertical, className, ...rest }: ButtonGroupProps) {
+  return <div role="group" aria-label={label} className={cx("al-button-group", vertical && "al-button-group--vertical", className)} {...rest} />;
+}

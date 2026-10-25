@@ -1,0 +1,35 @@
+/* The site's own pages' shared frame: its footer, on the homepage, the
+   Elements page and the documents' pages (examples/src/site.tsx's
+   SiteFooter), as hunt's footer (careerhunt.app). Not part of the design
+   system. Tokens only, logical properties only. */
+
+/* What Arabesque is, with the attribution badge, beside three columns of
+   links; who made it and its licences under them. */
+.sc-foot { gap: var(--al-space-8) var(--al-space-12); padding-block: var(--al-space-12) var(--al-space-8); }
+.sc-foot__about { max-inline-size: 22rem; }
+.sc-foot__brand { display: inline-flex; align-items: center; gap: var(--al-space-2); color: var(--al-color-text); text-decoration: none; font-size: var(--al-text-lg); }
+.sc-foot__brand .al-mark { inline-size: 1.5em; block-size: 1.5em; }
+.sc-foot__blurb { margin: var(--al-space-4) 0 0; line-height: 1.6; }
+.sc-foot__cols { display: grid; grid-template-columns: repeat(3, minmax(9rem, auto)); gap: var(--al-space-8) var(--al-space-16); }
+.sc-foot__cols h2 { margin: 0 0 var(--al-space-3); font-family: var(--al-font-sans); font-size: var(--al-text-sm); font-weight: var(--al-weight-medium); letter-spacing: var(--al-tracking-none); color: var(--al-color-text); }
+.sc-foot__cols .al-footer__links { flex-direction: column; gap: var(--al-space-2); margin: 0; }
+.sc-foot .al-footer__legal { margin-block-start: var(--al-space-4); padding-block-start: var(--al-space-6); border-block-start: var(--al-border-hairline) solid var(--al-color-line); }
+.sc-foot .al-footer__legal p { margin: 0; line-height: 1.6; }
+.sc-foot .al-footer__legal a { color: inherit; }
+@media (max-width: 52rem) {
+  /* One column, not wrapping: the legal lines' full width would otherwise
+     wrap them into a second column, off a phone's screen. */
+  .sc-foot { flex-direction: column; flex-wrap: nowrap; }
+  .sc-foot__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--al-space-8); }
+}
+
+/* The attribution badge, as an image: the one for the theme in use. */
+.sc-attribution { display: inline-block; margin-block-start: var(--al-space-5); line-height: 0; border-radius: var(--al-radius-full); }
+.sc-attribution img { block-size: auto; max-inline-size: 100%; }
+.sc-attribution__on-dark { display: none; }
+:root[data-theme="dark"] .sc-attribution__on-light { display: none; }
+:root[data-theme="dark"] .sc-attribution__on-dark { display: inline; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .sc-attribution__on-light { display: none; }
+  :root:not([data-theme="light"]) .sc-attribution__on-dark { display: inline; }
+}

@@ -4,7 +4,7 @@
 
 حقل بحث بتسمية ظاهرة وأيقونة بحث وزر مسح.
 
-**CSS:** [`css/components/search.css`](../../../css/components/search.css). **الأصناف:** `.al-icon`، `.al-input`، `.al-search`، `.al-search__clear`.
+**CSS:** [`css/components/search.css`](../../../css/components/search.css). **الأصناف:** `.al-icon`، `.al-input`، `.al-search`، `.al-search__clear`، `.al-input-icon`.
 
 ## البنية
 
@@ -22,6 +22,8 @@
 ## الأنواع والأحجام
 
 حجم واحد؛ واقتراحات بعنصر `<datalist>` أصلي للنص الحر البسيط.
+
+ويمكن لأي حقل أن تكون في بدايته أيقونة بالطريقة نفسها، بلا زر المسح: `.al-input-icon` حول الأيقونة والحقل (وفي React الخاصية `icon` للمكوّن `Input`). تقول الأيقونة ما يُكتب فيه («mail»)؛ ويبقى العنوان هو ما يسمّي الحقل.
 
 ## الحالات
 

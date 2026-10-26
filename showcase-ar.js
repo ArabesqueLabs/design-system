@@ -26,7 +26,7 @@ export default {
   "Design system": "نظام التصميم",
   "Elements": "العناصر",
   "Examples": "الأمثلة",
-  "Using it": "دليل الاستخدام",
+  "Docs": "التوثيق",
   "Foundations": "الأسس",
   "Patterns": "الأنماط",
   "Language": "اللغة",

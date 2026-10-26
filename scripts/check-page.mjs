@@ -277,10 +277,10 @@ check("showcase: a range says its value in words", await p.run(`document.querySe
 // Specs are pages: in the page's language where they're translated, in English where they aren't.
 const specLinks = async () => p.run(`({ date: document.querySelector("#date-picker .sc-spec a").getAttribute("href"), colour: document.querySelector("#colour .sc-spec a").getAttribute("href"), how: [...document.querySelectorAll(".sc-intro a")].find((a) => a.href.includes("README"))?.getAttribute("href") })`);
 const specsEn = await specLinks();
-check("showcase: specs link to their pages", specsEn.date === "../docs/components/date-picker.html" && specsEn.colour === "../docs/foundations/colour.html" && specsEn.how === "../README.html#use-it-in-a-project", JSON.stringify(specsEn));
+check("showcase: specs link to their pages", specsEn.date === "../docs/components/date-picker/" && specsEn.colour === "../docs/foundations/colour/" && specsEn.how === "../README.html#use-it-in-a-project", JSON.stringify(specsEn));
 await open(p, { lang: "ar" });
 const specsAr = await specLinks();
-check("showcase: in Arabic, to the Arabic spec, the Arabic README, and the English where there's no translation", specsAr.date === "../../docs/components/ar/date-picker.html" && specsAr.colour === "../../docs/foundations/colour.html" && specsAr.how === "../../ar/README.html#استخدامه-في-مشروع", JSON.stringify(specsAr));
+check("showcase: in Arabic, to the Arabic spec, the Arabic README, and the English where there's no translation", specsAr.date === "../../ar/docs/components/date-picker/" && specsAr.colour === "../../docs/foundations/colour/" && specsAr.how === "../../ar/README.html#استخدامه-في-مشروع", JSON.stringify(specsAr));
 check("showcase: in Arabic, its language link goes to the English page", await p.run(`document.querySelector('.al-site-header a.al-language')?.getAttribute("href") === "../../elements/index.html"`));
 check("showcase: in Arabic, the demos are in Arabic", await p.run(`document.querySelector("#button .al-button--primary").textContent === "حفظ التغييرات" && document.documentElement.dir === "rtl"`));
 const digits = `document.querySelector('.sc-top [role=group]:not(:has(button[lang])) button[aria-pressed="false"]')?.click()`;
@@ -418,8 +418,9 @@ await inTabs(both(examples), async (tab, [file, theme]) => {
   check(`examples/${file}, ${theme}: React ran, with no errors`, ready && !tab.errors.length && !tab.consoleErrors.length, [...tab.errors, ...tab.consoleErrors].join(" | "));
 });
 
-// The documents, as pages: the README in both languages, a guide, a spec in both.
-await inTabs(both([["README.html", "en"], ["ar/README.html", "ar"], ["docs/react.html", "en"], ["docs/components/button.html", "en"], ["docs/components/ar/button.html", "ar"], ["CHANGELOG.html", "en"]]), async (tab, [[file, lang], theme]) => {
+// The documents, as pages: the README in both languages, and the changelog
+// (docs/ is the Docusaurus site's: docusaurus/).
+await inTabs(both([["README.html", "en"], ["ar/README.html", "ar"], ["CHANGELOG.html", "en"]]), async (tab, [[file, lang], theme]) => {
   tab.errors.length = 0;
   await open(tab, { url: `${origin}/${file}`, theme, ready: `document.readyState === "complete"` });
   await wait(200);
@@ -427,7 +428,7 @@ await inTabs(both([["README.html", "en"], ["ar/README.html", "ar"], ["docs/react
   check(`${file}, ${theme}: its own page, with no errors`, !tab.errors.length && await tab.run(`document.documentElement.lang === "${lang}" && !!document.querySelector("main h1") && !!document.querySelector(".al-site-header")`), tab.errors.join(" | "));
 });
 await open(p, { url: `${origin}/README.html#use-it-in-a-project`, ready: `document.readyState === "complete"` });
-check("README.html: How to use it lands on its section", await p.run(`!!document.getElementById("use-it-in-a-project") && [...document.querySelectorAll("main a[href]")].some((a) => a.getAttribute("href") === "docs/react.html")`));
+check("README.html: How to use it lands on its section", await p.run(`!!document.getElementById("use-it-in-a-project") && [...document.querySelectorAll("main a[href]")].some((a) => a.getAttribute("href") === "docs/react/")`));
 
 // The template: static, wired by the helpers alone.
 await inTabs(both([["templates/home.html", "en"], ["templates/ar/home.html", "ar"]]), async (tab, [[file, lang], theme]) => {

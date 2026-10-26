@@ -1,0 +1,44 @@
+{
+  "name": "arabesque-design-system-docs",
+  "private": true,
+  "scripts": {
+    "sync": "node scripts/sync.mjs",
+    "start": "node scripts/sync.mjs && docusaurus start",
+    "build": "node scripts/sync.mjs && docusaurus build",
+    "serve": "docusaurus serve",
+    "clear": "docusaurus clear"
+  },
+  "dependencies": {
+    "@arabesquelabs/docusaurus-theme-arabesque": "0.3.0",
+    "@docusaurus/core": "3.10.2",
+    "@docusaurus/faster": "3.10.2",
+    "@docusaurus/preset-classic": "3.10.2",
+    "@easyops-cn/docusaurus-search-local": "0.55.3",
+    "@mdx-js/react": "^3.0.0",
+    "clsx": "^2.0.0",
+    "prism-react-renderer": "^2.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "engines": {
+    "node": ">=20.0"
+  },
+  "allowScripts": {
+    "@swc/core@1.16.18": true,
+    "core-js@3.51.0": true,
+    "core-js-pure@3.51.0": true,
+    "fsevents@2.3.3": true
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 5 safari version"
+    ]
+  }
+}

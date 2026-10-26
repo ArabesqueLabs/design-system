@@ -7,9 +7,9 @@ helpers (`js/`) for what they do. The CSS stays the system; React is one
 way to write its markup. hunt and any page without React use the classes
 and the helpers directly, as before.
 
-See them working, in English and Arabic, light and dark, in
-[`examples/`](../examples/index.html) (serve the repository, then open
-`/examples/`). The studio homepage template is built from them:
+See them working, in English and Arabic, light and dark, on the
+[example pages](../examples/index.html) (in a checkout, `npm run serve`,
+then `/examples/`). The studio homepage template is built from them:
 [`templates/react/home.tsx`](../templates/react/home.tsx).
 
 ## Use it

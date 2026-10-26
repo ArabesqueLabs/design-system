@@ -1,0 +1,9 @@
+node_modules/
+.docusaurus/
+build/
+# Written by scripts/sync.mjs from the repository's docs/.
+/docs/
+/i18n/ar/docusaurus-plugin-content-docs/current/
+/sidebar.json
+/static/
+/.site/

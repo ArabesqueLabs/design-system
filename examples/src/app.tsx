@@ -6,6 +6,7 @@ import { ArabesqueMark, ArabesqueProvider, BackToTop, Badge, BackLink, Hero, Her
 import { REPO, onGitHub } from "./repo.js";
 import { extra } from "./ar.js";
 import { demos, groups, type Demo, type T } from "./demos.js";
+import { docAddress } from "../../docusaurus/address.mjs";
 
 const SPRITE = "../dist/icons.svg";
 const catalogue: Record<string, string> = { ...(AR as Record<string, string>), ...extra };
@@ -26,7 +27,7 @@ export const translator = (lang: "en" | "ar", missing?: Set<string>): T => (s) =
 /** The site header, as on the Elements page and the docs; `gallery` on the examples' own index. */
 const Top = ({ gallery }: { gallery?: boolean }) => (
   <SiteHeader sticky menuId="site-menu" lockup={<Lockup className="al-site-header__lockup" href="../index.html" mark={<ArabesqueMark />} name={<span className="al-wordmark" lang="en">Arabesque</span>} product="Design system" />}
-    links={[{ label: "Elements", href: "../elements/index.html" }, { label: "Examples", href: "index.html", current: gallery }, { label: "Using it", href: "../README.html" }]}
+    links={[{ label: "Elements", href: "../elements/index.html" }, { label: "Examples", href: "index.html", current: gallery }, { label: "Docs", href: "../docs/" }]}
     tools={<TextLink muted external href={REPO}><span lang="en">GitHub</span></TextLink>} />
 );
 
@@ -39,7 +40,7 @@ export function ExamplePage({ demo, missing }: { demo: Demo; missing?: Set<strin
         <BackLink href="index.html">All components</BackLink>
         <h1 className="ex-title">{demo.title}</h1>
         <p className="al-lede">{demo.lead}</p>
-        <p className="ex-spec"><a href={`../${demo.spec.replace(/\.md$/, ".html")}`}>Read the spec</a> · <a href={`../elements/index.html#${demo.id}`}>On the Elements page</a> · <TextLink external href={onGitHub("examples/src/demos.tsx")}>The demo&apos;s source</TextLink></p>
+        <p className="ex-spec"><a href={`..${docAddress(demo.spec)}`}>Read the spec</a> · <a href={`../elements/index.html#${demo.id}`}>On the Elements page</a> · <TextLink external href={onGitHub("examples/src/demos.tsx")}>The demo&apos;s source</TextLink></p>
         <section className="ex-example" aria-labelledby="en-h">
           <h2 className="ex-h" id="en-h">English</h2>
           <Shown t={translator("en")} />
@@ -56,6 +57,22 @@ export function ExamplePage({ demo, missing }: { demo: Demo; missing?: Set<strin
   );
 }
 
+/**
+ * The demo alone, in one language, for the documents' site to show beside
+ * its spec (examples/<id>.html?embed&lang=ar&theme=dark, in an iframe:
+ * docusaurus/src/components/Demo).
+ */
+export function ExampleEmbed({ demo, lang }: { demo: Demo; lang: "en" | "ar" }) {
+  const { Demo: Shown } = demo;
+  return (
+    <ArabesqueProvider lang={lang} sprite={SPRITE}>
+      <main className="ex-embed">
+        <Shown t={translator(lang)} />
+      </main>
+    </ArabesqueProvider>
+  );
+}
+
 export function Gallery() {
   return (
     <ArabesqueProvider sprite={SPRITE}>
@@ -68,7 +85,7 @@ export function Gallery() {
         </div>
       </Hero>
       <main id="main" tabIndex={-1} className="al-page ex-main">
-        <PhaseBanner phase={<Badge tone="warning">Experimental</Badge>}>The React components are new in 0.4. <a href="../docs/react.html">How to use them</a>.</PhaseBanner>
+        <PhaseBanner phase={<Badge tone="warning">Experimental</Badge>}>The React components are new in 0.4. <a href="../docs/react/">How to use them</a>.</PhaseBanner>
         <section className="ex-group" aria-labelledby="pages-h">
           <h2 className="ex-group__h" id="pages-h">Pages</h2>
           <ul className="ex-group__list" role="list">

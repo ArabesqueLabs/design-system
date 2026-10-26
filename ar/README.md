@@ -28,7 +28,8 @@
 |---|---|
 | `tokens/tokens.json` | المصدر الوحيد للحقيقة (بصيغة W3C Design Tokens): الرموز الأولية، والأدوار الدلالية، ورموز المكوّنات؛ مع الوضع الداكن ووضع العربية |
 | `scripts/build.mjs` | يبني `dist/` و`docs/contrast.md` من الرموز |
-| `scripts/build-react.mjs` | يبني `dist/react/` والأمثلة وقالب الصفحة الرئيسية من `react/` و`examples/src/` و`templates/react/`؛ وصفحةً بجانب كل مستند (`README.html`، `docs/…/*.html`) |
+| `scripts/build-react.mjs` | يبني `dist/react/` والأمثلة وقالب الصفحة الرئيسية من `react/` و`examples/src/` و`templates/react/`؛ وصفحةً بجانب كل مستند خارج `docs/` (`README.html`، `CHANGELOG.html`) |
+| `scripts/site.mjs` | يبني الموقع للنشر في `_site/`: المستودع، وموقع المستندات في `docs/` و`ar/docs/` (يشغّله wrangler) |
 | `dist/arabesque.css` | كل شيء في ملف واحد، في طبقات متتالية: الرموز، والأساس، والتخطيط، والمكوّنات، والأدوات المساعدة |
 | `dist/tokens.css` | الرموز وحدها، خصائصَ مخصّصة `--al-*`، فاتحة وداكنة |
 | `dist/tailwind-theme.css` | ربط `@theme` لإصدار Tailwind الرابع على المتغيرات نفسها |
@@ -42,6 +43,7 @@
 | `tests/`، `scripts/check-page.mjs` | اختبارات الوحدات وقواعد النظام نفسه؛ وصفحة العناصر مفحوصة في متصفح حقيقي |
 | `icons/`، `assets/brand/` | مصادر الأيقونات؛ والعلامة والنجمة والشعار النصي من حزمة الشعار، وعلامة آرابيسك ونجومها |
 | `docs/` | الأسس، والتفاعل، وإتاحة الوصول، والكتابة من اليمين إلى اليسار، والتبنّي، ومواصفات المكوّنات، والتدقيق، وتقرير التباين |
+| `docusaurus/` | موقع المستندات، بـDocusaurus و[سمة آرابيسك](https://github.com/ArabesqueLabs/docusaurus-theme-arabesque): تُكتب صفحاته من `docs/` (`docusaurus/scripts/sync.mjs`)، بالإنجليزية في `/docs/` وترجمة المواصفات العربية في `/ar/docs/` |
 | `index.html` | الصفحة الرئيسية: ما الغاية من آرابيسك، وبعض العناصر تعمل معًا، وكيف تبدأ، مولَّدة من `examples/src/home.tsx` |
 | `elements/index.html` | صفحة العناصر: كل الأمثلة في صفحة واحدة، مولَّدة من `examples/src/` |
 | `examples/` | كل مكوّن يعمل، بـReact، في صفحة لكل منها، بالإنجليزية والعربية ([`examples/index.html`](../examples/index.html)) |
@@ -63,6 +65,16 @@ npm run build                 # both
 نوع خاطئًا، أو كان في مثال جملة بلا ترجمة عربية. لا تعدّل `dist/` ولا
 `examples/*.html` ولا HTML القالب يدويًا؛ فهي محفوظة في المستودع، لذا أعد
 بناءها واحفظها مع المصادر التي تأتي منها.
+
+والمستندات في `docs/` موقعٌ قائم بذاته، بـDocusaurus، في `docusaurus/` (له حزمه
+الخاصة: شغّل `npm ci` فيه أولًا). ولا يُحفظ في المستودع: يبنيه النشر.
+
+```sh
+npm run docs                  # the documents, as you change them: http://localhost:3000/docs/
+npm run docs -- --locale ar   # in Arabic
+npm run site                  # _site/: the whole site, as it's deployed
+npx wrangler dev              # _site/, built and served as Cloudflare serves it
+```
 
 ## الاختبار
 
@@ -93,9 +105,9 @@ npm run serve        # then open http://127.0.0.1:4900/elements/
 
 بدّل السمة واللغة من الأعلى؛ وفي العربية، اختر الأرقام الغربية أو الهندية
 العربية. وتُحفظ الاختيارات الثلاثة. وصفحة العناصر مبنية من أمثلة صفحات الأمثلة
-نفسها (`examples/src/showcase.tsx`): فـ`elements/index.html` مولَّد، فغيّر الأمثلة لا هو. وكل مستند، وهذا منها، صفحةٌ قائمة بذاتها
-أيضًا: `README.html`، و`docs/react.html`، وغيرهما، بالإنجليزية، وبالعربية حيث
-توجد ترجمة.
+نفسها (`examples/src/showcase.tsx`): فـ`elements/index.html` مولَّد، فغيّر الأمثلة لا هو. وهذا الملف، وسجل التغييرات،
+وملف القوالب، صفحاتٌ قائمة بذاتها أيضًا (`README.html` وغيرها)، و`docs/` موقع المستندات
+(`npm run docs`)، بالإنجليزية، وبالعربية حيث توجد ترجمة.
 
 والمكوّنات نفسها بـReact، في صفحة لكل منها، على
 `http://127.0.0.1:4900/examples/`: كل منها بالإنجليزية، ثم بالعربية من اليمين

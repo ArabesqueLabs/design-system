@@ -1,7 +1,12 @@
 node_modules/
 .wrangler/
+# The site, as built to deploy (scripts/site.mjs).
+_site/
 .DS_Store
 
 # dist/ is built, and committed: products copy it at a tagged version, and the
 # site deploys it. (Kept here even where a global ignore leaves dist/ out.)
 !dist/
+
+# A scratchpad where I keep some working notes
+scratchpad.md

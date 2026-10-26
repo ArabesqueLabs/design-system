@@ -47,7 +47,9 @@
     "fonts": "node scripts/fonts.mjs",
     "badges": "node scripts/badges.mjs",
     "social": "node scripts/social.mjs",
-    "serve": "python3 -m http.server 4900 --bind 127.0.0.1"
+    "serve": "python3 -m http.server 4900 --bind 127.0.0.1",
+    "docs": "npm --prefix docusaurus start --",
+    "site": "node scripts/site.mjs"
   },
   "engines": {
     "node": ">=20"

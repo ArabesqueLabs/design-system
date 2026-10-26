@@ -1,0 +1,15 @@
+/* A demo in its frame: the surface, a hairline, the system's corner. */
+.demo {
+  margin: var(--al-space-6) 0 var(--al-space-8);
+  border: var(--al-border-hairline) solid var(--al-color-line);
+  border-radius: var(--al-radius-md);
+  overflow: hidden;
+  background: var(--al-color-surface);
+}
+.frame { display: block; inline-size: 100%; border: 0; }
+.caption {
+  padding: var(--al-space-2) var(--al-space-4);
+  border-block-start: var(--al-border-hairline) solid var(--al-color-line);
+  background: var(--al-color-surface-sunk);
+  font-size: var(--al-text-sm);
+}

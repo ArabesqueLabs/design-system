@@ -1,4 +1,7 @@
-# Ignore dependencies and tool caches from Cloudflare static asset uploads
+# What scripts/site.mjs leaves out of the site (_site/): each a top-level
+# name, a folder with its slash.
+
+# Dependencies and tool caches
 node_modules/
 .git/
 .jj/
@@ -15,3 +18,4 @@ design-system-prompt.md
 .gitignore
 .assetsignore
 wrangler.jsonc
+.DS_Store

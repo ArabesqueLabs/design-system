@@ -13,11 +13,11 @@ const read = (p) => readFileSync(join(root, p), "utf8");
 const SITE = "https://design.arabesquelabs.com/";
 
 // Every page but the templates (a product's homepage, not the site's): the
-// homepage and the Elements page in each language, the examples, and the documents' pages.
+// homepage and the Elements page in each language, the examples, and the documents' pages
+// (but docs/'s, which Docusaurus writes and heads: docusaurus/).
 const pages = [
   "index.html", "ar/index.html", "elements/index.html", "ar/elements/index.html", "ar/README.html", "README.html", "CHANGELOG.html", "templates/README.html",
   ...readdirSync(join(root, "examples")).filter((f) => f.endsWith(".html")).map((f) => `examples/${f}`),
-  ...readdirSync(join(root, "docs"), { recursive: true }).filter((f) => f.endsWith(".html")).map((f) => `docs/${f}`),
 ];
 const meta = (html, key) => html.match(new RegExp(`<meta (?:property|name)="${key}" content="([^"]*)">`))?.[1];
 /** The file an address on the site serves: /README is README.html, /ar/ is ar/index.html. */

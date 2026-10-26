@@ -4,7 +4,8 @@
 # versions left alone; the unit tests; dist/, the examples and the template
 # up to date with their sources; and the showcase, the examples and the
 # template in a real browser: axe in light, dark, English and Arabic, and the
-# helpers' behaviour with real key presses.
+# helpers' behaviour with real key presses; and the documents' site, which
+# fails on a broken link or anchor.
 name: Check
 
 on:
@@ -28,6 +29,10 @@ jobs:
           node scripts/build.mjs
           node scripts/build-react.mjs
           git diff --exit-code -- dist docs examples templates index.html README.html ar/index.html ar/README.html CHANGELOG.html
+      - name: The documents' site builds, every link in it resolving (Docusaurus, in docusaurus/)
+        run: |
+          npm ci --prefix docusaurus --no-fund --no-audit
+          npm run build --prefix docusaurus
       - name: Released versions (v/) are never changed, only added
         run: |
           base="${{ github.event.pull_request.base.sha || github.event.before }}"

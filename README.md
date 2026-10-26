@@ -28,7 +28,8 @@ The source is on GitHub: [ArabesqueLabs/design-system](https://github.com/Arabes
 |---|---|
 | `tokens/tokens.json` | The single source of truth (W3C Design Tokens format): primitives, semantic roles, component tokens; dark and Arabic modes |
 | `scripts/build.mjs` | Builds `dist/` and `docs/contrast.md` from the tokens |
-| `scripts/build-react.mjs` | Builds `dist/react/`, the examples and the homepage template from `react/`, `examples/src/` and `templates/react/`; and a page beside each document (`README.html`, `docs/…/*.html`) |
+| `scripts/build-react.mjs` | Builds `dist/react/`, the examples and the homepage template from `react/`, `examples/src/` and `templates/react/`; and a page beside each document outside `docs/` (`README.html`, `CHANGELOG.html`) |
+| `scripts/site.mjs` | Builds the site to deploy, `_site/`: the repository, with the documents' site at `docs/` and `ar/docs/` (wrangler runs it) |
 | `dist/arabesque.css` | Everything in one file, in cascade layers: tokens, base, layout, components, utilities |
 | `dist/tokens.css` | The tokens alone, as `--al-*` custom properties, light and dark |
 | `dist/tailwind-theme.css` | A Tailwind v4 `@theme` mapping onto the same variables |
@@ -42,6 +43,7 @@ The source is on GitHub: [ArabesqueLabs/design-system](https://github.com/Arabes
 | `tests/`, `scripts/check-page.mjs` | Unit tests and the system's own rules; the Elements page checked in a real browser |
 | `icons/`, `assets/brand/` | Icon sources; the mark, star and wordmark from the logo pack, and Arabesque's mark and stars |
 | `docs/` | Foundations, interaction, accessibility, RTL, adoption, component specs, the audit, the contrast report |
+| `docusaurus/` | The documents' site, with Docusaurus and the [Arabesque theme](https://github.com/ArabesqueLabs/docusaurus-theme-arabesque): its pages are written from `docs/` (`docusaurus/scripts/sync.mjs`), in English at `/docs/` and the specs' Arabic at `/ar/docs/` |
 | `index.html` | The homepage: what Arabesque is for, a few elements working together, and how to start, generated from `examples/src/home.tsx` |
 | `elements/index.html` | The Elements page: every demo on one page, generated from `examples/src/` |
 | `examples/` | Every component working, in React, a page each, in English and Arabic ([`examples/index.html`](examples/index.html)) |
@@ -63,6 +65,17 @@ It prints a summary and exits non-zero if any colour pair fails its contrast
 minimum, a type is wrong, or an example has a sentence with no Arabic. Don't
 edit `dist/`, `examples/*.html` or the template's HTML by hand; they're
 committed, so rebuild and commit them with the sources they come from.
+
+The documents in `docs/` are a site of their own, with Docusaurus, in
+`docusaurus/` (its packages are its own: `npm ci` there first). It isn't
+committed: the deploy builds it.
+
+```sh
+npm run docs                  # the documents, as you change them: http://localhost:3000/docs/
+npm run docs -- --locale ar   # in Arabic
+npm run site                  # _site/: the whole site, as it's deployed
+npx wrangler dev              # _site/, built and served as Cloudflare serves it
+```
 
 ## Test
 
@@ -95,9 +108,10 @@ npm run serve        # then open http://127.0.0.1:4900/elements/
 Switch theme and language at the top; in Arabic, choose Western or
 Arabic-Indic digits. All three are remembered. The Elements page is built from the
 same demos as the example pages (`examples/src/showcase.tsx`):
-`elements/index.html` is generated, so change the demos, not it. Every document, this one
-included, is also a page of its own: `README.html`, `docs/react.html` and so
-on, in English and, where there's a translation, Arabic.
+`elements/index.html` is generated, so change the demos, not it. This README, the
+changelog and the templates' README are also pages of their own (`README.html`
+and so on), and `docs/` is the documents' site (`npm run docs`, above), in
+English and, where there's a translation, Arabic.
 
 The same components in React, a page each, are at
 `http://127.0.0.1:4900/examples/`: each in English, then in Arabic, right to

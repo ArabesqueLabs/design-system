@@ -24,17 +24,17 @@ export interface DocInput {
 }
 
 const WORDS = {
-  en: { name: "Arabesque", product: "Design system", elements: "Elements", examples: "Examples", docs: "Using it", source: "View this page on GitHub" },
-  ar: { name: "آرابيسك", product: "نظام التصميم", elements: "العناصر", examples: "الأمثلة", docs: "دليل الاستخدام", source: "اعرض هذه الصفحة على GitHub" },
+  en: { name: "Arabesque", product: "Design system", elements: "Elements", examples: "Examples", docs: "Docs", source: "View this page on GitHub" },
+  ar: { name: "آرابيسك", product: "نظام التصميم", elements: "العناصر", examples: "الأمثلة", docs: "التوثيق", source: "اعرض هذه الصفحة على GitHub" },
 };
 
 export function DocPage({ d }: { d: DocInput }) {
   const w = WORDS[d.lang];
-  const readme = d.lang === "ar" ? `${d.up}ar/README.html` : `${d.up}README.html`;
+  const docs = `${d.up}${d.lang === "ar" ? "ar/" : ""}docs/`;
   return (
     <ArabesqueProvider lang={d.lang} sprite={`${d.up}dist/icons.svg`}>
       <SiteHeader sticky home={`${d.up}${d.lang === "ar" ? "ar/" : ""}index.html`} menuId="site-menu" lockup={<Lockup className="al-site-header__lockup" href={`${d.up}${d.lang === "ar" ? "ar/" : ""}index.html`} mark={<ArabesqueMark />} name={<span className="al-wordmark" lang={d.lang}>{w.name}</span>} product={w.product} />}
-        links={[{ label: w.elements, href: `${d.up}${d.lang === "ar" ? "ar/" : ""}elements/index.html` }, { label: w.examples, href: `${d.up}examples/index.html` }, { label: w.docs, href: readme, current: d.source.endsWith("README.md") && !d.source.includes("/") || d.source === "ar/README.md" }]}
+        links={[{ label: w.elements, href: `${d.up}${d.lang === "ar" ? "ar/" : ""}elements/index.html` }, { label: w.examples, href: `${d.up}examples/index.html` }, { label: w.docs, href: docs }]}
         language={d.other ? { href: d.other.href, lang: d.other.lang } : undefined}
         tools={<TextLink muted external href={REPO}><span lang="en">GitHub</span></TextLink>} />
       <div className="al-page dp-layout">

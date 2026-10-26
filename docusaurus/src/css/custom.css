@@ -1,0 +1,61 @@
+/**
+ * The documents' own styles, beyond the Arabesque theme's. With the theme's
+ * tokens (--al-*).
+ */
+
+/* The navbar's items: room between them. */
+.navbar .navbar__items--right { gap: var(--al-space-4); }
+
+/* The site's own pages (the class site-link, docusaurus.config.js): by their
+   full address, which Docusaurus takes for another site's, but in the same
+   tab, so without the icon that says otherwise. */
+.site-link svg[class*='iconExternalLink'] { display: none; }
+
+/* Code reads left to right in Arabic too. The theme says so, but Docusaurus
+   flips each direction for an Arabic build (rtlcss), its own too, unless
+   told not to. */
+[dir='rtl'] .theme-code-block,
+[dir='rtl'] .al-code-window__content,
+[dir='rtl'] pre,
+[dir='rtl'] :not(pre) > code {
+  /*rtl:ignore*/
+  direction: ltr;
+}
+[dir='rtl'] pre {
+  /*rtl:ignore*/
+  text-align: left;
+}
+
+/* The search: above the sidebar (src/theme/DocSidebar/Desktop/Content), as
+   wide as it, and not in the navbar as well; on a phone, in the navbar. */
+.sidebar-search { padding: var(--al-space-5) var(--al-space-3) 0; }
+.sidebar-search .navbar__search { display: block; }
+.sidebar-search .navbar__search-input { inline-size: 100%; }
+@media (min-width: 997px) {
+  .navbar [class*='navbarSearchContainer'] { display: none; }
+}
+
+/* A spec's Do and Don't (src/remark/specs.mjs): side by side where there's
+   room, each a notice. */
+.spec-dodont { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--al-space-4); align-items: start; margin-block-end: var(--al-space-6); }
+.spec-dodont > * { margin: 0; }
+
+/* A colour in code, with its swatch (src/theme/MDXComponents/Code.js). */
+.colour-swatch { display: inline-flex; align-items: center; gap: 0.3em; white-space: nowrap; }
+.colour-swatch__chip {
+  flex: none;
+  inline-size: 0.9em;
+  block-size: 0.9em;
+  border: var(--al-border-hairline) solid var(--al-color-line-strong);
+  border-radius: var(--al-radius-sm);
+}
+
+/* The tokens' reference (docs/tokens.md, with the page's width: sync.mjs):
+   its tables as wide as the page, not wider, so what each token is for
+   stays in view; the names a little smaller, and not broken. */
+.docs-doc-id-tokens .markdown table { display: table; inline-size: 100%; }
+.docs-doc-id-tokens .markdown td code { font-size: 0.8em; white-space: nowrap; }
+
+.al-site-footer__attribution {
+  margin: 100 px;
+}

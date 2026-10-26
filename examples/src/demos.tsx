@@ -460,7 +460,7 @@ function SiteHeaderDemo({ t }: DemoProps) {
 
 function FooterDemo({ t }: DemoProps) {
   return (
-    <Footer links={[{ label: t("Principles"), href: "../docs/principles.md" }, { label: t("Accessibility"), href: "../docs/accessibility.md" }, { label: t("Right to left"), href: "../docs/rtl.md" }]}
+    <Footer links={[{ label: t("Principles"), href: "../docs/principles/" }, { label: t("Accessibility"), href: "../docs/accessibility/" }, { label: t("Right to left"), href: "../docs/rtl/" }]}
       legal={t("© 2026 Arabesque Labs Ltd. Structure. Clarity. Craftsmanship.")} />
   );
 }
@@ -526,7 +526,7 @@ function QuoteDemo({ t }: DemoProps) {
 function FaqDemo({ t }: DemoProps) {
   return (
     <DisclosureGroup>
-      <Disclosure summary={t("Does it work in Arabic?")}><p>{t("Yes: every component is written for right to left as well as left to right, and every spec is in Arabic too.")} <a href="../docs/rtl.html">{t("How right to left works")}</a></p></Disclosure>
+      <Disclosure summary={t("Does it work in Arabic?")}><p>{t("Yes: every component is written for right to left as well as left to right, and every spec is in Arabic too.")} <a href="../docs/rtl/">{t("How right to left works")}</a></p></Disclosure>
       <Disclosure summary={t("Do I need React?")}><p>{t("No. The CSS and the small helpers in js/ work on any page; the React components write the same markup.")}</p></Disclosure>
       <Disclosure summary={t("How is contrast checked?")}><p>{t("The build measures every colour pair the system relies on, in both themes, and fails if any falls short.")}</p></Disclosure>
     </DisclosureGroup>

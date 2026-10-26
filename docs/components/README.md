@@ -1,8 +1,8 @@
 # Components
 
-Each spec covers anatomy, variants and sizes, states, keyboard, ARIA, right to left, do and don't, and the tokens it uses (listed from its CSS). See them working in `index.html`, and in React, a page each, in [`examples/`](../../examples/index.html) ([`docs/react.md`](../react.md)).
+Each spec covers anatomy, variants and sizes, states, keyboard, ARIA, right to left, do and don't, and the tokens it uses (listed from its CSS). See them all working on the [Elements page](../../elements/index.html), and in React, a page each, in the [examples](../../examples/index.html) ([React](../react.md)).
 
-Every spec is also in Arabic, in [`ar/`](ar/README.md); the Elements page links to them when the page is in Arabic, and each is a page of its own (`button.html`, `ar/button.html`). The English is the reference: change a spec and its translation together (a test fails if a spec has no translation, or a link in either is broken).
+Every spec is also in Arabic, in [`ar/`](ar/README.md); the Elements page links to them when the page is in Arabic, and each is a page of its own on the site. The English is the reference: change a spec and its translation together (a test fails if a spec has no translation, or a link in either is broken).
 
 | Component | What it is |
 |---|---|

@@ -1,6 +1,6 @@
 # Patterns
 
-How components combine for common jobs. Each is shown working in `index.html`.
+How components combine for common jobs. Each is shown working on the [Elements page](../elements/index.html).
 
 ## A product's page
 

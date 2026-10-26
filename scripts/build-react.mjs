@@ -15,8 +15,9 @@
 //                                   build renders them too, to check their Arabic
 //   templates/home.html, ar/home.html   rendered from templates/react/home.tsx: static,
 //                                   wired by the helpers, no React in the page
-//   *.html beside each document     the README, the changelog and docs/, as pages: the
-//                                   site header, what's on the page, the document
+//   *.html beside each document     the README, the changelog and the templates', as pages:
+//                                   the site header, what's on the page, the document
+//                                   (docs/ is the Docusaurus site's: docusaurus/)
 //
 // Each page but the templates has the same head: its address, its other
 // language's page, and how it shows when shared (head(), below).
@@ -30,6 +31,7 @@ import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, posix } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { docAddress } from "../docusaurus/address.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const at = (p) => join(root, p);
@@ -313,13 +315,12 @@ ${head({ file: page.file, lang, title: page.title, heading: page.heading, descri
 
 // ---- the documents, as pages ----------------------------------------------------------------
 
-// Every Markdown document a person reads: the README (and its translation),
-// the changelog, and docs/. Each becomes a page beside it (README.md →
-// README.html), its links to other documents pointing at their pages.
-const docs = [
-  "README.md", "ar/README.md", "CHANGELOG.md", "templates/README.md",
-  ...readdirSync(at("docs"), { recursive: true }).filter((f) => f.endsWith(".md")).map((f) => `docs/${f}`),
-].sort();
+// The Markdown documents a person reads outside docs/: the README (and its
+// translation), the changelog and the templates'. Each becomes a page beside
+// it (README.md → README.html), its links to other documents pointing at
+// their pages: these, or docs/'s in the Docusaurus site (docusaurus/, at
+// /docs/ and /ar/docs/).
+const docs = ["README.md", "ar/README.md", "CHANGELOG.md", "templates/README.md"].sort();
 const isDoc = new Set(docs);
 const unescape = (s) => s.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'");
 
@@ -366,6 +367,7 @@ for (const file of docs) {
   // Links to documents go to their pages.
   html = html.replace(/href="([^"#:]+\.md)(#[^"]*)?"/g, (m, path, hash = "") => {
     const target = posix.normalize(posix.join(dir, path));
+    if (target.startsWith("docs/") && existsSync(at(target))) return `href="${posix.relative(dir, docAddress(target).slice(1))}/${hash}"`;
     return isDoc.has(target) ? `href="${path.replace(/\.md$/, ".html")}${hash}"` : m;
   });
   // The other language: a document's translation sits beside it in ar/.
@@ -384,7 +386,7 @@ ${head({ file: page, lang, title: `${title} · ${NAME[lang]}`, heading: title, d
   <link rel="icon" href="${up}dist/brand/arabesque-favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="${up}fonts/fonts.css">
   <link rel="stylesheet" href="${up}dist/arabesque.css">
-  <link rel="stylesheet" href="${up}docs/page.css">
+  <link rel="stylesheet" href="${up}page.css">
   <link rel="stylesheet" href="${up}site.css">
 </head>
 <body>

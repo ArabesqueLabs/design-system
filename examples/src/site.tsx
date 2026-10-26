@@ -7,6 +7,7 @@ import type { ReactNode } from "react";
 import type { Numerals } from "../../js/format.js";
 import { ArabesqueMark, BackToTop, Button, Lockup, SegmentedButtons, SiteHeader, useArabesque, useTooltips } from "../../react/src/index.js";
 import { REPO, onGitHub } from "./repo.js";
+import { docAddress } from "../../docusaurus/address.mjs";
 
 export type Lang = "en" | "ar";
 export type T = (s: string) => string;
@@ -24,12 +25,16 @@ export function chosenNumerals(): Numerals {
 
 const remember = (v: Numerals) => { try { localStorage.setItem(NUMERALS, v); } catch { /* private mode: not remembered */ } };
 
-/** A document's page, in the language when it's translated (component specs and the README are). */
+/**
+ * A document's page, in the language when it's translated (component specs
+ * and the README are): docs/ in the Docusaurus site's (/docs/, /ar/docs/),
+ * the others beside them (README.html).
+ */
 export function docPage(md: string, lang: Lang, from = ""): string {
-  const html = md.replace(/\.md$/, ".html");
-  if (lang !== "ar") return `${from}${html}`;
-  if (md === "README.md") return `${from}ar/README.html`;
-  return /^docs\/components\/[^/]+$/.test(md) ? `${from}${html.replace("docs/components/", "docs/components/ar/")}` : `${from}${html}`;
+  const ar = lang === "ar";
+  if (md.startsWith("docs/")) return `${from}${docAddress(ar && /^docs\/components\/[^/]+$/.test(md) ? md.replace("docs/components/", "docs/components/ar/") : md).slice(1)}`;
+  if (ar && md === "README.md") return `${from}ar/README.html`;
+  return `${from}${md.replace(/\.md$/, ".html")}`;
 }
 
 /** The site's pages, from a page `root` away from the site's root ("", "../", "../../"). */
@@ -40,6 +45,7 @@ export const pages = (lang: Lang, root: string) => {
     elements: `${root}${ar}elements/index.html`,
     examples: `${root}examples/index.html`,
     readme: docPage("README.md", lang, root),
+    docs: `${root}${ar}docs/`,
     use: lang === "ar" ? `${root}ar/README.html#استخدامه-في-مشروع` : `${root}README.html#use-it-in-a-project`,
   };
 };
@@ -78,7 +84,7 @@ export function SiteTop({ t, lang, root, page, numerals, onNumerals }: SiteTopPr
   return (
     <SiteHeader sticky className="sc-top" menuId="site-menu"
       lockup={<Lockup className="al-site-header__lockup" href={page === "home" ? "#main" : p.home} mark={<ArabesqueMark />} name={<span className="al-wordmark" lang={lang}>{t("Arabesque")}</span>} product={t("Design system")} />}
-      links={[{ label: t("Elements"), href: p.elements, current: page === "elements" }, { label: t("Examples"), href: p.examples }, { label: t("Using it"), href: p.readme }]}
+      links={[{ label: t("Elements"), href: p.elements, current: page === "elements" }, { label: t("Examples"), href: p.examples }, { label: t("Docs"), href: p.docs }]}
       language={{ href: other[page], lang: lang === "ar" ? "en" : "ar" }}
       tools={lang === "ar" ? (
         <SegmentedButtons label={t("Numerals")} value={numerals} onChange={(v) => { onNumerals(v); remember(v); }}
@@ -122,7 +128,7 @@ export function SiteFooter({ t, lang, root }: { t: T; lang: Lang; root: string }
   const ar = lang === "ar";
   const columns: [string, [ReactNode, string][]][] = [
     ["Arabesque", [[t("Elements"), p.elements], [t("Examples"), p.examples], [t("Templates"), `${root}templates/README.html`], [t("Changelog"), docPage("CHANGELOG.md", lang, root)]]],
-    ["Guides", [[t("Using it"), p.readme], [t("Principles"), docPage("docs/principles.md", lang, root)], [t("Interaction"), docPage("docs/interaction.md", lang, root)], [t("Patterns"), docPage("docs/patterns.md", lang, root)],
+    ["Guides", [[t("Docs"), p.docs], [t("Principles"), docPage("docs/principles.md", lang, root)], [t("Interaction"), docPage("docs/interaction.md", lang, root)], [t("Patterns"), docPage("docs/patterns.md", lang, root)],
       [t("Accessibility"), docPage("docs/accessibility.md", lang, root)], [t("Right to left"), docPage("docs/rtl.md", lang, root)], [t("React"), docPage("docs/react.md", lang, root)]]],
     ["Project", [[<span key="g" lang="en">GitHub</span>, REPO], [t("Report a problem"), `${REPO}/issues`], [t("Licences"), onGitHub("NOTICE.md")], [t("Contact"), "mailto:hello@arabesquelabs.com"]]],
   ];

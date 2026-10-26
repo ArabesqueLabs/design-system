@@ -5,8 +5,14 @@
   "observability": {
     "enabled": true
   },
+  // The site, as scripts/site.mjs builds it: the repository and the
+  // documents (Docusaurus). Wrangler runs it before a deploy and wrangler dev.
+  "build": {
+    "command": "node scripts/site.mjs",
+    "watch_dir": ["docs", "docusaurus/src", "docusaurus/docusaurus.config.js", "docusaurus/sidebars.js"]
+  },
   "assets": {
-    "directory": "."
+    "directory": "_site"
   },
   "previews": {}
 }

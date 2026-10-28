@@ -6,6 +6,8 @@ All notable changes to the design system. The format follows
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-10-28
+
 ### Changed
 
 - The documents in `docs/` are a site of their own, built with Docusaurus

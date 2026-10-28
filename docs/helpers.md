@@ -7,7 +7,7 @@ ones you need, from the same version as the CSS:
 
 ```html
 <script type="module">
-  import { initTabs } from "https://design.arabesquelabs.com/v/0.9.0/js/tabs.js";
+  import { initTabs } from "https://design.arabesquelabs.com/v/0.10.0/js/tabs.js";
   initTabs();
 </script>
 ```
